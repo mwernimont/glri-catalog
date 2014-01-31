@@ -27,7 +27,34 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<cida.maven.url>http://internal.cida.usgs.gov/maven</cida.maven.url>
     </properties>
+	
+	<distributionManagement>
+		<repository>
+			<id>cida-sparrow-dss-releases</id>
+			<name>CIDA Sparrow DSS Releases</name>
+			<url>${cida.maven.url}/content/repositories/cida-sparrow-dss-releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>cida-sparrow-dss-snapshots</id>
+			<name>CIDA Sparrow DSS Snapshots</name>
+			<url>${cida.maven.url}/content/repositories/cida-sparrow-dss-snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+	
+	<repositories>
+		<repository>
+			<url>${cida.maven.url}/content/repositories/cida-releases/</url>
+			<id>cida-releases</id>
+			<layout>default</layout>
+			<name>Cida Releases - Release Shared Libraries</name>
+		</repository>
+		<repository>
+			<id>cida-thirdparty</id>
+			<url>${cida.maven.url}/content/repositories/cida-thirdparty</url>
+		</repository>
+	</repositories>
 
     <dependencies>
         <dependency>
