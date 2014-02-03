@@ -7,6 +7,7 @@ package gov.usgs.cida.glri.sb.ui;
 import com.google.common.io.CharStreams;
 import java.io.InputStreamReader;
 import java.util.Map;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -24,7 +25,12 @@ import org.json.simple.JSONValue;
  */
 public class ScienceBaseQuery {
 	
+	private static Format DEFAULT_FORMAT = Format.HTML;
 	public static final String DEFAULT_ENCODING = "UTF-8";
+	
+	
+	private Format format = Format.UNKNOWN;
+	
 	
 	
 	public String getQueryResponse(Map<String, String[]> requestParams) throws Exception {
@@ -35,14 +41,14 @@ public class ScienceBaseQuery {
 		uriBuild.setPath("/catalog/items");
 		uriBuild.setParameter("s", "Search");
 		uriBuild.setParameter("q", "");
-		uriBuild.setParameter("format", "json");
 		uriBuild.setParameter("fields", "title,summary");
+		appendControlParams(requestParams, uriBuild);
 		appendGlriParams(requestParams, uriBuild);
 		appendStandardParams(requestParams, uriBuild);
 		
 		HttpGet httpGet = new HttpGet(uriBuild.build());
 		System.out.println(httpGet.getURI());
-		httpGet.addHeader("Accept", "application/json");
+		httpGet.addHeader("Accept", "application/json,application/xml,text/html");
 		CloseableHttpResponse response1 = httpclient.execute(httpGet);
 
 		try {
@@ -59,6 +65,10 @@ public class ScienceBaseQuery {
 			response1.close();
 		}
 
+	}
+	
+	public Format getRequestedFormat() {
+		return format;
 	}
 	
 	/**
@@ -107,6 +117,18 @@ public class ScienceBaseQuery {
 		}
 	}
 	
+	protected void appendControlParams(Map<String, String[]> requestParams, URIBuilder uriBuild) {
+		for (ControlParam tag : ControlParam.values()) {
+			String[] vals = requestParams.get(tag.getShortName());
+			if (vals != null && vals.length > 0) {
+				String val = StringUtils.trimToNull(vals[0]);
+				if (val != null && ("true".equalsIgnoreCase(val) || "yes".equalsIgnoreCase(val))) {
+					uriBuild.addParameter(tag.getFullName(), tag.getValue());
+				}	
+			}
+		}
+	}
+	
 	protected void appendGlriParams(Map<String, String[]> requestParams, URIBuilder uriBuild) {
 		for (GLRIParam tag : GLRIParam.values()) {
 			String[] vals = requestParams.get(tag.getShortName());
@@ -120,14 +142,29 @@ public class ScienceBaseQuery {
 	}
 	
 	protected void appendStandardParams(Map<String, String[]> requestParams, URIBuilder uriBuild) {
+		
+		boolean formatFound = false;
+		
 		for (ScienceBaseParam tag : ScienceBaseParam.values()) {
 			String[] vals = requestParams.get(tag.getShortName());
 			if (vals != null && vals.length > 0) {
 				String val = StringUtils.trimToNull(vals[0]);
 				if (val != null) {
+					if (tag.equals(ScienceBaseParam.FORMAT)) {
+						Format f = Format.UNKNOWN.getForShortName(val);
+						format = f;
+						formatFound = true;
+					}
 					uriBuild.addParameter(tag.getFullName(), val);
 				}	
 			}
 		}
+		
+		if (!formatFound) {
+			uriBuild.addParameter(ScienceBaseParam.FORMAT.getFullName(), DEFAULT_FORMAT.getShortName());
+			format = DEFAULT_FORMAT;
+		}
+		
+		
 	}
 }
