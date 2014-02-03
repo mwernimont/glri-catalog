@@ -12,7 +12,6 @@
 		
 		<link rel="stylesheet" type="text/css" href="js/lib/jquery-dynatable/0.3.1/jquery.dynatable.css" />
 		<link rel="stylesheet" type="text/css" href="style/css/usgs_style_main.css" />
-		<link rel="stylesheet" type="text/css" href="style/css/table.css" />
 		<link rel="stylesheet" type="text/css" href="style/css/app.css" />
 		<link rel="stylesheet" type="text/css" href="style/css/left-nav.css" />
 		
@@ -34,7 +33,7 @@
 									community of datasets.
 								</p>
 							</div>
-							<table id="query-results-table" class="hidden">
+							<table id="query-results-table">
 								<thead>
 									<tr>
 										<th>id</th>

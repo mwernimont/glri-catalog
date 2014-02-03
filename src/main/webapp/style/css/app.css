@@ -1,0 +1,10 @@
+@import url("http://fonts.googleapis.com/css?family=Patua+One|Open+Sans");
+
+th a {
+  color: #000 !important;
+}
+th a:hover {
+  color: #000 !important;
+}
+
+.hidden { display: none; }
