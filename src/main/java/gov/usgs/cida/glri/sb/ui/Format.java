@@ -10,17 +10,17 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author eeverman
  */
-public enum ScienceBaseParam {
+public enum Format {
 	
-	TEXT_QUERY("text_query", "q"),
-	FORMAT("format", "format"),
-	FIELDS("fields", "fields");
-	
+	UNKNOWN("", ""),
+	HTML("html", "text/html"),
+	XML("xml", "application/xml"),
+	JSON("json", "application/json");
 	
 	private final String shortName;
 	private final String fullName;
 	
-	ScienceBaseParam(String shortName, String fullName) {
+	Format(String shortName, String fullName) {
 		this.shortName = shortName;
 		this.fullName = fullName;
 	}
@@ -39,16 +39,17 @@ public enum ScienceBaseParam {
 	 * @param shortName Case Insensitive
 	 * @return 
 	 */
-	public ScienceBaseParam getForShortName(String shortName) {
+	public Format getForShortName(String shortName) {
 		shortName = StringUtils.trimToNull(shortName);
 		if (shortName == null) return null;
 		shortName = shortName.toLowerCase();
 		
 		
-		for (ScienceBaseParam tag : ScienceBaseParam.values()) {
+		for (Format tag : Format.values()) {
 			if (tag.shortName.equals(shortName)) return tag;
 		}
 		
 		return null;
 	}
+	
 }

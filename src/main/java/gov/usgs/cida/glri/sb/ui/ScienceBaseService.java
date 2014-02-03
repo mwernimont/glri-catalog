@@ -52,8 +52,9 @@ public class ScienceBaseService extends HttpServlet {
 		ScienceBaseQuery query = new ScienceBaseQuery();
 		
 		try {
-			response.setContentType("text/html;charset=UTF-8");
+			
 			String strResponse = query.getQueryResponse(reqMap);
+			response.setContentType(query.getRequestedFormat().getFullName() + "; charset=UTF-8");
 			out.write(strResponse);
 		
 		} catch (Exception ex) {
@@ -120,7 +121,7 @@ public class ScienceBaseService extends HttpServlet {
 		HashMap<String, String[]> paramMap = new HashMap<String, String[]>();
 		
 		//Add the GLRI project collection ID so that all searches take place w/in this collection
-		paramMap.put(ScienceBaseParam.PARENT_ID.getShortName(), new String[]{"52e6a0a0e4b012954a1a238a"});
+		//paramMap.put(ScienceBaseParam.PARENT_ID.getShortName(), new String[]{"52e6a0a0e4b012954a1a238a"});
 		
 		paramMap.putAll(existingParams);
 		return paramMap;
