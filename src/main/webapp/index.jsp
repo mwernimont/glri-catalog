@@ -6,8 +6,13 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		
+		
+		<!-- Tomcat 7 only 
 		<script type="text/javascript" src="webjars/jquery/2.1.0/jquery.js"></script>
+		-->
+		<script type="text/javascript" src="js/lib/jquery/2.1.0/jquery.js"></script>
 		<script type="text/javascript" src="js/lib/jquery-dynatable/0.3.1/jquery.dynatable.js"></script>
+		
 		<script type="text/javascript" src="js/app/main.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="js/lib/jquery-dynatable/0.3.1/jquery.dynatable.css" />
