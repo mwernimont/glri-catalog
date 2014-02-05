@@ -16,6 +16,7 @@ public enum GLRIParam {
 	PARAM_GROUP("param_group", "parameter-group"),
 	PARAM("param", "parameter"),
 	AREA("area", "study-area"),
+	FOCUS("focus", "focus-area"),
 	UNKNOWN("", "");
 	
 	//Same for all grli tags
