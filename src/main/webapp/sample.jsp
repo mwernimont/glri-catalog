@@ -98,6 +98,17 @@
 										<option value="Lake Ontario Basin">Lake Ontario Basin</option>
 									</select>
 								</div>
+								<div class="field">
+									<label for="focus_input">Focus Area</label>
+									<select id="focus_input" name="focus">
+										<option value="">Any</option>
+										<option value="Toxic Substances">Toxic Substances</option>
+										<option value="Invasive Species">Invasive Species</option>
+										<option value="Nearshore Health">Nearshore Health</option>
+										<option value="Habitat & Wildlife">Habitat &amp; Wildlife</option>
+										<option value="Accountability">Accountability</option>
+									</select>
+								</div>
 							</fieldset>
 							<fieldset title="Search Options">
 								<div class="field">
