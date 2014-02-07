@@ -31,7 +31,7 @@
             </p>
             <p id="footer-page-url">URL: <a href="http://water.usgs.gov/nawqa/sparrow/dss/">http://water.usgs.gov/nawqa/sparrow/dss/</a></p>
             <p id="footer-contact-info">Page Contact Information: <a title="Contact Email" href="mailto:sparrowdss@usgs.gov?subject=Sparrow%20Map%20Comments">SPARROW DSS Administrator</a></p>
-	        <p id="footer-page-modified-info">Page Last modified: ${buildTime} <span id="versionInfo">(Version: ${pom.version} (${timestamp}) - ${deployment_profile})</span></p>
+	        <p id="footer-page-modified-info">Page Last modified: ${timestamp} <span id="versionInfo">(Version: ${pom.version} (${timestamp}))</span></p>
         </div><!-- /page-info -->
 		<div id="gov-buttons">
 			<a title="link to the official US Government web portal" href="http://firstgov.gov/">
