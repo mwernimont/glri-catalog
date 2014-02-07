@@ -13,7 +13,7 @@ $(document).ready(function(){
 		  sort: true,
 		  pushState: true,
 		  search: false,
-		  recordCount: false,
+		  recordCount: true,
 		  perPageSelect: false
 		},
 		params: {
@@ -23,7 +23,6 @@ $(document).ready(function(){
     $("#query-submit").on( "click", function(event) {
 		event.preventDefault();
 		event.stopPropagation();
-        console.log( "A button with the alert class was clicked!" );
 		updateTable();
     });
 });
@@ -32,7 +31,7 @@ var dynamicTable = null;
 
 function updateTable() {
 	var url = buildDataUrl();
-	//alert(url);
+	console.log( "Submitting the AJAX Request as: " + url);
 	
 	$("table.hidden").show();
 	
@@ -59,7 +58,7 @@ var tableDataReady = function(data) {
 		dynamicTable = $("#query-results-table").data('dynatable');
 	} else {
 		dynamicTable.records.updateFromJson(records);
-		dynamicTable.dom.update();
+		dynamicTable.process();
 	}
 	
 };
