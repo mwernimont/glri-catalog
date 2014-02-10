@@ -41,7 +41,7 @@ public class ScienceBaseQuery {
 		uriBuild.setPath("/catalog/items");
 		uriBuild.setParameter("s", "Search");
 		uriBuild.setParameter("q", "");
-		uriBuild.setParameter("fields", "title,summary");
+		uriBuild.setParameter("fields", "title,summary,spatial,distributionLinks");
 		appendControlParams(requestParams, uriBuild);
 		appendGlriParams(requestParams, uriBuild);
 		appendStandardParams(requestParams, uriBuild);
@@ -58,6 +58,8 @@ public class ScienceBaseQuery {
 			
 			String encoding = findEncoding(entity, DEFAULT_ENCODING);
 			String stringFromStream = CharStreams.toString(new InputStreamReader(entity.getContent(), encoding));
+			
+			System.out.println(stringFromStream);
 			
 			EntityUtils.consume(entity);
 			

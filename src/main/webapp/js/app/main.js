@@ -50,6 +50,12 @@ var tableDataReady = function(data) {
 	
 	var records = data.items;
 	
+	for (i=0; i<data.items.length; i++) {
+		var item = data.items[i];
+		var link = item['link']['url'];
+		item['url'] = link;
+	}
+	
 	if (dynamicTable == null) {
 		$("#query-results-table").dynatable({
 			dataset: {
