@@ -7,11 +7,11 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		
 		
-		<!-- Tomcat 7 only 
+
 		<script type="text/javascript" src="webjars/jquery/2.1.0/jquery.js"></script>
-		-->
-		<script type="text/javascript" src="js/lib/jquery/2.1.0/jquery.js"></script>
 		<script type="text/javascript" src="js/lib/jquery-dynatable/0.3.1/jquery.dynatable.js"></script>
+		<script type="text/javascript" src="js/lib/OpenLayers/OpenLayers.js"></script>
+		
 		
 		<script type="text/javascript" src="js/app/main.js"></script>
 		
@@ -54,6 +54,15 @@
 						</div>
 					</div>
 					<div class="col2">
+						<div id="map" class="map"></div>
+						<form id="dummy" action="none">
+							<fieldset>
+								<div class="field">
+									<label for="drawBox">Draw Box</label>
+									<input type="checkbox" name="drawBox" id="drawBox" value="box"/>
+								</div>
+							</fieldset>
+						</form>
 						<form id="sb-query-form" action="ScienceBaseService">
 							<fieldset title="Standard ScienceBase Text Search">
 								<div class="field">
@@ -122,15 +131,8 @@
 									<input type="checkbox" checked="checked" id="glri_only_input" name="glri_only" value="true" />
 								</div>
 
-								<div class="field">
-									<label for="format_input">Result Format</label>
-									<select id="format_input" name="format">
-										<option value="json">JSON</option>
-										<option value="html">HTML</option>
-										<option value="xml">XML</option>
-									</select>
-								</div>
-
+								<input type="hidden" id="format_input" name="format" value="json">
+								<input type="text" size=100" id="spatial_input" name="spatial" value="">
 								<input id="query-submit" type="submit" value="Submit"/>
 							</fieldset>
 						</form>
