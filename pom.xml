@@ -2,12 +2,12 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>gov.usgs.cida</groupId>
-    <artifactId>glri-sb-ui</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <groupId>gov.usgs.cida.glri</groupId>
+    <artifactId>glri-catalog</artifactId>
+    <version>0.1-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>glri-sb-ui</name>
+    <name>glri-catalog</name>
 	
 	<description>
 		This is a test project for GLRI to try requesting records from www.sciencebase.gov
@@ -130,7 +130,6 @@
                               <filtering>true</filtering> 
                         </resource> 
                     </webResources>
-                    <!--<warSourceDirectory>src/main/webapp</warSourceDirectory>-->
                 </configuration>
             </plugin>
 
