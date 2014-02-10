@@ -45,6 +45,7 @@ public class ScienceBaseQuery {
 		appendControlParams(requestParams, uriBuild);
 		appendGlriParams(requestParams, uriBuild);
 		appendStandardParams(requestParams, uriBuild);
+		appendSpatialParams(requestParams, uriBuild);
 		
 		HttpGet httpGet = new HttpGet(uriBuild.build());
 		System.out.println(httpGet.getURI());
@@ -163,8 +164,18 @@ public class ScienceBaseQuery {
 		if (!formatFound) {
 			uriBuild.addParameter(ScienceBaseParam.FORMAT.getFullName(), DEFAULT_FORMAT.getShortName());
 			format = DEFAULT_FORMAT;
+		}		
+	}
+	
+	protected void appendSpatialParams(Map<String, String[]> requestParams, URIBuilder uriBuild) {
+		String[] spatialQuery = requestParams.get(ScienceBaseParam.SPATIAL);
+		
+		if((spatialQuery != null) && (spatialQuery.length > 0)) {
+			String val = StringUtils.trimToNull(spatialQuery[0]);
+			if (val != null) {
+				System.out.println("Spatial Param: [" + val + "]");
+				uriBuild.addParameter(ScienceBaseParam.SPATIAL.getFullName(), val);
+			}
 		}
-		
-		
 	}
 }
