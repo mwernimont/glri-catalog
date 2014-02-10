@@ -59,8 +59,11 @@ var tableDataReady = function(data) {
 		
 		dynamicTable = $("#query-results-table").data('dynatable');
 	} else {
+		dynamicTable.processingIndicator.show();
 		dynamicTable.records.updateFromJson(records);
-		dynamicTable.process();
+		dynamicTable.dom.update();
+		dynamicTable.processingIndicator.hide();
+
 	}
 	
 };

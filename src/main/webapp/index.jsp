@@ -72,37 +72,6 @@
 							</fieldset>
 							<fieldset title="GLRI Specific tags">
 								<div class="field">
-									<label for="medium_input">Sample Medium</label>
-									<select id="medium_input" name="medium">
-										<option value="">Any</option>
-										<option value="water">water</option>
-										<option value="air">air</option>
-									</select>
-								</div>
-								<div class="field">
-									<label for="param_group_input">Parameter Group</label>
-									<select id="param_group_input" name="param_group">
-										<option value="">Any</option>
-										<option value="Nutrient">Nutrient</option>
-										<option value="Biological">Biological</option>
-										<option value="Organics">Organics</option>
-										<option value="Inorganics">Inorganics</option>
-									</select>
-								</div>
-								<div class="field">
-									<label for="param_input">Parameter Group</label>
-									<select id="param_input" name="param">
-										<option value="">Any</option>
-										<option value="Nitrogen">Nitrogen</option>
-										<option value="Phosphorus">Phosphorus</option>
-										<option value="Fish">Fish</option>
-										<option value="Birds">Birds</option>
-										<option value="PCB">PCB</option>
-										<option value="Mercury">Mercury</option>
-										<option value="Atrazine">Atrazine</option>
-									</select>
-								</div>
-								<div class="field">
 									<label for="area_input">GRRI Study Area</label>
 									<select id="area_input" name="area">
 										<option value="">Any</option>
