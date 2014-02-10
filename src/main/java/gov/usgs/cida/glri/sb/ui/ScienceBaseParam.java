@@ -14,7 +14,8 @@ public enum ScienceBaseParam {
 	
 	TEXT_QUERY("text_query", "q"),
 	FORMAT("format", "format"),
-	FIELDS("fields", "fields");
+	FIELDS("fields", "fields"),
+	SPATIAL("spatial", "searchExtent");
 	
 	
 	private final String shortName;
