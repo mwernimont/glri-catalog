@@ -42,9 +42,9 @@
 							<table id="query-results-table" class="hidden">
 								<thead>
 									<tr>
-										<th>id</th>
-										<th>title</th>
-										<th>summary</th>
+										<th>Title</th>
+										<th>Summary</th>
+										<th>Url</th>
 									</tr>
 								</thead>
 								<tbody>
