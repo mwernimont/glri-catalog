@@ -10,18 +10,16 @@ import org.apache.commons.lang3.StringUtils;
  *
  * @author eeverman
  */
-public enum ControlParam {
+public enum GLRIOnlyParam {
 	
-	GLRI_PROJECT_ONLY("glri_only", "parentId", "52e6a0a0e4b012954a1a238a");
+	GLRI_PROJECT_ONLY("glri_only", "parentId");
 	
 	private final String shortName;
 	private final String fullName;
-	private final String value;
 	
-	ControlParam(String shortName, String fullName, String value) {
+	GLRIOnlyParam(String shortName, String fullName) {
 		this.shortName = shortName;
 		this.fullName = fullName;
-		this.value = value;
 	}
 	
 
@@ -33,9 +31,6 @@ public enum ControlParam {
 		return shortName;
 	}
 	
-	public String getValue() {
-		return value;
-	}
 	
 	/**
 	 * Finds a tag for a given shortName or null if it cannot be found.
@@ -43,13 +38,13 @@ public enum ControlParam {
 	 * @param shortName Case Insensitive
 	 * @return 
 	 */
-	public ControlParam getForShortName(String shortName) {
+	public GLRIOnlyParam getForShortName(String shortName) {
 		shortName = StringUtils.trimToNull(shortName);
 		if (shortName == null) return null;
 		shortName = shortName.toLowerCase();
 		
 		
-		for (ControlParam tag : ControlParam.values()) {
+		for (GLRIOnlyParam tag : GLRIOnlyParam.values()) {
 			if (tag.shortName.equals(shortName)) return tag;
 		}
 		
