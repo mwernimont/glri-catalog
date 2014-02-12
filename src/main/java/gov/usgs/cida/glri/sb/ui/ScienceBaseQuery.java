@@ -37,12 +37,12 @@ public class ScienceBaseQuery {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		URIBuilder uriBuild = new URIBuilder();
 		uriBuild.setScheme("https");
-		uriBuild.setHost("www.sciencebase.gov");
+		uriBuild.setHost(AppConfig.get(AppConfig.SCIENCEBASE_HOST));
 		uriBuild.setPath("/catalog/items");
 		uriBuild.setParameter("s", "Search");
 		uriBuild.setParameter("q", "");
 		uriBuild.setParameter("fields", "title,summary,spatial,distributionLinks");
-		appendControlParams(requestParams, uriBuild);
+		appendGlriOnlyParam(requestParams, uriBuild);
 		appendGlriParams(requestParams, uriBuild);
 		appendStandardParams(requestParams, uriBuild);
 		appendSpatialParams(requestParams, uriBuild);
@@ -120,15 +120,14 @@ public class ScienceBaseQuery {
 		}
 	}
 	
-	protected void appendControlParams(Map<String, String[]> requestParams, URIBuilder uriBuild) {
-		for (ControlParam tag : ControlParam.values()) {
-			String[] vals = requestParams.get(tag.getShortName());
-			if (vals != null && vals.length > 0) {
-				String val = StringUtils.trimToNull(vals[0]);
-				if (val != null && ("true".equalsIgnoreCase(val) || "yes".equalsIgnoreCase(val))) {
-					uriBuild.addParameter(tag.getFullName(), tag.getValue());
-				}	
-			}
+	protected void appendGlriOnlyParam(Map<String, String[]> requestParams, URIBuilder uriBuild) {
+		
+		String[] vals = requestParams.get(GLRIOnlyParam.GLRI_PROJECT_ONLY.getShortName());
+		if (vals != null && vals.length > 0) {
+			String val = StringUtils.trimToNull(vals[0]);
+			if (val != null && ("true".equalsIgnoreCase(val) || "yes".equalsIgnoreCase(val))) {
+				uriBuild.addParameter(GLRIOnlyParam.GLRI_PROJECT_ONLY.getFullName(), AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_ID));
+			}	
 		}
 	}
 	
