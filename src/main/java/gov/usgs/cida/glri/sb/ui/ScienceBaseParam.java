@@ -15,6 +15,7 @@ public enum ScienceBaseParam {
 	TEXT_QUERY("text_query", "q"),
 	FORMAT("format", "format"),
 	FIELDS("fields", "fields"),
+	CATEGORIES("resource", ""),				//browseCategory filter is a weird one.  Its format is: &filter=browseCategory=<CATEGORY>
 	SPATIAL("spatial", "searchExtent");
 	
 	
