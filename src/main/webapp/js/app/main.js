@@ -20,6 +20,9 @@ $(document).ready(function(){
 			records: "_root"
 		}
 	});
+	
+    $("#loc_type_input").on( "change", function(event) {updateLocationList(event)});
+	
     $("#query-submit").on( "click", function(event) {
 		event.preventDefault();
 		event.stopPropagation();
@@ -81,6 +84,23 @@ function buildDataUrl() {
 	var url = $("#sb-query-form").attr("action");
 	url += "?" + $("#sb-query-form").serialize();
 	return url;
+}
+
+function updateLocationList(event) {
+	
+	//location type just selected by the user
+	var typeSelection = event.currentTarget.options[event.currentTarget.selectedIndex].value;
+	
+	$("#loc_name_input optgroup").each(function() {
+		if (this.label.indexOf(typeSelection + "s") == 0) {
+			$(this).removeAttr("disabled");
+		} else {
+			$(this).attr("disabled", "disabled");
+		}
+	});
+	
+	//No location selection made prior to this is valid, so clear out.
+	$("#loc_name_input").val("");
 }
 
 
