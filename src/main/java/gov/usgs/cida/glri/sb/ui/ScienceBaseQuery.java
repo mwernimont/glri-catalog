@@ -41,7 +41,7 @@ public class ScienceBaseQuery {
 		uriBuild.setPath("/catalog/items");
 		uriBuild.setParameter("s", "Search");
 		uriBuild.setParameter("q", "");
-		uriBuild.setParameter("fields", "title,summary,spatial,distributionLinks");
+		uriBuild.setParameter("fields", "title,summary,spatial,distributionLinks,browseCategories");
 		appendGlriOnlyParam(requestParams, uriBuild);
 		appendGlriParams(requestParams, uriBuild);
 		appendStandardParams(requestParams, uriBuild);
@@ -58,8 +58,6 @@ public class ScienceBaseQuery {
 			
 			String encoding = findEncoding(entity, DEFAULT_ENCODING);
 			String stringFromStream = CharStreams.toString(new InputStreamReader(entity.getContent(), encoding));
-			
-			System.out.println(stringFromStream);
 			
 			EntityUtils.consume(entity);
 			
@@ -151,7 +149,18 @@ public class ScienceBaseQuery {
 			String[] vals = requestParams.get(tag.getShortName());
 			if (vals != null && vals.length > 0) {
 				String val = StringUtils.trimToNull(vals[0]);
+				
 				if (val != null) {
+					if(tag.equals((ScienceBaseParam.CATEGORIES))) {
+						/**
+						 * the browseCategory filter is a weird one.  Its format is:
+						 * 
+						 * 		&filter=browseCategory=<CATEGORY>
+						 */
+						uriBuild.addParameter("filter", "browseCategory=" + val);
+						continue;
+					} 
+					
 					if (tag.equals(ScienceBaseParam.FORMAT)) {
 						Format f = Format.UNKNOWN.getForShortName(val);
 						format = f;

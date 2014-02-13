@@ -42,6 +42,7 @@
 							<table id="query-results-table" class="hidden">
 								<thead>
 									<tr>
+										<th>Resource</th>
 										<th>Title</th>
 										<th>Summary</th>
 										<th>Url</th>
@@ -71,6 +72,15 @@
 								</div>
 							</fieldset>
 							<fieldset title="GLRI Specific tags">
+								<div class="field">
+									<label for="resource_input">Resource Type</label>
+									<select id="resource_input" name="resource">
+										<option value="">Any</option>
+										<option value="Data">Data</option>
+										<option value="Publication">Publication</option>
+										<option value="Project">Project</option>
+									</select>
+								</div>
 								<div class="field">
 									<label for="area_input">GRRI Study Area</label>
 									<select id="area_input" name="area">

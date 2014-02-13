@@ -54,6 +54,9 @@ var tableDataReady = function(data) {
 		var item = data.items[i];
 		var link = item['link']['url'];
 		item['url'] = link;
+		
+		var resource = item['browseCategories'][0];
+		item['resource'] = resource;
 	}
 	
 	if (dynamicTable == null) {
