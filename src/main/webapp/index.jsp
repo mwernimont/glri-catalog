@@ -68,7 +68,7 @@
 							<fieldset title="Standard ScienceBase Text Search">
 								<div class="field">
 									<label for="text_query_input">Text Query</label>
-									<input type="text" size="30" id="text_query_input" name="text_query"/>
+									<input type="text" size="35" id="text_query_input" name="text_query"/>
 								</div>
 							</fieldset>
 							<fieldset title="GLRI Specific tags">
@@ -138,7 +138,7 @@
 								</div>
 								<div class="field">
 									<label for="spatial_input">Bbox</label>
-									<input type="text" size=20" id="spatial_input" name="spatial" disabled="disabled" value="">
+									<input type="text" size=25" id="spatial_input" name="spatial" value="">
 								</div>
 								<input type="hidden" id="format_input" name="format" value="json">
 								<input id="query-submit" type="submit" value="Submit"/>
