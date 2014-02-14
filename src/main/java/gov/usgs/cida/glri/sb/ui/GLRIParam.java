@@ -15,7 +15,8 @@ public enum GLRIParam {
 	MEDIUM("medium", "sample-medium"),
 	PARAM_GROUP("param_group", "parameter-group"),
 	PARAM("param", "parameter"),
-	AREA("area", "study-area"),
+	LOC_TYPE("loc_type", "location-type"),
+	LOC_NAME("loc_name", "location-name"),
 	FOCUS("focus", "focus-area"),
 	UNKNOWN("", "");
 	
