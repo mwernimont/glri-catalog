@@ -82,14 +82,41 @@
 									</select>
 								</div>
 								<div class="field">
-									<label for="area_input">GRRI Study Area</label>
-									<select id="area_input" name="area">
+									<label for="loc_type_input">Location Type</label>
+									<select id="loc_type_input" name="loc_type">
 										<option value="">Any</option>
-										<option value="Lake Michigan Basin">Lake Michigan Basin</option>
-										<option value="Lake Erie Basin">Lake Erie Basin</option>
-										<option value="Lake Huron Basin">Lake Huron Basin</option>
-										<option value="Lake Superior Basin">Lake Superior Basin</option>
-										<option value="Lake Ontario Basin">Lake Ontario Basin</option>
+										<option value="Lake">Lake</option>
+										<option value="Watershed">Watershed</option>
+										<option value="Channel">Channel</option>
+									</select>
+								</div>
+								<div class="field">
+									<label for="loc_name_input">Location</label>
+									<select id="loc_name_input" name="loc_name">
+										<option value="">Any</option>
+										<optgroup label="Lakes">
+											<option value="Lake:Lake Michigan">Lake Michigan</option>
+											<option value="Lake:Lake Erie">Lake Erie</option>
+											<option value="Lake:Lake Huron">Lake Huron</option>
+											<option value="Lake:Lake Superior">Lake Superior</option>
+											<option value="Lake:Lake Ontario">Lake Ontario</option>
+											<option value="Lake:Lake St. Clair">Lake St. Clair</option>
+										</optgroup>
+										<optgroup label="Watersheds">
+											<option value="Watershed:Lake Michigan Basin">Lake Michigan Basin</option>
+											<option value="Watershed:Lake Erie Basin">Lake Erie Basin</option>
+											<option value="Watershed:Lake Huron Basin">Lake Huron Basin</option>
+											<option value="Watershed:Lake Superior Basin">Lake Superior Basin</option>
+											<option value="Watershed:Lake Ontario Basin">Lake Ontario Basin</option>
+											<option value="Watershed:Lake St. Clair Basin">Lake St. Clair Basin</option>
+										</optgroup>
+										<optgroup label="Channels">
+											<option value="Channel:St. Mary's Channel">St. Mary's Channel</option>
+											<option value="Channel:St. Lawrence Channel">St. Lawrence Channel</option>
+											<option value="Channel:Detroit Channel">Detroit Channel</option>
+											<option value="Channel:Niagara Channel">Niagara Channel</option>
+											<option value="Channel:St. Clair/Detroit River System">St. Clair/Detroit River Sys</option>
+										</optgroup>
 									</select>
 								</div>
 								<div class="field">
@@ -109,9 +136,11 @@
 									<label for="glri_only_input">GLRI Results Only?</label>
 									<input type="checkbox" checked="checked" id="glri_only_input" name="glri_only" value="true" />
 								</div>
-
+								<div class="field">
+									<label for="spatial_input">Bbox</label>
+									<input type="text" size=20" id="spatial_input" name="spatial" disabled="disabled" value="">
+								</div>
 								<input type="hidden" id="format_input" name="format" value="json">
-								<input type="text" size=100" id="spatial_input" name="spatial" value="">
 								<input id="query-submit" type="submit" value="Submit"/>
 							</fieldset>
 						</form>
