@@ -9,7 +9,7 @@ $(document).ready(function(){
     // that exist in the DOM when the instruction was executed
 	$.dynatableSetup({
 		features: {
-		  paginate: false,
+		  paginate: true,
 		  sort: true,
 		  pushState: true,
 		  search: false,
@@ -88,6 +88,9 @@ var tableDataReady = function(data) {
 		$("#query-results-table").dynatable({
 			dataset: {
 				records: records
+			},
+			writers: {
+				_cellWriter: writeCell
 			}
 		});
 		
@@ -101,6 +104,44 @@ var tableDataReady = function(data) {
 	}
 	
 };
+
+function writeCell(column, record) {
+    var html = glriAttributeWriter(column, record);
+    var td = '<td';
+
+    if (column.hidden || column.textAlign) {
+      td += ' style="';
+
+      // keep cells for hidden column headers hidden
+      if (column.hidden) {
+        td += 'display: none;';
+      }
+
+      // keep cells aligned as their column headers are aligned
+      if (column.textAlign) {
+        td += 'text-align: ' + column.textAlign + ';';
+      }
+
+      td += '"';
+    }
+	
+    html = td + '>' + html + '</td>';
+	
+	return html;
+ };
+ 
+ function glriAttributeWriter(column, record) {
+
+	var text;
+	var id = column['id'];
+	
+	if (id == "url") {
+		text = "<a href=\"" + record[id] + "\" target=\"_blank\">link</a>";
+	} else {
+		text = record[id];
+	}
+    return text;
+ };
 
 function buildDataUrl() {
 	var url = $("#sb-query-form").attr("action");
