@@ -44,6 +44,7 @@
 									<tr>
 										<th>Resource</th>
 										<th>Title</th>
+										<th>Contact</th>
 										<th>Summary</th>
 										<th>Url</th>
 									</tr>

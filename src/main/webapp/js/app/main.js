@@ -60,6 +60,28 @@ var tableDataReady = function(data) {
 		
 		var resource = item['browseCategories'][0];
 		item['resource'] = resource;
+		
+		var contacts = item['contacts'];
+		for (j=0; j<contacts.length; j++) {
+			var contact = contacts[j];
+			var type = contact['contactType'];
+			
+			if (type == null) type = contact['type'];
+			
+			if ("Point of Contact" == type) {
+				item['contact'] = contact['name'] + " (Point of Contact)";
+				break;
+			} else if ("Author" == type) {
+				item['contact'] = contact['name'] + " (Author)";
+				break;
+			} else if ("Project Chief" == type) {
+				item['contact'] = contact['name'] + " (Project Chief)";
+				break;
+			} else {
+				item['contact'] = "???"
+			}
+			
+		}
 	}
 	
 	if (dynamicTable == null) {
