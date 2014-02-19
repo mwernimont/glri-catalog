@@ -8,130 +8,207 @@
 		
 		<script type="text/javascript" src="webjars/jquery/2.1.0/jquery.js"></script>
 		<script type="text/javascript" src="js/lib/jquery-dynatable/0.3.1/jquery.dynatable.js"></script>
-		<script type="text/javascript" src="js/app/main.js"></script>
+		<script type="text/javascript">
+
+var dynamicTable = null;
+
+$(document).ready(function(){
+    // Sets up click behavior on all button elements with the alert class
+    // that exist in the DOM when the instruction was executed
+	$.dynatableSetup({
+		features: {
+		  paginate: false,
+		  sort: true,
+		  pushState: true,
+		  search: false,
+		  recordCount: true,
+		  perPageSelect: false
+		},
+		params: {
+			records: "_root"
+		}
+	});
+	
+    $("#load-data-1").on( "click", function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		updateTable(data1);
+    });
+	
+    $("#load-data-2").on( "click", function(event) {
+		event.preventDefault();
+		event.stopPropagation();
+		updateTable(data2);
+    });
+	
+});
+
+function updateTable(data) {
+	
+	var records = data['items'];
+	
+	if (dynamicTable == null) {
+		$("#query-results-table").dynatable({
+			dataset: {
+				records: records
+			},
+			writers: {
+				_cellWriter: writeCell
+			}
+		});
 		
-		<link rel="stylesheet" type="text/css" href="js/lib/jquery-dynatable/0.3.1/jquery.dynatable.css" />
-		<link rel="stylesheet" type="text/css" href="style/css/usgs_style_main.css" />
-		<link rel="stylesheet" type="text/css" href="style/css/app.css" />
-		<link rel="stylesheet" type="text/css" href="style/css/left-nav.css" />
+		dynamicTable = $("#query-results-table").data('dynatable');
+	} else {
+		dynamicTable.processingIndicator.show();
+		dynamicTable.records.updateFromJson(records);
+		dynamicTable.dom.update();
+		dynamicTable.processingIndicator.hide();
+
+	}
+	
+};
+
+function writeCell(column, record) {
+    var html = glriAttributeWriter(column, record);
+    var td = '<td';
+
+    if (column.hidden || column.textAlign) {
+      td += ' style="';
+
+      // keep cells for hidden column headers hidden
+      if (column.hidden) {
+        td += 'display: none;';
+      }
+
+      // keep cells aligned as their column headers are aligned
+      if (column.textAlign) {
+        td += 'text-align: ' + column.textAlign + ';';
+      }
+
+      td += '"';
+    }
+	
+    html = td + '>' + html + '</td>';
+	
+	if (column['id'] == "url") {
+		//add the extra row
+		html += glriWriteExtraRow(column, record, 5);
+	}
+	
+	return html;
+ };
+ 
+ function glriAttributeWriter(column, record) {
+
+	var text;
+	var id = column['id'];
+	
+	if (id == "url") {
+		text = "<a href=\"" + record[id] + "\" target=\"_blank\">link</a>";
+	} else {
+		text = record[id];
+	}
+    return text;
+ };
+ 
+ function glriWriteExtraRow(column, record, columnCount) {
+	 var html = "</tr><tr>"; //end current row and start another
+	 
+	 html += "<td colspan=\"" + columnCount + "\">";
+	 html += "your text here";
+	 html += "</td>";
+	 return html;
+ }
+
+		</script>
 		
-        <title>Science Base Sample Query Page</title>
+		<script type="text/javascript">
+			var data1 = { items: [
+				{
+					type: "Project",
+					title: "Project 1",
+					description: "Summary Text......",
+					person: "Author Name",
+					url: "http://url/something/or/other",
+					
+				},
+				{
+					type: "Project",
+					title: "Project 2",
+					description: "Summary Text......",
+					person: "Author",
+					url: "http://url/something/or/other"
+				},
+				{
+					type: "Publication",
+					title: "Publication 1",
+					description: "Summary Text......",
+					person: "Lead Author",
+					url: "http://url/something/or/other",
+					citation: "to be built..."
+				}
+			] };
+			
+			var data2 = { items : [
+				{
+					type: "Project",
+					title: "Project 2",
+					description: "Summary Text......",
+					person: "Author Name",
+					url: "http://url/something/or/other",
+					
+				},
+				{
+					type: "Project",
+					title: "Project 3",
+					description: "Summary Text......",
+					person: "Author",
+					url: "http://url/something/or/other"
+				},
+				{
+					type: "Publication",
+					title: "Publication 2",
+					description: "Summary Text......",
+					person: "Lead Author",
+					url: "http://url/something/or/other",
+					citation: "to be built..."
+				},
+				{
+					type: "",
+					title: "Random Entry 1",
+					description: "Summary Text......",
+					person: "POint of contact",
+					url: "http://url/something/or/other"
+				}
+			] };
+			
+		</script>
+		
+        <title>Dynatable Test Page</title>
     </head>
     <body>
-		<jsp:include page="template/header.jsp" flush="true" />
-		<div class="colmask leftmenu">
-			<div class="colright">
-				<div class="colleft">
-					<div class="col1wrap">
-						<div class="col1">
-							<div id="lead-in">
-								<h1>GLRI to ScienceBase Query API Example</h1>
-								<p>All query are being submitted to the ScienceBase REST API.</p>
-								<p>
-									Choosing the <b>GLRI Results Only</b> option limits the results to the
-									<a href="https://www.sciencebase.gov/catalog/item/52e6a0a0e4b012954a1a238a">Great Lakes Restoration Initiative</a>
-									community of datasets.
-								</p>
-							</div>
-							<table id="query-results-table">
-								<thead>
-									<tr>
-										<th>id</th>
-										<th>title</th>
-										<th>summary</th>
-									</tr>
-								</thead>
-								<tbody>
 
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div class="col2">
-						<form id="sb-query-form" action="ScienceBaseService">
-							<fieldset title="Standard ScienceBase Text Search">
-								<div class="field">
-									<label for="text_query_input">Text Query</label>
-									<input type="text" size="30" id="text_query_input" name="text_query"/>
-								</div>
-							</fieldset>
-							<fieldset title="GLRI Specific tags">
-								<div class="field">
-									<label for="medium_input">Sample Medium</label>
-									<select id="medium_input" name="medium">
-										<option value="">Any</option>
-										<option value="water">water</option>
-										<option value="air">air</option>
-									</select>
-								</div>
-								<div class="field">
-									<label for="param_group_input">Parameter Group</label>
-									<select id="param_group_input" name="param_group">
-										<option value="">Any</option>
-										<option value="Nutrient">Nutrient</option>
-										<option value="Biological">Biological</option>
-										<option value="Organics">Organics</option>
-										<option value="Inorganics">Inorganics</option>
-									</select>
-								</div>
-								<div class="field">
-									<label for="param_input">Parameter Group</label>
-									<select id="param_input" name="param">
-										<option value="">Any</option>
-										<option value="Nitrogen">Nitrogen</option>
-										<option value="Phosphorus">Phosphorus</option>
-										<option value="Fish">Fish</option>
-										<option value="Birds">Birds</option>
-										<option value="PCB">PCB</option>
-										<option value="Mercury">Mercury</option>
-										<option value="Atrazine">Atrazine</option>
-									</select>
-								</div>
-								<div class="field">
-									<label for="area_input">GRRI Study Area</label>
-									<select id="area_input" name="area">
-										<option value="">Any</option>
-										<option value="Lake Michigan Basin">Lake Michigan Basin</option>
-										<option value="Lake Erie Basin">Lake Erie Basin</option>
-										<option value="Lake Huron Basin">Lake Huron Basin</option>
-										<option value="Lake Superior Basin">Lake Superior Basin</option>
-										<option value="Lake Ontario Basin">Lake Ontario Basin</option>
-									</select>
-								</div>
-								<div class="field">
-									<label for="focus_input">Focus Area</label>
-									<select id="focus_input" name="focus">
-										<option value="">Any</option>
-										<option value="Toxic Substances">Toxic Substances</option>
-										<option value="Invasive Species">Invasive Species</option>
-										<option value="Nearshore Health">Nearshore Health</option>
-										<option value="Habitat & Wildlife">Habitat &amp; Wildlife</option>
-										<option value="Accountability">Accountability</option>
-									</select>
-								</div>
-							</fieldset>
-							<fieldset title="Search Options">
-								<div class="field">
-									<label for="glri_only_input">GLRI Results Only?</label>
-									<input type="checkbox" checked="checked" id="glri_only_input" name="glri_only" value="true" />
-								</div>
+		<h1>Test page for Dynatable</h1>
 
-								<div class="field">
-									<label for="format_input">Result Format</label>
-									<select id="format_input" name="format">
-										<option value="json">JSON</option>
-										<option value="html">HTML</option>
-										<option value="xml">XML</option>
-									</select>
-								</div>
+		<table id="query-results-table">
+			<thead>
+				<tr>
+					<th>Type</th>
+					<th>Title</th>
+					<th>Description</th>
+					<th>Person</th>
+					<th>Url</th>
+				</tr>
+			</thead>
+			<tbody>
 
-								<input id="query-submit" type="submit" value="Submit"/>
-							</fieldset>
-						</form>
-					</div>
-				</div><!-- colleft -->
-			</div><!-- colright -->
-		</div><!-- colmask -->
-		<jsp:include page="template/footer.jsp" flush="true" />
+			</tbody>
+		</table>
+
+		<form id="sb-query-form" action="">
+			<input id="load-data-1" type="submit" value="Load Dataset One"/>
+			<input id="load-data-2" type="submit" value="Load Dataset Two"/>
+		</form>
+
     </body>
 </html>
