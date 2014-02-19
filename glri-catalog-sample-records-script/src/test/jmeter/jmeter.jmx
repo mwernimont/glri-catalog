@@ -53,13 +53,13 @@
           </elementProp>
           <elementProp name="user-name" elementType="Argument">
             <stringProp name="Argument.name">user-name</stringProp>
-            <stringProp name="Argument.value">${__P(user-name,YOU-MUST-SPECIFY-A-USER-NAME-HERE-IF-RUNNING-DIRECTLY)}</stringProp>
+            <stringProp name="Argument.value">${__P(user-name,[PROVIDE A USER NAME HERE])}</stringProp>
             <stringProp name="Argument.desc">valid DOI AD complete user name, eg: bthompson@usgs.gov  Req&apos;ed for adding or deleting records.</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="user-pwd" elementType="Argument">
             <stringProp name="Argument.name">user-pwd</stringProp>
-            <stringProp name="Argument.value">${__P(user-pwd,YOU-MUST-SPECIFY-A-USER-NAME-HERE-IF-RUNNING-DIRECTLY)}</stringProp>
+            <stringProp name="Argument.value">${__P(user-pwd,[PROVIDE A PASSWORD HERE])}</stringProp>
             <stringProp name="Argument.desc">valid DOI AD password.  Req&apos;ed for adding or deleting records.</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -1180,7 +1180,7 @@
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
           <stringProp name="delimiter">,</stringProp>
           <stringProp name="fileEncoding"></stringProp>
-          <stringProp name="filename">data/gridded-data.csv</stringProp>
+          <stringProp name="filename">../data/gridded-data.csv</stringProp>
           <boolProp name="quotedData">true</boolProp>
           <boolProp name="recycle">false</boolProp>
           <stringProp name="shareMode">shareMode.thread</stringProp>
@@ -2158,7 +2158,17 @@
               <boolProp name="HTTPSampler.monitor">false</boolProp>
               <stringProp name="HTTPSampler.embedded_url_re"></stringProp>
             </HTTPSamplerProxy>
-            <hashTree/>
+            <hashTree>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-1606201635">HTTP/1.1 200 OK</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
+              <hashTree/>
+            </hashTree>
             <HeaderManager guiclass="HeaderPanel" testclass="HeaderManager" testname="HTTP Header Manager" enabled="true">
               <collectionProp name="HeaderManager.headers">
                 <elementProp name="" elementType="Header">
@@ -2309,7 +2319,7 @@
               <stringProp name="HTTPSampler.contentEncoding"></stringProp>
               <stringProp name="HTTPSampler.path">${service-context}/item/${sbid}</stringProp>
               <stringProp name="HTTPSampler.method">DELETE</stringProp>
-              <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
+              <boolProp name="HTTPSampler.follow_redirects">false</boolProp>
               <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
               <boolProp name="HTTPSampler.use_keepalive">true</boolProp>
               <boolProp name="HTTPSampler.DO_MULTIPART_POST">false</boolProp>
@@ -2323,6 +2333,15 @@
                 <boolProp name="displaySamplerProperties">true</boolProp>
                 <boolProp name="displaySystemProperties">false</boolProp>
               </DebugPostProcessor>
+              <hashTree/>
+              <ResponseAssertion guiclass="AssertionGui" testclass="ResponseAssertion" testname="Response Assertion" enabled="true">
+                <collectionProp name="Asserion.test_strings">
+                  <stringProp name="-1606201635">HTTP/1.1 200 OK</stringProp>
+                </collectionProp>
+                <stringProp name="Assertion.test_field">Assertion.response_headers</stringProp>
+                <boolProp name="Assertion.assume_success">false</boolProp>
+                <intProp name="Assertion.test_type">2</intProp>
+              </ResponseAssertion>
               <hashTree/>
             </hashTree>
           </hashTree>
