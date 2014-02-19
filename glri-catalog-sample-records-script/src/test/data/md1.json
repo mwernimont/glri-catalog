@@ -1,0 +1,126 @@
+{
+    "title": "${name}",
+    "summary": "${description}",
+    "body": "Test Record md1 (body)",
+    "purpose": "Test Record md1 (purpose)",
+    "parentId": "52e6a0a0e4b012954a1a238a",
+     "spatial": {
+        "representationalPoint": [
+            -90.00867209869959,
+            44.18934899123294
+        ],
+        "representationalPointIsDerived": true,
+        "boundingBox": {
+            "maxY": 46.9987095692311,
+            "maxX": -85.8874511718764,
+            "minX": -93.9294433593743,
+            "minY": 41.2808025675108
+        }
+    },
+    "contacts": [
+        {
+            "name": "Abe Record1",
+            "type": "Point of Contact",
+            "email": "arecord1@usgs.ov",
+            "organization": {"displayText": "USGS"},
+            "primaryLocation": {
+                "officePhone": "(123) 123-1234",
+                "streetAddress": {},
+                "mailAddress": {
+                    "line1": "Natural Resources, 480 Wilson Rd. Rm 13",
+                    "city": "East Lansing",
+                    "state": "MI",
+                    "zip": "48824"
+                }
+            }
+        },
+        {
+            "name": "Beth Record1",
+            "type": "Point of Contact",
+            "email": "brecord1@usgs.ov",
+            "organization": {"displayText": "USGS"},
+            "primaryLocation": {
+                "officePhone": "(123) 123-1234",
+                "streetAddress": {},
+                "mailAddress": {
+                    "line1": "Natural Resources, 480 Wilson Rd. Rm 13",
+                    "city": "East Lansing",
+                    "state": "MI",
+                    "zip": "48824"
+                }
+            }
+        },
+        {
+            "name": "Abe Record1, Beth Record1 and others",
+            "type": "Originator",
+            "organization": {},
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }
+    ],
+    "browseCategories": ["Data"],
+    "tags": [
+         {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/GLRI/sample-medium",
+            "name": "${medium}"
+        },
+        {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/GLRI/parameter-group",
+            "name": "${param_group}"
+        },
+        {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/GLRI/parameter",
+            "name": "${param}"
+        },
+        {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/GLRI/study-area",
+            "name": "${area}"
+        },
+    ],
+    "dates": [
+        {
+            "type": "Publication",
+            "dateString": "2013",
+            "label": "Publication Date"
+        },
+        {
+            "type": "Start",
+            "dateString": "2000",
+            "label": ""
+        },
+        {
+            "type": "End",
+            "dateString": "2007",
+            "label": ""
+        }
+    ],
+    "distributionLinks": [
+        {
+            "uri": "https://www.sciencebase.gov/catalogMaps/mapping/ows/50f6baf1e4b0f5392eb80d85?mode=download&request=kml&service=wms&layers=nfhap_hci_fhp_glb",
+            "title": "KML Service",
+            "type": "kml",
+            "typeLabel": "KML Download",
+            "rel": "alternate"
+        },
+        {
+            "uri": "https://www.sciencebase.gov/catalogMaps/mapping/ows/50f6baf1e4b0f5392eb80d85?service=wms&request=getcapabilities&version=1.3.0",
+            "title": "ScienceBase WMS Service",
+            "type": "serviceCapabilitiesUrl",
+            "typeLabel": "OGC Service Capabilities URL",
+            "rel": "alternate"
+        },
+        {
+            "uri": "https://www.sciencebase.gov/catalogMaps/mapping/ows/50f6baf1e4b0f5392eb80d85?service=wfs&request=getcapabilities&version=1.0.0",
+            "title": "ScienceBase WFS Service",
+            "type": "serviceCapabilitiesUrl",
+            "typeLabel": "OGC Service Capabilities URL",
+            "rel": "alternate"
+        }
+    ]
+}
