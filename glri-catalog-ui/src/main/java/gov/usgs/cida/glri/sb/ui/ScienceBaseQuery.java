@@ -41,6 +41,7 @@ public class ScienceBaseQuery {
 		uriBuild.setPath("/catalog/items");
 		uriBuild.setParameter("s", "Search");
 		uriBuild.setParameter("q", "");
+		uriBuild.setParameter("max", "1000");
 		uriBuild.setParameter("fields", "title,summary,spatial,distributionLinks,browseCategories,contacts");
 		appendGlriOnlyParam(requestParams, uriBuild);
 		appendGlriParams(requestParams, uriBuild);
