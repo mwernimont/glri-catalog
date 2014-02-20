@@ -29,6 +29,9 @@ $(document).ready(function(){
 		updateTable();
     });
 	
+	/* Kick off the fancy selects */
+	$('.selectpicker').selectpicker();
+	
 	initSelectMap();
 });
 
@@ -205,17 +208,25 @@ function initSelectMap() {
 	};
 	
 	// register a listener for drawing a box
-	boxControl.events.register('featureadded', boxControl, function(f) {
+	boxControl.events.register('featureadded', boxControl,
+			function(f) {
 
-	  // Variables for the geometry are: bottom/left/right/top
-	  // Sciencebase requires bounds to look like: [xmin,ymin,xmax,ymax]
-	  var extent = "[" + f.feature.geometry.bounds.left +
-				   "," + f.feature.geometry.bounds.bottom +
-				   "," + f.feature.geometry.bounds.right +
-				   "," + f.feature.geometry.bounds.top + "]";
+		// Variables for the geometry are: bottom/left/right/top
+		// Sciencebase requires bounds to look like: [xmin,ymin,xmax,ymax]
+		var extent = "["
+				+ f.feature.geometry.bounds.left + ","
+				+ f.feature.geometry.bounds.bottom
+				+ "," + f.feature.geometry.bounds.right
+				+ "," + f.feature.geometry.bounds.top
+				+ "]";
 
-	  $('#spatial_input').val(extent);
-	 });
+		$('#xmin_label').val(f.feature.geometry.bounds.left);
+		$('#ymin_label').val(f.feature.geometry.bounds.bottom);
+		$('#xmax_label').val(f.feature.geometry.bounds.right);
+		$('#ymax_label').val(f.feature.geometry.bounds.top);
+
+		$('#spatial').val(extent);
+	});
 
 
 	map.addControl(boxControl);
@@ -231,6 +242,17 @@ function initSelectMap() {
 			boxControl.handler.stopUp = false;
 			boxControl.deactivate();
 		}
+	});
+	
+	$('#clearMapButton').click(function() {
+		$('#spatial').val('');
+		$('#xmin_label').val('-');
+		$('#ymin_label').val('-');
+		$('#xmax_label').val('-');
+		$('#ymax_label').val('-');
+
+		boxLayer.removeAllFeatures();
+		map.setCenter(new OpenLayers.LonLat(lon, lat), 5);				
 	});
 	
 }
