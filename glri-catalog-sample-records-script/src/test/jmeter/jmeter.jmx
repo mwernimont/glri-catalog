@@ -1178,7 +1178,7 @@
         </ResultCollector>
         <hashTree/>
         <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="CSV Data Set Config" enabled="true">
-          <stringProp name="delimiter">,</stringProp>
+          <stringProp name="delimiter">\t</stringProp>
           <stringProp name="fileEncoding"></stringProp>
           <stringProp name="filename">../data/gridded-data.csv</stringProp>
           <boolProp name="quotedData">true</boolProp>
