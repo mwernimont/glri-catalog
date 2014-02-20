@@ -137,9 +137,34 @@ function writeCell(column, record) {
 
 	var text;
 	var id = column['id'];
+	var val = record[id];
 	
 	if (id == "url") {
-		text = "<a href=\"" + record[id] + "\" target=\"_blank\">link</a>";
+		text = "<a href=\"" + val + "\" target=\"_blank\">link</a>";
+	} else if (id == "title") {
+		
+		var type = record['resource'];
+		
+		
+		text = "<a class=\"resource-type\" title=\"" + type + ": Click to go directly to this record in ScienceBase\" href=\"" + record["url"] + "\" target=\"_blank\">";
+		
+		text += "<img src=\"style/image/";
+		
+		if ("Data" == type) {
+			text += "data.svg";
+		} else if ("Project" == type) {
+			text += "project.svg";
+		} else if ("Publication" == type) {
+			text += "publication.svg";
+		} else {
+			text += "unknown_type.svg";
+		}
+		
+		text += "\"/>";
+		
+		text += "</a>";
+		
+		text += "<h5>" + val + "</h5>";
 	} else {
 		text = record[id];
 	}
