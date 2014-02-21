@@ -192,6 +192,7 @@ function updateLocationList(event) {
 	
 	//No location selection made prior to this is valid, so clear out.
 	$("#loc_name_input").val("");
+	$("#loc_name_input").selectpicker('refresh')
 }
 
 
