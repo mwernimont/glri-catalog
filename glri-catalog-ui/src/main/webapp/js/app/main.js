@@ -84,7 +84,7 @@ $(document).ready(function(){
 		  sort: true,
 		  pushState: true,
 		  search: false,
-		  recordCount: true,
+		  recordCount: false,
 		  perPageSelect: false
 		},
 		params: {
