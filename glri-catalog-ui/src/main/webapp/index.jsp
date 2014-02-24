@@ -18,7 +18,6 @@
 		<link rel="stylesheet" type="text/css" href="style/css/usgs_style_main.css" />
 		<link rel="stylesheet" type="text/css" href="style/css/table.css" />
 		<link rel="stylesheet" type="text/css" href="style/css/app.css" />
-		<link rel="stylesheet" type="text/css" href="style/css/left-nav.css" />
 		
 		<!-- Twitter Bootstrap -->
 		<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.1.1/css/bootstrap.css"/>
