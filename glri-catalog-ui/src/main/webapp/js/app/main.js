@@ -14,7 +14,7 @@ var appState = {
 	PERMANENT_RESOURCE_FACET_NAMES : ["Data", "Publication", "Project"],
 	RESOURCE_TYPE_ANY : "Any",
 	
-	curentFacets : {},
+	currentFacets : {},
 	
 	updateRawResults : function(unfilteredJsonData) {
 		this.rawResult = unfilteredJsonData;
@@ -26,7 +26,7 @@ var appState = {
 		//reset all facets to zero
 		for (var i in this.PERMANENT_RESOURCE_FACET_NAMES) {
 			var term = this.PERMANENT_RESOURCE_FACET_NAMES[i];
-			this.curentFacets[term] = count;
+			this.currentFacets[term] = count;
 			$('#resource_input .btn input[value=' + term + '] + span').html(0);
 		}
 		
@@ -34,7 +34,7 @@ var appState = {
 			var term = facetJsonObject[i].term;
 			var count = facetJsonObject[i].count;
 
-			this.curentFacets[term] = count;
+			this.currentFacets[term] = count;
 			$('#resource_input .btn input[value=' + term + '] + span').html(count);
 		};
 	},
@@ -80,7 +80,7 @@ $(document).ready(function(){
     // that exist in the DOM when the instruction was executed
 	$.dynatableSetup({
 		features: {
-		  paginate: true,
+		  paginate: false,
 		  sort: true,
 		  pushState: true,
 		  search: false,
