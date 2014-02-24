@@ -197,18 +197,18 @@
 												<div class="col-xs-4">
 													<label class="filter_label pull-right">Resource Type</label>
 												</div>
-												<div id="resource_input" class="btn-group-vertical" data-toggle="buttons">
-													<label class="btn btn-default">
-														<input type="radio" name="resource" value="Any"/>Any <span class="badge"></span>
+												<div id="resource_input" class="btn-group-vertical col-xs-7" data-toggle="buttons">
+													<label class="btn btn-default active">
+														<input type="radio" name="resource" value="Any"/>Any <span class="badge pull-right"></span>
 													</label>
 													<label class="btn btn-default">
-														<input type="radio" name="resource" value="Data"/>Data <span class="badge"></span>
+														<input type="radio" name="resource" value="Data"/>Data <span class="badge pull-right"></span>
 													</label>
 													<label class="btn btn-default">
-														<input type="radio" name="resource" value="Publication"/>Publication <span class="badge">xx</span>
+														<input type="radio" name="resource" value="Publication"/>Publication <span class="badge pull-right"></span>
 													</label>
 													<label class="btn btn-default">
-														<input type="radio" name="resource" value="Project"/>Project <span class="badge"></span>
+														<input type="radio" name="resource" value="Project"/>Project <span class="badge pull-right"></span>
 													</label>
 												</div>
 											</div>
