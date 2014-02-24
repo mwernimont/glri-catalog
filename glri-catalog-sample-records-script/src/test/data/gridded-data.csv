@@ -41,3 +41,4 @@ ds_id	pocName	browseCategory	keyword1	locationType	locationName	focus	descriptio
 40	Spatial Person 10	Data	Hydration	Lake	Lake:Lake Erie	Accountability	Spatial Location Test 10	GRLI Sample Dataset 40 (THIS IS TEST DATA!!)	-85.228	53.216	true	-86.89	52.6	-83.9	53.743
 41	Spatial Person 11	Project	Airation	Lake	Lake:Lake Huron	Toxic Substances	Spatial Location Test 11	GRLI Sample Dataset 41 (THIS IS TEST DATA!!)	-105.108	39.801	true	-105.5	39.411	-104.5	40.243
 42	Spatial Person 12	Publication	Citation	Lake	Lake:Lake Superior	Invasive Species	Spatial Location Test 12	GRLI Sample Dataset 42 (THIS IS TEST DATA!!)	-109.925	30.43	true	-112.7	27.925	-106.8	32.622
+43	Pete Program Coordinator	Data	Forecast 	Lake	Lake:Lake Erie	Invasive Species	Publication about research done on Channel:Detroit Channel in the focus area  Accountability by Fin Fish Researcher.	test	-109.925	30.43	TRUE	-112.7	27.925	-106.8	32.622
