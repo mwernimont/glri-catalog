@@ -4,8 +4,11 @@
  */
 package gov.usgs.cida.glri.sb.ui;
 
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.apache.http.HttpEntity;
+import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIBuilder;
 import org.json.simple.JSONObject;
 import org.junit.After;
@@ -23,7 +26,8 @@ public class ScienceBaseQueryTest {
 	static final String TEST_ENCODING = "XXX";
 	
 	ScienceBaseQuery query;
-	
+	HashMap<String, String[]> requestParams;
+	URIBuilder uriBuild;
 	
 	public ScienceBaseQueryTest() {
 	}
@@ -39,6 +43,13 @@ public class ScienceBaseQueryTest {
 	@Before
 	public void setUp() {
 		query = new ScienceBaseQuery();
+		requestParams = new HashMap<String, String[]>();
+		uriBuild = new URIBuilder();
+		
+
+		uriBuild.setScheme("https");
+		uriBuild.setHost("sb.gov");
+		uriBuild.setPath("/catalog/items");
 	}
 	
 	@After
@@ -84,6 +95,69 @@ public class ScienceBaseQueryTest {
 	public void testFindEncodingWithNullValue() {
 		String result = query.findEncoding((String)null, TEST_ENCODING);
 		assertEquals(TEST_ENCODING, result);
+	}
+	
+	@Test
+	public void appendStandardParamsWithNoClientParameters() throws Exception {
+		query.appendStandardParams(requestParams, uriBuild);
+		
+		List<NameValuePair> params = uriBuild.getQueryParams();
+		
+		
+		assertEquals("Search", findNVPVal(params, "s"));
+		assertEquals("1000", findNVPVal(params, "max"));
+		assertEquals("title,summary,spatial,distributionLinks,browseCategories,contacts", findNVPVal(params, "fields"));
+		assertEquals("json", findNVPVal(params, "format"));
+		assertEquals("browseCategory", findNVPVal(params, "facets"));
+		assertEquals(5, params.size());
+	}
+	
+	@Test
+	public void appendStandardParamsWithClientResouceParameter() throws Exception {
+		
+		requestParams.put("resource", new String[] {"MyType"});
+		query.appendStandardParams(requestParams, uriBuild);
+
+		System.out.println(uriBuild.build().toString());
+		
+		List<NameValuePair> params = uriBuild.getQueryParams();
+		
+		
+		assertEquals("Search", findNVPVal(params, "s"));
+		assertEquals("1000", findNVPVal(params, "max"));
+		assertEquals("title,summary,spatial,distributionLinks,browseCategories,contacts", findNVPVal(params, "fields"));
+		assertEquals("json", findNVPVal(params, "format"));
+		assertEquals("browseCategory", findNVPVal(params, "facets"));
+		assertEquals("browseCategory=MyType", findNVPVal(params, "filter"));
+		assertEquals(6, params.size());
+	}
+	
+	/**
+	 * Finds a NameValuePair base on the name.
+	 * @param list
+	 * @param name
+	 * @return 
+	 */
+	public NameValuePair findNVP(List<NameValuePair> list, String name) {
+		for (NameValuePair n : list) {
+			if (name.equals(n.getName())) return n;
+		}
+		
+		return null;
+	}
+	
+	/**
+	 * Finds a NameValuePair and returns the value
+	 * @param list
+	 * @param name
+	 * @return 
+	 */
+	public String findNVPVal(List<NameValuePair> list, String name) {
+		for (NameValuePair n : list) {
+			if (name.equals(n.getName())) return n.getValue();
+		}
+		
+		return null;
 	}
 
 }

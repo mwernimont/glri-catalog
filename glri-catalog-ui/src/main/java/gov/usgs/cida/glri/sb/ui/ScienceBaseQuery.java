@@ -39,10 +39,6 @@ public class ScienceBaseQuery {
 		uriBuild.setScheme("https");
 		uriBuild.setHost(AppConfig.get(AppConfig.SCIENCEBASE_HOST));
 		uriBuild.setPath("/catalog/items");
-		uriBuild.setParameter("s", "Search");
-		uriBuild.setParameter("q", "");
-		uriBuild.setParameter("max", "1000");
-		uriBuild.setParameter("fields", "title,summary,spatial,distributionLinks,browseCategories,contacts");
 		appendGlriOnlyParam(requestParams, uriBuild);
 		appendGlriParams(requestParams, uriBuild);
 		appendStandardParams(requestParams, uriBuild);
@@ -144,38 +140,39 @@ public class ScienceBaseQuery {
 	
 	protected void appendStandardParams(Map<String, String[]> requestParams, URIBuilder uriBuild) {
 		
-		boolean formatFound = false;
 		
 		for (ScienceBaseParam tag : ScienceBaseParam.values()) {
-			String[] vals = requestParams.get(tag.getShortName());
-			if (vals != null && vals.length > 0) {
-				String val = StringUtils.trimToNull(vals[0]);
-				
-				if (val != null) {
-					if(tag.equals((ScienceBaseParam.CATEGORIES))) {
-						/**
-						 * the browseCategory filter is a weird one.  Its format is:
-						 * 
-						 * 		&filter=browseCategory=<CATEGORY>
-						 */
-						uriBuild.addParameter("filter", "browseCategory=" + val);
-						continue;
-					} 
-					
-					if (tag.equals(ScienceBaseParam.FORMAT)) {
-						Format f = Format.UNKNOWN.getForShortName(val);
-						format = f;
-						formatFound = true;
-					}
-					uriBuild.addParameter(tag.getFullName(), val);
-				}	
+			
+			if (tag.getType().isAllowClientValue()) {
+				String[] vals = requestParams.get(tag.getLocalName());
+				if (vals != null && vals.length > 0) {
+					String val = StringUtils.trimToNull(vals[0]);
+
+					if (val != null) {
+						if(tag.equals((ScienceBaseParam.CATEGORIES))) {
+							/**
+							 * the browseCategory filter is a weird one.  Its format is:
+							 * 
+							 * 		&filter=browseCategory=<CATEGORY>
+							 */
+							uriBuild.addParameter("filter", "browseCategory=" + val);
+						} else {
+							
+							uriBuild.addParameter(tag.getRemoteName(), val);
+							
+						}
+
+					}	
+				} else if (tag.getType().isAllowDefault() && tag.hasDefault()) {
+					//No client value, so use the default value
+					uriBuild.addParameter(tag.getRemoteName(), tag.getDefaultValue());
+				}
+			} else {
+				//Client values not allowed - force in our default value
+				uriBuild.addParameter(tag.getRemoteName(), tag.getDefaultValue());
 			}
 		}
-		
-		if (!formatFound) {
-			uriBuild.addParameter(ScienceBaseParam.FORMAT.getFullName(), DEFAULT_FORMAT.getShortName());
-			format = DEFAULT_FORMAT;
-		}		
+			
 	}
 	
 	protected void appendSpatialParams(Map<String, String[]> requestParams, URIBuilder uriBuild) {
@@ -185,7 +182,7 @@ public class ScienceBaseQuery {
 			String val = StringUtils.trimToNull(spatialQuery[0]);
 			if (val != null) {
 				System.out.println("Spatial Param: [" + val + "]");
-				uriBuild.addParameter(ScienceBaseParam.SPATIAL.getFullName(), val);
+				uriBuild.addParameter(ScienceBaseParam.SPATIAL.getRemoteName(), val);
 			}
 		}
 	}
