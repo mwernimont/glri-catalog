@@ -70,6 +70,14 @@
 			<version>1.4.2</version>
 		</dependency>
 		
+		<!-- HTML Dependencies -->
+		<dependency>
+			<groupId>gov.usgs.cida.jslibs</groupId>
+			<artifactId>usgs-template</artifactId>
+			<version>1.1</version>
+			<type>war</type>
+		</dependency>
+		
     </dependencies>
 
 	<profiles>
@@ -103,12 +111,22 @@
 						<artifactId>maven-war-plugin</artifactId>
 						<version>2.4</version>
 						<configuration>
+							<archive>
+								<manifestEntries>
+								<!-- The following are non-standard manifest entries. Tag names have been styled according to Manifest conventions -->
+									<BuildTime>${maven.build.timestamp}</BuildTime>
+									<Project-GroupId>${project.groupId}</Project-GroupId>
+									<Project-ArtifactId>${project.artifactId}</Project-ArtifactId>
+									<Project-Version>${project.version}</Project-Version>
+									<SCM-Url>${project.scm.developerConnection}</SCM-Url>
+								</manifestEntries>
+							</archive>
 							<failOnMissingWebXml>false</failOnMissingWebXml>
 							<webResources>
 								<resource> 
 									  <directory>src/main/webapp/</directory> 
 									  <includes> 
-										<include>template/footer.jsp</include>
+										<include>**/*.jsp</include>
 									  </includes> 
 									  <filtering>true</filtering> 
 								</resource> 
