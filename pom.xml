@@ -14,10 +14,32 @@
 	
 	<inceptionYear>2014</inceptionYear>
 	
-	<modules>
-		<module>glri-catalog-ui</module>
-		<module>glri-catalog-sample-records-script</module>
-	</modules>
+	<profiles>
+		<profile>
+			<id>basic-build-with-all-modules</id>
+			<activation>
+				<activeByDefault>true</activeByDefault>
+			</activation>
+			
+			<modules>
+				<module>glri-catalog-ui</module>
+				<module>glri-catalog-sample-records-script</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>generate-test-records-in-sciencebasebeta</id>
+			<activation>
+				<property>
+					<name>generate-test-records-in-sciencebasebeta</name>
+					<value>true</value>
+				</property>
+			</activation>
+			
+			<modules>
+				<module>glri-catalog-sample-records-script</module>
+			</modules>
+		</profile>
+	</profiles>
 
 	<developers>
 		<developer>
