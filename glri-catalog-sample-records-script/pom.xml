@@ -74,33 +74,6 @@
 							</jmeterUserProperties>
 						</configuration>
 					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>xml-maven-plugin</artifactId>
-						<version>1.0-beta-3</version>
-						<executions>
-							<execution>
-								<phase>verify</phase>
-								<goals>
-									<goal>transform</goal>
-								</goals>
-							</execution>
-						</executions>
-						<configuration>
-							<transformationSets>
-								<transformationSet>
-									<dir>${project.build.directory}/jmeter-reports</dir>
-									<stylesheet>extras/jmeter-results-detail-report_21.xsl</stylesheet>
-									<outputDir>${project.build.directory}/site/jmeter-results</outputDir>
-									<fileMappers>
-										<fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
-											<targetExtension>html</targetExtension>
-										</fileMapper>
-									</fileMappers>
-								</transformationSet>
-							</transformationSets>
-						</configuration>
-					</plugin>
 				</plugins>
 			</build>
 		</profile>
