@@ -11,7 +11,7 @@ th a:hover {
 
 .glri_content {
 	/*              top     | right 	| bottom	| left */
-     padding:        105px       40px       0px	   40px;
+     padding:       0;
 }
 
 .boundingBoxButton {

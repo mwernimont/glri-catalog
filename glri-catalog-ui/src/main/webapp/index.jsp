@@ -7,10 +7,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		
 		
-		<!-- Tomcat 7 only 
+		<!-- Tomcat 7 only -->
 		<script type="text/javascript" src="webjars/jquery/2.1.0/jquery.js"></script>
-		-->
-		<script type="text/javascript" src="js/lib/jquery/2.1.0/jquery.js"></script>
+		<script type="text/javascript" src="webjars/bootstrap/3.1.1/js/bootstrap.js"></script>
+		<script type="text/javascript" src="webjars/bootstrap-select/1.4.2/bootstrap-select.js"></script>
 		<script type="text/javascript" src="js/lib/jquery-dynatable/0.3.1/jquery.dynatable.js"></script>
 		<script type="text/javascript" src="js/app/main.js"></script>
 		
@@ -18,13 +18,10 @@
 		<link rel="stylesheet" type="text/css" href="style/css/usgs_style_main.css" />
 		<link rel="stylesheet" type="text/css" href="style/css/table.css" />
 		<link rel="stylesheet" type="text/css" href="style/css/app.css" />
-		<link rel="stylesheet" type="text/css" href="style/css/left-nav.css" />
 		
 		<!-- Twitter Bootstrap -->
-		<script type="text/javascript" src="js/lib/bootstrap/js/bootstrap.min.js"></script>
-		<script type="text/javascript" src="js/lib/bootstrap-select/bootstrap-select.min.js"></script>
-		<link rel="stylesheet" type="text/css" href="js/lib/bootstrap/css/bootstrap.min.css"/>
-		<link rel="stylesheet" type="text/css" href="js/lib/bootstrap-select/bootstrap-select.min.css"/>
+		<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.1.1/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="webjars/bootstrap-select/1.4.2/bootstrap-select.css"/>
 		
 		<!-- Our Bootstrap Theme -->
 		<script type="text/javascript" src="style/themes/theme1.js"></script>
@@ -121,7 +118,7 @@
 													<input type="text" class="form-control" id="text_query" name="text_query" style="width: 98%;">
 												</div>
 											</div>     
-		                                             <div class="row">
+<!--		                                             <div class="row">
 												<div class="col-xs-4">
 													<label class="filter_label pull-right">Resource Type</label>
 												</div>
@@ -133,7 +130,7 @@
 														<option value="Project">Project</option>
 													</select>
 												</div>
-											</div>
+											</div>-->
 											<div class="row">
 												<div class="col-xs-4">
 													<label class="filter_label pull-right">Location Type</label>
@@ -193,6 +190,25 @@
 														<option value="Habitat & Wildlife">Habitat &amp; Wildlife</option>
 														<option value="Accountability">Accountability</option>
 													</select>
+												</div>
+											</div>
+											<div class="row">
+												<div class="col-xs-4">
+													<label class="filter_label pull-right">Resource Type</label>
+												</div>
+												<div id="resource_input" class="btn-group-vertical col-xs-7" data-toggle="buttons">
+													<label class="btn btn-default active">
+														<input type="radio" name="resource" value="Any"/>Any <span class="badge pull-right"></span>
+													</label>
+													<label class="btn btn-default">
+														<input type="radio" name="resource" value="Data"/>Data <span class="badge pull-right"></span>
+													</label>
+													<label class="btn btn-default">
+														<input type="radio" name="resource" value="Publication"/>Publication <span class="badge pull-right"></span>
+													</label>
+													<label class="btn btn-default">
+														<input type="radio" name="resource" value="Project"/>Project <span class="badge pull-right"></span>
+													</label>
 												</div>
 											</div>
 											<div class="row" style="margin-top: 10px;">
