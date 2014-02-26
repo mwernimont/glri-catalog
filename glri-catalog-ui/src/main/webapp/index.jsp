@@ -7,6 +7,19 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		
 		
+<jsp:include page="template/USGSHead.jsp">
+	<jsp:param name="relPath" value="" />
+	<jsp:param name="shortName" value="${project.name}" />
+	<jsp:param name="title" value="Great Lakes Restoration Initiative (GLRI) Catalog" />
+	<jsp:param name="description" value="An application that allows the user to search for GLRI Projects, Datasets and Publications.  Actual data and metadata are kept in ScienceBase (sciencebase.gov)" />
+	<jsp:param name="author" value="Great Lakes Restoration Initiative (GLRI)" />
+	<jsp:param name="keywords" value="Great Lakes Restoration Initiative, GLRI, ScienceBase" />
+	<jsp:param name="publisher" value="" />
+	<jsp:param name="revisedDate" value="${timestamp} (${project.version})" />
+	<jsp:param name="nextReview" value="" />
+	<jsp:param name="expires" value="" />
+</jsp:include>
+		
 		<!-- Tomcat 7 only -->
 		<script type="text/javascript" src="webjars/jquery/2.1.0/jquery.js"></script>
 		<script type="text/javascript" src="webjars/bootstrap/3.1.1/js/bootstrap.js"></script>
@@ -15,7 +28,6 @@
 		<script type="text/javascript" src="js/app/main.js"></script>
 		
 		<link rel="stylesheet" type="text/css" href="js/lib/jquery-dynatable/0.3.1/jquery.dynatable.css" />
-		<link rel="stylesheet" type="text/css" href="style/css/usgs_style_main.css" />
 		<link rel="stylesheet" type="text/css" href="style/css/table.css" />
 		<link rel="stylesheet" type="text/css" href="style/css/app.css" />
 		
@@ -33,7 +45,11 @@
         <title>Science Base Sample Query Page</title>
     </head>
     <body>
-		<jsp:include page="template/header.jsp" flush="true" />
+<jsp:include page="template/USGSHeader.jsp">
+	<jsp:param name="relPath" value="" />
+	<jsp:param name="header-class" value="" />
+	<jsp:param name="site-title" value="Great Lakes Restoration Initiative (GLRI) Catalog" />
+</jsp:include>
 	<div class="container-fluid glri_content">
 		<div id="main_page" class="page_body_content">
 			<div class="row">
@@ -251,6 +267,13 @@
 			</div>
 		</div>
 	</div>
-<jsp:include page="template/footer.jsp" flush="true" />
+<jsp:include page="template/footer.jsp">
+	<jsp:param name="relPath" value="" />
+	<jsp:param name="header-class" value="" />
+	<jsp:param name="site-url" value="" />
+	<jsp:param name="contact-info" value="glri_help@usgs.gov" />
+	<jsp:param name="revisedDate" value="${timestamp}" />
+	<jsp:param name="buildVersion" value="${project.version}" />
+</jsp:include>
     </body>
 </html>
