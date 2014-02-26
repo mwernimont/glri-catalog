@@ -15,96 +15,96 @@
 		<version>0.3-SNAPSHOT</version>
 	</parent>
 	
-
-	
 	<pluginRepositories>
 		<pluginRepository>
 			<id>Maven JMeter Plugin</id>
 			<url>http://yciabaud.github.com/jmeter-maven-plugin/repository</url>
 		</pluginRepository>
-		
-<!--		<pluginRepository>
-			<id>central</id>
-			<name>Maven Plugin Repository</name>
-			<url>http://repo1.maven.org/maven2</url>
-		</pluginRepository>-->
 	</pluginRepositories>
 	
 	<profiles>
 		<profile>
-			<id>DeleteAndReaddAllRecords</id>
+			<id>do-not-generate-test-records</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
+			</activation>
+			<build></build>
+		</profile>
+		<profile>
+			<id>generate-test-records-in-sciencebasebeta</id>
+			<activation>
 				<property>
-					<name>jmeter-test-name</name>
-					<value>Wipe and re-add all test records</value>
+					<name>generate-test-records-in-sciencebasebeta</name>
+					<value>true</value>
 				</property>
 			</activation>
 			<properties>
 				<jMeterTestFile>jmeter.jmx</jMeterTestFile>
 			</properties>
+			
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>com.lazerycode.jmeter</groupId>
+						<artifactId>jmeter-maven-plugin</artifactId>
+						<version>1.8.1</version>
+						<executions>
+							<execution>
+								<id>jmeter-tests</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>jmeter</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<testFilesIncluded>
+								<jMeterTestFile>${jMeterTestFile}</jMeterTestFile>
+							</testFilesIncluded>
+							<reportDir>${project.build.directory}/jmeter-reports</reportDir>
+
+							<jmeterUserProperties>
+								<reportDir>${project.build.directory}/jmeter-reports</reportDir>
+								<service-context>${service-context}</service-context>
+								<user-name>${user-name}</user-name>
+								<user-pwd>${user-pwd}</user-pwd>
+								<community-id>${community-id}</community-id>
+								<login-machine-name>${login-machine-name}</login-machine-name>
+								<servername>${MapRequestsConcurrentUsers}</servername>
+							</jmeterUserProperties>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.codehaus.mojo</groupId>
+						<artifactId>xml-maven-plugin</artifactId>
+						<version>1.0-beta-3</version>
+						<executions>
+							<execution>
+								<phase>verify</phase>
+								<goals>
+									<goal>transform</goal>
+								</goals>
+							</execution>
+						</executions>
+						<configuration>
+							<transformationSets>
+								<transformationSet>
+									<dir>${project.build.directory}/jmeter-reports</dir>
+									<stylesheet>extras/jmeter-results-detail-report_21.xsl</stylesheet>
+									<outputDir>${project.build.directory}/site/jmeter-results</outputDir>
+									<fileMappers>
+										<fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
+											<targetExtension>html</targetExtension>
+										</fileMapper>
+									</fileMappers>
+								</transformationSet>
+							</transformationSets>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
 		</profile>
+
 	</profiles>
 	
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>com.lazerycode.jmeter</groupId>
-				<artifactId>jmeter-maven-plugin</artifactId>
-				<version>1.8.1</version>
-				<executions>
-					<execution>
-						<id>jmeter-tests</id>
-						<phase>verify</phase>
-						<goals>
-							<goal>jmeter</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<testFilesIncluded>
-						<jMeterTestFile>${jMeterTestFile}</jMeterTestFile>
-					</testFilesIncluded>
-					<reportDir>${project.build.directory}/jmeter-reports</reportDir>
-					
-					<jmeterUserProperties>
-						<reportDir>${project.build.directory}/jmeter-reports</reportDir>
-						<service-context>${service-context}</service-context>
-						<user-name>${user-name}</user-name>
-						<user-pwd>${user-pwd}</user-pwd>
-						<community-id>${community-id}</community-id>
-						<login-machine-name>${login-machine-name}</login-machine-name>
-						<servername>${MapRequestsConcurrentUsers}</servername>
-					</jmeterUserProperties>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>xml-maven-plugin</artifactId>
-				<version>1.0-beta-3</version>
-				<executions>
-					<execution>
-						<phase>verify</phase>
-						<goals>
-							<goal>transform</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
-					<transformationSets>
-						<transformationSet>
-							<dir>${project.build.directory}/jmeter-reports</dir>
-							<stylesheet>extras/jmeter-results-detail-report_21.xsl</stylesheet>
-							<outputDir>${project.build.directory}/site/jmeter-results</outputDir>
-							<fileMappers>
-								<fileMapper implementation="org.codehaus.plexus.components.io.filemappers.FileExtensionMapper">
-									<targetExtension>html</targetExtension>
-								</fileMapper>
-							</fileMappers>
-						</transformationSet>
-					</transformationSets>
-				</configuration>
-			</plugin>
-		</plugins>
-	</build>
 </project>
