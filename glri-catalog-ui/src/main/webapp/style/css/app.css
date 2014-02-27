@@ -4,6 +4,10 @@
 	background-image: url(../image/black_banner.png);
 }
 
+ul#ccsa-area {
+	list-style: none; padding: .3em 0 0 0; margin: 0;
+}
+
 th a {
   color: #000 !important;
 }

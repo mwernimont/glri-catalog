@@ -45,7 +45,7 @@
         <title>Science Base Sample Query Page</title>
     </head>
     <body>
-<jsp:include page="template/USGSHeader.jsp">
+<jsp:include page="template/header.jsp">
 	<jsp:param name="relPath" value="" />
 	<jsp:param name="header-class" value="" />
 	<jsp:param name="site-title" value="Great Lakes Restoration Initiative (GLRI) Catalog" />
