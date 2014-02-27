@@ -30,7 +30,7 @@
                         </span>
                     </span><!-- vcard -->
                 </p>
-                <p id="footer-url-info">URL: ${param["site-url"]}</p>
+                <p id="footer-url-info">URL: <script type="text/javascript">document.write(document.location.href);</script></p>
                 <p id="footer-contact-info">Page Contact Information: ${param["contact-info"]}</p>
                 <p id="footer-page-modified-info">Page Last modified: ${param["revisedDate"]} (version ${param["buildVersion"]})</p>
             </div><!-- /page-info -->
