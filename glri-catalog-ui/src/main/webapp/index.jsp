@@ -12,12 +12,12 @@
 	<jsp:param name="shortName" value="${project.name}" />
 	<jsp:param name="title" value="Great Lakes Restoration Initiative (GLRI) Catalog" />
 	<jsp:param name="description" value="An application that allows the user to search for GLRI Projects, Datasets and Publications.  Actual data and metadata are kept in ScienceBase (sciencebase.gov)" />
-	<jsp:param name="author" value="Great Lakes Restoration Initiative (GLRI)" />
+	<jsp:param name="author" value="Great Lakes Restoration Initiative (GLRI), GLRI" />
 	<jsp:param name="keywords" value="Great Lakes Restoration Initiative, GLRI, ScienceBase" />
 	<jsp:param name="publisher" value="" />
-	<jsp:param name="revisedDate" value="${timestamp} (${project.version})" />
+	<jsp:param name="revisedDate" value="${timestamp}" />
 	<jsp:param name="nextReview" value="" />
-	<jsp:param name="expires" value="" />
+	<jsp:param name="expires" value="Never" />
 </jsp:include>
 		
 		<!-- Tomcat 7 only -->
@@ -42,7 +42,7 @@
 		<!-- OpenLayers -->
 		<script type="text/javascript" src="js/lib/OpenLayers/OpenLayers.js"></script>
 		
-        <title>Science Base Sample Query Page</title>
+        <title>Great Lakes Restoration Initiative (GLRI) Catalog</title>
     </head>
     <body>
 <jsp:include page="template/header.jsp">
@@ -271,7 +271,7 @@
 	<jsp:param name="relPath" value="" />
 	<jsp:param name="header-class" value="" />
 	<jsp:param name="site-url" value="" />
-	<jsp:param name="contact-info" value="glri_help@usgs.gov" />
+	<jsp:param name="contact-info" value="<a href=\"mailto:glri_help@usgs.gov\">glri_help@usgs.gov</a>" />
 	<jsp:param name="revisedDate" value="${timestamp}" />
 	<jsp:param name="buildVersion" value="${project.version}" />
 </jsp:include>
