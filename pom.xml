@@ -58,9 +58,9 @@
     </properties>
 	
 	<scm>
-		<connection>scm:git:http://github.com/ee-usgs/GLRI-ScienceBase-Integration-Test.git</connection>
-		<developerConnection>scm:git:ssh://git@github.com/ee-usgs/GLRI-ScienceBase-Integration-Test.git</developerConnection>
-		<url>https://github.com/ee-usgs/GLRI-ScienceBase-Integration-Test.git</url>
+		<connection>scm:git:http://github.com/USGS-CIDA/glri-catalog.git</connection>
+		<developerConnection>scm:git:ssh://git@github.com/USGS-CIDA/glri-catalog.git</developerConnection>
+		<url>https://github.com/USGS-CIDA/glri-catalog.git</url>
 	</scm>
 	
 	<distributionManagement>
