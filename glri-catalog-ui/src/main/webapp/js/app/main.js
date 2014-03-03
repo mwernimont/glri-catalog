@@ -149,6 +149,21 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http) {
 		
 		return newRecords;
 	};
+	
+	$scope.hasVisibleResults = function() {
+		var results = $scope.getFilteredResults();
+		return (results != null && results.length > 0);
+	}
+	
+	$scope.getVisibleResultCount = function() {
+		var results = $scope.getFilteredResults();
+		if (results != null && results.length > 0) {
+			return results.length;
+		} else {
+			return 0;
+		}
+	}
+	
   
 });
 
