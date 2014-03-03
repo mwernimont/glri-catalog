@@ -53,8 +53,8 @@
 			<div class="row sub-title">
 				<div class="col-xs-12">
 					<div class="well well-sm clearfix">
-						<h5 class="pull-left">Discover USGS Science in the Great Lakes</h5>
-						<img src="style/image/GLRI_Logo.jpeg" alt="GLRI Logo" class="pull-right"/>
+						<h4 class="pull-left">Discover USGS Science in the Great Lakes</h4>
+						<img src="style/image/glri_logo.svg" alt="GLRI Logo" class="pull-right"/>
 					</div>
 				</div>
 			</div>
@@ -96,19 +96,6 @@
 													<input type="text" class="form-control" id="text_query" name="text_query" style="width: 98%;">
 												</div>
 											</div>     
-											<!--		                                             <div class="row">
-																							<div class="col-xs-4">
-																								<label class="filter_label pull-right">Resource Type</label>
-																							</div>
-																							<div class="col-xs-8">
-																								<select class="selectpicker pull-left" name="resource" id="resource_input" title="Any" data-width="98%">
-																									<option value="">Any</option>
-																									<option value="Data">Data</option>
-																									<option value="Publication">Publication</option>
-																									<option value="Project">Project</option>
-																								</select>
-																							</div>
-																						</div>-->
 											<div class="row">
 												<div class="col-xs-4">
 													<label class="filter_label pull-right">Location Type</label>
@@ -209,8 +196,8 @@
 							</div>
 						</div>
 						<div class="col-xs-6">
-							Sort by:
-							<select ng-model="orderProp">
+							<label class="filter_label pull-left">Sort by:&nbsp;</label>
+							<select ng-model="orderProp" class="selectpicker pull-left">
 								<option value="title">Title</option>
 								<option value="summary">Summary</option>
 							</select>
@@ -256,8 +243,8 @@
 							</div>
 						</div>
 						<div class="col-xs-6">
-							Sort by:
-							<select ng-model="orderProp">
+							<label class="filter_label pull-left">Sort by:&nbsp;</label>
+							<select ng-model="orderProp" class="selectpicker pull-left">
 								<option value="title">Title</option>
 								<option value="summary">Summary</option>
 							</select>
