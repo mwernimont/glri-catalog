@@ -177,6 +177,11 @@
 													<input class="btn btn-primary btn-sm" id="query-submit" type="submit" ng-click="doLoad($event)" value="Search"/>
 												</div>
 											</div>
+											<div class="row">
+												<div class="col-xs-12">
+													<img src="style/image/PoweredByScienceBase.png" alt="Science Base attribution icon" />
+												</div>
+											</div>
 										</div>
 									</div>
 								</div>
