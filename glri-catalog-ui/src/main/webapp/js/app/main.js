@@ -1,7 +1,5 @@
-/* 
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
+
+'use strict';
 
 var appState = {
 	dynamicTable : null,	//Ref to the Dynatable object
@@ -18,6 +16,10 @@ var appState = {
 	
 	updateRawResults : function(unfilteredJsonData) {
 		this.rawResult = unfilteredJsonData;
+		
+		//Add some aggregation and calc'ed values
+		processGlriResults(this.rawResult.items);
+		
 		this.updateFacetCount(unfilteredJsonData.searchFacets[0].entries);
 	},
 	
@@ -42,11 +44,7 @@ var appState = {
 	updateResourceFilter : function(newResourceType) {
 		this.resourceType = newResourceType;
 		
-		if (this.dynamicTable != null) {
-			//need to update the table
-			
-			tableDataReady(this.rawResult);
-		}
+		GLRICatalogApp.controller.doLocalLoad(this.getFilteredResults());
 		
 	},
 	
@@ -75,30 +73,49 @@ var appState = {
 	
 };
 
+
+
+
+/* Controllers */
+
+var GLRICatalogApp = angular.module('GLRICatalogApp', []);
+
+GLRICatalogApp.controller('CatalogCtrl', function($scope, $http) {
+
+  $scope.orderProp = 'title';
+  
+  $scope.doLoad = function(event) {
+	  
+//	alert("will load: " + buildDataUrl());
+	  
+	event.preventDefault();
+	event.stopPropagation();
+	$http.get(buildDataUrl()).success(function(data) {
+		appState.updateRawResults(data);
+		data = appState.getFilteredResults();
+		$scope.doLocalLoad(data.items);
+	});
+  };
+  
+  $scope.doLocalLoad = function(recordsArray) {
+	  $scope.records = recordsArray;
+  };
+  
+  
+});
+
+
 $(document).ready(function(){
     // Sets up click behavior on all button elements with the alert class
     // that exist in the DOM when the instruction was executed
-	$.dynatableSetup({
-		features: {
-		  paginate: false,
-		  sort: true,
-		  pushState: true,
-		  search: false,
-		  recordCount: false,
-		  perPageSelect: false
-		},
-		params: {
-			records: "_root"
-		}
-	});
 	
     $("#loc_type_input").on( "change", function(event) {updateLocationList(event)});
 	
-    $("#query-submit").on( "click", function(event) {
-		event.preventDefault();
-		event.stopPropagation();
-		updateTable();
-    });
+//    $("#query-submit").on( "click", function(event) {
+//		event.preventDefault();
+//		event.stopPropagation();
+//		updateTable();
+//    });
 	
 	/* Kick off the fancy selects */
 	$('.selectpicker').selectpicker();
@@ -114,43 +131,39 @@ $(document).ready(function(){
 });
 
 
-
-function updateTable() {
-	var url = buildDataUrl();
-	console.log( "Submitting the AJAX Request as: " + url);
+function processGlriResults(resultRecordsArray) {
+	var records = resultRecordsArray;
 	
-	$("table.hidden").show();
-	
-	$.ajax({
-		dataType: "json",
-		url: url,
-		success: tableDataReady
-	});
-
-	
-}
-
-
-
-var tableDataReady = function(data) {
-	
-	appState.updateRawResults(data);
-	data = appState.getFilteredResults();
-	
-	
-	
-	var records = data.items;
-	
-	for (i=0; i<data.items.length; i++) {
-		var item = data.items[i];
+	for (var i=0; i<records.length; i++) {
+		var item = records[i];
 		var link = item['link']['url'];
 		item['url'] = link;
 		
 		var resource = item['browseCategories'][0];
+		if (resource != null) {
+			resource = resource.toLowerCase();
+		} else {
+			resource = "unknown";
+		}
 		item['resource'] = resource;
 		
+		switch (resource) {
+			case "project":
+				item['project_url'] = "http://google.com";
+				break;
+			case "publication":
+				item['publication_url'] = "http://google.com";
+				break;
+			case "data":
+				item['data_download_url'] = "http://google.com";
+				break;
+			default:
+				
+				
+		}
+		
 		var contacts = item['contacts'];
-		for (j=0; j<contacts.length; j++) {
+		for (var j=0; j<contacts.length; j++) {
 			var contact = contacts[j];
 			var type = contact['contactType'];
 			
@@ -171,90 +184,8 @@ var tableDataReady = function(data) {
 			
 		}
 	}
-	
-	if (appState.dynamicTable == null) {
-		$("#query-results-table").dynatable({
-			dataset: {
-				records: records
-			},
-			writers: {
-				_cellWriter: writeCell
-			}
-		});
-		
-		appState.dynamicTable = $("#query-results-table").data('dynatable');
-	} else {
-		appState.dynamicTable.processingIndicator.show();
-		appState.dynamicTable.records.updateFromJson(records);
-		appState.dynamicTable.dom.update();
-		appState.dynamicTable.processingIndicator.hide();
-
-	}
-	
-};
-
-function writeCell(column, record) {
-    var html = glriAttributeWriter(column, record);
-    var td = '<td';
-
-    if (column.hidden || column.textAlign) {
-      td += ' style="';
-
-      // keep cells for hidden column headers hidden
-      if (column.hidden) {
-        td += 'display: none;';
-      }
-
-      // keep cells aligned as their column headers are aligned
-      if (column.textAlign) {
-        td += 'text-align: ' + column.textAlign + ';';
-      }
-
-      td += '"';
-    }
-	
-    html = td + '>' + html + '</td>';
-	
-	return html;
- };
+}
  
- function glriAttributeWriter(column, record) {
-
-	var text;
-	var id = column['id'];
-	var val = record[id];
-	
-	if (id == "url") {
-		text = "<a href=\"" + val + "\" target=\"_blank\">link</a>";
-	} else if (id == "title") {
-		
-		var type = record['resource'];
-		
-		
-		text = "<a class=\"resource-type\" title=\"" + type + ": Click to go directly to this record in ScienceBase\" href=\"" + record["url"] + "\" target=\"_blank\">";
-		
-		text += "<img src=\"style/image/";
-		
-		if ("Data" == type) {
-			text += "data.svg";
-		} else if ("Project" == type) {
-			text += "project.svg";
-		} else if ("Publication" == type) {
-			text += "publication.svg";
-		} else {
-			text += "unknown_type.svg";
-		}
-		
-		text += "\"/>";
-		
-		text += "</a>";
-		
-		text += "<h5>" + val + "</h5>";
-	} else {
-		text = record[id];
-	}
-    return text;
- };
 
 function buildDataUrl() {
 	var url = $("#sb-query-form").attr("action");
@@ -302,7 +233,7 @@ function initSelectMap() {
 	map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.MousePosition());
 
-	boxControl = new OpenLayers.Control.DrawFeature(boxLayer,
+	var boxControl = new OpenLayers.Control.DrawFeature(boxLayer,
 			OpenLayers.Handler.RegularPolygon, {
 				handlerOptions: {
 					sides: 4,
@@ -367,4 +298,3 @@ function initSelectMap() {
 	});
 	
 }
-

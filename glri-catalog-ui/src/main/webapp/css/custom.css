@@ -1,0 +1,91 @@
+#header #banner-area {
+	background-image: url(../style/image/black_banner.png);
+}
+
+ul#ccsa-area {
+	list-style: none; padding: .3em 0 0 0; margin: 0;
+}
+
+th a {
+  color: #000 !important;
+}
+th a:hover {
+  color: #000 !important;
+}
+
+.hidden { display: none; }
+
+.glri_content {
+	/*              top     | right 	| bottom	| left */
+     padding:       0;
+}
+
+.boundingBoxButton {
+    width: 50px;
+    height: 50px;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    border: 1px solid #000;
+    background-color: #aaa;
+}
+
+.filter_label {
+        margin-top: 8px;
+        font-size: 12px;
+}
+
+.boundingMap {
+        width: 328px;
+	    height: 200px;
+	    border: 1px solid #ccc;
+}
+
+.boundsGroup {
+        /*              top     | right | bottom  | left */
+        padding:        6px        14px     0px     0px !important;
+
+}
+
+.boundsValue {
+        font-size: 10px !important;
+        padding: 0px 3px 0px 5px !important;
+        text-align: left;
+}
+
+.adjustDropDown {
+        margin-top: 10px;
+}
+
+ul.result-records {
+	list-style: none; margin: 0; padding: 0;
+}
+
+ul.result-records li {
+	display: block; margin: 1em 0 1em 0; padding: .4em; background-color: #fff;
+	
+	/* Drop shadow */
+	-moz-box-shadow: 2px 2px 5px #666;
+	-webkit-box-shadow: 2px 2px 5px #666;
+	box-shadow: 2px 2px 5px #666;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#666666')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#666666');
+}
+
+ul.result-records .resource-icon {
+	display: block; float: left; margin: -.2em .2em .2em -.2em;
+}
+ul.result-records .resource-icon img { width: 50px; height: 50px; margin: 0; }
+
+ul.result-records .related-links {
+	display: block; float: right; width: 16em; padding: .2em; margin: 1em 0 .5em 1em;
+	
+	/* Drop shadow */
+	-moz-box-shadow: 1px 1px 4px #666;
+	-webkit-box-shadow: 1px 1px 4px #666;
+	box-shadow: 1px 1px 4px #666;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#666666')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#666666');
+}
+
+
