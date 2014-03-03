@@ -90,4 +90,5 @@ ul.result-records .related-links {
 	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#666666');
 }
 
+#resource_input img {width: 1.8em; height: 1.8em; margin-top: -3px; /* Makes up for button padding */ }
 
