@@ -178,7 +178,10 @@
 												<div id="resource_input" class="btn-group-vertical col-xs-7" data-toggle="buttons">
 													<label class="btn btn-default {{facet.initState}}"
 														ng-repeat="facet in FACET_DEFS"
-														ng-click="filterChange(facet.name)"><input name="resource" value="{{facet.name}}" type="radio"></input>{{facet.name}} <span class="badge pull-right"></span></label>
+														ng-click="filterChange(facet.name)">
+														<img ng-src="style/image/blue/{{facet.name | lowercase}}.svg" ng-if="! (facet.isAny)" class="pull-left"/>
+														<input name="resource" value="{{facet.name}}" type="radio"></input>{{facet.name}} <span class="badge pull-right"></span>
+													</label>
 												</div>
 											</div>
 											<div class="row">
