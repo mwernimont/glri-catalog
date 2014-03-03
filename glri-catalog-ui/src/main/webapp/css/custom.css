@@ -10,6 +10,8 @@ ul#ccsa-area {
 
 .sub-title img {width: 200px; height: 66px; }
 
+#sb-query-form .submit-button { margin-top: 10px; }
+
 th a {
   color: #000 !important;
 }
