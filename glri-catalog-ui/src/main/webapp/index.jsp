@@ -69,7 +69,7 @@
 											<div id="map" class="boundingMap"></div>
 										</div>
 									</div>
-									<div class="row" style="margin-bottom: 20px;">
+									<div class="row">
 										<div class="col-xs-5">
 											<div class="row">
 												<div class="col-xs-12">
@@ -172,9 +172,9 @@
 												</div>
 											</div>
 											<div class="row">
-												<div class="col-xs-12">
+												<div class="col-xs-8 col-xs-offset-2 submit-button">
 													<input type="hidden" id="format_input" name="format" value="json">
-													<input class="btn btn-primary btn-sm" id="query-submit" type="submit" ng-click="doLoad($event)" value="Search"/>
+													<input class="btn btn-primary btn-block" id="query-submit" type="submit" ng-click="doLoad($event)" value="Search"/>
 												</div>
 											</div>
 											<div class="row">
