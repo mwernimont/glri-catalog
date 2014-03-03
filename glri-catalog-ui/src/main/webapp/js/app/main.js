@@ -1,99 +1,31 @@
-
 'use strict';
 
-var appState = {
-	dynamicTable : null,	//Ref to the Dynatable object
-	resourceType : null,	//user selected resource type to filter by
-	rawResult : null,		//JS object constructed from JSON returned from query service request
-	
-	//A list of facets that we always look for.
-	//Possibly in the future we could check for the existance of others add
-	//add them to the current list.
-	PERMANENT_RESOURCE_FACET_NAMES : ["Data", "Publication", "Project"],
-	RESOURCE_TYPE_ANY : "Any",
-	
-	currentFacets : {},
-	
-	updateRawResults : function(unfilteredJsonData) {
-		this.rawResult = unfilteredJsonData;
-		
-		//Add some aggregation and calc'ed values
-		processGlriResults(this.rawResult.items);
-		
-		this.updateFacetCount(unfilteredJsonData.searchFacets[0].entries);
-	},
-	
-	updateFacetCount : function(facetJsonObject) {
-
-		//reset all facets to zero
-		for (var i in this.PERMANENT_RESOURCE_FACET_NAMES) {
-			var term = this.PERMANENT_RESOURCE_FACET_NAMES[i];
-			this.currentFacets[term] = count;
-			$('#resource_input .btn input[value=' + term + '] + span').html(0);
-		}
-		
-		for (var i in facetJsonObject) {
-			var term = facetJsonObject[i].term;
-			var count = facetJsonObject[i].count;
-
-			this.currentFacets[term] = count;
-			$('#resource_input .btn input[value=' + term + '] + span').html(count);
-		};
-	},
-			
-	updateResourceFilter : function(newResourceType) {
-		this.resourceType = newResourceType;
-		
-		GLRICatalogApp.controller.doLocalLoad(this.getFilteredResults());
-		
-	},
-	
-	getFilteredResults : function() {
-		if (this.resourceType != null && this.resourceType.length > 0 && this.rawResult != null) {
-			
-			if (this.resourceType == this.RESOURCE_TYPE_ANY) {
-				return this.rawResult;
-			} else {
-				var data = new Object();
-				data.items = new Array();
-
-				for (var i in this.rawResult.items) {
-					var item = this.rawResult.items[i];
-					if (item.browseCategories[0] == this.resourceType) {
-						data.items.push(item);
-					}
-				}
-
-				return data;
-			}
-		} else {
-			return this.rawResult;
-		}
-	}
-	
-};
-
-
-
-
 /* Controllers */
-
 var GLRICatalogApp = angular.module('GLRICatalogApp', []);
 
 GLRICatalogApp.controller('CatalogCtrl', function($scope, $http) {
 
+	$scope.FACET_DEFS = [
+		{name: "Any", initState: "active", isAny: true},
+		{name: "Data", initState: ""},
+		{name: "Publication", initState: ""},
+		{name: "Project", initState: ""}
+	];
+	$scope.RESOURCE_TYPE_ANY = "Any";
+	
   $scope.orderProp = 'title';
+  $scope.resourceFilter = 'Any';	//user selected resource type to filter by
+  $scope.rawResult = null;		//JS object constructed from JSON returned from query service request
+  $scope.resultItems = null;	//just the items array in the raw results
+  $scope.currentFacets = {};	//counts of the facets
   
   $scope.doLoad = function(event) {
-	  
-//	alert("will load: " + buildDataUrl());
 	  
 	event.preventDefault();
 	event.stopPropagation();
 	$http.get(buildDataUrl()).success(function(data) {
-		appState.updateRawResults(data);
-		data = appState.getFilteredResults();
-		$scope.doLocalLoad(data.items);
+		$scope.updateRawResults(data);
+		$scope.doLocalLoad($scope.getFilteredResults());
 	});
   };
   
@@ -101,6 +33,122 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http) {
 	  $scope.records = recordsArray;
   };
   
+  $scope.filterChange = function(newFilterValue) {
+	  $scope.resourceFilter = newFilterValue;
+	  $scope.doLocalLoad($scope.getFilteredResults());
+  };
+  
+  $scope.updateRawResults = function(unfilteredJsonData) {
+		$scope.rawResult = unfilteredJsonData;
+		
+		//Add some aggregation and calc'ed values
+		$scope.resultItems = $scope.processGlriResults(unfilteredJsonData.items);
+		
+		$scope.updateFacetCount($scope.rawResult.searchFacets[0].entries);
+	};
+	
+	$scope.updateFacetCount = function(facetJsonObject) {
+
+		//reset all facets to zero
+		for (var i in $scope.FACET_DEFS) {
+			var facet = $scope.FACET_DEFS[i];
+			
+			if (! (facet.isAny == true)) {
+				$scope.currentFacets[term] = count;
+				$('#resource_input .btn input[value=' + facet.name + '] + span').html("0");
+			}
+		}
+		
+		for (var i in facetJsonObject) {
+			var term = facetJsonObject[i].term;
+			var count = facetJsonObject[i].count;
+
+			$scope.currentFacets[term] = count;
+			$('#resource_input .btn input[value=' + term + '] + span').html(count);
+		};
+	};
+	
+	$scope.getFilteredResults = function() {
+		if ($scope.resourceFilter != null && $scope.resultItems != null) {
+			
+			if ($scope.resourceFilter == $scope.RESOURCE_TYPE_ANY) {
+				return $scope.resultItems;
+			} else {
+				var data = new Array();
+
+				for (var i in $scope.resultItems) {
+					var item = $scope.resultItems[i];
+					if (item.browseCategories[0] == $scope.resourceFilter) {
+						data.push(item);
+					}
+				}
+
+				return data;
+			}
+		} else {
+			return $scope.resultItems;
+		}
+	};
+	
+	$scope.processGlriResults = function(resultRecordsArray) {
+		var records = resultRecordsArray;
+		var newRecords = [];
+
+		for (var i=0; i<records.length; i++) {
+			var item = records[i];
+			var link = item['link']['url'];
+			item['url'] = link;
+
+			var resource = item['browseCategories'][0];
+			if (resource != null) {
+				resource = resource.toLowerCase();
+			} else {
+				resource = "unknown";
+			}
+			item['resource'] = resource;
+
+			switch (resource) {
+				case "project":
+					item['project_url'] = "http://google.com";
+					break;
+				case "publication":
+					item['publication_url'] = "http://google.com";
+					break;
+				case "data":
+					item['data_download_url'] = "http://google.com";
+					break;
+				default:
+
+
+			}
+
+			var contacts = item['contacts'];
+			for (var j=0; j<contacts.length; j++) {
+				var contact = contacts[j];
+				var type = contact['contactType'];
+
+				if (type == null) type = contact['type'];
+
+				if ("Point of Contact" == type) {
+					item['contact'] = contact['name'] + " (Point of Contact)";
+					break;
+				} else if ("Author" == type) {
+					item['contact'] = contact['name'] + " (Author)";
+					break;
+				} else if ("Project Chief" == type) {
+					item['contact'] = contact['name'] + " (Project Chief)";
+					break;
+				} else {
+					item['contact'] = "???"
+				}
+
+			}
+			
+			newRecords.push(item);
+		}
+		
+		return newRecords;
+	};
   
 });
 
@@ -111,81 +159,12 @@ $(document).ready(function(){
 	
     $("#loc_type_input").on( "change", function(event) {updateLocationList(event)});
 	
-//    $("#query-submit").on( "click", function(event) {
-//		event.preventDefault();
-//		event.stopPropagation();
-//		updateTable();
-//    });
-	
 	/* Kick off the fancy selects */
 	$('.selectpicker').selectpicker();
-	
-	/* Init Resource type picker */
-	$('#resource_input .btn').click(function(event) {
-		//appState.resourceType = event.target.children[0].value;
-		
-		appState.updateResourceFilter(event.target.children[0].value);
-	});
 	
 	initSelectMap();
 });
 
-
-function processGlriResults(resultRecordsArray) {
-	var records = resultRecordsArray;
-	
-	for (var i=0; i<records.length; i++) {
-		var item = records[i];
-		var link = item['link']['url'];
-		item['url'] = link;
-		
-		var resource = item['browseCategories'][0];
-		if (resource != null) {
-			resource = resource.toLowerCase();
-		} else {
-			resource = "unknown";
-		}
-		item['resource'] = resource;
-		
-		switch (resource) {
-			case "project":
-				item['project_url'] = "http://google.com";
-				break;
-			case "publication":
-				item['publication_url'] = "http://google.com";
-				break;
-			case "data":
-				item['data_download_url'] = "http://google.com";
-				break;
-			default:
-				
-				
-		}
-		
-		var contacts = item['contacts'];
-		for (var j=0; j<contacts.length; j++) {
-			var contact = contacts[j];
-			var type = contact['contactType'];
-			
-			if (type == null) type = contact['type'];
-			
-			if ("Point of Contact" == type) {
-				item['contact'] = contact['name'] + " (Point of Contact)";
-				break;
-			} else if ("Author" == type) {
-				item['contact'] = contact['name'] + " (Author)";
-				break;
-			} else if ("Project Chief" == type) {
-				item['contact'] = contact['name'] + " (Project Chief)";
-				break;
-			} else {
-				item['contact'] = "???"
-			}
-			
-		}
-	}
-}
- 
 
 function buildDataUrl() {
 	var url = $("#sb-query-form").attr("action");

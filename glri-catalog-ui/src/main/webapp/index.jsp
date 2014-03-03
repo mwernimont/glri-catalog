@@ -46,14 +46,15 @@
 					<jsp:include page="template/header.jsp">
 						<jsp:param name="relPath" value="" />
 						<jsp:param name="header-class" value="" />
-						<jsp:param name="site-title" value="Great Lakes Restoration Initiative (GLRI) Catalog" />
+						<jsp:param name="site-title" value="Great Lakes Restoration Initiative Science Explorer" />
 					</jsp:include>
 				</div>
 			</div>
-			<div class="row">
+			<div class="row sub-title">
 				<div class="col-xs-12">
-					<div class="well well-sm">
-						<h1 style="margin-top: 10px;">GLRI Catalog Query Application</h1>
+					<div class="well well-sm clearfix">
+						<h5 class="pull-left">Discover USGS Science in the Great Lakes</h5>
+						<img src="style/image/GLRI_Logo.jpeg" alt="GLRI Logo" class="pull-right"/>
 					</div>
 				</div>
 			</div>
@@ -173,19 +174,11 @@
 												<div class="col-xs-4">
 													<label class="filter_label pull-right">Resource Type</label>
 												</div>
+												
 												<div id="resource_input" class="btn-group-vertical col-xs-7" data-toggle="buttons">
-													<label class="btn btn-default active">
-														<input type="radio" name="resource" value="Any"/>Any <span class="badge pull-right"></span>
-													</label>
-													<label class="btn btn-default">
-														<input type="radio" name="resource" value="Data"/>Data <span class="badge pull-right"></span>
-													</label>
-													<label class="btn btn-default">
-														<input type="radio" name="resource" value="Publication"/>Publication <span class="badge pull-right"></span>
-													</label>
-													<label class="btn btn-default">
-														<input type="radio" name="resource" value="Project"/>Project <span class="badge pull-right"></span>
-													</label>
+													<label class="btn btn-default {{facet.initState}}"
+														ng-repeat="facet in FACET_DEFS"
+														ng-click="filterChange(facet.name)"><input name="resource" value="{{facet.name}}" type="radio"></input>{{facet.name}} <span class="badge pull-right"></span></label>
 												</div>
 											</div>
 											<div class="row">
