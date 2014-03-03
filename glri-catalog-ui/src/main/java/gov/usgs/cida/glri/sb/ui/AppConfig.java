@@ -20,6 +20,14 @@ public class AppConfig {
 	public static final String SCIENCEBASE_HOST = KEY_BASE_PREFIX + "SCIENCEBASE_HOST";
 	public static final String SCIENCEBASE_GLRI_COMMUNITY_ID = KEY_BASE_PREFIX + "SCIENCEBASE_GLRI_COMMUNITY_ID";
 	
+	/**
+	 * If set to true, the application uses a local json file for all responses, rather than
+	 * attempting to contact ScienceBase.  This is handy when doing development b/c
+	 * the beta.sciencebase.gov server is only visable inside the usgs, requiring
+	 * VPN.  No filtering is done - the same file is returned each time.
+	 */
+	public static final String SCIENCEBASE_GLRI_LOCAL_DEV_MODE = KEY_BASE_PREFIX + "SCIENCEBASE_GLRI_LOCAL_DEV_MODE";
+	
 	private static AppConfig appConfig;
 	private DynamicReadOnlyProperties props;
 	

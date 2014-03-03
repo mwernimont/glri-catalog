@@ -4,7 +4,10 @@
  */
 package gov.usgs.cida.glri.sb.ui;
 
+import com.google.common.io.CharStreams;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,13 +46,27 @@ public class ScienceBaseService extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		
+		
+		
 		PrintWriter out = response.getWriter();
 		
-		
+		if ("true".equalsIgnoreCase(AppConfig.get(AppConfig.SCIENCEBASE_GLRI_LOCAL_DEV_MODE))) {
+			//just return our static json file - we are running in dev mode and
+			//probably can't reach the sb server anyways.
+
+			InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("/gov/usgs/cida/glri/sb/ui/canned_data.json");
+			String stringFromStream = CharStreams.toString(new InputStreamReader(inputStream, "UTF-8"));
+			response.setContentType("application/json; charset=UTF-8");
+			out.write(stringFromStream);
+			return;
+		}
+
+		ScienceBaseQuery query = new ScienceBaseQuery();
 		Map<String, String[]> reqMap = request.getParameterMap();
 		reqMap = addProjectConstantParams(reqMap);
 		
-		ScienceBaseQuery query = new ScienceBaseQuery();
+		
 		
 		try {
 			
