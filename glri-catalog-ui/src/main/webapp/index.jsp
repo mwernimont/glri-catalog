@@ -195,9 +195,17 @@
 					</form>
 				</div>
 				<div class="col-xs-12 col-sm-8">
-					<div class="row">
-						<div class="col-xs-12">
-
+					<div class="well well-sm row">
+						<div class="col-xs-6">
+							
+							<div ng-if="hasVisibleResults()" class="result-count top">
+								<h4>{{getVisibleResultCount()}} Record(s) found</h4>
+							</div>
+							<div ng-if="! hasVisibleResults()" class="result-count top">
+								<h4>No results match your filter</h4>
+							</div>
+						</div>
+						<div class="col-xs-6">
 							Sort by:
 							<select ng-model="orderProp">
 								<option value="title">Title</option>
@@ -235,6 +243,21 @@
 								</li>
 							</ul>
 
+						</div>
+					</div>
+					<div class="well well-sm row" ng-if="hasVisibleResults()">
+						<div class="col-xs-6">
+							
+							<div class="result-count top">
+								<h4>{{getVisibleResultCount()}} Record(s) found</h4>
+							</div>
+						</div>
+						<div class="col-xs-6">
+							Sort by:
+							<select ng-model="orderProp">
+								<option value="title">Title</option>
+								<option value="summary">Summary</option>
+							</select>
 						</div>
 					</div>
 				</div>				
