@@ -1,13 +1,13 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.usgs.cida.glri.sb.ui;
 
 import org.apache.commons.lang3.StringUtils;
 
 /**
- *
+ * GLRI parameters that are treated a full parameters on the GLRI site, but
+ * are actually 'tags' on the ScienceBase site.
+ * 
+ * URL parameter construction is a bit odd - see where this enum is actually used
+ * to see it.
  * @author eeverman
  */
 public enum GLRIParam {
@@ -23,36 +23,36 @@ public enum GLRIParam {
 	//Same for all grli tags
 	private static final String glriSchema = "https://www.sciencebase.gov/vocab/GLRI";
 	
-	private final String shortName;
-	private final String fullNameLocal;
+	private final String localName;
+	private final String remoteNameFrag;
 	
-	GLRIParam(String shortNameLocal, String fullNameLocal) {
-		this.shortName = shortNameLocal;
-		this.fullNameLocal = fullNameLocal;
+	GLRIParam(String localName, String remoteNameFrag) {
+		this.localName = localName;
+		this.remoteNameFrag = remoteNameFrag;
 	}
 	
-	public String getFullName() {
-		return glriSchema + "/" + fullNameLocal;
+	public String getRemoteName() {
+		return glriSchema + "/" + remoteNameFrag;
 	}
 	
-	public String getShortName() {
-		return shortName;
+	public String getLocalName() {
+		return localName;
 	}
 	
 	/**
 	 * Finds a tag for a given shortName or null if it cannot be found.
 	 * 
-	 * @param shortName Case Insensitive
+	 * @param localName Case Insensitive
 	 * @return 
 	 */
-	public GLRIParam getForShortName(String shortName) {
-		shortName = StringUtils.trimToNull(shortName);
-		if (shortName == null) return null;
-		shortName = shortName.toLowerCase();
+	public GLRIParam getForLocalName(String localName) {
+		localName = StringUtils.trimToNull(localName);
+		if (localName == null) return null;
+		localName = localName.toLowerCase();
 		
 		
 		for (GLRIParam tag : GLRIParam.values()) {
-			if (tag.shortName.equals(shortName)) return tag;
+			if (tag.localName.equals(localName)) return tag;
 		}
 		
 		return null;
