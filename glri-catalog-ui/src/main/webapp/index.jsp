@@ -219,7 +219,7 @@
 										</a>
 									</div>
 									<h4>{{record.title}}</h4>
-									<p class="point-of-contact">{{record.contact}}</p>
+									<p class="point-of-contact">{{record.contactText}}</p>
 									<div class="related-links">
 										<div ng-if="record.project_url">
 											<a href="{{record.project_url}}">Project Home Page</a>
