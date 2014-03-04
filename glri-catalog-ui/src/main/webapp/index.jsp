@@ -188,23 +188,26 @@
 					</form>
 				</div>
 				<div class="col-xs-12 col-sm-8">
-					<div class="well well-sm row">
-						<div class="col-xs-6">
-							
-							<div ng-if="hasVisibleResults()" class="result-count top">
-								<h4>{{getVisibleResultCount()}} Record(s) found</h4>
-							</div>
-							<div ng-if="! hasVisibleResults()" class="result-count top">
-								<h4>No results match your filter</h4>
-							</div>
-						</div>
-						<div class="col-xs-6">
-							<label class="filter_label pull-left">Sort by:&nbsp;</label>
-							<select ng-model="orderProp" class="selectpicker pull-left">
-								<option value="title">Title</option>
-								<option value="summary">Summary</option>
-							</select>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="well well-sm clearfix">
+								<div class="pull-left">
 
+									<div ng-if="hasVisibleResults()" class="result-count top">
+										<h4>{{getVisibleResultCount()}} Record(s) found</h4>
+									</div>
+									<div ng-if="! hasVisibleResults()" class="result-count top">
+										<h4>No results match your filter</h4>
+									</div>
+								</div>
+								<div class="pull-right">
+									<label class="filter_label pull-left">Sort by:&nbsp;</label>
+									<select ng-model="orderProp" class="selectpicker pull-left">
+										<option value="title">Title</option>
+										<option value="summary">Summary</option>
+									</select>
+								</div>
+							</div>
 						</div>
 					</div>
 					<div class="row">
@@ -238,19 +241,22 @@
 
 						</div>
 					</div>
-					<div class="well well-sm row" ng-if="hasVisibleResults()">
-						<div class="col-xs-6">
-							
-							<div class="result-count top">
-								<h4>{{getVisibleResultCount()}} Record(s) found</h4>
+					<div class="row" ng-if="hasVisibleResults()">
+						<div class="col-xs-12">
+							<div class="well well-sm clearfix">
+								<div class="pull-left">
+									<div class="result-count top">
+										<h4>{{getVisibleResultCount()}} Record(s) found</h4>
+									</div>
+								</div>
+								<div class="pull-right">
+									<label class="filter_label pull-left">Sort by:&nbsp;</label>
+									<select ng-model="orderProp" class="selectpicker pull-left">
+										<option value="title">Title</option>
+										<option value="summary">Summary</option>
+									</select>
+								</div>
 							</div>
-						</div>
-						<div class="col-xs-6">
-							<label class="filter_label pull-left">Sort by:&nbsp;</label>
-							<select ng-model="orderProp" class="selectpicker pull-left">
-								<option value="title">Title</option>
-								<option value="summary">Summary</option>
-							</select>
 						</div>
 					</div>
 				</div>				
