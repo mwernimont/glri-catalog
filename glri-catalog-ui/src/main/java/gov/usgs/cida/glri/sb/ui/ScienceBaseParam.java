@@ -13,15 +13,30 @@ import static gov.usgs.cida.glri.sb.ui.ParamType.*;
  */
 public enum ScienceBaseParam {
 	
-	TEXT_QUERY("text_query", "q", INCLUDE_IF_PRESENT), /** Basic ad-hoc text search */
-	FORMAT("format", "format", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE, "json"), /** Format of results to come back */
+	/** Basic ad-hoc text search */
+	TEXT_QUERY("text_query", "q", INCLUDE_IF_PRESENT),
+	/** Format of results to come back */
+	FORMAT("format", "format", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE, "json"),
+	/** Determines which fields are included in the SB response */
 	FIELDS("fields", "fields", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE,
-			"title,summary,spatial,distributionLinks,browseCategories,contacts"), /** Fields returned from ScienceBase */
-	MAX_RECORDS("max", "max", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE, "1000"), /** Max number of records to return */
-	CATEGORIES("resource", "", INCLUDE_IF_PRESENT),	/** browseCategory filter is a weird one.  Its format is: &filter=browseCategory=<CATEGORY> */
-	SPATIAL("spatial", "searchExtent", INCLUDE_IF_PRESENT), /** bounding box filter is std lower left to upper right */
-	FACETS("search_facets", "facets", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE, "browseCategory"), /** specify data results to be faceted in results for drill-down */
-	SERVICE("service", "s", INCLUDE_ALWAYS_WITH_DEFAULT_VALUE_ONLY, "Search"); /** I think this indicates that the service is 'search' */
+			"title,summary,spatial,distributionLinks,browseCategories,contacts"),
+	/** Max number of records to return */
+	MAX_RECORDS("max", "max", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE, "1000"),
+	/** browseCategory filter is a weird one.  Its format is: &filter=browseCategory=<CATEGORY> */
+	CATEGORIES("resource", "", INCLUDE_IF_PRESENT),
+	/** bounding box filter is std lower left to upper right */
+	SPATIAL("spatial", "searchExtent", INCLUDE_IF_PRESENT),
+	/** specify data results to be faceted in results for drill-down */
+	FACETS("search_facets", "facets", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE, "browseCategory"),
+	/** I think this indicates that the service is 'search' */
+	SERVICE("service", "s", INCLUDE_ALWAYS_WITH_DEFAULT_VALUE_ONLY, "Search"),
+	/**
+	 * Specifies the ID of the community to search within.  
+	 * This is specified as a key lookup so that it can be configured on the
+	 * server the app runs on.  The prod server will talk to the prod SB,
+	 * which has a different community ID for GLRI than the SB beta server.
+	 */
+	COMMUNITY_ID("parentId", "parentId", INCLUDE_ALWAYS_WITH_CONFIGURED_VALUE_ONLY, AppConfig.SCIENCEBASE_GLRI_COMMUNITY_ID);
 	
 	private final String localName;
 	private final String remoteName;
