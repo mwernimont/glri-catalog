@@ -125,28 +125,35 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http) {
 
 			}
 
+			//build contactText
 			var contacts = item['contacts'];
+			var contactText = "";	//combined contact text
+			
 			for (var j = 0; j < contacts.length; j++) {
-				var contact = contacts[j];
-				var type = contact['contactType'];
+				
+				if (j < 3) {
+					var contact = contacts[j];
+					var name = contact['name'];
+					var type = contact['type'];
 
-				if (type == null)
-					type = contact['type'];
+					if (type == null) type = "??";
+					if (type == 'Principle Investigator') type = "PI";
 
-				if ("Point of Contact" == type) {
-					item['contact'] = contact['name'] + " (Point of Contact)";
-					break;
-				} else if ("Author" == type) {
-					item['contact'] = contact['name'] + " (Author)";
-					break;
-				} else if ("Project Chief" == type) {
-					item['contact'] = contact['name'] + " (Project Chief)";
-					break;
+					contactText+= name + " (" + type + "), ";
+				} else if (j == 3) {
+					contactText+= "and others.  "
 				} else {
-					item['contact'] = "???"
+					break;
 				}
-
 			}
+			
+			if (contactText.length > 0) {
+				contactText = contactText.substr(0, contactText.length - 2);	//rm trailing ', '
+			} else {
+				contactText = "[No contact information listed]";
+			}
+			
+			item['contactText'] = contactText;
 
 			newRecords.push(item);
 		}
