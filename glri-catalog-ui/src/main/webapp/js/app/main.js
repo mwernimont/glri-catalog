@@ -214,16 +214,22 @@ function initSelectMap() {
 	var lon = -85.47;
 	var lat = 45.35;
 	var zoom = 5.25;
-	var map, wmsLayer, boxLayer;
+	var map, worldStreet, worldGray, openlayersBase, boxLayer;
 	
 	map = new OpenLayers.Map('map');
 
-	wmsLayer = new OpenLayers.Layer.WMS( "OpenLayers WMS",
+	worldStreet = new OpenLayers.Layer.ArcGIS93Rest( "World Street Map",
+		"http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/export", 
+		{layers: "show:0"});
+	worldGray = new OpenLayers.Layer.ArcGIS93Rest( "World Light Gray Base",
+		"http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/export", 
+		{layers: "show:0"});
+	openlayersBase = new OpenLayers.Layer.WMS( "OpenLayers Base",
 		"http://vmap0.tiles.osgeo.org/wms/vmap0?", {layers: 'basic'});
 
 	boxLayer = new OpenLayers.Layer.Vector("Box layer");
 
-	map.addLayers([wmsLayer, boxLayer]);
+	map.addLayers([worldStreet, worldGray, openlayersBase, boxLayer]);
 	map.addControl(new OpenLayers.Control.LayerSwitcher());
 	map.addControl(new OpenLayers.Control.MousePosition());
 
