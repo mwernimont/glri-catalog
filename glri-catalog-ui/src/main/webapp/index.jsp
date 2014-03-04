@@ -158,7 +158,7 @@
 													<label class="filter_label pull-right">Resource Type</label>
 												</div>
 												
-												<div id="resource_input" class="btn-group-vertical col-xs-7" data-toggle="buttons">
+												<div id="resource_input" class="btn-group-vertical col-xs-8" data-toggle="buttons">
 													<label class="btn btn-default {{facet.initState}}"
 														ng-repeat="facet in FACET_DEFS"
 														ng-click="filterChange(facet.name)">
