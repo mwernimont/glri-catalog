@@ -70,20 +70,16 @@
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-xs-5">
-											<div class="row">
-												<div class="col-xs-12">
-													<div class="checkbox">
-														<label>
-															<input type="checkbox" name="drawBox" id="drawBox" value="box"> Draw Bounds
-														</label>
-													</div>
-												</div>
-												<div class="col-xs-12">
-													<button id="clearMapButton" type="button" class="btn btn-default btn-xs" style="margin-left: 6px;">Clear Map Filter</button>						
-													<input type="hidden" id="spatial" name="spatial" value="">
-												</div>
+										<div class="col-xs-6">
+											<div class="checkbox">
+												<label>
+													<input type="checkbox" name="drawBox" id="drawBox" value="box"> Draw Bounds
+												</label>
 											</div>
+										</div>
+										<div class="col-xs-6">
+											<button id="clearMapButton" type="button" class="btn btn-default btn-xs" style="margin-left: 6px;">Clear Map Filter</button>						
+											<input type="hidden" id="spatial" name="spatial" value="">
 										</div>
 									</div>
 									<div class="row">
