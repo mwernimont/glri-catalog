@@ -97,7 +97,7 @@
 													<label class="filter_label pull-right">Location Type</label>
 												</div>
 												<div class="col-xs-8">
-													<select class="selectpicker pull-left" id="loc_type_input" name="loc_type" title="Any" data-width="98%">
+													<select class="selectpicker pull-left" id="loc_type_input" name="loc_type" title="Any" data-width="98%" ng-model="locationType" ng-change="updateLocationList()">
 														<option value="">Any</option>
 														<option value="Lake">Lake</option>
 														<option value="Watershed">Watershed</option>
