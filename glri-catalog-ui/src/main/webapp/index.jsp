@@ -175,7 +175,9 @@
 											</div>
 											<div class="row">
 												<div class="col-xs-12">
-													<img src="style/image/PoweredByScienceBase.png" alt="Science Base attribution icon" />
+													<a href="https://www.sciencebase.gov/catalog/" target="_blank" title="ScienceBase, a repository of projects, data and metadata">
+														<img src="style/image/PoweredByScienceBase.png" alt="Science Base attribution icon" />
+													</a>
 												</div>
 											</div>
 										</div>
