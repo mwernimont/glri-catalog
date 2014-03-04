@@ -58,6 +58,14 @@ public class ScienceBaseQueryTest {
 	}
 
 
+	@Test
+	public void testTest() {
+		String glriCommunityId = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_ID);
+		
+		//Ensure we have an ID assigned for the tests
+		assertTrue(glriCommunityId != null && glriCommunityId.length() > 0);
+	}
+	
 	/**
 	 * Test of findEncoding method, of class ScienceBaseQuery.
 	 */
@@ -102,14 +110,14 @@ public class ScienceBaseQueryTest {
 		query.appendStandardParams(requestParams, uriBuild);
 		
 		List<NameValuePair> params = uriBuild.getQueryParams();
-		
-		
+
 		assertEquals("Search", findNVPVal(params, "s"));
 		assertEquals("1000", findNVPVal(params, "max"));
 		assertEquals("title,summary,spatial,distributionLinks,browseCategories,contacts", findNVPVal(params, "fields"));
 		assertEquals("json", findNVPVal(params, "format"));
 		assertEquals("browseCategory", findNVPVal(params, "facets"));
-		assertEquals(5, params.size());
+		assertEquals(AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_ID), findNVPVal(params, "parentId"));
+		assertEquals(6, params.size());
 	}
 	
 	@Test
@@ -129,7 +137,8 @@ public class ScienceBaseQueryTest {
 		assertEquals("json", findNVPVal(params, "format"));
 		assertEquals("browseCategory", findNVPVal(params, "facets"));
 		assertEquals("browseCategory=MyType", findNVPVal(params, "filter"));
-		assertEquals(6, params.size());
+		assertEquals(AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_ID), findNVPVal(params, "parentId"));
+		assertEquals(7, params.size());
 	}
 	
 	/**

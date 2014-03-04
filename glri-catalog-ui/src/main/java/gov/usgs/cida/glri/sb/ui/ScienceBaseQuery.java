@@ -1,13 +1,8 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.usgs.cida.glri.sb.ui;
 
 import com.google.common.io.CharStreams;
 import java.io.InputStreamReader;
 import java.util.Map;
-import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
@@ -16,11 +11,10 @@ import org.apache.http.client.utils.URIBuilder;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
 
 /**
- *
+ * Builds a query to ScienceBase w/ mappings between local parameters and SB
+ * parameters.
  * @author eeverman
  */
 public class ScienceBaseQuery {
@@ -39,7 +33,6 @@ public class ScienceBaseQuery {
 		uriBuild.setScheme("https");
 		uriBuild.setHost(AppConfig.get(AppConfig.SCIENCEBASE_HOST));
 		uriBuild.setPath("/catalog/items");
-		appendGlriOnlyParam(requestParams, uriBuild);
 		appendGlriParams(requestParams, uriBuild);
 		appendStandardParams(requestParams, uriBuild);
 		appendSpatialParams(requestParams, uriBuild);
@@ -115,24 +108,13 @@ public class ScienceBaseQuery {
 		}
 	}
 	
-	protected void appendGlriOnlyParam(Map<String, String[]> requestParams, URIBuilder uriBuild) {
-		
-		String[] vals = requestParams.get(GLRIOnlyParam.GLRI_PROJECT_ONLY.getShortName());
-		if (vals != null && vals.length > 0) {
-			String val = StringUtils.trimToNull(vals[0]);
-			if (val != null && ("true".equalsIgnoreCase(val) || "yes".equalsIgnoreCase(val))) {
-				uriBuild.addParameter(GLRIOnlyParam.GLRI_PROJECT_ONLY.getFullName(), AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_ID));
-			}	
-		}
-	}
-	
 	protected void appendGlriParams(Map<String, String[]> requestParams, URIBuilder uriBuild) {
 		for (GLRIParam tag : GLRIParam.values()) {
-			String[] vals = requestParams.get(tag.getShortName());
+			String[] vals = requestParams.get(tag.getLocalName());
 			if (vals != null && vals.length > 0) {
 				String val = StringUtils.trimToNull(vals[0]);
 				if (val != null) {
-					uriBuild.addParameter("filter", "tags={scheme:'" + tag.getFullName() + "',name:'" + val + "'}");
+					uriBuild.addParameter("filter", "tags={scheme:'" + tag.getRemoteName() + "',name:'" + val + "'}");
 				}	
 			}
 		}
@@ -168,8 +150,15 @@ public class ScienceBaseQuery {
 					uriBuild.addParameter(tag.getRemoteName(), tag.getDefaultValue());
 				}
 			} else {
+				
+				String defaultVal = tag.getDefaultValue();
+				
+				if (tag.getType().isLookupDefault()) {
+					//This default is a key to lookup the value in the app config
+					defaultVal = AppConfig.get(defaultVal);
+				}
 				//Client values not allowed - force in our default value
-				uriBuild.addParameter(tag.getRemoteName(), tag.getDefaultValue());
+				uriBuild.addParameter(tag.getRemoteName(), defaultVal);
 			}
 		}
 			
