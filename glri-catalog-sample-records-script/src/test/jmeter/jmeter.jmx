@@ -59,7 +59,7 @@
           </elementProp>
           <elementProp name="user-pwd" elementType="Argument">
             <stringProp name="Argument.name">user-pwd</stringProp>
-            <stringProp name="Argument.value">${__P(user-pwd,P@ssw0rd1234)}</stringProp>
+            <stringProp name="Argument.value">${__P(user-pwd,)}</stringProp>
             <stringProp name="Argument.desc">valid DOI AD password.  Req&apos;ed for adding or deleting records.</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -1146,7 +1146,7 @@
       </ThreadGroup>
       <hashTree>
         <ResultCollector guiclass="ViewResultsFullVisualizer" testclass="ResultCollector" testname="View Results Tree" enabled="true">
-          <boolProp name="ResultCollector.error_logging">true</boolProp>
+          <boolProp name="ResultCollector.error_logging">false</boolProp>
           <objProp>
             <name>saveConfig</name>
             <value class="SampleSaveConfiguration">
