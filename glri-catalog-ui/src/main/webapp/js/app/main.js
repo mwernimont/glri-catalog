@@ -11,6 +11,11 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http) {
 		{name: "Publication", initState: ""},
 		{name: "Project", initState: ""}
 	];
+	
+	$scope.SORT_OPTIONS = [
+		{key: "title", display: "Title"},
+		{key: "contactText", display: "Author / PI / Creator"}
+	];
 	$scope.RESOURCE_TYPE_ANY = "Any";
 
 	$scope.orderProp = 'title';
@@ -39,6 +44,13 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http) {
 		$scope.resourceFilter = newFilterValue;
 		$scope.doLocalLoad($scope.getFilteredResults());
 	};
+	
+	$scope.sortChange = function() {
+		//Sadly, the selectpicker and the angularjs lib don't work well together
+		//so we need this manual sync here.
+		$('.sort-options .selectpicker').selectpicker('val', $scope.orderProp);
+		$('.sort-options .selectpicker').selectpicker('refresh');
+	}
 
 	$scope.updateRawResults = function(unfilteredJsonData) {
 		$scope.rawResult = unfilteredJsonData;
