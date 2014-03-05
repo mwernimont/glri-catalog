@@ -53,13 +53,13 @@
           </elementProp>
           <elementProp name="user-name" elementType="Argument">
             <stringProp name="Argument.name">user-name</stringProp>
-            <stringProp name="Argument.value">${__P(user-name,PROVIDE_USER_NAME)}</stringProp>
+            <stringProp name="Argument.value">${__P(user-name,)}</stringProp>
             <stringProp name="Argument.desc">valid DOI AD complete user name, eg: bthompson@usgs.gov  Req&apos;ed for adding or deleting records.</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
           <elementProp name="user-pwd" elementType="Argument">
             <stringProp name="Argument.name">user-pwd</stringProp>
-            <stringProp name="Argument.value">${__P(user-pwd,PROVIDE_PASSWORD)}</stringProp>
+            <stringProp name="Argument.value">${__P(user-pwd,)}</stringProp>
             <stringProp name="Argument.desc">valid DOI AD password.  Req&apos;ed for adding or deleting records.</stringProp>
             <stringProp name="Argument.metadata">=</stringProp>
           </elementProp>
@@ -2042,7 +2042,7 @@
    },&#xd;
    &quot;contacts&quot;:[&#xd;
       {&#xd;
-         &quot;name&quot;:&quot;${apcName}&quot;,&#xd;
+         &quot;name&quot;:&quot;${piName}&quot;,&#xd;
          &quot;type&quot;:&quot;Principle Investigator&quot;,&#xd;
          &quot;email&quot;:&quot;pi_email@usgs.gov&quot;,&#xd;
          &quot;organization&quot;:{&#xd;
@@ -2062,7 +2062,7 @@
          }&#xd;
       },&#xd;
       {&#xd;
-         &quot;name&quot;:&quot;${piName}&quot;,&#xd;
+         &quot;name&quot;:&quot;${apcName}&quot;,&#xd;
          &quot;type&quot;:&quot;Associate Project Chief&quot;,&#xd;
          &quot;email&quot;:&quot;apc_email@usgs.gov&quot;,&#xd;
          &quot;organization&quot;:{&#xd;

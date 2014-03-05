@@ -16,7 +16,7 @@
    },
    "contacts":[
       {
-         "name":"${apcName}",
+         "name":"${piName}",
          "type":"Principle Investigator",
          "email":"pi_email@usgs.gov",
          "organization":{
@@ -36,7 +36,7 @@
          }
       },
       {
-         "name":"${piName}",
+         "name":"${apcName}",
          "type":"Associate Project Chief",
          "email":"apc_email@usgs.gov",
          "organization":{
