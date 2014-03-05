@@ -200,11 +200,10 @@
 										<h4>No results match your filter</h4>
 									</div>
 								</div>
-								<div class="pull-right">
+								<div class="pull-right sort-options">
 									<label class="filter_label pull-left">Sort by:&nbsp;</label>
-									<select ng-model="orderProp" class="selectpicker pull-left">
-										<option value="title">Title</option>
-										<option value="summary">Summary</option>
+									<select ng-model="orderProp" ng-change="sortChange()" class="selectpicker pull-left">
+										<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}">{{sortOption.display}}</option>
 									</select>
 								</div>
 							</div>
@@ -241,7 +240,7 @@
 
 						</div>
 					</div>
-					<div class="row" ng-hide="! hasVisibleResults()">
+					<div class="row" ng-show="hasVisibleResults()">
 						<div class="col-xs-12">
 							<div class="well well-sm clearfix">
 								<div class="pull-left">
@@ -249,11 +248,10 @@
 										<h4>{{getVisibleResultCount()}} Record(s) found</h4>
 									</div>
 								</div>
-								<div class="pull-right">
+								<div class="pull-right sort-options">
 									<label class="filter_label pull-left">Sort by:&nbsp;</label>
-									<select ng-model="orderProp" class="selectpicker pull-left">
-										<option value="title">Title</option>
-										<option value="summary">Summary</option>
+									<select ng-model="orderProp" ng-change="sortChange()" class="selectpicker pull-left">
+										<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}">{{sortOption.display}}</option>
 									</select>
 								</div>
 							</div>
