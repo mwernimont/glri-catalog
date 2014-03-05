@@ -241,7 +241,7 @@
 
 						</div>
 					</div>
-					<div class="row" ng-if="hasVisibleResults()">
+					<div class="row" ng-hide="! hasVisibleResults()">
 						<div class="col-xs-12">
 							<div class="well well-sm clearfix">
 								<div class="pull-left">
