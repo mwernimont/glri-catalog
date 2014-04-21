@@ -21,10 +21,32 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http) {
 	$scope.orderProp = 'title';
 	$scope.resourceFilter = 'Any';	//user selected resource type to filter by
 	$scope.locationType = '';
-	$scope.rawResult = null;		//JS object constructed from JSON returned from query service request
-	$scope.resultItems = null;	//just the items array in the raw results
+	
 	$scope.currentFacets = {};	//counts of the facets
+	
+	$scope.rawResult = null;	//array of all the returned items, UNprocessed
+	$scope.resultItems = null;	//array of all the returned items, processed to include display properties
+	$scope.filteredRecords = null;		//Current records, filtered based on facets.
 
+	//Pagination
+	$scope.currentPage = 0;
+	$scope.pageSize = 5;
+	$scope.pagedRecords = [];
+	
+	
+	$scope.numberOfPages = function() {
+		if ($scope.filteredRecords) {
+			return Math.ceil($scope.filteredRecords.length/$scope.pageSize);
+		} else {
+			return 0;
+		}
+    }
+	$scope.hasPreviousPage = function() {
+		return $scope.currentPage > 0;
+	}
+	$scope.hasNextPage = function() {
+		return ($scope.currentPage + 1) < $scope.numberOfPages();
+	}
 
 	$scope.doLoad = function(event) {
 
@@ -34,11 +56,45 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http) {
 			$scope.updateRawResults(data);
 			$scope.doLocalLoad($scope.getFilteredResults());
 		});
+		$scope.$apply();
 	};
 
 	$scope.doLocalLoad = function(recordsArray) {
-		$scope.records = recordsArray;
+		$scope.filteredRecords = recordsArray;
+		$scope.currentPage = 0;
+		$scope.updatePagedRecords();
 	};
+	
+	$scope.gotoNextPage = function() {
+		if ($scope.hasNextPage()) {
+			$scope.currentPage++;
+			$scope.updatePagedRecords();
+			$scope.$apply();
+		}
+	}
+	
+	$scope.gotoPreviousPage = function() {
+		if ($scope.currentPage > 0) {
+			$scope.currentPage--;
+			$scope.updatePagedRecords();
+			$scope.$apply();
+		}
+	}
+	
+	$scope.updatePagedRecords = function() {
+		var startRecordIdx = $scope.currentPage * $scope.pageSize;
+		var endRecordIdx = startRecordIdx + $scope.pageSize;
+		
+		if (endRecordIdx > $scope.filteredRecords.length) endRecordIdx = $scope.filteredRecords.length;
+		
+		$scope.pagedRecords = new Array();
+		var destIdx = 0;
+		for (var srcIdx = startRecordIdx; srcIdx < endRecordIdx; srcIdx++) {
+			$scope.pagedRecords[destIdx] = $scope.filteredRecords[srcIdx];
+			destIdx++;
+		}
+		
+	}
 
 	$scope.filterChange = function(newFilterValue) {
 		$scope.resourceFilter = newFilterValue;
