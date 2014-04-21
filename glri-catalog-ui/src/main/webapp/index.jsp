@@ -193,8 +193,13 @@
 							<div class="well well-sm clearfix">
 								<div class="pull-left">
 
-									<div ng-if="hasVisibleResults()" class="result-count top">
-										<h4>{{getVisibleResultCount()}} Record(s) found</h4>
+									<div ng-if="filteredRecords.length > 0" class="result-count top">
+										<h4>{{filteredRecords.length}} Record(s) found</h4>
+										<p>
+											<a href="" ng-if="hasPreviousPage()" ng-click="gotoPreviousPage()">Previous</a>
+											<a href="" ng-if="hasNextPage()" ng-click="gotoNextPage()">Next</a>
+											
+										</p>
 									</div>
 									<div ng-if="! hasVisibleResults()" class="result-count top">
 										<h4>No results match your filter</h4>
@@ -214,7 +219,7 @@
 							<!--Body content-->
 
 							<ul class="result-records">
-								<li ng-repeat="record in records | orderBy:orderProp" class="{{record.resource}}">
+								<li ng-repeat="record in pagedRecords | orderBy:orderProp" class="{{record.resource}}">
 									<div class="resource-icon">
 										<a title="{{record.resource}}: Click to go directly to this record in ScienceBase" href="{{record.url}}" target="_blank">
 											<img ng-src="style/image/blue/{{record.resource}}.svg" />
