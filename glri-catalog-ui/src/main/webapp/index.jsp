@@ -20,7 +20,7 @@
 		<script type="text/javascript" src="webjars/jquery/2.1.0/jquery.js"></script>
 		<script type="text/javascript" src="webjars/bootstrap/3.1.1/js/bootstrap.js"></script>
 		<script type="text/javascript" src="webjars/bootstrap-select/1.4.2/bootstrap-select.js"></script>
-		<script type="text/javascript" src="webjars/angularjs/1.2.13/angular.min.js"></script>
+		<script type="text/javascript" src="webjars/angularjs/1.2.16/angular.js"></script>
 
 		<script src="js/app/main.js"></script>
 
@@ -170,7 +170,7 @@
 											<div class="row">
 												<div class="col-xs-8 col-xs-offset-2 submit-button">
 													<input type="hidden" id="format_input" name="format" value="json">
-													<input class="btn btn-primary btn-block" id="query-submit" type="submit" ng-click="doLoad($event)" value="Search"/>
+													<input class="btn btn-primary btn-block" id="query-submit" type="submit" ng-click="doRemoteLoad($event)" value="Search"/>
 												</div>
 											</div>
 											<div class="row">
@@ -190,26 +190,43 @@
 				<div class="col-xs-12 col-sm-8">
 					<div class="row">
 						<div class="col-xs-12">
-							<div class="well well-sm clearfix">
-								<div class="pull-left">
-
-									<div ng-if="filteredRecords.length > 0" class="result-count top">
-										<h4>{{filteredRecords.length}} Record(s) found</h4>
-										<p>
-											<a href="" ng-if="hasPreviousPage()" ng-click="gotoPreviousPage()">Previous</a>
-											<a href="" ng-if="hasNextPage()" ng-click="gotoNextPage()">Next</a>
-											
-										</p>
+							<div class="well well-sm clearfix result-header">
+								<div class=""row>
+									<div class="col-xs-6 col-sm-12 col-md-6 record-display-status">
+										<div ng-if="filteredRecords.length > 0" class="result-header">
+											<h4>{{filteredRecords.length}} results, showing {{pageCurrentFirstRecordIndex + 1}} - {{pageCurrentLastRecordIndex + 1}}</h4>
+										</div>
+										<div ng-if="(!filteredRecords) || filteredRecords.length < 1" class="result-header">
+											<h4>No results match your filter</h4>
+										</div>
 									</div>
-									<div ng-if="! hasVisibleResults()" class="result-count top">
-										<h4>No results match your filter</h4>
+									<div class="col-xs-6 col-sm-12 col-md-6 sort-options form-horizontal">
+										<div class="form-group pull-right">
+											<label class="filter_label">Sort by:&nbsp;</label>
+											<select ng-model="orderProp" ng-change="sortChange()" data-width="auto">
+												<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}">{{sortOption.display}}</option>
+											</select>
+										</div>
 									</div>
 								</div>
-								<div class="pull-right sort-options">
-									<label class="filter_label pull-left">Sort by:&nbsp;</label>
-									<select ng-model="orderProp" ng-change="sortChange()" class="selectpicker pull-left">
-										<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}">{{sortOption.display}}</option>
-									</select>
+								<div class=""row ng-if="filteredRecords.length > 0">
+									<div class="col-xs-6 col-sm-12 col-md-6 page-nav">
+										<p>
+											<a href="" class="previous" ng-class="pageHasPrevious?'has-previous':'has-no-previous'" ng-click="gotoPreviousPage()">&lt; Previous</a>
+											<span class="selectable-list" ng-class="($index == pageCurrent)?'selected':''" ng-repeat="page in pageList">
+												<span class="item current page-number" ng-if="$index == pageCurrent" >{{$index + 1}}</span>
+												<a href="" class="item non-current selectable-list page-number" ng-if="$index != pageCurrent" ng-click="gotoPage($index)">{{$index + 1}}</a>
+											</span>
+											<a href="" class="next" ng-class="pageHasNext?'has-next':'has-no-next'" ng-click="gotoNextPage()">Next &gt;</a>
+										</p>
+									</div>
+									<div class="col-xs-6 col-sm-12 col-md-6 page-nav-settings text-right">
+										<span class="selectable-list">
+											<span>Show</span>
+											<a href="" class="item" ng-repeat="ps in pageRecordsPerPageOptions" ng-class="(pageSize==ps)?'current':'non-current'" ng-click="setPageSize(ps)">{{ps}}</a>
+											<span>results per page</span>
+										</span>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -219,7 +236,7 @@
 							<!--Body content-->
 
 							<ul class="result-records">
-								<li ng-repeat="record in pagedRecords | orderBy:orderProp" class="{{record.resource}}">
+								<li ng-repeat="record in pageRecords" class="{{record.resource}}">
 									<div class="resource-icon">
 										<a title="{{record.resource}}: Click to go directly to this record in ScienceBase" href="{{record.url}}" target="_blank">
 											<img ng-src="style/image/blue/{{record.resource}}.svg" />
@@ -245,19 +262,42 @@
 
 						</div>
 					</div>
-					<div class="row" ng-show="hasVisibleResults()">
+					<div class="row" ng-show="filteredRecords.length > 2">
 						<div class="col-xs-12">
-							<div class="well well-sm clearfix">
-								<div class="pull-left">
-									<div class="result-count top">
-										<h4>{{getVisibleResultCount()}} Record(s) found</h4>
+							<div class="well well-sm clearfix result-footer">
+								<div class=""row>
+									<div class="col-xs-6 col-sm-12 col-md-6 record-display-status">
+										<div>
+											<h4>{{filteredRecords.length}} results, showing {{pageCurrentFirstRecordIndex + 1}} - {{pageCurrentLastRecordIndex + 1}}</h4>
+										</div>
+									</div>
+									<div class="col-xs-6 col-sm-12 col-md-6 sort-options form-horizontal">
+										<div class="form-group pull-right">
+											<label class="filter_label">Sort by:&nbsp;</label>
+											<select ng-model="orderProp" ng-change="sortChange()" data-width="auto">
+												<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}">{{sortOption.display}}</option>
+											</select>
+										</div>
 									</div>
 								</div>
-								<div class="pull-right sort-options">
-									<label class="filter_label pull-left">Sort by:&nbsp;</label>
-									<select ng-model="orderProp" ng-change="sortChange()" class="selectpicker pull-left">
-										<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}">{{sortOption.display}}</option>
-									</select>
+								<div class=""row>
+									<div class="col-xs-6 col-sm-12 col-md-6 page-nav">
+										<p>
+											<a href="" class="previous" ng-class="pageHasPrevious?'has-previous':'has-no-previous'" ng-click="gotoPreviousPage()">&lt; Previous</a>
+											<span class="selectable-list" ng-class="($index == pageCurrent)?'selected':''" ng-repeat="page in pageList">
+												<span class="item current page-number" ng-if="$index == pageCurrent" >{{$index + 1}}</span>
+												<a href="" class="item non-current selectable-list page-number" ng-if="$index != pageCurrent" ng-click="gotoPage($index)">{{$index + 1}}</a>
+											</span>
+											<a href="" class="next" ng-class="pageHasNext?'has-next':'has-no-next'" ng-click="gotoNextPage()">Next &gt;</a>
+										</p>
+									</div>
+									<div class="col-xs-6 col-sm-12 col-md-6 page-nav-settings text-right" ng-if="filteredRecords.length > 0">
+										<span class="selectable-list">
+											<span>Show</span>
+											<a href="" class="item" ng-repeat="ps in pageRecordsPerPageOptions" ng-class="(pageSize==ps)?'current':'non-current'" ng-click="setPageSize(ps)">{{ps}}</a>
+											<span>results per page</span>
+										</span>
+									</div>
 								</div>
 							</div>
 						</div>
