@@ -3,7 +3,7 @@
 /* Controllers */
 var GLRICatalogApp = angular.module('GLRICatalogApp', []);
 
-GLRICatalogApp.controller('CatalogCtrl', function($scope, $http) {
+GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeout) {
 
 	$scope.FACET_DEFS = [
 		{name: "Any", initState: "active", isAny: true},
@@ -29,92 +29,157 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http) {
 	$scope.filteredRecords = null;		//Current records, filtered based on facets.
 
 	//Pagination
-	$scope.currentPage = 0;
-	$scope.pageSize = 5;
-	$scope.pagedRecords = [];
+	$scope.pageRecordsPerPageOptions = [10, 20, 50];
+	$scope.pageCurrent = 0;
+	$scope.pageCurrentFirstRecordIndex = 0; //Use to display 'showing records 10 - 20'
+	$scope.pageCurrentLastRecordIndex = 0;	//Use to display 'showing records 10 - 20'
+	$scope.pageSize = $scope.pageRecordsPerPageOptions[1];
+	$scope.pageCount;
+	$scope.pageList = [];	//array of numbers, 0 to pageCount - 1.  Used by ng-repeat
+	$scope.pageRecords = [];
+	$scope.pageHasNext = false;
+	$scope.pageHasPrevious = false;
 	
 	
-	$scope.numberOfPages = function() {
-		if ($scope.filteredRecords) {
-			return Math.ceil($scope.filteredRecords.length/$scope.pageSize);
-		} else {
-			return 0;
-		}
-    }
+	//Not used on UI
 	$scope.hasPreviousPage = function() {
-		return $scope.currentPage > 0;
-	}
+		return $scope.pageCurrent > 0;
+	};
+	
+	//Not used on UI
 	$scope.hasNextPage = function() {
-		return ($scope.currentPage + 1) < $scope.numberOfPages();
-	}
+		return ($scope.pageCurrent + 1) < $scope.pageCount;
+	};
 
-	$scope.doLoad = function(event) {
+	$scope.doRemoteLoad = function(event) {
 
 		event.preventDefault();
 		event.stopPropagation();
 		$http.get(buildDataUrl()).success(function(data) {
-			$scope.updateRawResults(data);
-			$scope.doLocalLoad($scope.getFilteredResults());
+			$scope.processRawScienceBaseResponse(data);
+			$scope.processRecords();
 		});
-		$scope.$apply();
-	};
-
-	$scope.doLocalLoad = function(recordsArray) {
-		$scope.filteredRecords = recordsArray;
-		$scope.currentPage = 0;
-		$scope.updatePagedRecords();
 	};
 	
-	$scope.gotoNextPage = function() {
-		if ($scope.hasNextPage()) {
-			$scope.currentPage++;
-			$scope.updatePagedRecords();
-			$scope.$apply();
-		}
-	}
-	
-	$scope.gotoPreviousPage = function() {
-		if ($scope.currentPage > 0) {
-			$scope.currentPage--;
-			$scope.updatePagedRecords();
-			$scope.$apply();
-		}
-	}
-	
-	$scope.updatePagedRecords = function() {
-		var startRecordIdx = $scope.currentPage * $scope.pageSize;
-		var endRecordIdx = startRecordIdx + $scope.pageSize;
-		
-		if (endRecordIdx > $scope.filteredRecords.length) endRecordIdx = $scope.filteredRecords.length;
-		
-		$scope.pagedRecords = new Array();
-		var destIdx = 0;
-		for (var srcIdx = startRecordIdx; srcIdx < endRecordIdx; srcIdx++) {
-			$scope.pagedRecords[destIdx] = $scope.filteredRecords[srcIdx];
-			destIdx++;
-		}
-		
-	}
-
-	$scope.filterChange = function(newFilterValue) {
-		$scope.resourceFilter = newFilterValue;
-		$scope.doLocalLoad($scope.getFilteredResults());
-	};
-	
-	$scope.sortChange = function() {
-		//Sadly, the selectpicker and the angularjs lib don't work well together
-		//so we need this manual sync here.
-		$('.sort-options .selectpicker').selectpicker('val', $scope.orderProp);
-		$('.sort-options .selectpicker').selectpicker('refresh');
-	}
-
-	$scope.updateRawResults = function(unfilteredJsonData) {
+	/**
+	 * Read response metadata and add extra properties to the records.
+	 * Results are saved as resultItems.
+	 * 
+	 * @param {type} unfilteredJsonData from ScienceBase
+	 */
+	$scope.processRawScienceBaseResponse = function(unfilteredJsonData) {
 		$scope.rawResult = unfilteredJsonData;
 
 		//Add some aggregation and calc'ed values
 		$scope.resultItems = $scope.processGlriResults(unfilteredJsonData.items);
 
 		$scope.updateFacetCount($scope.rawResult.searchFacets[0].entries);
+	};
+	
+	/**
+	 * Process records w/o stepping on any in-process UI updates.
+	 * @returns {undefined}
+	 */
+	$scope.processRecords = function() {
+		$timeout($scope._processRecords, 1, true);
+	};
+	
+	/**
+	 * Starting from resultItems:  Sort, fiter, reset current page and update paged records.
+	 */
+	$scope._processRecords = function() {
+		$scope.resultItems = $filter('orderBy')($scope.resultItems, $scope.orderProp);
+		$scope.filteredRecords = $scope.getFilteredResults();
+		$scope.pageCurrent = 0;
+		$scope.updatePageRecords();
+	};
+	
+	$scope.gotoNextPage = function() {
+		if ($scope.pageHasNext) {
+			$scope.pageCurrent++;
+			$scope.updatePageRecords();
+		}
+	};
+	
+	$scope.gotoPreviousPage = function() {
+		if ($scope.pageHasPrevious) {
+			$scope.pageCurrent--;
+			$scope.updatePageRecords();
+		}
+	};
+	
+	$scope.gotoPage = function(pageNumber) {
+		if (pageNumber > -1 && pageNumber < $scope.pageCount) {
+			$scope.pageCurrent = pageNumber;
+			$scope.updatePageRecords();
+		}
+	};
+	
+	$scope.setPageSize = function(size) {
+		$scope.pageSize = size;
+		$scope.updatePageRecords();
+	};
+	
+	$scope.calcPageCount = function() {
+		if ($scope.filteredRecords) {
+			return Math.ceil($scope.filteredRecords.length/$scope.pageSize);
+		} else {
+			return 0;
+		}
+    };
+	
+	$scope.updatePageRecords = function() {
+		$timeout($scope._updatePageRecords, 1, true);
+	};
+	
+	/**
+	 * Update the paged records
+	 */
+	$scope._updatePageRecords = function() {
+		var startRecordIdx = $scope.pageCurrent * $scope.pageSize;
+		var endRecordIdx = startRecordIdx + $scope.pageSize;
+		
+		if (endRecordIdx > $scope.filteredRecords.length) endRecordIdx = $scope.filteredRecords.length;
+		
+		var newPgRecs = new Array();
+		var destIdx = 0;
+		for (var srcIdx = startRecordIdx; srcIdx < endRecordIdx; srcIdx++) {
+			newPgRecs[destIdx] = $scope.filteredRecords[srcIdx];
+			destIdx++;
+		}
+		
+		
+		$scope.pageRecords = newPgRecs;
+		$scope.pageCount = $scope.calcPageCount();
+		$scope.pageHasNext = ($scope.pageCurrent + 1) < $scope.pageCount;
+		$scope.pageHasPrevious = $scope.pageCurrent > 0;
+		$scope.pageCurrentFirstRecordIndex = $scope.pageCurrent * $scope.pageSize;
+		
+		if (($scope.pageCurrent + 1) < $scope.pageCount) {
+			//any page but the last page
+			$scope.pageCurrentLastRecordIndex = $scope.pageCurrentFirstRecordIndex + $scope.pageSize - 1;
+		} else {
+			//last page 
+			$scope.pageCurrentLastRecordIndex = $scope.filteredRecords.length - 1;
+		}
+		
+		if ($scope.pageList.length != $scope.pageCount) {
+			var newPageList = new Array();
+			for (var i = 0; i < $scope.pageCount; i++) {
+				newPageList[i] = i;
+			}
+			$scope.pageList = newPageList;
+		}
+		
+	};
+
+	$scope.filterChange = function(newFilterValue) {
+		$scope.resourceFilter = newFilterValue;
+		$scope.processRecords();
+	};
+	
+	$scope.sortChange = function() {
+		$scope.processRecords();
 	};
 
 	$scope.updateFacetCount = function(facetJsonObject) {
@@ -227,20 +292,6 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http) {
 		}
 
 		return newRecords;
-	};
-
-	$scope.hasVisibleResults = function() {
-		var results = $scope.getFilteredResults();
-		return (results != null && results.length > 0);
-	};
-
-	$scope.getVisibleResultCount = function() {
-		var results = $scope.getFilteredResults();
-		if (results != null && results.length > 0) {
-			return results.length;
-		} else {
-			return 0;
-		}
 	};
 
 	$scope.updateLocationList = function() {
