@@ -26,6 +26,32 @@ th a:hover {
      padding:       0;
 }
 
+.result-header, .result-footer {
+	padding-top: .2em !important; padding-bottom: .2em !important;
+}
+
+.result-header .btn-group button, .result-footer .btn-group button{
+	padding: .2em;
+}
+
+.page-nav { font-weight: bold; }
+.page-nav a { text-decoration: none !important; }
+.page-nav .previous.has-previous {}
+.page-nav .previous.has-no-previous { color: #ccc; }
+.page-nav .next.has-next {}
+.page-nav .next.has-no-next { color: #ccc; }
+.selectable-list .item {
+	padding: .1em; text-align: center; border: .2em solid transparent; border-radius: .3em; text-decoration: none !important;
+}
+
+.selectable-list .current {
+	border-color: #333;
+}
+
+.selectable-list .non-current:hover {
+	border-color: #aaa;
+}
+
 .boundingBoxButton {
     width: 50px;
     height: 50px;
