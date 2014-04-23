@@ -113,7 +113,7 @@ public class ScienceBaseQueryTest {
 
 		assertEquals("Search", findNVPVal(params, "s"));
 		assertEquals("1000", findNVPVal(params, "max"));
-		assertEquals("title,summary,spatial,distributionLinks,browseCategories,contacts", findNVPVal(params, "fields"));
+		assertEquals("title,summary,spatial,distributionLinks,browseCategories,contacts,webLinks", findNVPVal(params, "fields"));
 		assertEquals("json", findNVPVal(params, "format"));
 		assertEquals("browseCategory", findNVPVal(params, "facets"));
 		assertEquals(AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_ID), findNVPVal(params, "parentId"));
@@ -133,7 +133,7 @@ public class ScienceBaseQueryTest {
 		
 		assertEquals("Search", findNVPVal(params, "s"));
 		assertEquals("1000", findNVPVal(params, "max"));
-		assertEquals("title,summary,spatial,distributionLinks,browseCategories,contacts", findNVPVal(params, "fields"));
+		assertEquals("title,summary,spatial,distributionLinks,browseCategories,contacts,webLinks", findNVPVal(params, "fields"));
 		assertEquals("json", findNVPVal(params, "format"));
 		assertEquals("browseCategory", findNVPVal(params, "facets"));
 		assertEquals("browseCategory=MyType", findNVPVal(params, "filter"));
