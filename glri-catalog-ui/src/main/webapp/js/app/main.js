@@ -39,17 +39,6 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	$scope.pageRecords = [];
 	$scope.pageHasNext = false;
 	$scope.pageHasPrevious = false;
-	
-	
-	//Not used on UI
-	$scope.hasPreviousPage = function() {
-		return $scope.pageCurrent > 0;
-	};
-	
-	//Not used on UI
-	$scope.hasNextPage = function() {
-		return ($scope.pageCurrent + 1) < $scope.pageCount;
-	};
 
 	$scope.doRemoteLoad = function(event) {
 
@@ -235,13 +224,13 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 			var link = item['link']['url'];
 			item['url'] = link;
 
-			var resource = item['browseCategories'][0];
-			if (resource != null) {
-				resource = resource.toLowerCase();
-			} else {
-				resource = "unknown";
+			var resource = resource = "unknown";
+			if (item['browseCategories'] && item['browseCategories'][0]) {
+				resource = item['browseCategories'][0].toLowerCase();
 			}
+			
 			item['resource'] = resource;
+			item['mainLink'] = $scope.findLink(item["webLinks"], ["home", "html"], true);
 
 			switch (resource) {
 				case "project":
@@ -254,29 +243,29 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 					item['data_download_url'] = "http://google.com";
 					break;
 				default:
-
-
 			}
 
 			//build contactText
 			var contacts = item['contacts'];
 			var contactText = "";	//combined contact text
 			
-			for (var j = 0; j < contacts.length; j++) {
-				
-				if (j < 3) {
-					var contact = contacts[j];
-					var name = contact['name'];
-					var type = contact['type'];
+			if (contacts) {
+				for (var j = 0; j < contacts.length; j++) {
 
-					if (type == null) type = "??";
-					if (type == 'Principle Investigator') type = "PI";
+					if (j < 3) {
+						var contact = contacts[j];
+						var name = contact['name'];
+						var type = contact['type'];
 
-					contactText+= name + " (" + type + "), ";
-				} else if (j == 3) {
-					contactText+= "and others.  "
-				} else {
-					break;
+						if (type == null) type = "??";
+						if (type == 'Principle Investigator') type = "PI";
+
+						contactText+= name + " (" + type + "), ";
+					} else if (j == 3) {
+						contactText+= "and others.  "
+					} else {
+						break;
+					}
 				}
 			}
 			
@@ -292,6 +281,73 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		}
 
 		return newRecords;
+	};
+	
+
+	/**
+	 * Finds a link from a list of ScienceBase webLinks based on a list
+	 * of search keys, which are searched for in order against the
+	 * 'rel' and 'title' fields of each link.
+	 * 
+	 * The GLRI project will mark the homepage link with 'rel' == 'home'.
+	 * The current Pubs are pushed into ScienceBase w/ 'title' == 'html'
+	 * for an (approximate) home page.
+	 * 
+	 * The return value is an associative array where the title can be used for dispaly:
+	 * {url, title}
+	 * 
+	 * If no matching link is found, null is returned.
+	 * 
+	 * @param {type} linkArray Array taken from ScienceBase search response webLinks.
+	 * @param {type} searchArray List of link 'rel' or 'titles' to search for, in order.
+	 * @param {type} defaultToFirst If nothing is found, return the first link if true.
+	 * @returns {url, title} or null
+	 */
+	$scope.findLink = function(linkArray, searchArray, defaultToFirst) {
+
+		if (linkArray && linkArray.length > 0) {
+
+			var retVal = {url: linkArray[0].uri, title: "Home Page"};
+
+			for (var searchIdx = 0; searchIdx < searchArray.length; searchIdx++) {
+				var searchlKey = searchArray[searchIdx];
+				for (var linkIdx = 0; linkIdx < linkArray.length; linkIdx++) {
+					if (linkArray[linkIdx].rel == searchlKey) {
+						retVal.url = linkArray[linkIdx].uri;
+						retVal.title = $scope.cleanTitle(linkArray[linkIdx].title, "Home Page");
+						return retVal;
+					} else if (linkArray[linkIdx].title == searchlKey) {
+						retVal.url = linkArray[linkIdx].uri;
+						retVal.title = $scope.cleanTitle(linkArray[linkIdx].title, "Home Page");
+						return retVal;
+					}
+				}
+			}
+
+			if (defaultToFirst) {
+				retVal.title = linkArray[0].title;
+				return retVal;
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	};
+	
+	/**
+	 * Replaces boilerplate link titles from ScienceBase w/ a default one if the proposed one is generic.
+	 * @param {type} proposedTitle
+	 * @param {type} defaultTitle
+	 * @returns The passed title or the default title.
+	 */
+	$scope.cleanTitle = function(proposedTitle, defaultTitle) {
+		var p = proposedTitle;
+		if (! (p) || p == "html" || p == "jpg" || p == "unspecified") {
+			return defaultTitle;
+		} else {
+			return p;
+		}
 	};
 
 	$scope.updateLocationList = function() {

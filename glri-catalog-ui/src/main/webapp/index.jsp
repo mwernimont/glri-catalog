@@ -245,14 +245,8 @@
 									<h4>{{record.title}}</h4>
 									<p class="point-of-contact">{{record.contactText}}</p>
 									<div class="related-links">
-										<div ng-if="record.project_url">
-											<a href="{{record.project_url}}">Project Home Page</a>
-										</div>
-										<div ng-if="record.publication_url">
-											<a href="{{record.publication_url}}">Publication Home Page</a>
-										</div>
-										<div ng-if="record.data_download_url">
-											<a href="{{record.data_download_url}}">Download Dataset</a>
+										<div ng-if="record.mainLink">
+											<a href="{{record.mainLink.url}}">{{record.mainLink.title}}</a>
 										</div>
 									</div>
 									<p class="summary">{{record.summary}}</p>
