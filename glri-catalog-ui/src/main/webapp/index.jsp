@@ -18,18 +18,15 @@
 		</jsp:include>
 
 		<script type="text/javascript" src="webjars/jquery/2.1.0/jquery.js"></script>
-		<script type="text/javascript" src="webjars/bootstrap/3.1.1/js/bootstrap.js"></script>
-		<script type="text/javascript" src="webjars/bootstrap-select/1.4.2/bootstrap-select.js"></script>
 		<script type="text/javascript" src="webjars/angularjs/1.2.16/angular.js"></script>
+		<script type="text/javascript" src="webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
 
 		<script src="js/app/main.js"></script>
 
 		<!-- Twitter Bootstrap -->
 		<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.1.1/css/bootstrap.css"/>
-		<link rel="stylesheet" type="text/css" href="webjars/bootstrap-select/1.4.2/bootstrap-select.css"/>
 
 		<!-- Our Bootstrap Theme -->
-		<script type="text/javascript" src="style/themes/theme1.js"></script>
 		<link rel="stylesheet" type="text/css" href="style/themes/theme1.css"/>
 
 		<!-- Application custom -->
@@ -52,7 +49,7 @@
 			</div>
 			<div class="row sub-title">
 				<div class="col-xs-12">
-					<div class="well well-sm clearfix">
+					<div id="title-header" class="well well-sm clearfix">
 						<h4 class="pull-left">Discover USGS Science in the Great Lakes</h4>
 						<img src="style/image/glri_logo.svg" alt="GLRI Logo" class="pull-right"/>
 					</div>
@@ -60,126 +57,106 @@
 			</div>
 			<div class="row glri_content" ng-controller="CatalogCtrl">
 				<div class="col-xs-12 col-sm-4">
-					<form id="sb-query-form" action="ScienceBaseService">
+					<form id="sb-query-form" class="form-horizontal" action="ScienceBaseService">
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="well">
-									<div class="row">
+									<div class="row map">
 										<div class="col-xs-12">
 											<div id="map" class="boundingMap"></div>
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-xs-6">
-											<div class="checkbox">
-												<label>
-													<input type="checkbox" name="drawBox" id="drawBox" value="box"> Draw Bounds
-												</label>
+										<div class="col-xs-12 map-contols">
+											<div class="btn-group">
+												<button type="button" class="btn btn-default btn-sm" ng-model="drawingBounds" btn-radio="false">Drag Map</button>
+												<button type="button" class="btn btn-default btn-sm" ng-model="drawingBounds" btn-radio="true">Draw Bounds</button>
 											</div>
 										</div>
-										<div class="col-xs-6">
-											<button id="clearMapButton" type="button" class="btn btn-default btn-xs" style="margin-left: 6px;">Clear Map Filter</button>						
-											<input type="hidden" id="spatial" name="spatial" value="">
+									</div>
+									<div class="form-group">
+										<label class="control-label col-xs-4">Text Search</label>
+										<div class="col-xs-8">
+											<input type="text" class="form-control" id="text_query" name="text_query" ng-model="model.text_query">
+										</div>
+									</div> 
+									<div class="form-group">
+										<label class="control-label col-xs-4">Location Type</label>
+										<div class="col-xs-8">
+											<select class="form-control" id="loc_type_input" name="loc_type" title="Any" ng-model="model.loc_type" ng-change="updateLocationList()">
+												<option value="">Any</option>
+												<option value="Lake">Lake</option>
+												<option value="Watershed">Watershed</option>
+												<option value="Channel">Channel</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="control-label col-xs-4">Location</label>
+										<div class="col-xs-8">
+											<select class="form-control" id="loc_name_input" ng-model="model.loc_name" name="loc_name" title="Any">
+												<option value="">Any</option>
+												<optgroup label="Lakes" ng-disabled="model.loc_type != '' &amp;&amp; model.loc_type != 'Lake'">
+													<option value="Lake:Lake Michigan">Lake Michigan</option>
+													<option value="Lake:Lake Erie">Lake Erie</option>
+													<option value="Lake:Lake Huron">Lake Huron</option>
+													<option value="Lake:Lake Superior">Lake Superior</option>
+													<option value="Lake:Lake Ontario">Lake Ontario</option>
+													<option value="Lake:Lake St. Clair">Lake St. Clair</option>
+												</optgroup>
+												<optgroup label="Watersheds" ng-disabled="model.loc_type != '' &amp;&amp; model.loc_type != 'Watershed'">
+													<option value="Watershed:Lake Michigan Basin">Lake Michigan Basin</option>
+													<option value="Watershed:Lake Erie Basin">Lake Erie Basin</option>
+													<option value="Watershed:Lake Huron Basin">Lake Huron Basin</option>
+													<option value="Watershed:Lake Superior Basin">Lake Superior Basin</option>
+													<option value="Watershed:Lake Ontario Basin">Lake Ontario Basin</option>
+													<option value="Watershed:Lake St. Clair Basin">Lake St. Clair Basin</option>
+												</optgroup>
+												<optgroup label="Channels" ng-disabled="model.loc_type != '' &amp;&amp; model.loc_type != 'Channel'">
+													<option value="Channel:St. Mary's Channel">St. Mary's Channel</option>
+													<option value="Channel:St. Lawrence Channel">St. Lawrence Channel</option>
+													<option value="Channel:Detroit Channel">Detroit Channel</option>
+													<option value="Channel:Niagara Channel">Niagara Channel</option>
+													<option value="Channel:St. Clair/Detroit River System">St. Clair/Detroit River Sys</option>
+												</optgroup>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-4 control-label">Focus Area</label>
+										<div class="col-xs-8">
+											<select class="form-control" name="focus" id="focus_input" title="Any" ng-model="model.focus">
+												<option value="">Any</option>
+												<option value="Toxic Substances">Toxic Substances</option>
+												<option value="Invasive Species">Invasive Species</option>
+												<option value="Nearshore Health">Nearshore Health</option>
+												<option value="Habitat & Wildlife">Habitat &amp; Wildlife</option>
+												<option value="Accountability">Accountability</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
+										<label class="col-xs-4 control-label">Resource Type</label>
+										<div id="resource_input" class="btn-group-vertical col-xs-8">
+											<button type="button" class="btn btn-default val-{{facet.name}}" ng-repeat="facet in FACET_DEFS" ng-model="model.resourceFilter" btn-radio="facet.name">
+												<img ng-src="style/image/blue/{{facet.name | lowercase}}.svg" ng-if="! (facet.isAny)" class="pull-left"/>
+												<span ng-if="! (facet.isAny)" class="badge pull-right"></span>
+												<span class="value">{{facet.name}}</span>
+											</button>
 										</div>
 									</div>
 									<div class="row">
-										<div class="col-xs-12">		
-											<div class="row" style="padding-bottom: 10px;">
-												<div class="col-xs-4">
-													<label class="filter_label pull-right">Text Search</label>
-												</div>
-												<div class="col-xs-8">
-													<input type="text" class="form-control" id="text_query" name="text_query" style="width: 98%;">
-												</div>
-											</div>     
-											<div class="row">
-												<div class="col-xs-4">
-													<label class="filter_label pull-right">Location Type</label>
-												</div>
-												<div class="col-xs-8">
-													<select class="selectpicker pull-left" id="loc_type_input" name="loc_type" title="Any" data-width="98%" ng-model="locationType" ng-change="updateLocationList()">
-														<option value="">Any</option>
-														<option value="Lake">Lake</option>
-														<option value="Watershed">Watershed</option>
-														<option value="Channel">Channel</option>
-													</select>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-xs-4">
-													<label class="filter_label pull-right">Location</label>
-												</div>
-												<div class="col-xs-8">
-													<select class="selectpicker pull-left" id="loc_name_input" name="loc_name" title="Any" data-width="98%">
-														<option value="">Any</option>
-														<optgroup label="Lakes">
-															<option value="Lake:Lake Michigan">Lake Michigan</option>
-															<option value="Lake:Lake Erie">Lake Erie</option>
-															<option value="Lake:Lake Huron">Lake Huron</option>
-															<option value="Lake:Lake Superior">Lake Superior</option>
-															<option value="Lake:Lake Ontario">Lake Ontario</option>
-															<option value="Lake:Lake St. Clair">Lake St. Clair</option>
-														</optgroup>
-														<optgroup label="Watersheds">
-															<option value="Watershed:Lake Michigan Basin">Lake Michigan Basin</option>
-															<option value="Watershed:Lake Erie Basin">Lake Erie Basin</option>
-															<option value="Watershed:Lake Huron Basin">Lake Huron Basin</option>
-															<option value="Watershed:Lake Superior Basin">Lake Superior Basin</option>
-															<option value="Watershed:Lake Ontario Basin">Lake Ontario Basin</option>
-															<option value="Watershed:Lake St. Clair Basin">Lake St. Clair Basin</option>
-														</optgroup>
-														<optgroup label="Channels">
-															<option value="Channel:St. Mary's Channel">St. Mary's Channel</option>
-															<option value="Channel:St. Lawrence Channel">St. Lawrence Channel</option>
-															<option value="Channel:Detroit Channel">Detroit Channel</option>
-															<option value="Channel:Niagara Channel">Niagara Channel</option>
-															<option value="Channel:St. Clair/Detroit River System">St. Clair/Detroit River Sys</option>
-														</optgroup>
-													</select>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-xs-4">
-													<label class="filter_label pull-right">Focus Area</label>
-												</div>
-												<div class="col-xs-8">
-													<select class="selectpicker pull-left" name="focus" id="focus_input" title="Any" data-width="98%">
-														<option value="">Any</option>
-														<option value="Toxic Substances">Toxic Substances</option>
-														<option value="Invasive Species">Invasive Species</option>
-														<option value="Nearshore Health">Nearshore Health</option>
-														<option value="Habitat & Wildlife">Habitat &amp; Wildlife</option>
-														<option value="Accountability">Accountability</option>
-													</select>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-xs-4">
-													<label class="filter_label pull-right">Resource Type</label>
-												</div>
-												
-												<div id="resource_input" class="btn-group-vertical col-xs-8" data-toggle="buttons">
-													<label class="btn btn-default {{facet.initState}}"
-														ng-repeat="facet in FACET_DEFS"
-														ng-click="filterChange(facet.name)">
-														<img ng-src="style/image/blue/{{facet.name | lowercase}}.svg" ng-if="! (facet.isAny)" class="pull-left"/>
-														<input name="resource" value="{{facet.name}}" type="radio"></input>{{facet.name}} <span class="badge pull-right"></span>
-													</label>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-xs-8 col-xs-offset-2 submit-button">
-													<input type="hidden" id="format_input" name="format" value="json">
-													<input class="btn btn-primary btn-block" id="query-submit" type="submit" ng-click="doRemoteLoad($event)" value="Search"/>
-												</div>
-											</div>
-											<div class="row">
-												<div class="col-xs-12">
-													<a href="https://www.sciencebase.gov/catalog/" target="_blank" title="ScienceBase, a repository of projects, data and metadata">
-														<img src="style/image/PoweredByScienceBase.png" alt="Science Base attribution icon" />
-													</a>
-												</div>
-											</div>
+										<div id="sb-query-form-footer-controls" class="col-xs-12">
+											<input type="hidden" id="format_input" name="format" value="json">
+											<button type="reset" class="btn btn-default pull-left" id="sb-query-clear" ng-click="clearForm($event)">Clear Form</button>
+											<button type="submit" class="btn btn-primary pull-right" id="sb-query-submit" ng-click="doRemoteLoad($event)">Search</button>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-xs-12">	
+											<a href="https://www.sciencebase.gov/catalog/" target="_blank" title="ScienceBase, a repository of projects, data and metadata">
+												<img src="style/image/PoweredByScienceBase.png" alt="Science Base attribution icon" />
+											</a>
 										</div>
 									</div>
 								</div>
@@ -192,7 +169,7 @@
 						<div class="col-xs-12">
 							<div class="well well-sm clearfix result-header">
 								<div class=""row>
-									<div class="col-xs-6 col-sm-12 col-md-6 record-display-status">
+									<div class="col-xs-6 record-display-status">
 										<div ng-if="filteredRecords.length > 0" class="result-header">
 											<h4>{{filteredRecords.length}} results, showing {{pageCurrentFirstRecordIndex + 1}} - {{pageCurrentLastRecordIndex + 1}}</h4>
 										</div>
@@ -200,12 +177,14 @@
 											<h4>No results match your filter</h4>
 										</div>
 									</div>
-									<div class="col-xs-6 col-sm-12 col-md-6 sort-options form-horizontal">
-										<div class="form-group pull-right">
-											<label class="filter_label">Sort by:&nbsp;</label>
-											<select ng-model="orderProp" ng-change="sortChange()" data-width="auto">
-												<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}">{{sortOption.display}}</option>
-											</select>
+									<div class="col-xs-6 sort-options form-horizontal">
+										<div class="form-group">
+											<label class="control-label col-xs-4">Sort by:&nbsp;</label>
+											<div class="col-xs-8">
+												<select class="form-control" ng-model="orderProp" ng-change="sortChange()" data-width="auto">
+													<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}">{{sortOption.display}}</option>
+												</select>
+											</div>
 										</div>
 									</div>
 								</div>
@@ -253,6 +232,14 @@
 
 								</li>
 							</ul>
+							
+							<div ng-if="resultItems.length > 0 &amp;&amp; filteredRecords.length == 0" id="records-blocked-by-filter" class="panel panel-warning">
+								<div class="panel-heading"><h3>Records hidden by filter</h3></div>
+								<div class="panel-body">
+									There are results from your query, but they are blocked by the <i>Resource Type</i> filter.
+									Select one of the resource types that is not marked with a <span class="badge">0</span>.
+								</div>
+							</div>
 
 						</div>
 					</div>
@@ -260,17 +247,19 @@
 						<div class="col-xs-12">
 							<div class="well well-sm clearfix result-footer">
 								<div class=""row>
-									<div class="col-xs-6 col-sm-12 col-md-6 record-display-status">
+									<div class="col-xs-6 record-display-status">
 										<div>
 											<h4>{{filteredRecords.length}} results, showing {{pageCurrentFirstRecordIndex + 1}} - {{pageCurrentLastRecordIndex + 1}}</h4>
 										</div>
 									</div>
-									<div class="col-xs-6 col-sm-12 col-md-6 sort-options form-horizontal">
-										<div class="form-group pull-right">
-											<label class="filter_label">Sort by:&nbsp;</label>
-											<select ng-model="orderProp" ng-change="sortChange()" data-width="auto">
-												<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}">{{sortOption.display}}</option>
-											</select>
+									<div class="col-xs-6 sort-options form-horizontal">
+										<div class="form-group">
+											<label class="control-label col-xs-4">Sort by:&nbsp;</label>
+											<div class="col-xs-8">
+												<select class="form-control" ng-model="orderProp" ng-change="sortChange()" data-width="auto">
+													<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}">{{sortOption.display}}</option>
+												</select>
+											</div>
 										</div>
 									</div>
 								</div>
