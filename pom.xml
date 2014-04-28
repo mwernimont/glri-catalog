@@ -14,12 +14,32 @@
 	
 	<inceptionYear>2014</inceptionYear>
 	
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<cida.maven.url>http://internal.cida.usgs.gov/maven</cida.maven.url>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+    	<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+		<analytics.domain>usgs.gov</analytics.domain>
+		<cida.production-build>false</cida.production-build>
+		<cida.google.analytics.domain>usgs.gov</cida.google.analytics.domain>
+		<cida.google.analytics.trackingid>UA-50454186-1</cida.google.analytics.trackingid>
+    </properties>
+	
 	<profiles>
 		<profile>
 			<id>basic-build-with-all-modules</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+			
+			<properties>
+				<!--
+				Will inherit the value of cida.production-build, or if specified directly,
+				the directly specified value will override.
+				-->
+				<cida.google.analytics.enabled>${cida.production-build}</cida.google.analytics.enabled>
+			</properties>
 			
 			<modules>
 				<module>glri-catalog-ui</module>
@@ -48,19 +68,6 @@
 			<organization>USGS / CIDA</organization>
 		</developer>
 	</developers>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<cida.maven.url>http://internal.cida.usgs.gov/maven</cida.maven.url>
-		<timestamp>${maven.build.timestamp}</timestamp>
-		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-    	<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-		<analytics.domain>usgs.gov</analytics.domain>
-		<cida.production-build>false</cida.production-build>
-		<cida.google.analytics.domain>usgs.gov</cida.google.analytics.domain>
-		<cida.google.analytics.trackingid>UA-50454186-1</cida.google.analytics.trackingid>
-		
-    </properties>
 	
 	<scm>
 		<connection>scm:git:http://github.com/USGS-CIDA/glri-catalog.git</connection>
