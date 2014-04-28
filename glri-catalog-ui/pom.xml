@@ -132,6 +132,7 @@
 									  <directory>src/main/webapp/</directory> 
 									  <includes> 
 										<include>**/*.jsp</include>
+										<include>**/cida-analytics.js</include>
 									  </includes> 
 									  <filtering>true</filtering> 
 								</resource> 

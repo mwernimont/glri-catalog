@@ -387,16 +387,24 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 	$scope.buildDataUrl = function() {
 		var url = $("#sb-query-form").attr("action") + "?";
-
+		var searchedFields = '';	//for reporting
+		
 		$.each($scope.model, function(key, value) {
 			if (key != "resourceFilter" && value != '' && value != 'Any') {
+				searchedFields+= key + ",";
 				url += encodeURI(key) + "=" + encodeURI(value) + "&";
 			}
 		});
 
 		if (url.lastIndexOf('&') == (url.length - 1)) url = url.substr(0, url.length - 1);
+		if (searchedFields.length > 0) searchedFields = searchedFields.substr(0, searchedFields.length-1);
 
-		//url += "?" + $("#sb-query-form :input[name!='resource']").serialize();
+		//Reports to Google Analytics that a search was done on which set of
+		//fields, but doesn't include what the search values were.
+		if (enableSiteAnalytics) {
+			ga('set', 'Search', searchedFields);
+		}
+		
 		return url;
 	}	
 
