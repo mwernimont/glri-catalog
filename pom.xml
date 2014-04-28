@@ -55,6 +55,16 @@
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
     	<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+		<analytics.domain>usgs.gov</analytics.domain>
+		<cida.production-build>false</cida.production-build>
+		<cida.google.analytics.domain>usgs.gov</cida.google.analytics.domain>
+		<cida.google.analytics.trackingid>UA-50454186-1</cida.google.analytics.trackingid>
+		
+		<!--
+		Will inherit the value of cida.production-build, or if specified directly,
+		the directly specified value will override.
+		-->
+		<cida.google.analytics.enabled>${cida.production-build}</cida.google.analytics.enabled>
     </properties>
 	
 	<scm>
