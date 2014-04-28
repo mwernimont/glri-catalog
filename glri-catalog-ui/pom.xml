@@ -95,14 +95,6 @@
 					<value>true</value>
 				</property>
 			</activation>
-			
-			<properties>
-				<!--
-				Will inherit the value of cida.production-build, or if specified directly,
-				the directly specified value will override.
-				-->
-				<cida.google.analytics.enabled>${cida.production-build}</cida.google.analytics.enabled>
-			</properties>
 
 			<build>
 				<finalName>glri-catalog</finalName>
