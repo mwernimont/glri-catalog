@@ -21,7 +21,8 @@
 		<script type="text/javascript" src="webjars/angularjs/1.2.16/angular.js"></script>
 		<script type="text/javascript" src="webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
 
-		<script src="js/app/main.js"></script>
+		<script type="text/javascript" src="js/app/main.js"></script>
+		<script type="text/javascript" src="js/app/cida-analytics.js"></script>
 
 		<!-- Twitter Bootstrap -->
 		<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.1.1/css/bootstrap.css"/>
