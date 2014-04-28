@@ -24,21 +24,20 @@
 		<cida.production-build>false</cida.production-build>
 		<cida.google.analytics.domain>usgs.gov</cida.google.analytics.domain>
 		<cida.google.analytics.trackingid>UA-50454186-1</cida.google.analytics.trackingid>
+		
+		<!-- Set based on profile, below -->
+		<!-- <cida.google.analytics.enabled>false</cida.google.analytics.enabled> -->
     </properties>
 	
 	<profiles>
 		<profile>
-			<id>basic-build-with-all-modules</id>
+			<id>basic-build-with-all-modules-dev</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
 			
 			<properties>
-				<!--
-				Will inherit the value of cida.production-build, or if specified directly,
-				the directly specified value will override.
-				-->
-				<cida.google.analytics.enabled>${cida.production-build}</cida.google.analytics.enabled>
+				<cida.google.analytics.enabled>false</cida.google.analytics.enabled>
 			</properties>
 			
 			<modules>
@@ -47,6 +46,28 @@
 			</modules>
 		</profile>
 		<profile>
+			<id>basic-build-with-all-modules-prod</id>
+			<activation>
+				<property>
+					<name>cida.production-build</name>
+					<value>true</value>
+				</property>
+			</activation>
+			
+			<properties>
+				<cida.google.analytics.enabled>true</cida.google.analytics.enabled>
+			</properties>
+			
+			<modules>
+				<module>glri-catalog-ui</module>
+				<module>glri-catalog-sample-records-script</module>
+			</modules>
+		</profile>
+		<profile>
+			<!--
+			This profile activated only runs the JMeter util that populates
+			the ScienceBase service with records.
+			-->
 			<id>generate-test-records-in-sciencebasebeta</id>
 			<activation>
 				<property>
