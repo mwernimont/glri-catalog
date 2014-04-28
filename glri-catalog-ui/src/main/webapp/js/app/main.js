@@ -401,9 +401,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 		//Reports to Google Analytics that a search was done on which set of
 		//fields, but doesn't include what the search values were.
-		if (enableSiteAnalytics) {
-			ga('set', 'Search', searchedFields);
-		}
+		ga('set', 'Search', searchedFields);
 		
 		return url;
 	}	
