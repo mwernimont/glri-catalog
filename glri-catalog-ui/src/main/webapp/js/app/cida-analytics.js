@@ -5,6 +5,7 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 
 var enableSiteAnalytics = '${cida.google.analytics.enabled}'=='true';
 if (enableSiteAnalytics) {
+	ga('set', 'anonymizeIp', true);
 	ga('create', '${cida.google.analytics.trackingid}', '${cida.google.analytics.domain}');
 	ga('send', 'pageview');
 }

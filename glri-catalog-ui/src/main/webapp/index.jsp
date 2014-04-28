@@ -23,6 +23,7 @@
 
 		<script type="text/javascript" src="js/app/main.js"></script>
 		<script type="text/javascript" src="js/app/cida-analytics.js"></script>
+		<script type="application/javascript" src="http://www.usgs.gov/scripts/analytics/usgs-analytics.js"></script>
 
 		<!-- Twitter Bootstrap -->
 		<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.1.1/css/bootstrap.css"/>
