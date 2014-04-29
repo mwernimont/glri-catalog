@@ -28,6 +28,19 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	$scope.model.spatial = '';
 	$scope.model.resourceFilter = 'Any';
 	
+	//These are the Google Analytics custom metrics for each search param.
+	//To log search usage, each search should register that a search was done
+	//and what type of search it was (actual search values are not tracked).
+	$scope.modelAnalytics = {
+		search: 1,
+		text_query: 2,
+		loc_type: 3,
+		loc_name: 4,
+		focus: 5,
+		spatial: 6
+	};
+	
+	
 	$scope.currentFacets = {};	//counts of the facets
 	
 	$scope.rawResult = null;	//array of all the returned items, UNprocessed
@@ -387,21 +400,25 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 	$scope.buildDataUrl = function() {
 		var url = $("#sb-query-form").attr("action") + "?";
-		var searchedFields = '';	//for reporting
+		
+		var gaMetrics = new Object();	//for reporting
+		
+		gaMetrics['metric1'] = 1;	//Add a general entry for the search happening
 		
 		$.each($scope.model, function(key, value) {
 			if (key != "resourceFilter" && value != '' && value != 'Any') {
-				searchedFields+= key + ",";
+				
+				if ($scope.modelAnalytics[key]) gaMetrics['metric' + $scope.modelAnalytics[key]] = 1;
+				
 				url += encodeURI(key) + "=" + encodeURI(value) + "&";
 			}
 		});
 
 		if (url.lastIndexOf('&') == (url.length - 1)) url = url.substr(0, url.length - 1);
-		if (searchedFields.length > 0) searchedFields = searchedFields.substr(0, searchedFields.length-1);
 
 		//Reports to Google Analytics that a search was done on which set of
 		//fields, but doesn't include what the search values were.
-		ga('set', 'Search', searchedFields);
+		ga('send', 'event', 'action', 'search', gaMetrics);
 		
 		return url;
 	}	
