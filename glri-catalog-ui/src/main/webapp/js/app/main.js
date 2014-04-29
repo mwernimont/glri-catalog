@@ -441,22 +441,36 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		init: function() {
 			this.map = new OpenLayers.Map('map');
 
-			this.worldStreet = new OpenLayers.Layer.ArcGIS93Rest("World Street Map",
-					"http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/export",
-					{layers: "show:0"});
+
+			//Base Layers
 			this.worldGray = new OpenLayers.Layer.ArcGIS93Rest("World Light Gray Base",
 					"http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/export",
 					{layers: "show:0"});
+			this.worldStreet = new OpenLayers.Layer.ArcGIS93Rest("World Street Map",
+					"http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/export",
+					{layers: "show:0"});
 			this.openlayersBase = new OpenLayers.Layer.WMS("OpenLayers Base",
 					"http://vmap0.tiles.osgeo.org/wms/vmap0?", {layers: 'basic'});
-
+			this.worldGrayRef = new OpenLayers.Layer.ArcGIS93Rest("World Light Gray Base Reference",
+					"http://server.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Reference/MapServer/export",
+					{layers: "show:0", TRANSPARENT: true});
+					
+			//layer for the user to draw a selection box
 			this.boxLayer = new OpenLayers.Layer.Vector("Box layer");
+			
+			//Init layer config
+			this.worldGrayRef.isBaseLayer = false;
+			this.worldGrayRef.displayInLayerSwitcher = false;
+			this.boxLayer.displayInLayerSwitcher = false;
 
-			this.map.addLayers([this.worldStreet, this.worldGray, this.openlayersBase, this.boxLayer]);
+			this.map.addLayers([this.worldGray, this.openlayersBase, this.worldStreet, this.worldGrayRef, this.boxLayer]);
 			this.map.addControl(new OpenLayers.Control.LayerSwitcher());
 			this.map.addControl(new OpenLayers.Control.MousePosition());
 			this.map.addControl(new OpenLayers.Control.DragPan({position: new OpenLayers.Pixel(100, 100)}));
-			//this.map.addControl(new OpenLayers.Control.PanPanel(), new OpenLayers.Pixel(100, 100));
+			
+			//These seem to be set by default due to the layer ordering, but just to be sure...
+			this.map.setBaseLayer(this.worldGray, true);
+			this.worldGrayRef.setVisibility(true);
 			
 			this.boxControl = new OpenLayers.Control.DrawFeature(this.boxLayer,
 				OpenLayers.Handler.RegularPolygon, {
@@ -493,6 +507,11 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 			this.map.addControl(this.boxControl, new OpenLayers.Pixel(100, 100));
 			this.map.setCenter(new OpenLayers.LonLat(this.orgLon, this.orgLat), this.orgZoom);
+			
+			
+			this.worldGray.events.register("visibilitychanged", this.worldGrayRef, function(event) {
+				this.setVisibility(event.object.visibility);
+			});
 
 		}
 		
