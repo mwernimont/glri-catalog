@@ -227,7 +227,7 @@
 									<p class="point-of-contact">{{record.contactText}}</p>
 									<div class="related-links">
 										<div ng-if="record.mainLink">
-											<a href="{{record.mainLink.url}}">{{record.mainLink.title}}</a>
+											<a href="{{record.mainLink.url}}" target="_blank">{{record.mainLink.title}}</a>
 										</div>
 									</div>
 									<p class="summary">{{record.summary}}</p>
