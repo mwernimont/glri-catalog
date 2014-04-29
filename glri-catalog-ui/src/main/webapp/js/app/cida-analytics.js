@@ -14,7 +14,12 @@ if ('${cida.google.analytics.enabled}'=='true') {
 	console.log("Google Analytics is disabled for this non-production build.  Logging all ga calls to the console instead.");
 	
 	//Create dummy ga function that code can still use even though the Google api was not loaded.
-	ga = function(arg1, arg2, arg3) {
-		console.log("ga ignoring: " + arg1 + ", " + arg2 + ", '" + arg3 + "'");
+	ga = function() {
+		var s = "ga ignoring: ";
+		for (i in arguments){
+			s+= "'" + arguments[i] + "', ";
+		}
+		s = s.substr(0, s.length - 2);
+		console.log(s);
 	}; 
 }

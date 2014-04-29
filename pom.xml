@@ -22,7 +22,14 @@
     	<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
 		<analytics.domain>usgs.gov</analytics.domain>
 		<cida.production-build>false</cida.production-build>
-		<cida.google.analytics.domain>usgs.gov</cida.google.analytics.domain>
+		
+		<!-- Setting this domain to your public site domain means it will only
+				work from that domain and not when accessed at other domains
+				(page hits seems to work, but events are blocked).
+				Setting to 'auto' should allow it to work regardless of the url
+				it is accessed on.
+		-->
+		<cida.google.analytics.domain>auto</cida.google.analytics.domain>
 		<cida.google.analytics.trackingid>UA-50454186-1</cida.google.analytics.trackingid>
 		
 		<!-- Set based on profile, below -->
