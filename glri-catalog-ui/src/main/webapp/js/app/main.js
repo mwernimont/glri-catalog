@@ -22,8 +22,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 	$scope.model = new Object();
 	$scope.model.text_query = '';
-	$scope.model.loc_type = '';
-	$scope.model.loc_name = '';
+	$scope.model.location = '';
 	$scope.model.focus = '';
 	$scope.model.spatial = '';
 	$scope.model.resourceFilter = 'Any';
@@ -31,6 +30,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	//These are the Google Analytics custom metrics for each search param.
 	//To log search usage, each search should register that a search was done
 	//and what type of search it was (actual search values are not tracked).
+	//location is split into either loc_type or name based on the value.
 	$scope.modelAnalytics = {
 		search: 1,
 		text_query: 2,
@@ -79,8 +79,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		$scope.OpenLayersMap.map.setCenter(new OpenLayers.LonLat($scope.OpenLayersMap.orgLon, $scope.OpenLayersMap.orgLat), $scope.OpenLayersMap.orgZoom);
 		
 		$scope.model.text_query = '';
-		$scope.model.loc_type = '';
-		$scope.model.loc_name = '';
+		$scope.model.location = '';
 		$scope.model.focus = '';
 		$scope.model.spatial = '';
 		$scope.model.resourceFilter = 'Any';
@@ -394,10 +393,6 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		}
 	};
 
-	$scope.updateLocationList = function() {
-		$scope.model.loc_name = '';
-	};
-
 	$scope.buildDataUrl = function() {
 		var url = $("#sb-query-form").attr("action") + "?";
 		
@@ -408,9 +403,22 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		$.each($scope.model, function(key, value) {
 			if (key != "resourceFilter" && value != '' && value != 'Any') {
 				
-				if ($scope.modelAnalytics[key]) gaMetrics['metric' + $scope.modelAnalytics[key]] = 1;
+				var actualKey = key;	//for some param we use different keys based on the value
 				
-				url += encodeURI(key) + "=" + encodeURI(value) + "&";
+				if (key == "location") {
+					if (value.indexOf(":") > -1) {
+						//this is a location name like "Lake:Lake Michigan'
+						actualKey = "loc_name";
+					} else {
+						//this is a location type like "Lake"
+						actualKey = "loc_type";
+					}
+					
+				}
+				
+				if ($scope.modelAnalytics[actualKey]) gaMetrics['metric' + $scope.modelAnalytics[actualKey]] = 1;
+				
+				url += encodeURI(actualKey) + "=" + encodeURI(value) + "&";
 			}
 		});
 
