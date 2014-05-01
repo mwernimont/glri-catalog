@@ -71,21 +71,21 @@
 									<div class="row">
 										<div class="col-xs-12 map-contols">
 											<div class="btn-group">
-												<button type="button" class="btn btn-default btn-sm" ng-model="drawingBounds" btn-radio="false">Drag Map</button>
-												<button type="button" class="btn btn-default btn-sm" ng-model="drawingBounds" btn-radio="true">Draw Bounds</button>
+												<button type="button" class="btn btn-default btn-sm" ng-model="drawingBounds" btn-radio="false" tooltip-placement="top" tooltip="Dragging on the map will move the map">Drag Map</button>
+												<button type="button" class="btn btn-default btn-sm" ng-model="drawingBounds" btn-radio="true" tooltip-placement="right" tooltip="Dragging on the map will draw a bounding box to limit search results to that area">Draw Bounds</button>
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-xs-4">Text Search</label>
 										<div class="col-xs-8">
-											<input type="text" class="form-control" id="text_query" name="text_query" ng-model="model.text_query">
+											<input type="text" class="form-control" id="text_query" name="text_query" ng-model="model.text_query" tooltip-placement="right" tooltip="Searches all text fields in each record.  &QUOT;water soil&QUOT; would find only records that contain BOTH terms.">
 										</div>
 									</div> 
 									<div class="form-group">
 										<label class="control-label col-xs-4">Location Type</label>
 										<div class="col-xs-8">
-											<select class="form-control" id="loc_type_input" name="loc_type" title="Any" ng-model="model.loc_type" ng-change="updateLocationList()">
+											<select class="form-control" id="loc_type_input" name="loc_type" title="Any" ng-model="model.loc_type" ng-change="updateLocationList()" tooltip-placement="right" tooltip="Limit results to a type of water feature or a specific one.">
 												<option value="">Any</option>
 												<option value="Lake">Lake</option>
 												<option value="Watershed">Watershed</option>
@@ -127,7 +127,7 @@
 									<div class="form-group">
 										<label class="col-xs-4 control-label">Focus Area</label>
 										<div class="col-xs-8">
-											<select class="form-control" name="focus" id="focus_input" title="Any" ng-model="model.focus">
+											<select class="form-control" name="focus" id="focus_input" title="Any" ng-model="model.focus" tooltip-placement="right" tooltip="Limit results to a specific topic area">
 												<option value="">Any</option>
 												<option value="Toxic Substances">Toxic Substances</option>
 												<option value="Invasive Species">Invasive Species</option>
@@ -139,7 +139,7 @@
 									</div>
 									<div class="form-group">
 										<label class="col-xs-4 control-label">Resource Type</label>
-										<div id="resource_input" class="btn-group-vertical col-xs-8">
+										<div id="resource_input" class="btn-group-vertical col-xs-8" tooltip-placement="right" tooltip="Narrow the results to a resource type such as &QUOT;Data&QUOT; for datasets or &QUOT;Project&QUOT; for a USGS GLRI study. A Project may have associated Data and/or Publications.">
 											<button type="button" class="btn btn-default val-{{facet.name}}" ng-repeat="facet in FACET_DEFS" ng-model="model.resourceFilter" btn-radio="facet.name">
 												<img ng-src="style/image/blue/{{facet.name | lowercase}}.svg" ng-if="! (facet.isAny)" class="pull-left"/>
 												<span ng-if="! (facet.isAny)" class="badge pull-right"></span>

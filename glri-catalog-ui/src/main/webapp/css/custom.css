@@ -156,3 +156,5 @@ ul.result-records .related-links {
 .row { margin-right: -.4em; margin-left: -.4em; }
 
 .form-horizontal .form-group { margin: .5em -.4em .5em -.4em; }
+
+.tooltip.right .tooltip-inner { width: 12em; }
