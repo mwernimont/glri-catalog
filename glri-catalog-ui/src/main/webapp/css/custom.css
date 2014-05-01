@@ -156,5 +156,6 @@ ul.result-records .related-links {
 .row { margin-right: -.4em; margin-left: -.4em; }
 
 .form-horizontal .form-group { margin: .5em -.4em .5em -.4em; }
+option.any-option { font-weight: bold; }
 
 .tooltip.right .tooltip-inner { width: 12em; }
