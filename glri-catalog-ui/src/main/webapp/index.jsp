@@ -83,22 +83,12 @@
 										</div>
 									</div> 
 									<div class="form-group">
-										<label class="control-label col-xs-4">Location Type</label>
+										<label class="control-label col-xs-4">Water Feature</label>
 										<div class="col-xs-8">
-											<select class="form-control" id="loc_type_input" name="loc_type" title="Any" ng-model="model.loc_type" ng-change="updateLocationList()" tooltip-placement="right" tooltip="Limit results to a type of water feature or a specific one.">
+											<select class="form-control" ng-model="model.location" name="location" tooltip-placement="right" tooltip="Limit results to a specific water feature, or a type of one.">
 												<option value="">Any</option>
-												<option value="Lake">Lake</option>
-												<option value="Watershed">Watershed</option>
-												<option value="Channel">Channel</option>
-											</select>
-										</div>
-									</div>
-									<div class="form-group">
-										<label class="control-label col-xs-4">Location</label>
-										<div class="col-xs-8">
-											<select class="form-control" id="loc_name_input" ng-model="model.loc_name" name="loc_name" title="Any">
-												<option value="">Any</option>
-												<optgroup label="Lakes" ng-disabled="model.loc_type != '' &amp;&amp; model.loc_type != 'Lake'">
+												<optgroup label="Lakes">
+													<option class="any-option" value="Lake">~Any Lake~</option>
 													<option value="Lake:Lake Michigan">Lake Michigan</option>
 													<option value="Lake:Lake Erie">Lake Erie</option>
 													<option value="Lake:Lake Huron">Lake Huron</option>
@@ -106,7 +96,8 @@
 													<option value="Lake:Lake Ontario">Lake Ontario</option>
 													<option value="Lake:Lake St. Clair">Lake St. Clair</option>
 												</optgroup>
-												<optgroup label="Watersheds" ng-disabled="model.loc_type != '' &amp;&amp; model.loc_type != 'Watershed'">
+												<optgroup label="Watersheds">
+													<option class="any-option" value="Watershed">~Any Watershed~</option>
 													<option value="Watershed:Lake Michigan Basin">Lake Michigan Basin</option>
 													<option value="Watershed:Lake Erie Basin">Lake Erie Basin</option>
 													<option value="Watershed:Lake Huron Basin">Lake Huron Basin</option>
@@ -114,7 +105,8 @@
 													<option value="Watershed:Lake Ontario Basin">Lake Ontario Basin</option>
 													<option value="Watershed:Lake St. Clair Basin">Lake St. Clair Basin</option>
 												</optgroup>
-												<optgroup label="Channels" ng-disabled="model.loc_type != '' &amp;&amp; model.loc_type != 'Channel'">
+												<optgroup label="Channels">
+													<option class="any-option" value="Channel">~Any Channel~</option>
 													<option value="Channel:St. Mary's Channel">St. Mary's Channel</option>
 													<option value="Channel:St. Lawrence Channel">St. Lawrence Channel</option>
 													<option value="Channel:Detroit Channel">Detroit Channel</option>
