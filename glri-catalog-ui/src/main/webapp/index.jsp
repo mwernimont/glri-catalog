@@ -132,10 +132,10 @@
 									<div class="form-group">
 										<label class="col-xs-4 control-label">Resource Type</label>
 										<div id="resource_input" class="btn-group-vertical col-xs-8" tooltip-placement="right" tooltip="Narrow the results to a resource type such as &QUOT;Data&QUOT; for datasets or &QUOT;Project&QUOT; for a USGS GLRI study. A Project may have associated Data and/or Publications.">
-											<button type="button" class="btn btn-default val-{{facet.name}}" ng-repeat="facet in FACET_DEFS" ng-model="model.resourceFilter" btn-radio="facet.name">
-												<img ng-src="style/image/blue/{{facet.name | lowercase}}.svg" ng-if="! (facet.isAny)" class="pull-left"/>
-												<span ng-if="! (facet.isAny)" class="badge pull-right"></span>
-												<span class="value">{{facet.name}}</span>
+											<button type="button" class="btn btn-default val-{{name}}" ng-repeat="(key, name) in FACET_DEFS" ng-model="model.resourceFilter" btn-radio="key">
+												<img ng-src="style/image/blue/{{name | lowercase}}.svg" ng-if="key != '1'" class="pull-left"/>
+												<span ng-if="key != '1'" class="badge pull-right"></span>
+												<span class="value">{{name}}</span>
 											</button>
 										</div>
 									</div>
@@ -207,6 +207,29 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<!--Body content-->
+							
+							<div class="well well-sm clearfix" ng-if="isUIFresh">
+								<h4>Great Lakes Restoration Initiative Science Explorer</h4>
+								<p>The Great Lakes Restoration Initiative (GLRI) is a wide-ranging,
+									coordinated effort between many groups and individuals to help the Great Lakes recover economically and ecologically.
+									Driven by cross-disciplinary integrative science and conducted in collaboration with partners,
+									U.S. Geological Survey (USGS) researchers are working to provide resource managers with the information and
+									decision-making tools they need to help restore the Great Lakes.
+								</p>
+
+								<h4>What is the GLRI Science Explorer?</h4>
+								<p>The GLRI Science Explorer is a search tool that allows you to seek out and
+									discover the valuable research USGS scientists are conducting in the Great Lakes region.
+								</p>
+
+								<h4>How does it work?</h4>
+								<ul>
+									<li>With the search tool you can find information about current and past science projects.
+										Each project record provides details about a study (e.g. study start date, description/abstract,
+										principle investigator and location).</li>
+									<li>For each project you can learn about associated information products, data sets and publications, that resulted from the projects.</li>
+								</ul>
+							</div>
 
 							<ul class="result-records">
 								<li ng-repeat="record in pageRecords" class="{{record.resource}}">
