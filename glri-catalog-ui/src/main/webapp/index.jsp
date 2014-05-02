@@ -70,16 +70,16 @@
 									</div>
 									<div class="row">
 										<div class="col-xs-12 map-contols">
-											<div class="btn-group">
-												<button type="button" class="btn btn-default btn-sm" ng-model="drawingBounds" btn-radio="false" tooltip-placement="top" tooltip="Dragging on the map will move the map">Drag Map</button>
-												<button type="button" class="btn btn-default btn-sm" ng-model="drawingBounds" btn-radio="true" tooltip-placement="right" tooltip="Dragging on the map will draw a bounding box to limit search results to that area">Draw Bounds</button>
+											<div class="btn-group" tooltip-placement="right" tooltip="Drag on the map to either: move the map, or, draw a bounding box to limit search results to the boxed area.">
+												<button type="button" class="btn btn-default btn-sm" ng-model="drawingBounds" btn-radio="false">Drag Map</button>
+												<button type="button" class="btn btn-default btn-sm" ng-model="drawingBounds" btn-radio="true">Draw Bounds</button>
 											</div>
 										</div>
 									</div>
 									<div class="form-group">
 										<label class="control-label col-xs-4">Text Search</label>
 										<div class="col-xs-8">
-											<input type="text" class="form-control" id="text_query" name="text_query" ng-model="model.text_query" tooltip-placement="right" tooltip="Searches all text fields in each record.  &QUOT;water soil&QUOT; would find only records that contain BOTH terms.">
+											<input type="text" class="form-control" id="text_query" name="text_query" ng-model="model.text_query" tooltip-placement="right" tooltip="Search on all text fields, &QUOT;water soil&QUOT; would find only records that contain BOTH terms.">
 										</div>
 									</div> 
 									<div class="form-group">
@@ -119,7 +119,7 @@
 									<div class="form-group">
 										<label class="col-xs-4 control-label">Focus Area</label>
 										<div class="col-xs-8">
-											<select class="form-control" name="focus" id="focus_input" title="Any" ng-model="model.focus" tooltip-placement="right" tooltip="Limit results to a specific topic area">
+											<select class="form-control" name="focus" id="focus_input" title="Any" ng-model="model.focus" tooltip-placement="right" tooltip="Limit results to a GLRI funding area/catagory.">
 												<option value="">Any</option>
 												<option value="Toxic Substances">Toxic Substances</option>
 												<option value="Invasive Species">Invasive Species</option>
