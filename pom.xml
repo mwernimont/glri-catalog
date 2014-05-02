@@ -16,6 +16,8 @@
 	
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
 		<cida.maven.url>http://internal.cida.usgs.gov/maven</cida.maven.url>
 		<timestamp>${maven.build.timestamp}</timestamp>
 		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
@@ -49,6 +51,7 @@
 			
 			<modules>
 				<module>glri-catalog-ui</module>
+				<module>glri-catalog-jmeter-plugin</module>
 				<module>glri-catalog-sample-records-script</module>
 			</modules>
 		</profile>
