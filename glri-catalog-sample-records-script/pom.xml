@@ -6,7 +6,7 @@
 	<version>0.4.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	
-	<name>glri-catalog-sample-records-script</name>
+	<name>GLRI JMeter Record Loading Script</name>
 	
 	<parent>
 		<groupId>gov.usgs.cida.glri</groupId>
