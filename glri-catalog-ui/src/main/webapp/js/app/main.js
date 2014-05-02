@@ -5,12 +5,14 @@ var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap']);
 
 GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeout) {
 
-	$scope.FACET_DEFS = [
-		{name: "Any", initState: "active", isAny: true},
-		{name: "Data", initState: ""},
-		{name: "Publication", initState: ""},
-		{name: "Project", initState: ""}
-	];
+	$scope.ANY_VALUE = "Any";
+	
+	$scope.FACET_DEFS = {
+		1: $scope.ANY_VALUE,
+		2: "Data",
+		3: "Publication",
+		4: "Project"
+	};
 	
 	$scope.SORT_OPTIONS = [
 		{key: "title", display: "Title"},
@@ -18,14 +20,15 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	];
 	$scope.orderProp = 'title';
 	
-	$scope.RESOURCE_TYPE_ANY = "Any";
+	
+	$scope.isUIFresh = true;	//True until the user does the first search.   Used to display welcome message.
 
 	$scope.model = new Object();
 	$scope.model.text_query = '';
 	$scope.model.location = '';
 	$scope.model.focus = '';
 	$scope.model.spatial = '';
-	$scope.model.resourceFilter = 'Any';
+	$scope.model.resourceFilter = "1";
 	
 	//These are the Google Analytics custom metrics for each search param.
 	//To log search usage, each search should register that a search was done
@@ -67,6 +70,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		event.stopPropagation();
 		$http.get($scope.buildDataUrl()).success(function(data) {
 			$scope.processRawScienceBaseResponse(data);
+			$scope.isUIFresh = false;
 			$scope.processRecords();
 		}).error(function(data, status, headers, config) {
 			alert("Unable to connect to ScienceBase.gov to find records.");
@@ -82,10 +86,12 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		$scope.model.location = '';
 		$scope.model.focus = '';
 		$scope.model.spatial = '';
-		$scope.model.resourceFilter = 'Any';
+		$scope.model.resourceFilter = "1";
 		
 		$scope.processRawScienceBaseResponse(null);
 		$scope.processRecords();
+		
+		$scope.isUIFresh = true;
 	};
 	
 	/**
@@ -250,14 +256,14 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	$scope.getFilteredResults = function() {
 		if ($scope.model.resourceFilter != null && $scope.resultItems != null) {
 
-			if ($scope.model.resourceFilter == $scope.RESOURCE_TYPE_ANY) {
+			if ($scope.model.resourceFilter == "1") {
 				return $scope.resultItems;
 			} else {
 				var data = new Array();
 
 				for (var i in $scope.resultItems) {
 					var item = $scope.resultItems[i];
-					if (item.browseCategories[0] == $scope.model.resourceFilter) {
+					if (item.browseCategories[0] == $scope.FACET_DEFS[$scope.model.resourceFilter]) {
 						data.push(item);
 					}
 				}
