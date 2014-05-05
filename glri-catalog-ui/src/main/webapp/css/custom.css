@@ -1,6 +1,19 @@
 #header #banner-area {
-	background-image: url(../style/image/black_banner.png);
+	background-image: url(../style/image/darkblue/usgs_banner.jpg);
+	background-position-x: -150px;
+	background-color: #000;
 }
+
+//Set the font for the entire app to the USGS standard
+body div.container * { font-family: Verdana, Arial, Helvetica, sans-serif !important; }
+
+#site-title { background-color: #022553; }
+#site-title img { height: 3em; margin-right: 1em; }
+#site-title h1 { font-size: 1.2em; padding: 0; margin: .3em 0 .1em .5em; }
+#site-title h4 { font-size: .9em; font-style: italic; padding: 0; margin: 0 1em; }
+
+.gap {margin-top: 1em;}
+.gap-lg {margin-top: 2em;}
 
 ul#ccsa-area {
 	list-style: none; padding: .3em 0 0 0; margin: 0;
@@ -46,8 +59,7 @@ th a:hover {
 .hidden { display: none; }
 
 .glri_content {
-	/*              top     | right 	| bottom	| left */
-     padding:       0;
+     padding: 0; margin-top: .6em;
 }
 
 .result-header, .result-footer {

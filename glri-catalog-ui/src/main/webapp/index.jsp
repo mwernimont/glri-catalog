@@ -45,16 +45,8 @@
 					<jsp:include page="template/header.jsp">
 						<jsp:param name="relPath" value="" />
 						<jsp:param name="header-class" value="" />
-						<jsp:param name="site-title" value="Great Lakes Restoration Initiative Science Explorer" />
+						<jsp:param name="site-title" value="Great Lakes RESTORATION Initiative Science Explorer" />
 					</jsp:include>
-				</div>
-			</div>
-			<div class="row sub-title">
-				<div class="col-xs-12">
-					<div id="title-header" class="well well-sm clearfix">
-						<h4 class="pull-left">Discover USGS Science in the Great Lakes</h4>
-						<img src="style/image/glri_logo.svg" alt="GLRI Logo" class="pull-right"/>
-					</div>
 				</div>
 			</div>
 			<div class="row glri_content" ng-controller="CatalogCtrl">
@@ -149,7 +141,7 @@
 									<div class="row">
 										<div class="col-xs-12">	
 											<a href="https://www.sciencebase.gov/catalog/" target="_blank" title="ScienceBase, a repository of projects, data and metadata">
-												<img src="style/image/PoweredByScienceBase.png" alt="Science Base attribution icon" />
+												<img width="206" src="style/image/darkblue/sciencebase.png" alt="Science Base attribution icon" />
 											</a>
 										</div>
 									</div>
@@ -229,13 +221,18 @@
 										principle investigator and location).</li>
 									<li>For each project you can learn about associated information products, data sets and publications, that resulted from the projects.</li>
 								</ul>
+								
+								<p class="gap-lg">
+									<img class="pull-left" style="height: 5em" src="style/image/usgsblack.png" alt="USGS Logo - Science for a changing world"/>
+									<img class="pull-right" style="height: 5em" src="style/image/darkblue/glri_logo.svg" alt="GLRI Logo - Great Lakes Restoration Initiative"/>
+								</p>
 							</div>
 
 							<ul class="result-records">
 								<li ng-repeat="record in pageRecords" class="{{record.resource}}">
 									<div class="resource-icon">
 										<a title="{{record.resource}}: Click to go directly to this record in ScienceBase" href="{{record.url}}" target="_blank">
-											<img ng-src="style/image/blue/{{record.resource}}.svg" />
+											<img ng-src="style/image/darkblue/{{record.resource}}.svg" />
 										</a>
 									</div>
 									<h4>{{record.title}}</h4>
