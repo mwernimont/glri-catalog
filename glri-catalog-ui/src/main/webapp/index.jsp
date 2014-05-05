@@ -223,8 +223,8 @@
 								</ul>
 								
 								<p class="gap-lg">
-									<img class="pull-left" style="height: 5em" src="style/image/usgsblack.png" alt="USGS Logo - Science for a changing world"/>
-									<img class="pull-right" style="height: 5em" src="style/image/darkblue/glri_logo.svg" alt="GLRI Logo - Great Lakes Restoration Initiative"/>
+									<img class="pull-left" style="height: 3.5em" src="style/image/usgsblack.png" alt="USGS Logo - Science for a changing world"/>
+									<img class="pull-right" style="height: 3.5em" src="style/image/darkblue/glri_logo.svg" alt="GLRI Logo - Great Lakes Restoration Initiative"/>
 								</p>
 							</div>
 
