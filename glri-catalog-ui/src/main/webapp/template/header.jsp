@@ -14,6 +14,11 @@
                 <li><a href="http://search.usgs.gov/" title="Link to main USGS search (not publications search)">Search USGS</a></li>
             </ul>
         </div><!-- End content -->
-        <h2 id="site-title">${param["site-title"]}</h2>
+		<div id="site-title" class="clearfix">
+			<img src="style/image/darkblue/glri_gradient.svg" alt="GLRI Logo - Great Lakes Restoration Initiative" class="pull-right"/>
+			<h1>${param["site-title"]}</h1>
+			<h4>Discover USGS Science in the Great Lakes</h4>
+		</div>
+        
     </div><!-- /header -->
 </div><!--/header panel-->
