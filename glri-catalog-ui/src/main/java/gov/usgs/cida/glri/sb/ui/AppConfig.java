@@ -49,7 +49,7 @@ public class AppConfig {
 			
 			String commId = props.get(SCIENCEBASE_GLRI_COMMUNITY_ID);
 			if (commId == null) {
-				props.put(SCIENCEBASE_GLRI_COMMUNITY_ID, "52fa427de4b00c1c71df3a19");
+				props.put(SCIENCEBASE_GLRI_COMMUNITY_ID, "52e6a0a0e4b012954a1a238a");
 			}
 			
 
