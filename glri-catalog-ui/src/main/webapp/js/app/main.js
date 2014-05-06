@@ -282,50 +282,57 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		if (records) {
 			for (var i = 0; i < records.length; i++) {
 				var item = records[i];
-				var link = item['link']['url'];
-				item['url'] = link;
+				
+				//The system type is set of special items like 'folder's, which we don't want in the results
+				var sysTypes = (item['systemTypes'])?item['systemTypes']:[];
+				var sysType = (sysTypes[0])?sysTypes[0].toLowerCase():'standard';
+				
+				if (sysType != 'folder') {
+					var link = item['link']['url'];
+					item['url'] = link;
 
-				var resource = resource = "unknown";
-				if (item['browseCategories'] && item['browseCategories'][0]) {
-					resource = item['browseCategories'][0].toLowerCase();
-				}
+					var resource = resource = "unknown";
+					if (item['browseCategories'] && item['browseCategories'][0]) {
+						resource = item['browseCategories'][0].toLowerCase();
+					}
 
-				item['resource'] = resource;
-				item['mainLink'] = $scope.findLink(item["webLinks"], ["home", "html"], true);
+					item['resource'] = resource;
+					item['mainLink'] = $scope.findLink(item["webLinks"], ["home", "html"], true);
 
-				//build contactText
-				var contacts = item['contacts'];
-				var contactText = "";	//combined contact text
+					//build contactText
+					var contacts = item['contacts'];
+					var contactText = "";	//combined contact text
 
-				if (contacts) {
-					for (var j = 0; j < contacts.length; j++) {
+					if (contacts) {
+						for (var j = 0; j < contacts.length; j++) {
 
-						if (j < 3) {
-							var contact = contacts[j];
-							var name = contact['name'];
-							var type = contact['type'];
+							if (j < 3) {
+								var contact = contacts[j];
+								var name = contact['name'];
+								var type = contact['type'];
 
-							if (type == null) type = "??";
-							if (type == 'Principle Investigator') type = "PI";
+								if (type == null) type = "??";
+								if (type == 'Principle Investigator') type = "PI";
 
-							contactText+= name + " (" + type + "), ";
-						} else if (j == 3) {
-							contactText+= "and others.  "
-						} else {
-							break;
+								contactText+= name + " (" + type + "), ";
+							} else if (j == 3) {
+								contactText+= "and others.  "
+							} else {
+								break;
+							}
 						}
 					}
+
+					if (contactText.length > 0) {
+						contactText = contactText.substr(0, contactText.length - 2);	//rm trailing ', '
+					} else {
+						contactText = "[No contact information listed]";
+					}
+
+					item['contactText'] = contactText;
+
+					newRecords.push(item);
 				}
-
-				if (contactText.length > 0) {
-					contactText = contactText.substr(0, contactText.length - 2);	//rm trailing ', '
-				} else {
-					contactText = "[No contact information listed]";
-				}
-
-				item['contactText'] = contactText;
-
-				newRecords.push(item);
 			}
 		}
 		

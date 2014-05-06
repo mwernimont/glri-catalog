@@ -11,15 +11,13 @@ import static gov.usgs.cida.glri.sb.ui.ParamType.*;
  *
  * @author eeverman
  */
-public enum ScienceBaseParam {
+public enum SystemSuppliedParameters {
 	
-	/** Basic ad-hoc text search */
-	TEXT_QUERY("text_query", "q", INCLUDE_IF_PRESENT),
 	/** Format of results to come back */
 	FORMAT("format", "format", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE, "json"),
 	/** Determines which fields are included in the SB response */
 	FIELDS("fields", "fields", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE,
-			"title,summary,spatial,distributionLinks,browseCategories,contacts,webLinks"),
+			"title,summary,spatial,distributionLinks,browseCategories,contacts,webLinks,systemTypes"),
 	/** Max number of records to return */
 	MAX_RECORDS("max", "max", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE, "1000"),
 	/** browseCategory filter is a weird one.  Its format is: &filter=browseCategory=<CATEGORY> */
@@ -36,21 +34,21 @@ public enum ScienceBaseParam {
 	 * server the app runs on.  The prod server will talk to the prod SB,
 	 * which has a different community ID for GLRI than the SB beta server.
 	 */
-	COMMUNITY_ID("parentId", "parentId", INCLUDE_ALWAYS_WITH_CONFIGURED_VALUE_ONLY, AppConfig.SCIENCEBASE_GLRI_COMMUNITY_ID);
+	COMMUNITY_ID("ancestors", "ancestors", INCLUDE_ALWAYS_WITH_CONFIGURED_VALUE_ONLY, AppConfig.SCIENCEBASE_GLRI_COMMUNITY_ID);
 	
 	private final String localName;
 	private final String remoteName;
 	private final String defaultValue;
 	private final ParamType type;
 	
-	ScienceBaseParam(String localName, String remoteName, ParamType type) {
+	SystemSuppliedParameters(String localName, String remoteName, ParamType type) {
 		this.localName = localName;
 		this.remoteName = remoteName;
 		this.type = type;
 		this.defaultValue = null;
 	}
 	
-	ScienceBaseParam(String localName, String remoteName, ParamType type, String defaultValue) {
+	SystemSuppliedParameters(String localName, String remoteName, ParamType type, String defaultValue) {
 		this.localName = localName;
 		this.remoteName = remoteName;
 		this.type = type;
@@ -83,13 +81,13 @@ public enum ScienceBaseParam {
 	 * @param shortName Case Insensitive
 	 * @return 
 	 */
-	public ScienceBaseParam getForLocalName(String shortName) {
+	public SystemSuppliedParameters getForLocalName(String shortName) {
 		shortName = StringUtils.trimToNull(shortName);
 		if (shortName == null) return null;
 		shortName = shortName.toLowerCase();
 		
 		
-		for (ScienceBaseParam tag : ScienceBaseParam.values()) {
+		for (SystemSuppliedParameters tag : SystemSuppliedParameters.values()) {
 			if (tag.localName.equals(shortName)) return tag;
 		}
 		
