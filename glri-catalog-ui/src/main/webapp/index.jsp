@@ -241,9 +241,41 @@
 										<div ng-if="record.mainLink">
 											<a href="{{record.mainLink.url}}" target="_blank">{{record.mainLink.title}}</a>
 										</div>
+										<div ng-if="record.hasChildren == true">
+											<a href="" ng-click="loadChildItems(record)">Publications and Datasets...</a>
+										</div>
 									</div>
 									<p class="summary">{{record.summary}}</p>
-
+									
+									<div ng-if="record.childRecordState == 'loading'" class="progress progress-striped active">
+										<div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+											<span>Loading...</span>
+										</div>
+									</div>
+									
+									<div ng-if="record.childItems &amp;&amp; record.childRecordState == 'complete'" class="child-records">
+										<div class="list-head">
+											<div class="pull-right">Close List <span class="glyphicon glyphicon-remove"></span></div>
+											<h4>Child records (projects and datasets)</h4>
+										</div>
+										<ul>
+											<li ng-repeat="child in record.childItems" class="{{child.resource}}">
+												<div class="resource-icon">
+													<a title="{{child.resource}}: Click to go directly to this record in ScienceBase" href="{{child.url}}" target="_blank">
+														<img ng-src="style/image/darkblue/{{child.resource}}.svg" />
+													</a>
+												</div>
+												<h4>{{child.title}}</h4>
+												<p class="point-of-contact">{{child.contactText}}</p>
+												<div class="related-links">
+													<div ng-if="child.mainLink">
+														<a href="{{child.mainLink.url}}" target="_blank">{{child.mainLink.title}}</a>
+													</div>
+												</div>
+												<p class="summary">{{child.summary}}</p>
+											</li>
+										</ul>
+									</div>
 								</li>
 							</ul>
 							
