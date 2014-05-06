@@ -1,16 +1,9 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package gov.usgs.cida.glri.sb.ui;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import org.apache.http.HttpEntity;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIBuilder;
-import org.json.simple.JSONObject;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -107,16 +100,16 @@ public class ScienceBaseQueryTest {
 	
 	@Test
 	public void appendStandardParamsWithNoClientParameters() throws Exception {
-		query.appendStandardParams(requestParams, uriBuild);
+		query.appendSystemParams(requestParams, uriBuild);
 		
 		List<NameValuePair> params = uriBuild.getQueryParams();
 
 		assertEquals("Search", findNVPVal(params, "s"));
 		assertEquals("1000", findNVPVal(params, "max"));
-		assertEquals("title,summary,spatial,distributionLinks,browseCategories,contacts,webLinks", findNVPVal(params, "fields"));
+		assertEquals("title,summary,spatial,distributionLinks,browseCategories,contacts,webLinks,systemTypes", findNVPVal(params, "fields"));
 		assertEquals("json", findNVPVal(params, "format"));
 		assertEquals("browseCategory", findNVPVal(params, "facets"));
-		assertEquals(AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_ID), findNVPVal(params, "parentId"));
+		assertEquals(AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_ID), findNVPVal(params, "ancestors"));
 		assertEquals(6, params.size());
 	}
 	
@@ -124,21 +117,24 @@ public class ScienceBaseQueryTest {
 	public void appendStandardParamsWithClientResouceParameter() throws Exception {
 		
 		requestParams.put("resource", new String[] {"MyType"});
-		query.appendStandardParams(requestParams, uriBuild);
-
-		System.out.println(uriBuild.build().toString());
+		query.appendUserParams(requestParams, uriBuild);
 		
 		List<NameValuePair> params = uriBuild.getQueryParams();
 		
-		
-		assertEquals("Search", findNVPVal(params, "s"));
-		assertEquals("1000", findNVPVal(params, "max"));
-		assertEquals("title,summary,spatial,distributionLinks,browseCategories,contacts,webLinks", findNVPVal(params, "fields"));
-		assertEquals("json", findNVPVal(params, "format"));
-		assertEquals("browseCategory", findNVPVal(params, "facets"));
 		assertEquals("browseCategory=MyType", findNVPVal(params, "filter"));
-		assertEquals(AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_ID), findNVPVal(params, "parentId"));
-		assertEquals(7, params.size());
+		assertEquals(1, params.size());
+	}
+	
+	@Test
+	public void appendGLRIFilterParams() throws Exception {
+		
+		requestParams.put("loc_type", new String[] {"Lake"});
+		query.appendUserParams(requestParams, uriBuild);
+		
+		List<NameValuePair> params = uriBuild.getQueryParams();
+		
+		assertEquals("tags={scheme:'https://www.sciencebase.gov/vocab/GLRI/location-type',name:'Lake'}", findNVPVal(params, "filter"));
+		assertEquals(1, params.size());
 	}
 	
 	/**
