@@ -78,26 +78,34 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		});
 	};
 	
-	$scope.clearForm = function(event) {
+	$scope.loadChildItems = function(parentRecord) {
 		
-		$scope.OpenLayersMap.boxLayer.removeAllFeatures();
-		$scope.OpenLayersMap.map.setCenter(new OpenLayers.LonLat($scope.OpenLayersMap.orgLon, $scope.OpenLayersMap.orgLat), $scope.OpenLayersMap.orgZoom);
+		var url = $scope.getBaseQueryUrl() + "folder=" + parentRecord.id;
 		
-		$scope.model.text_query = '';
-		$scope.model.location = '';
-		$scope.model.focus = '';
-		$scope.model.spatial = '';
-		$scope.userState.resourceFilter = "1";
+		parentRecord.childRecordState = "loading";
 		
-		$scope.processRawScienceBaseResponse(null);
-		$scope.processRecords();
-		
-		$scope.isUIFresh = true;
-	};
+		event.preventDefault();
+		event.stopPropagation();
+		$http.get(url).success(function(data) {
+			var childItems = $scope.processGlriResults(data.items);
+			childItems = $filter('orderBy')(childItems, $scope.userState.orderProp);
+			
+			parentRecord.childItems = childItems;
+			
+			parentRecord.childRecordState = "complete";
+
+		}).error(function(data, status, headers, config) {
+			parentRecord.childRecordState = "failed";
+			alert("Unable to connect to ScienceBase.gov to find child records.");
+		});
+	}
 	
 	/**
-	 * Read response metadata and add extra properties to the records.
-	 * Results are saved as resultItems.
+	 * For the main (non-nested child) records, read response metadata and add
+	 * extra properties to the records.
+	 * 
+	 * Side effects:
+	 * Results are saved as resultItems and the UI facets will be updated.
 	 * 
 	 * @param {type} unfilteredJsonData from ScienceBase
 	 */
@@ -111,6 +119,79 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 			$scope.resultItems = $scope.processGlriResults(null);
 			$scope.updateFacetCount(null);
 		}
+	};
+	
+
+	$scope.processGlriResults = function(resultRecordsArray) {
+		var records = resultRecordsArray;
+		var newRecords = [];
+
+		if (records) {
+			for (var i = 0; i < records.length; i++) {
+				var item = records[i];
+				
+				//The system type is set of special items like 'folder's, which we don't want in the results
+				var sysTypes = (item['systemTypes'])?item['systemTypes']:[];
+				var sysType = (sysTypes[0])?sysTypes[0].toLowerCase():'standard';
+				
+				//Resource type / browserCategory has its own faceted search
+				var resource = resource = "unknown";
+				if (item['browseCategories'] && item['browseCategories'][0]) {
+					resource = item['browseCategories'][0].toLowerCase();
+				}
+				
+				//don't include folders unless they are projects
+				if (sysType != 'folder' || (sysType == 'folder' && resource == 'project')) {
+					
+					var link = item['link']['url'];
+					item['url'] = link;
+					item['resource'] = resource;
+					item['mainLink'] = $scope.findLink(item["webLinks"], ["home", "html"], true);
+
+
+					//Simplify the systemTypes
+					delete item['systemTypes'];
+					item['systemType'] = sysType;
+					
+					
+					//build contactText
+					var contacts = item['contacts'];
+					var contactText = "";	//combined contact text
+
+					if (contacts) {
+						for (var j = 0; j < contacts.length; j++) {
+
+							if (j < 3) {
+								var contact = contacts[j];
+								var name = contact['name'];
+								var type = contact['type'];
+
+								if (type == null) type = "??";
+								if (type == 'Principle Investigator') type = "PI";
+
+								contactText+= name + " (" + type + "), ";
+							} else if (j == 3) {
+								contactText+= "and others.  "
+							} else {
+								break;
+							}
+						}
+					}
+
+					if (contactText.length > 0) {
+						contactText = contactText.substr(0, contactText.length - 2);	//rm trailing ', '
+					} else {
+						contactText = "[No contact information listed]";
+					}
+
+					item['contactText'] = contactText;
+
+					newRecords.push(item);
+				}
+			}
+		}
+		
+		return newRecords;
 	};
 	
 	/**
@@ -131,6 +212,23 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		$scope.filteredRecords = $scope.getFilteredResults();
 		$scope.pageCurrent = 0;
 		$scope.updatePageRecords();
+	};
+	
+	$scope.clearForm = function(event) {
+		
+		$scope.OpenLayersMap.boxLayer.removeAllFeatures();
+		$scope.OpenLayersMap.map.setCenter(new OpenLayers.LonLat($scope.OpenLayersMap.orgLon, $scope.OpenLayersMap.orgLat), $scope.OpenLayersMap.orgZoom);
+		
+		$scope.model.text_query = '';
+		$scope.model.location = '';
+		$scope.model.focus = '';
+		$scope.model.spatial = '';
+		$scope.userState.resourceFilter = "1";
+		
+		$scope.processRawScienceBaseResponse(null);
+		$scope.processRecords();
+		
+		$scope.isUIFresh = true;
 	};
 	
 	$scope.gotoNextPage = function() {
@@ -278,71 +376,6 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		}
 	};
 
-	$scope.processGlriResults = function(resultRecordsArray) {
-		var records = resultRecordsArray;
-		var newRecords = [];
-
-		if (records) {
-			for (var i = 0; i < records.length; i++) {
-				var item = records[i];
-				
-				//The system type is set of special items like 'folder's, which we don't want in the results
-				var sysTypes = (item['systemTypes'])?item['systemTypes']:[];
-				var sysType = (sysTypes[0])?sysTypes[0].toLowerCase():'standard';
-				
-				if (sysType != 'folder') {
-					var link = item['link']['url'];
-					item['url'] = link;
-
-					var resource = resource = "unknown";
-					if (item['browseCategories'] && item['browseCategories'][0]) {
-						resource = item['browseCategories'][0].toLowerCase();
-					}
-
-					item['resource'] = resource;
-					item['mainLink'] = $scope.findLink(item["webLinks"], ["home", "html"], true);
-
-					//build contactText
-					var contacts = item['contacts'];
-					var contactText = "";	//combined contact text
-
-					if (contacts) {
-						for (var j = 0; j < contacts.length; j++) {
-
-							if (j < 3) {
-								var contact = contacts[j];
-								var name = contact['name'];
-								var type = contact['type'];
-
-								if (type == null) type = "??";
-								if (type == 'Principle Investigator') type = "PI";
-
-								contactText+= name + " (" + type + "), ";
-							} else if (j == 3) {
-								contactText+= "and others.  "
-							} else {
-								break;
-							}
-						}
-					}
-
-					if (contactText.length > 0) {
-						contactText = contactText.substr(0, contactText.length - 2);	//rm trailing ', '
-					} else {
-						contactText = "[No contact information listed]";
-					}
-
-					item['contactText'] = contactText;
-
-					newRecords.push(item);
-				}
-			}
-		}
-		
-		return newRecords;
-	};
-	
-
 	/**
 	 * Finds a link from a list of ScienceBase webLinks based on a list
 	 * of search keys, which are searched for in order against the
@@ -408,9 +441,13 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 			return p;
 		}
 	};
+	
+	$scope.getBaseQueryUrl = function() {
+		return $("#sb-query-form").attr("action") + "?";
+	}
 
 	$scope.buildDataUrl = function() {
-		var url = $("#sb-query-form").attr("action") + "?";
+		var url = $scope.getBaseQueryUrl();
 		
 		var gaMetrics = new Object();	//for reporting
 		
