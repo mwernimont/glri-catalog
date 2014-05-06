@@ -125,7 +125,7 @@
 										<label class="col-xs-4 control-label">Resource Type</label>
 										<div id="resource_input" class="btn-group-vertical col-xs-8" tooltip-placement="right" tooltip="Narrow the results to a resource type such as &QUOT;Data&QUOT; for datasets or &QUOT;Project&QUOT; for a USGS GLRI study. A Project may have associated Data and/or Publications.">
 											<button type="button" class="btn btn-default val-{{name}}" ng-repeat="(key, name) in FACET_DEFS" ng-model="model.resourceFilter" btn-radio="key">
-												<img ng-src="style/image/blue/{{name | lowercase}}.svg" ng-if="key != '1'" class="pull-left"/>
+												<img ng-src="style/image/darkblue/{{name | lowercase}}.svg" ng-if="key != '1'" class="pull-left"/>
 												<span ng-if="key != '1'" class="badge pull-right"></span>
 												<span class="value">{{name}}</span>
 											</button>
