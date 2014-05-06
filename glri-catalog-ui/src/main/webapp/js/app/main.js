@@ -18,8 +18,6 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		{key: "title", display: "Title"},
 		{key: "contactText", display: "Author / PI / Creator"}
 	];
-	$scope.orderProp = 'title';
-	
 	
 	$scope.isUIFresh = true;	//True until the user does the first search.   Used to display welcome message.
 
@@ -28,7 +26,6 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	$scope.model.location = '';
 	$scope.model.focus = '';
 	$scope.model.spatial = '';
-	$scope.model.resourceFilter = "1";
 	
 	//These are the Google Analytics custom metrics for each search param.
 	//To log search usage, each search should register that a search was done
@@ -50,7 +47,11 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	$scope.resultItems = null;	//array of all the returned items, processed to include display properties
 	$scope.filteredRecords = null;		//Current records, filtered based on facets.
 	
-	$scope.drawingBounds = false;	//true if dragging map should draw a box
+	//Non-query user created state
+	$scope.userState = new Object();
+	$scope.userState.drawingBounds = false;	//true if dragging map should draw a box
+	$scope.userState.resourceFilter = "1";
+	$scope.userState.orderProp = 'title';
 
 	//Pagination
 	$scope.pageRecordsPerPageOptions = [10, 20, 50];
@@ -86,7 +87,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		$scope.model.location = '';
 		$scope.model.focus = '';
 		$scope.model.spatial = '';
-		$scope.model.resourceFilter = "1";
+		$scope.userState.resourceFilter = "1";
 		
 		$scope.processRawScienceBaseResponse(null);
 		$scope.processRecords();
@@ -124,7 +125,9 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	 * Starting from resultItems:  Sort, fiter, reset current page and update paged records.
 	 */
 	$scope._processRecords = function() {
-		$scope.resultItems = $filter('orderBy')($scope.resultItems, $scope.orderProp);
+		if (! $scope.resultItems) $scope.resultItems = [];
+		
+		$scope.resultItems = $filter('orderBy')($scope.resultItems, $scope.userState.orderProp);
 		$scope.filteredRecords = $scope.getFilteredResults();
 		$scope.pageCurrent = 0;
 		$scope.updatePageRecords();
@@ -209,14 +212,14 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		
 	};
 
-	$scope.$watch('model.resourceFilter', function(newValue, oldValue) {
+	$scope.$watch('userState.resourceFilter', function(newValue, oldValue) {
 		if (newValue != oldValue) {
 			$scope.processRecords();
 		}
 	});
 	
-	$scope.$watch("drawingBounds", function() {
-		if ($scope.drawingBounds) {
+	$scope.$watch("userState.drawingBounds", function() {
+		if ($scope.userState.drawingBounds) {
 			$scope.OpenLayersMap.boxControl.handler.stopDown = true;
 			$scope.OpenLayersMap.boxControl.handler.stopUp = true;
 			$scope.OpenLayersMap.boxControl.activate();
@@ -254,16 +257,16 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	};
 
 	$scope.getFilteredResults = function() {
-		if ($scope.model.resourceFilter != null && $scope.resultItems != null) {
+		if ($scope.userState.resourceFilter != null && $scope.resultItems != null) {
 
-			if ($scope.model.resourceFilter == "1") {
+			if ($scope.userState.resourceFilter == "1") {
 				return $scope.resultItems;
 			} else {
 				var data = new Array();
 
 				for (var i in $scope.resultItems) {
 					var item = $scope.resultItems[i];
-					if (item.browseCategories[0] == $scope.FACET_DEFS[$scope.model.resourceFilter]) {
+					if (item.browseCategories[0] == $scope.FACET_DEFS[$scope.userState.resourceFilter]) {
 						data.push(item);
 					}
 				}
@@ -414,7 +417,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		gaMetrics['metric1'] = 1;	//Add a general entry for the search happening
 		
 		$.each($scope.model, function(key, value) {
-			if (key != "resourceFilter" && value != '' && value != 'Any') {
+			if (value != '' && value != 'Any') {
 				
 				var actualKey = key;	//for some param we use different keys based on the value
 				

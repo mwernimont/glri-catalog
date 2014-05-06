@@ -63,8 +63,8 @@
 									<div class="row">
 										<div class="col-xs-12 map-contols">
 											<div class="btn-group" tooltip-placement="right" tooltip="Drag on the map to either: move the map, or, draw a bounding box to limit search results to the boxed area.">
-												<button type="button" class="btn btn-default btn-sm" ng-model="drawingBounds" btn-radio="false">Drag Map</button>
-												<button type="button" class="btn btn-default btn-sm" ng-model="drawingBounds" btn-radio="true">Draw Bounds</button>
+												<button type="button" class="btn btn-default btn-sm" ng-model="userState.drawingBounds" btn-radio="false">Drag Map</button>
+												<button type="button" class="btn btn-default btn-sm" ng-model="userState.drawingBounds" btn-radio="true">Draw Bounds</button>
 											</div>
 										</div>
 									</div>
@@ -124,7 +124,7 @@
 									<div class="form-group">
 										<label class="col-xs-4 control-label">Resource Type</label>
 										<div id="resource_input" class="btn-group-vertical col-xs-8" tooltip-placement="right" tooltip="Narrow the results to a resource type such as &QUOT;Data&QUOT; for datasets or &QUOT;Project&QUOT; for a USGS GLRI study. A Project may have associated Data and/or Publications.">
-											<button type="button" class="btn btn-default val-{{name}}" ng-repeat="(key, name) in FACET_DEFS" ng-model="model.resourceFilter" btn-radio="key">
+											<button type="button" class="btn btn-default val-{{name}}" ng-repeat="(key, name) in FACET_DEFS" ng-model="userState.resourceFilter" btn-radio="key">
 												<img ng-src="style/image/darkblue/{{name | lowercase}}.svg" ng-if="key != '1'" class="pull-left"/>
 												<span ng-if="key != '1'" class="badge pull-right"></span>
 												<span class="value">{{name}}</span>
@@ -167,7 +167,7 @@
 										<div class="form-group">
 											<label class="control-label col-xs-4">Sort by:&nbsp;</label>
 											<div class="col-xs-8">
-												<select class="form-control" ng-model="orderProp" ng-change="sortChange()" data-width="auto">
+												<select class="form-control" ng-model="userState.orderProp" ng-change="sortChange()" data-width="auto">
 													<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}">{{sortOption.display}}</option>
 												</select>
 											</div>
@@ -270,7 +270,7 @@
 										<div class="form-group">
 											<label class="control-label col-xs-4">Sort by:&nbsp;</label>
 											<div class="col-xs-8">
-												<select class="form-control" ng-model="orderProp" ng-change="sortChange()" data-width="auto">
+												<select class="form-control" ng-model="userState.orderProp" ng-change="sortChange()" data-width="auto">
 													<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}">{{sortOption.display}}</option>
 												</select>
 											</div>
