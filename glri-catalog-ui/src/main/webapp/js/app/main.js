@@ -20,6 +20,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	];
 	
 	$scope.isUIFresh = true;	//True until the user does the first search.   Used to display welcome message.
+	$scope.isSearching = false;	//true if we are waiting for results from the main (non-child) query.
 
 	$scope.model = new Object();
 	$scope.model.text_query = '';
@@ -69,11 +70,14 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 		event.preventDefault();
 		event.stopPropagation();
+		$scope.isSearching = true;
 		$http.get($scope.buildDataUrl()).success(function(data) {
 			$scope.processRawScienceBaseResponse(data);
 			$scope.isUIFresh = false;
+			$scope.isSearching = false;
 			$scope.processRecords();
 		}).error(function(data, status, headers, config) {
+			$scope.isSearching = false;
 			alert("Unable to connect to ScienceBase.gov to find records.");
 		});
 	};
