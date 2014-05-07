@@ -20,6 +20,7 @@
 		<script type="text/javascript" src="webjars/jquery/2.1.0/jquery.js"></script>
 		<script type="text/javascript" src="webjars/angularjs/1.2.16/angular.js"></script>
 		<script type="text/javascript" src="webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
+		<script type="text/javascript" src="webjars/openlayers/2.13.1/OpenLayers.js"></script>
 
 		<script type="text/javascript" src="js/app/main.js"></script>
 		<script type="text/javascript" src="js/app/cida-analytics.js"></script>
@@ -31,9 +32,6 @@
 
 		<!-- Application custom -->
 		<link rel="stylesheet" type="text/css" href="css/custom.css" />
-
-		<!-- OpenLayers -->
-		<script type="text/javascript" src="js/lib/OpenLayers/OpenLayers.js"></script>
 	</head>
 	<body>
 		<div class="container">
