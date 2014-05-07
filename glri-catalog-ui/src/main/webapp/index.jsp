@@ -58,8 +58,8 @@
 									<div class="row">
 										<div class="col-xs-12 map-contols">
 											<div class="btn-group" tooltip-placement="right" tooltip="Drag on the map to either: move the map, or, draw a bounding box to limit search results to the boxed area.">
-												<button type="button" class="btn btn-default btn-sm" ng-model="userState.drawingBounds" btn-radio="false">Drag Map</button>
-												<button type="button" class="btn btn-default btn-sm" ng-model="userState.drawingBounds" btn-radio="true">Draw Bounds</button>
+												<button type="button" class="btn btn-primary btn-sm" ng-model="userState.drawingBounds" btn-radio="false">Drag Map</button>
+												<button type="button" class="btn btn-primary btn-sm" ng-model="userState.drawingBounds" btn-radio="true">Draw Bounds</button>
 											</div>
 										</div>
 									</div>
@@ -129,7 +129,7 @@
 									<div class="row">
 										<div id="sb-query-form-footer-controls" class="col-xs-12">
 											<input type="hidden" id="format_input" name="format" value="json">
-											<button type="reset" class="btn btn-default pull-left" id="sb-query-clear" ng-click="clearForm($event)">Clear Form</button>
+											<button type="reset" class="btn btn-primary pull-left" id="sb-query-clear" ng-click="clearForm($event)">Clear Form</button>
 											<button type="submit" class="btn btn-primary pull-right" id="sb-query-submit" ng-click="doRemoteLoad($event)">Search</button>
 										</div>
 									</div>
@@ -148,15 +148,10 @@
 				<div class="col-xs-12 col-sm-8">
 					<div class="row">
 						<div class="col-xs-12">
-							<div class="well well-sm clearfix result-header">
-								<div class=""row>
+							<div class="well well-sm clearfix result-header" ng-if="filteredRecords.length > 0">
+								<div class="row">
 									<div class="col-xs-6 record-display-status">
-										<div ng-if="filteredRecords.length > 0" class="result-header">
-											<h4>{{filteredRecords.length}} results, showing {{pageCurrentFirstRecordIndex + 1}} - {{pageCurrentLastRecordIndex + 1}}</h4>
-										</div>
-										<div ng-if="(!filteredRecords) || filteredRecords.length < 1" class="result-header">
-											<h4>No results match your filter</h4>
-										</div>
+										<h4>{{filteredRecords.length}} results, showing {{pageCurrentFirstRecordIndex + 1}} - {{pageCurrentLastRecordIndex + 1}}</h4>
 									</div>
 									<div class="col-xs-6 sort-options form-horizontal">
 										<div class="form-group">
@@ -169,7 +164,7 @@
 										</div>
 									</div>
 								</div>
-								<div class=""row ng-if="filteredRecords.length > 0">
+								<div class="row">
 									<div class="col-xs-6 col-sm-12 col-md-6 page-nav">
 										<p>
 											<a href="" class="previous" ng-class="pageHasPrevious?'has-previous':'has-no-previous'" ng-click="gotoPreviousPage()">&lt; Previous</a>
@@ -198,7 +193,7 @@
 							<div class="well well-sm clearfix" ng-if="isUIFresh">
 								<h4>Great Lakes Restoration Initiative Science Explorer</h4>
 								<p>The Great Lakes Restoration Initiative (GLRI) is a wide-ranging,
-									coordinated effort between many groups and individuals to help the Great Lakes recover economically and ecologically.
+									coordinated effort between many organizations and individuals to help the Great Lakes recover economically and ecologically.
 									Driven by cross-disciplinary integrative science and conducted in collaboration with partners,
 									U.S. Geological Survey (USGS) researchers are working to provide resource managers with the information and
 									decision-making tools they need to help restore the Great Lakes.
@@ -218,9 +213,17 @@
 								</ul>
 								
 								<p class="gap-lg">
-									<img class="pull-left" style="height: 3.5em" src="style/image/usgsblack.png" alt="USGS Logo - Science for a changing world"/>
-									<img class="pull-right" style="height: 3.5em" src="style/image/darkblue/glri_logo.svg" alt="GLRI Logo - Great Lakes Restoration Initiative"/>
+									<a href="http://www.usgs.gov/" target="_blank" class="pull-left">
+										<img style="height: 3.5em" src="style/image/usgsblack.png" alt="USGS Logo - Science for a changing world"/>
+									</a>
+									<a href="http://cida.usgs.gov/glri/" target="_blank" class="pull-right">
+										<img style="height: 3.5em" src="style/image/darkblue/glri_logo.svg" alt="GLRI Logo - Great Lakes Restoration Initiative"/>
+									</a>
 								</p>
+							</div>
+							
+							<div class="record-load-progress" ng-if="isSearching">
+								<span class="glyphicon glyphicon-repeat"></span>
 							</div>
 
 							<ul class="result-records">
@@ -296,7 +299,7 @@
 					<div class="row" ng-show="filteredRecords.length > 2">
 						<div class="col-xs-12">
 							<div class="well well-sm clearfix result-footer">
-								<div class=""row>
+								<div class="row">
 									<div class="col-xs-6 record-display-status">
 										<div>
 											<h4>{{filteredRecords.length}} results, showing {{pageCurrentFirstRecordIndex + 1}} - {{pageCurrentLastRecordIndex + 1}}</h4>
