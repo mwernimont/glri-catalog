@@ -25,14 +25,11 @@
 		<script type="text/javascript" src="js/app/cida-analytics.js"></script>
 		<script type="application/javascript" src="http://www.usgs.gov/scripts/analytics/usgs-analytics.js"></script>
 
-		<!-- Twitter Bootstrap -->
+		<!-- Twitter Bootstrap & theme-->
 		<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.1.1/css/bootstrap.css"/>
-
-		<!-- Our Bootstrap Theme -->
 		<link rel="stylesheet" type="text/css" href="style/themes/theme1.css"/>
 
 		<!-- Application custom -->
-		<link rel="stylesheet" type="text/css" href="css/table.css" />
 		<link rel="stylesheet" type="text/css" href="css/custom.css" />
 
 		<!-- OpenLayers -->
