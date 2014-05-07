@@ -242,7 +242,13 @@
 											<a href="{{record.mainLink.url}}" target="_blank">{{record.mainLink.title}}</a>
 										</div>
 										<div ng-if="record.hasChildren == true">
-											<a href="" ng-click="loadChildItems(record)">Publications and Datasets...</a>
+											<a href="" ng-click="toggleChildItems(record)">Publications and Datasets
+												<span ng-if="record.childRecordState == 'notloaded'"><span class="glyphicon glyphicon-chevron-down"></span></span>
+												<span ng-if="record.childRecordState == 'loading'"><span class="glyphicon glyphicon-repeat"></span></span>
+												<span ng-if="record.childRecordState == 'complete'"><span class="glyphicon glyphicon-remove-circle"></span></span>
+												<span ng-if="record.childRecordState == 'failed'"><span class="glyphicon glyphicon-warning-sign"></span></span>
+												<span ng-if="record.childRecordState == 'closed'"><span class="glyphicon glyphicon-eye-open"></span></span>
+											</a>
 										</div>
 									</div>
 									<p class="summary">{{record.summary}}</p>
@@ -254,9 +260,9 @@
 									</div>
 									
 									<div ng-if="record.childItems &amp;&amp; record.childRecordState == 'complete'" class="child-records">
-										<div class="list-head">
-											<div class="pull-right">Close List <span class="glyphicon glyphicon-remove"></span></div>
-											<h4>Child records (projects and datasets)</h4>
+										<div class="list-head clearfix">
+											<div class="pull-right"><a href="" ng-click="toggleChildItems(record)">Close child list <span class="glyphicon glyphicon-remove-circle"></span></a></div>
+											<h4>{{record.childItems.length}} Child record(s) (projects and datasets)</h4>
 										</div>
 										<ul>
 											<li ng-repeat="child in record.childItems" class="{{child.resource}}">
@@ -275,6 +281,9 @@
 												<p class="summary">{{child.summary}}</p>
 											</li>
 										</ul>
+										<div class="list-foot clearfix">
+											<div class="pull-right"><a href="" ng-click="toggleChildItems(record)">Close child list <span class="glyphicon glyphicon-remove-circle"></span></a></div>
+										</div>
 									</div>
 								</li>
 							</ul>
