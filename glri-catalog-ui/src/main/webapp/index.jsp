@@ -198,7 +198,7 @@
 							<div class="well well-sm clearfix" ng-if="isUIFresh">
 								<h4>Great Lakes Restoration Initiative Science Explorer</h4>
 								<p>The Great Lakes Restoration Initiative (GLRI) is a wide-ranging,
-									coordinated effort between many groups and individuals to help the Great Lakes recover economically and ecologically.
+									coordinated effort between many organizations and individuals to help the Great Lakes recover economically and ecologically.
 									Driven by cross-disciplinary integrative science and conducted in collaboration with partners,
 									U.S. Geological Survey (USGS) researchers are working to provide resource managers with the information and
 									decision-making tools they need to help restore the Great Lakes.
@@ -218,8 +218,12 @@
 								</ul>
 								
 								<p class="gap-lg">
-									<img class="pull-left" style="height: 3.5em" src="style/image/usgsblack.png" alt="USGS Logo - Science for a changing world"/>
-									<img class="pull-right" style="height: 3.5em" src="style/image/darkblue/glri_logo.svg" alt="GLRI Logo - Great Lakes Restoration Initiative"/>
+									<a href="http://www.usgs.gov/" target="_blank" class="pull-left">
+										<img style="height: 3.5em" src="style/image/usgsblack.png" alt="USGS Logo - Science for a changing world"/>
+									</a>
+									<a href="http://cida.usgs.gov/glri/" target="_blank" class="pull-right">
+										<img style="height: 3.5em" src="style/image/darkblue/glri_logo.svg" alt="GLRI Logo - Great Lakes Restoration Initiative"/>
+									</a>
 								</p>
 							</div>
 
