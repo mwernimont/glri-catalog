@@ -55,11 +55,11 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	$scope.userState.orderProp = 'title';
 
 	//Pagination
-	$scope.pageRecordsPerPageOptions = [10, 20, 50];
+	$scope.pageRecordsPerPageOptions = [5, 10, 15];
 	$scope.pageCurrent = 0;
 	$scope.pageCurrentFirstRecordIndex = 0; //Use to display 'showing records 10 - 20'
 	$scope.pageCurrentLastRecordIndex = 0;	//Use to display 'showing records 10 - 20'
-	$scope.pageSize = $scope.pageRecordsPerPageOptions[1];
+	$scope.pageSize = $scope.pageRecordsPerPageOptions[0];
 	$scope.pageCount;
 	$scope.pageList = [];	//array of numbers, 0 to pageCount - 1.  Used by ng-repeat
 	$scope.pageRecords = [];
