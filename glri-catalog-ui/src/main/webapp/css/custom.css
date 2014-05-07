@@ -62,6 +62,13 @@ th a:hover {
      padding: 0; margin-top: .6em;
 }
 
+.record-load-progress { width: 100%; position: fixed; left: 50%; top: 1.5em; font-size: 20em; }
+.record-load-progress .glyphicon { margin-left: -.5em; padding-bottom: .002em; color: rgba(3,37,83,.5)}
+
+@media (min-width: 768px) {
+	.record-load-progress { left: 65%; top: .5em; font-size: 30em; }
+}
+
 .result-header, .result-footer {
 	padding-top: .2em !important; padding-bottom: .2em !important;
 }
@@ -218,3 +225,40 @@ option.any-option { font-weight: bold; }
 @-moz-keyframes spin { from { -moz-transform: rotate(0deg); } to { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { from { -webkit-transform: rotate(0deg); } to { -webkit-transform: rotate(360deg); } }
 @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+
+/* Change the primary buttons to our color scheme */
+.glri_content .btn-primary {
+  background-color: #022553;
+  border-color: #357ebd;
+}
+.glri_content .btn-primary:hover,
+.glri_content .btn-primary:focus,
+.glri_content .open .dropdown-toggle.btn-primary {
+  background-color: #304D70;
+  border-color: #285e8e;
+}
+
+.glri_content .btn-primary:active,
+.glri_content .btn-primary.active {
+  background-color: #4E6687;
+  border-color: #285e8e;
+}
+
+.glri_content .btn-primary.disabled,
+.glri_content .btn-primary[disabled],
+.glri_content fieldset[disabled] .btn-primary,
+.glri_content .btn-primary.disabled:hover,
+.glri_content .btn-primary[disabled]:hover,
+.glri_content fieldset[disabled] .btn-primary:hover,
+.glri_content .btn-primary.disabled:focus,
+.glri_content .btn-primary[disabled]:focus,
+.glri_content fieldset[disabled] .btn-primary:focus,
+.glri_content .btn-primary.disabled:active,
+.glri_content .btn-primary[disabled]:active,
+.glri_content fieldset[disabled] .btn-primary:active,
+.glri_content .btn-primary.disabled.active,
+.glri_content .btn-primary[disabled].active,
+.glri_content fieldset[disabled] .btn-primary.active {
+  background-color: #677C98;
+  border-color: #357ebd;
+}
