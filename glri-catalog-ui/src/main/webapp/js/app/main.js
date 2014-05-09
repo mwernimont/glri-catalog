@@ -193,7 +193,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 					var link = item['link']['url'];
 					item['url'] = link;
 					item['resource'] = resource;
-					item['mainLink'] = $scope.findLink(item["webLinks"], ["home", "html"], true);
+					item['mainLink'] = $scope.findLink(item["webLinks"], ["home", "html", "index page"], true);
 
 
 					//Simplify the systemTypes
