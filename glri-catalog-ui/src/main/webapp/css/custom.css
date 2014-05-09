@@ -262,3 +262,10 @@ option.any-option { font-weight: bold; }
   background-color: #677C98;
   border-color: #357ebd;
 }
+
+/**
+ * Openlayers map styling
+ */
+
+/* tiles that fail to load should be transparent, not pink w/ a broken icon */
+img.olImageLoadError { background-color: transparent !important; visibility: hidden !important;}
