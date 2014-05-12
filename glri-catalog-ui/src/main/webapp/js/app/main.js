@@ -68,8 +68,10 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 	$scope.doRemoteLoad = function(event) {
 
+		//This is called from a form submit button, so don't let the form submit
 		event.preventDefault();
 		event.stopPropagation();
+		
 		$scope.isSearching = true;
 		$http.get($scope.buildDataUrl()).success(function(data) {
 			$scope.processRawScienceBaseResponse(data);
@@ -130,8 +132,6 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 			parentRecord.childRecordState = "loading";
 
-			event.preventDefault();
-			event.stopPropagation();
 			$http.get(url).success(function(data) {
 				var childItems = $scope.processGlriResults(data.items);
 				childItems = $filter('orderBy')(childItems, $scope.userState.orderProp);
