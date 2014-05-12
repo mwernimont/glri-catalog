@@ -214,10 +214,10 @@
 								
 								<p class="gap-lg">
 									<a href="http://www.usgs.gov/" target="_blank" class="pull-left">
-										<img style="height: 3.5em" src="style/image/usgsblack.png" alt="USGS Logo - Science for a changing world"/>
+										<img style="height: 49px; width: 134px;" src="style/image/usgsblack.png" alt="USGS Logo - Science for a changing world"/>
 									</a>
 									<a href="http://cida.usgs.gov/glri/" target="_blank" class="pull-right">
-										<img style="height: 3.5em" src="style/image/darkblue/glri_logo.svg" alt="GLRI Logo - Great Lakes Restoration Initiative"/>
+										<img style="height: 49px; width: 158px;" src="style/image/darkblue/glri_logo.svg" alt="GLRI Logo - Great Lakes Restoration Initiative"/>
 									</a>
 								</p>
 							</div>
