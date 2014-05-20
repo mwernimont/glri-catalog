@@ -106,7 +106,7 @@
 									<div class="form-group">
 										<label class="col-xs-4 control-label">Focus Area</label>
 										<div class="col-xs-8">
-											<select class="form-control" name="focus" id="focus_input" title="Any" ng-model="model.focus" tooltip-placement="right" tooltip="Limit results to a GLRI funding area/catagory.">
+											<select class="form-control" name="focus" id="focus_input" title="Any" ng-model="model.focus" tooltip-placement="right" tooltip="Limit results to a GLRI funding area/category.">
 												<option value="">Any</option>
 												<option value="Toxic Substances">Toxic Substances</option>
 												<option value="Invasive Species">Invasive Species</option>
@@ -191,7 +191,7 @@
 							<!--Body content-->
 							
 							<div class="well well-sm clearfix" ng-if="isUIFresh">
-								<h4>Great Lakes Restoration Initiative Science Explorer</h4>
+								<h4>Welcome to the Great Lakes Restoration Initiative Science Explorer!</h4>
 								<p>The Great Lakes Restoration Initiative (GLRI) is a wide-ranging,
 									coordinated effort between many organizations and individuals to help the Great Lakes recover economically and ecologically.
 									Driven by cross-disciplinary integrative science and conducted in collaboration with partners,
