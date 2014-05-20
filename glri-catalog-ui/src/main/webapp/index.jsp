@@ -235,7 +235,7 @@
 									</div>
 									<h4>{{record.title}}</h4>
 									<p class="point-of-contact">{{record.contactText}}</p>
-									<div class="related-links">
+									<div class="related-links" ng-if="record.mainLink || (record.hasChildren == true)">
 										<div ng-if="record.mainLink">
 											<a href="{{record.mainLink.url}}" target="_blank">{{record.mainLink.title}}</a>
 										</div>
