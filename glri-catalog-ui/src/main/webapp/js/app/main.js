@@ -414,7 +414,10 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 				for (var i in $scope.resultItems) {
 					var item = $scope.resultItems[i];
-					if (item.browseCategories[0] == $scope.FACET_DEFS[$scope.userState.resourceFilter]) {
+					if (item.browseCategories && (item.browseCategories[0] == $scope.FACET_DEFS[$scope.userState.resourceFilter])) {
+						data.push(item);
+					} else if (! item.browseCategories) {
+						//We don't know what this thing is - add anyway??
 						data.push(item);
 					}
 				}
