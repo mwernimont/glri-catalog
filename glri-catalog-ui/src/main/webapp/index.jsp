@@ -135,7 +135,7 @@
 									</div>
 									<div class="row">
 										<div class="col-xs-12">	
-											<a href="https://www.sciencebase.gov/catalog/" target="_blank" title="ScienceBase, a repository of projects, data and metadata">
+											<a href="https://www.sciencebase.gov/catalog/items?community=Great+Lakes+Restoration+Initiative" target="_blank" title="ScienceBase, a repository of projects, data and metadata">
 												<img width="206" src="style/image/darkblue/sciencebase.png" alt="Science Base attribution icon" />
 											</a>
 										</div>
