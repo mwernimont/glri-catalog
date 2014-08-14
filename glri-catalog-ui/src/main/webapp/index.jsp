@@ -117,6 +117,14 @@
 										</div>
 									</div>
 									<div class="form-group">
+										<label class="col-xs-4 control-label">Template</label>
+										<div class="col-xs-8">
+											<select class="form-control" name="template" id="template_input" title="Any" ng-model="model.template" tooltip-placement="right" tooltip="Limit results to a GLRI funding template. Projects are associated with one or more templates.">
+												<option ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="{{entry.key}}">{{entry.display}}</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-group">
 										<label class="col-xs-4 control-label">Resource Type</label>
 										<div id="resource_input" class="btn-group-vertical col-xs-8" tooltip-placement="right" tooltip="Narrow the results to a resource type such as &QUOT;Data&QUOT; for datasets or &QUOT;Project&QUOT; for a USGS GLRI study. A Project may have associated Data and/or Publications.">
 											<button type="button" class="btn btn-default val-{{name}}" ng-repeat="(key, name) in FACET_DEFS" ng-model="userState.resourceFilter" btn-radio="key">
