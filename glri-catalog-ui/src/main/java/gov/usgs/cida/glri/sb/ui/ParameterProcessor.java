@@ -28,6 +28,9 @@ public interface ParameterProcessor {
 	
 	/**
 	 * Formats the param name as the remote system expects.
+	 * Its possible for the param value to be encoded into the name, so the
+	 * value must be passed.
+	 * 
 	 * @param value
 	 * @return 
 	 */
