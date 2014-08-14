@@ -1,5 +1,6 @@
-package gov.usgs.cida.glri.sb.ui;
+package gov.usgs.cida.glri.sb.ui.itemquery;
 
+import gov.usgs.cida.glri.sb.ui.ParameterProcessor;
 import static gov.usgs.cida.glri.sb.ui.ParamType.INCLUDE_IF_PRESENT;
 import org.apache.commons.lang3.StringUtils;
 
@@ -17,22 +18,34 @@ public enum UserSpecifiedParameters implements ParameterProcessor {
 	LOC_TYPE("loc_type", "filter", "location-type", true),
 	LOC_NAME("loc_name", "filter", "location-name", true),
 	FOCUS("focus", "filter", "focus-area", true),
+	TEMPLATE("template", "filter", "GLRITemplates", true, true),
 	CATEGORY("resource", "filter", "browseCategory", false),
 	UNKNOWN("", "", null, false);
 	
-	//Same for all grli tags
+	//Same for all grli tags, except we are in the process of switching to a new one...
 	private static final String glriSchema = "https://www.sciencebase.gov/vocab/GLRI";
+	private static final String newGlriSchema = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative";
 	
 	private final String localName;
 	private final String remoteParamName;
 	private final String remoteTagName;
 	private final boolean usesTagFilter;
+	private final boolean usesNewSchema;
 	
 	UserSpecifiedParameters(String localName, String remoteParamName, String remoteTagName, boolean usesTagFilter) {
 		this.localName = localName;
 		this.remoteParamName = remoteParamName;
 		this.remoteTagName = remoteTagName;
 		this.usesTagFilter = usesTagFilter;
+		this.usesNewSchema = false;
+	}
+	
+	UserSpecifiedParameters(String localName, String remoteParamName, String remoteTagName, boolean usesTagFilter, boolean usesNewSchema) {
+		this.localName = localName;
+		this.remoteParamName = remoteParamName;
+		this.remoteTagName = remoteTagName;
+		this.usesTagFilter = usesTagFilter;
+		this.usesNewSchema = usesNewSchema;
 	}
 	
 	public String getRemoteName() {
@@ -44,7 +57,12 @@ public enum UserSpecifiedParameters implements ParameterProcessor {
 	}
 	
 	public String getRemoteSchemaTagName() {
-		return glriSchema + "/" + remoteTagName;
+		if (usesNewSchema) {
+			return newGlriSchema + "/" + remoteTagName;
+		} else {
+			return glriSchema + "/" + remoteTagName;
+		}
+		
 	}
 	
 	public String getLocalName() {
@@ -56,7 +74,7 @@ public enum UserSpecifiedParameters implements ParameterProcessor {
 	 * meaning that the param structure is not a simple name=value.
 	 * @return 
 	 */
-	public boolean isUsingTagFilter() {
+	private boolean isUsingTagFilter() {
 		return usesTagFilter;
 	}
 	
@@ -94,14 +112,13 @@ public enum UserSpecifiedParameters implements ParameterProcessor {
 	public String processParamValue(String value) {
 		value = StringUtils.trimToNull(value);
 		if (value != null) {
-			if (this.equals(CATEGORY)) {
-				//Categories is not a 'tag' so is handles slightly different
-				return this.getRemoteTagName() + "=" + value;
-			} else if (this.equals(TEXT_QUERY)) {
-				//Text query is 'simple'
-				return value;
-			} else {
+			if (this.isUsingTagFilter()) {
 				return "tags={scheme:'" + this.getRemoteSchemaTagName() + "',name:'" + value + "'}";
+			} else if (this.equals(CATEGORY)) {
+				//its own special thing...
+				return this.getRemoteTagName() + "=" + value;
+			} else {
+				return value;
 			}
 		} else {
 			return null;

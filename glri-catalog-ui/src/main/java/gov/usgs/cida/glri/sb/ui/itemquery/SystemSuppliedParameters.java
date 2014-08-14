@@ -2,16 +2,19 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.usgs.cida.glri.sb.ui;
+package gov.usgs.cida.glri.sb.ui.itemquery;
 
-import org.apache.commons.lang3.StringUtils;
+import gov.usgs.cida.glri.sb.ui.AppConfig;
+import gov.usgs.cida.glri.sb.ui.ParamType;
 import static gov.usgs.cida.glri.sb.ui.ParamType.*;
+import gov.usgs.cida.glri.sb.ui.ParameterProcessor;
+import org.apache.commons.lang3.StringUtils;
 
 /**
  *
  * @author eeverman
  */
-public enum SystemSuppliedParameters {
+public enum SystemSuppliedParameters implements ParameterProcessor {
 	
 	/** Format of results to come back */
 	FORMAT("format", "format", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE, "json"),
@@ -92,5 +95,26 @@ public enum SystemSuppliedParameters {
 		}
 		
 		return null;
+	}
+	
+	@Override
+	public String processParamValue(String[] values) {
+		if (values != null && values.length > 0) {
+			String val = StringUtils.trimToNull(values[0]);
+			if (val != null) {
+				return processParamValue(val);
+			}
+		}
+		return null;
+	}
+	
+	@Override
+	public String processParamValue(String value) {
+		return StringUtils.trimToNull(value);
+	}
+	
+	@Override
+	public String processParamName(String value) {
+		return this.getRemoteName();
 	}
 }
