@@ -26,7 +26,18 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	$scope.model.text_query = '';
 	$scope.model.location = '';
 	$scope.model.focus = '';
+	$scope.model.template = '';
 	$scope.model.spatial = '';
+	
+	//storage of state that would not be preserved if the user were to follow a
+	//link to the current page state.
+	$scope.transient = new Object();
+	
+	//The array of funding templates to choose from.  Init as "Any", but async load from vocab server.
+	$scope.transient.templateValues = [
+		{key: "", display:"Any", sort: -1},
+		{key: "xxx", display:"...loading template list...", sort: 0},
+	];
 	
 	//These are the Google Analytics custom metrics for each search param.
 	//To log search usage, each search should register that a search was done
@@ -38,7 +49,8 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		loc_type: 3,
 		loc_name: 4,
 		focus: 5,
-		spatial: 6
+		spatial: 6,
+		template: 7
 	};
 	
 	
@@ -66,6 +78,48 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	$scope.pageHasNext = false;
 	$scope.pageHasPrevious = false;
 
+	//Called at the bottom of this JS file
+	$scope.init = function() {
+		$scope.OpenLayersMap.init();
+		$scope.doTemplateVocabLoad();
+
+	};
+	
+	/**
+	 * Loads the template picklist from the vocab service.
+	 * @returns void
+	 */
+	$scope.doTemplateVocabLoad = function() {
+		$http({method: 'GET', url: 'ScienceBaseVocabService?parentId=53da7288e4b0fae13b6deb73&format=json'}).
+			success(function(data, status, headers, config) {
+				
+				//remove the 'loading' message at index 1
+				$scope.transient.templateValues.splice(1, 1);
+				
+				for (var i = 0; i < data.list.length; i++) {
+					var o = new Object();
+					o.key = data.list[i].name;
+					o.display = o.key;
+					
+					//take all digits at the end, ignoring any trailing spaces.
+					o.sort = Number(o.key.match(/(\d*)\s*$/)[1]);
+					
+					
+					$scope.transient.templateValues.push(o);
+				}
+			}).
+			error(function(data, status, headers, config) {
+				//just put in a mesage in the picklist - no alert.
+				//
+				//remove the 'loading' message at index 1
+				$scope.transient.templateValues.splice(1, 1);
+				$scope.transient.templateValues.push({
+					key: "", display:"(!) Failed to load template list", sort: 0
+				});
+			});
+	};
+	
+	
 	$scope.doRemoteLoad = function(event) {
 
 		//This is called from a form submit button, so don't let the form submit
@@ -497,7 +551,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	
 	$scope.getBaseQueryUrl = function() {
 		return $("#sb-query-form").attr("action") + "?";
-	}
+	};
 
 	$scope.buildDataUrl = function() {
 		var url = $scope.getBaseQueryUrl();
@@ -535,7 +589,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		ga('send', 'event', 'action', 'search', gaMetrics);
 		
 		return url;
-	}	
+	};
 
 	///////////
 	// Map Functions
@@ -629,8 +683,8 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 		}
 		
-	}
+	};
 	
-	$scope.OpenLayersMap.init();
+	$scope.init();
 
 });

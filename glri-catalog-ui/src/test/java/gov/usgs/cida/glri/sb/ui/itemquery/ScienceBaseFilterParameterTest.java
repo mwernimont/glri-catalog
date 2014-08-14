@@ -1,7 +1,7 @@
-package gov.usgs.cida.glri.sb.ui;
+package gov.usgs.cida.glri.sb.ui.itemquery;
 
 
-import static gov.usgs.cida.glri.sb.ui.UserSpecifiedParameters.*;
+import static gov.usgs.cida.glri.sb.ui.itemquery.UserSpecifiedParameters.*;
 import org.junit.Before;
 import org.junit.Test;
 import static org.junit.Assert.*;

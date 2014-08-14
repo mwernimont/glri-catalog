@@ -813,7 +813,7 @@
                   </elementProp>
                   <elementProp name="josso_username" elementType="HTTPArgument">
                     <boolProp name="HTTPArgument.always_encode">true</boolProp>
-                    <stringProp name="Argument.value">***REMOVED***</stringProp>
+                    <stringProp name="Argument.value">eeverman@usgs.gov</stringProp>
                     <stringProp name="Argument.metadata">=</stringProp>
                     <boolProp name="HTTPArgument.use_equals">true</boolProp>
                     <stringProp name="Argument.name">josso_username</stringProp>
