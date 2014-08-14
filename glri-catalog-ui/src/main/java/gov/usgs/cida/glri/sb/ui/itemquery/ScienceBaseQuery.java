@@ -1,6 +1,11 @@
-package gov.usgs.cida.glri.sb.ui;
+package gov.usgs.cida.glri.sb.ui.itemquery;
 
+import gov.usgs.cida.glri.sb.ui.itemquery.UserSpecifiedParameters;
+import gov.usgs.cida.glri.sb.ui.itemquery.SystemSuppliedParameters;
 import com.google.common.io.CharStreams;
+import gov.usgs.cida.glri.sb.ui.AppConfig;
+import gov.usgs.cida.glri.sb.ui.Format;
+import gov.usgs.cida.glri.sb.ui.GLRIUtil;
 import java.io.InputStreamReader;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
@@ -19,12 +24,9 @@ import org.apache.http.util.EntityUtils;
  */
 public class ScienceBaseQuery {
 	
-	private static Format DEFAULT_FORMAT = Format.HTML;
 	public static final String DEFAULT_ENCODING = "UTF-8";
 	
-	
-	private Format format = Format.UNKNOWN;
-	
+	private final Format format = Format.UNKNOWN;
 	
 	
 	public String getQueryResponse(Map<String, String[]> requestParams) throws Exception {
@@ -38,15 +40,15 @@ public class ScienceBaseQuery {
 		appendSpatialParams(requestParams, uriBuild);
 		
 		HttpGet httpGet = new HttpGet(uriBuild.build());
-		System.out.println(httpGet.getURI());
+		//System.out.println(httpGet.getURI());
 		httpGet.addHeader("Accept", "application/json,application/xml,text/html");
 		CloseableHttpResponse response1 = httpclient.execute(httpGet);
 
 		try {
-			System.out.println(response1.getStatusLine());
+			//System.out.println(response1.getStatusLine());
 			HttpEntity entity = response1.getEntity();
 			
-			String encoding = findEncoding(entity, DEFAULT_ENCODING);
+			String encoding = GLRIUtil.findEncoding(entity, DEFAULT_ENCODING);
 			String stringFromStream = CharStreams.toString(new InputStreamReader(entity.getContent(), encoding));
 			
 			EntityUtils.consume(entity);
@@ -60,52 +62,6 @@ public class ScienceBaseQuery {
 	
 	public Format getRequestedFormat() {
 		return format;
-	}
-	
-	/**
-	 * Parses an http contentType header string into the encoding, if it exists.
-	 * If it cannot find the encoding, the default is returned.
-	 * 
-	 * @param entity Find the header in this entity
-	 * @param defaultEncoding Return this encoding if we cannot find the value in the header.
-	 * @return 
-	 */
-	protected String findEncoding(HttpEntity entity, String defaultEncoding) {
-		
-		try {
-			return findEncoding(entity.getContentType().getValue(), defaultEncoding);
-		} catch (RuntimeException e) {
-			return defaultEncoding;
-		}
-	}
-	
-	/**
-	 * Parses an http contentType header string into the encoding, if it exists.
-	 * If it cannot find the encoding, the default is returned.
-	 * 
-	 * @param contentTypeHeaderString The String value of the http contentType header
-	 * @param defaultEncoding Return this encoding if we cannot find the value in the header.
-	 * @return 
-	 */
-	protected String findEncoding(String contentTypeHeaderString, String defaultEncoding) {
-		
-		try {
-			//Example contentType:  text/html; charset=utf-8
-
-			String[] parts = contentTypeHeaderString.split(";");
-			String encoding = StringUtils.trimToNull(parts[1]);
-			parts = encoding.split("=");
-			
-			if (parts[0].trim().equalsIgnoreCase("charset")) {
-				encoding = StringUtils.trimToNull(parts[1]);
-				return encoding.toUpperCase();
-			} else {
-				return defaultEncoding;
-			}
-			
-		} catch (RuntimeException e) {
-			return defaultEncoding;
-		}
 	}
 	
 	protected void appendUserParams(Map<String, String[]> requestParams, URIBuilder uriBuild) {
@@ -156,7 +112,7 @@ public class ScienceBaseQuery {
 		if((spatialQuery != null) && (spatialQuery.length > 0)) {
 			String val = StringUtils.trimToNull(spatialQuery[0]);
 			if (val != null) {
-				System.out.println("Spatial Param: [" + val + "]");
+				//System.out.println("Spatial Param: [" + val + "]");
 				uriBuild.addParameter(SystemSuppliedParameters.SPATIAL.getRemoteName(), val);
 			}
 		}
