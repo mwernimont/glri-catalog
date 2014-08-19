@@ -15,15 +15,15 @@ import org.apache.commons.lang3.StringUtils;
 public enum UserSpecifiedParameters implements ParameterProcessor {
 	
 	TEXT_QUERY("text_query", "q", null, false),
-	LOC_TYPE("loc_type", "filter", "location-type", true),
-	LOC_NAME("loc_name", "filter", "location-name", true),
-	FOCUS("focus", "filter", "focus-area", true),
+	LOC_TYPE("loc_type", "filter", "GLRILocationType", true),
+	LOC_NAME("loc_name", "filter", "GLRIWaterFeature", true),
+	FOCUS("focus", "filter", "GLRIFocusArea", true),
 	TEMPLATE("template", "filter", "GLRITemplates", true),
 	CATEGORY("resource", "filter", "browseCategory", false),
 	UNKNOWN("", "", null, false);
 	
 	//Same for all grli tags, except we are in the process of switching to a new one...
-	private static final String GLRI_SCHEMA = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative";
+	public static final String GLRI_SCHEMA = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative";
 	
 	private final String localName;
 	private final String remoteParamName;

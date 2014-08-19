@@ -17,7 +17,7 @@ public class ScienceBaseFilterParameterTest {
 	@Test
 	public void standardSchemeBasedFilter() throws Exception {
 		
-		String expectedVal = "tags={scheme:'https://www.sciencebase.gov/vocab/GLRI/location-type',name:'Lake'}";
+		String expectedVal = "tags={scheme:'" + GLRI_SCHEMA + "/" + UserSpecifiedParameters.LOC_TYPE.getRemoteTagName() + "',name:'Lake'}";
 		
 		assertEquals("filter", LOC_TYPE.processParamName(null));	
 		assertEquals(expectedVal, LOC_TYPE.processParamValue("Lake"));

@@ -3,16 +3,17 @@ package gov.usgs.cida.glri.sb.ui.itemquery;
 import gov.usgs.cida.glri.sb.ui.AppConfig;
 import gov.usgs.cida.glri.sb.ui.GLRIUtil;
 import gov.usgs.cida.glri.sb.ui.itemquery.ScienceBaseQuery;
+import static gov.usgs.cida.glri.sb.ui.itemquery.UserSpecifiedParameters.GLRI_SCHEMA;
 import java.util.HashMap;
 import java.util.List;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URIBuilder;
 import org.junit.After;
 import org.junit.AfterClass;
+import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -97,7 +98,7 @@ public class ScienceBaseQueryTest {
 		
 		List<NameValuePair> params = uriBuild.getQueryParams();
 		
-		assertEquals("tags={scheme:'https://www.sciencebase.gov/vocab/GLRI/location-type',name:'Lake'}", findNVPVal(params, "filter"));
+		assertEquals("tags={scheme:'" + GLRI_SCHEMA + "/" + UserSpecifiedParameters.LOC_TYPE.getRemoteTagName() + "',name:'Lake'}", findNVPVal(params, "filter"));
 		assertEquals(1, params.size());
 	}
 	
