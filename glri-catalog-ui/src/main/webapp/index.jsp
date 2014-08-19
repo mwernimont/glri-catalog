@@ -75,7 +75,7 @@
 											<select class="form-control" ng-model="model.location" name="location" tooltip-placement="right" tooltip="Limit results to a specific water feature, or a type of one.">
 												<option value="">Any</option>
 												<optgroup label="Lakes">
-													<option class="any-option" value="Lake">~All Lakes~</option>
+													<option class="any-option" value="Lake">~Any of the Lakes~</option>
 													<option value="Lake:Lake Michigan">Lake Michigan</option>
 													<option value="Lake:Lake Erie">Lake Erie</option>
 													<option value="Lake:Lake Huron">Lake Huron</option>
@@ -84,7 +84,7 @@
 													<option value="Lake:Lake St. Clair">Lake St. Clair</option>
 												</optgroup>
 												<optgroup label="Watersheds">
-													<option class="any-option" value="Watershed">~All Watersheds~</option>
+													<option class="any-option" value="Watershed">~Any of the Watersheds~</option>
 													<option value="Watershed:Lake Michigan Basin">Lake Michigan Basin</option>
 													<option value="Watershed:Lake Erie Basin">Lake Erie Basin</option>
 													<option value="Watershed:Lake Huron Basin">Lake Huron Basin</option>
@@ -93,7 +93,7 @@
 													<option value="Watershed:Lake St. Clair Basin">Lake St. Clair Basin</option>
 												</optgroup>
 												<optgroup label="Channels">
-													<option class="any-option" value="Channel">~All Channels~</option>
+													<option class="any-option" value="Channel">~Any of the Channels~</option>
 													<option value="Channel:St. Mary's Channel">St. Mary's Channel</option>
 													<option value="Channel:St. Lawrence Channel">St. Lawrence Channel</option>
 													<option value="Channel:Detroit Channel">Detroit Channel</option>
