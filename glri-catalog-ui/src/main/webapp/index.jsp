@@ -2,8 +2,10 @@
 <html lang="en" ng-app="GLRICatalogApp">
 	<head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1"> <%-- Bootstrap mobile scaling directive --%>
+		<meta name="viewport" content="width=device-width, initial-scale=1" /> <%-- Bootstrap mobile scaling directive --%>
 
+		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		
 		<jsp:include page="template/USGSHead.jsp">
 			<jsp:param name="relPath" value="" />
 			<jsp:param name="shortName" value="${project.name}" />
