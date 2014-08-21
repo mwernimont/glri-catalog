@@ -41,14 +41,10 @@ ul#ccsa-area {
 
 #sb-query-submit { padding-left: 3em; padding-right: 3em; }
 
-#records-blocked-by-filter {
-	margin: 10% auto;
-	width: 70%;
-}
+.no-records { margin: 10% auto; width: 70%; display: block; }
 
-#records-blocked-by-filter.no-records {
-	display: block;
-}
+.no-records .badge { background-color: #333; }
+
 th a {
   color: #000 !important;
 }

@@ -296,11 +296,18 @@
 								</li>
 							</ul>
 							
-							<div ng-if="resultItems.length > 0 &amp;&amp; filteredRecords.length == 0" id="records-blocked-by-filter" class="panel panel-warning">
+							<div ng-if="resultItems.length > 0 &amp;&amp; filteredRecords.length == 0" id="records-blocked-by-filter" class="panel panel-warning no-records">
 								<div class="panel-heading"><h3>Records hidden by filter</h3></div>
 								<div class="panel-body">
-									There are results from your query, but they are blocked by the <i>Resource Type</i> filter.
-									Select one of the resource types that is not marked with a <span class="badge">0</span>.
+									Hold on! There <em>are</em> results from your query, but they are blocked by the <i>Resource Type</i> filter.
+									The little black ovals (<span class="badge">0</span>) indicate how many records were found for each resource type.
+								</div>
+							</div>
+							
+							<div ng-if="resultItems.length == 0 &amp;&amp; !isUIFresh" id="no-records-found" class="panel panel-warning no-records">
+								<div class="panel-heading"><h3>No Records Found</h3></div>
+								<div class="panel-body">
+									Ah snap!  None of the records in the system match the criteria you were looking for.
 								</div>
 							</div>
 
