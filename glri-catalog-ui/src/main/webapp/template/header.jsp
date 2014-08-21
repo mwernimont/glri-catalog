@@ -17,7 +17,9 @@
 		<div id="site-title" class="clearfix">
 			<img src="style/image/darkblue/glri_gradient.svg" alt="GLRI Logo - Great Lakes Restoration Initiative" class="pull-right"/>
 			<h1>${param["site-title"]}</h1>
-			<h4>Discover USGS Science in the Great Lakes</h4>
+			<% if (request.getParameter("site-sub-title") != null && request.getParameter("site-sub-title").length() > 0) { %>
+			<h4>${param["site-sub-title"]}</h4>
+			<% } %>
 		</div>
         
     </div><!-- /header -->
