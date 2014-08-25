@@ -1,13 +1,17 @@
 <!doctype html>
 <html lang="en" ng-app="GLRICatalogApp">
 	<head>
+		<%
+			//Set a relative path to the root (useful when pages are not at the root)
+			pageContext.setAttribute("rootPath", "./");
+		%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" /> <%-- Bootstrap mobile scaling directive --%>
 
-		<link href="favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<link href="${pageScope.rootPath}favicon.ico" rel="shortcut icon" type="image/x-icon" />
 		
-		<jsp:include page="template/USGSHead.jsp">
-			<jsp:param name="relPath" value="" />
+		<jsp:include page="${pageScope.rootPath}template/USGSHead.jsp">
+			<jsp:param name="relPath" value="${pageScope.rootPath}" />
 			<jsp:param name="shortName" value="${project.name}" />
 			<jsp:param name="title" value="Great Lakes Restoration Initiative (GLRI) Catalog" />
 			<jsp:param name="description" value="An application that allows the user to search for GLRI Projects, Datasets and Publications.  Actual data and metadata are kept in ScienceBase (sciencebase.gov)" />
@@ -19,30 +23,31 @@
 			<jsp:param name="expires" value="Never" />
 		</jsp:include>
 
-		<script type="text/javascript" src="webjars/jquery/2.1.0/jquery.js"></script>
-		<script type="text/javascript" src="webjars/angularjs/1.2.16/angular.js"></script>
-		<script type="text/javascript" src="webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
-		<script type="text/javascript" src="webjars/openlayers/2.13.1/OpenLayers.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}webjars/jquery/2.1.0/jquery.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}webjars/angularjs/1.2.16/angular.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}webjars/openlayers/2.13.1/OpenLayers.js"></script>
 
-		<script type="text/javascript" src="js/app/main.js"></script>
-		<script type="text/javascript" src="js/app/cida-analytics.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}js/app/main.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}js/app/cida-analytics.js"></script>
 		<script type="application/javascript" src="http://www.usgs.gov/scripts/analytics/usgs-analytics.js"></script>
 
 		<!-- Twitter Bootstrap & theme-->
-		<link rel="stylesheet" type="text/css" href="webjars/bootstrap/3.1.1/css/bootstrap.css"/>
-		<link rel="stylesheet" type="text/css" href="style/themes/theme1.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}webjars/bootstrap/3.1.1/css/bootstrap.css"/>
+		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}style/themes/theme1.css"/>
 
 		<!-- Application custom -->
-		<link rel="stylesheet" type="text/css" href="css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}css/custom.css" />
 	</head>
 	<body>
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<jsp:include page="template/header.jsp">
-						<jsp:param name="relPath" value="" />
+					<jsp:include page="${pageScope.rootPath}template/header.jsp">
+						<jsp:param name="relPath" value="${pageScope.rootPath}" />
 						<jsp:param name="header-class" value="" />
 						<jsp:param name="site-title" value="Great Lakes RESTORATION Initiative Science Explorer" />
+						<jsp:param name="site-sub-title" value="Discover USGS Science in the Great Lakes" />
 					</jsp:include>
 				</div>
 			</div>
@@ -130,7 +135,7 @@
 										<label class="col-xs-4 control-label">Resource Type</label>
 										<div id="resource_input" class="btn-group-vertical col-xs-8" tooltip-placement="right" tooltip="Narrow the results to a resource type such as &QUOT;Data&QUOT; for datasets or &QUOT;Project&QUOT; for a USGS GLRI study. A Project may have associated Data and/or Publications.">
 											<button type="button" class="btn btn-default val-{{name}}" ng-repeat="(key, name) in FACET_DEFS" ng-model="userState.resourceFilter" btn-radio="key">
-												<img ng-src="style/image/darkblue/{{name | lowercase}}.svg" ng-if="key != '1'" class="pull-left"/>
+												<img ng-src="${pageScope.rootPath}style/image/darkblue/{{name | lowercase}}.svg" ng-if="key != '1'" class="pull-left"/>
 												<span ng-if="key != '1'" class="badge pull-right"></span>
 												<span class="value">{{name}}</span>
 											</button>
@@ -146,7 +151,7 @@
 									<div class="row">
 										<div class="col-xs-12">	
 											<a href="https://www.sciencebase.gov/catalog/items?community=Great+Lakes+Restoration+Initiative" target="_blank" title="ScienceBase, a repository of projects, data and metadata">
-												<img width="206" src="style/image/darkblue/sciencebase.png" alt="Science Base attribution icon" />
+												<img width="206" src="${pageScope.rootPath}style/image/darkblue/sciencebase.png" alt="Science Base attribution icon" />
 											</a>
 										</div>
 									</div>
@@ -224,10 +229,10 @@
 								
 								<p class="gap-lg">
 									<a href="http://www.usgs.gov/" target="_blank" class="pull-left">
-										<img style="height: 49px; width: 134px;" src="style/image/usgsblack.png" alt="USGS Logo - Science for a changing world"/>
+										<img style="height: 49px; width: 134px;" src="${pageScope.rootPath}style/image/usgsblack.png" alt="USGS Logo - Science for a changing world"/>
 									</a>
 									<a href="http://cida.usgs.gov/glri/" target="_blank" class="pull-right">
-										<img style="height: 49px; width: 158px;" src="style/image/darkblue/glri_logo.svg" alt="GLRI Logo - Great Lakes Restoration Initiative"/>
+										<img style="height: 49px; width: 158px;" src="${pageScope.rootPath}style/image/darkblue/glri_logo.svg" alt="GLRI Logo - Great Lakes Restoration Initiative"/>
 									</a>
 								</p>
 							</div>
@@ -240,7 +245,7 @@
 								<li ng-repeat="record in pageRecords" class="{{record.resource}}">
 									<div class="resource-icon">
 										<a title="{{record.resource}}: Click to go directly to this record in ScienceBase" href="{{record.url}}" target="_blank">
-											<img ng-src="style/image/darkblue/{{record.resource}}.svg" />
+											<img ng-src="${pageScope.rootPath}style/image/darkblue/{{record.resource}}.svg" />
 										</a>
 									</div>
 									<h4>{{record.title}}</h4>
@@ -276,7 +281,7 @@
 											<li ng-repeat="child in record.childItems" class="{{child.resource}}">
 												<div class="resource-icon">
 													<a title="{{child.resource}}: Click to go directly to this record in ScienceBase" href="{{child.url}}" target="_blank">
-														<img ng-src="style/image/darkblue/{{child.resource}}.svg" />
+														<img ng-src="${pageScope.rootPath}style/image/darkblue/{{child.resource}}.svg" />
 													</a>
 												</div>
 												<h4>{{child.title}}</h4>
@@ -359,8 +364,8 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<jsp:include page="template/footer.jsp">
-						<jsp:param name="relPath" value="" />
+					<jsp:include page="${pageScope.rootPath}template/footer.jsp">
+						<jsp:param name="relPath" value="${pageScope.rootPath}" />
 						<jsp:param name="header-class" value="" />
 						<jsp:param name="site-url" value="" />
 						<jsp:param name="contact-info" value="<a href=\"mailto:glri_help@usgs.gov\">glri_help@usgs.gov</a>" />
