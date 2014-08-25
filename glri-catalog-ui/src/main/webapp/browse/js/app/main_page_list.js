@@ -23,6 +23,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	$scope.isSearching = false;	//true if we are waiting for results from the main (non-child) query.
 
 	$scope.model = new Object();
+	$scope.model.activeTab = "Home";
 	$scope.model.text_query = '';
 	$scope.model.location = '';
 	$scope.model.focus = '';
@@ -50,8 +51,8 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	];
 
 	$scope.doTabSelect = function(tabName) {
-//		$scope.model.focus = tabName;
-//		$scope.doRemoteLoad();
+		$scope.model.focus = tabName;
+		$scope.doRemoteLoad();
 	};
 	
 	//These are the Google Analytics custom metrics for each search param.
@@ -95,7 +96,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 	//Called at the bottom of this JS file
 	$scope.init = function() {
-		$scope.doRemoteLoad();
+
 	};
 	
 	
