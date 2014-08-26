@@ -253,7 +253,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	$scope.buildDataUrl = function() {
 		var url = $scope.getBaseQueryUrl();
 		url += "resource=" + encodeURI("Project&");
-		url += "fields=" + encodeURI("tags,title,summary,contacts,hasChildren,webLinks");
+		url += "fields=" + encodeURI("tags,title,contacts,hasChildren,webLinks,purpose,body");
 		
 		return url;
 	};

@@ -54,10 +54,6 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<div class="well">
-
-								
-								
-								
 								<div>
 									<div class="btn-group" ng-repeat="tab in transient.tabs" dropdown is-open="tab.title == transient.currentTab.title">
 									  <button type="button" class="btn btn-primary dropdown-toggle">
@@ -71,16 +67,13 @@
 									  </ul>
 									</div>
 								</div>
-								
-								
-								
-								
-
 							</div>
 							
 							<div class="well" ng-if="! transient.currentItem">
 								<h1>Home Page content</h1>
 							</div>
+							
+							
 							<div class="well clearfix" ng-if="transient.currentItem">
 
 									<div class="resource-icon">
@@ -90,7 +83,7 @@
 									</div>
 									<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
 									
-									<h4>{{transient.currentItem.title}}</h4>
+									<h2>{{transient.currentItem.title}}</h2>
 									<div class="template-list">
 										<h5>Template(s):
 											<span class="no-template-found" ng-if="transient.currentItem.templates.length == 0">No funding template found</span>
@@ -100,7 +93,12 @@
 											
 										</h5>
 									</div>
-									<p class="summary">{{transient.currentItem.summary}}</p>
+									
+									<h4>Background/Problem</h4>
+									<p class="background">{{transient.currentItem.purpose}}</p>
+									
+									<h4>Description of Work</h4>
+									<p class="description-of-work">{{transient.currentItem.body}}</p>
 									
 									<h4>Contacts</h4>
 									<p class="point-of-contact">{{transient.currentItem.contactText}}</p>
