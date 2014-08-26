@@ -91,6 +91,15 @@
 									<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
 									
 									<h4>{{transient.currentItem.title}}</h4>
+									<div class="template-list">
+										<h5>Template(s):
+											<span class="no-template-found" ng-if="transient.currentItem.templates.length == 0">No funding template found</span>
+											<span class="template-name" ng-repeat="template in transient.currentItem.templates">
+												{{template}}<span class="template-separator" ng-if="transient.currentItem.templates.length &gt; 1 &amp;&amp; !$last">, </span>
+											</span>
+											
+										</h5>
+									</div>
 									<p class="summary">{{transient.currentItem.summary}}</p>
 									
 									<h4>Contacts</h4>

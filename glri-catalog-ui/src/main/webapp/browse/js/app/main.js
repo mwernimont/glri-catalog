@@ -8,6 +8,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 	$scope.CONST = new Object();
 	$scope.CONST.FOCUS_AREA_SCHEME = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea";
+	$scope.CONST.TEMPLATE_SCHEME = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates";
 
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
@@ -65,14 +66,15 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 				var item = $scope.processItem(items[i]);
 				var tags = item.tags;
 				
-				for (var j = 0; j < tags.length; j++) {
-					var tag = tags[j];
-					if ($scope.CONST.FOCUS_AREA_SCHEME == tag.scheme) {
-						var name = tag.name;
-						$scope.addProjectToTabList(item, tag.name);
+				if (tags) {
+					for (var j = 0; j < tags.length; j++) {
+						var tag = tags[j];
+						if ($scope.CONST.FOCUS_AREA_SCHEME == tag.scheme) {
+							var name = tag.name;
+							$scope.addProjectToTabList(item, tag.name);
+						}
 					}
 				}
-				
 				
 			}
 		}
@@ -92,7 +94,8 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		//build contactText
 		var contacts = item['contacts'];
 		var contactText = "";	//combined contact text
-
+		var tags = item.tags;
+		
 		if (contacts) {
 			for (var j = 0; j < contacts.length; j++) {
 
@@ -117,6 +120,19 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 			contactText = contactText.substr(0, contactText.length - 2);	//rm trailing ', '
 		} else {
 			contactText = "[No contact information listed]";
+		}
+		
+		
+		//Add template info
+		item.templates = [];
+		
+		if (tags) {
+			for (var j = 0; j < tags.length; j++) {
+				var tag = tags[j];
+				if ($scope.CONST.TEMPLATE_SCHEME == tag.scheme) {
+					item.templates.push(tag.name);
+				}
+			}
 		}
 
 		item['contactText'] = contactText;
