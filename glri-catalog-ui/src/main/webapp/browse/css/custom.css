@@ -1,5 +1,6 @@
+
 #header #banner-area {
-	background-image: url(../style/image/darkblue/usgs_banner.jpg);
+	background-image: url(../style/image/blue/black_banner.png);
 	background-position-x: -150px;
 	background-color: #000;
 }
@@ -7,7 +8,7 @@
 //Set the font for the entire app to the USGS standard
 body div.container * { font-family: Verdana, Arial, Helvetica, sans-serif !important; }
 
-#site-title { background-color: #022553; }
+#site-title { background-color: #3A6A8D; }
 #site-title img { height: 3em; margin-right: 1em; }
 #site-title h1 { font-size: 1.2em; padding: 0; margin: .3em 0 .1em .5em; }
 #site-title h4 { font-size: .9em; font-style: italic; padding: 0; margin: 0 1em; }
