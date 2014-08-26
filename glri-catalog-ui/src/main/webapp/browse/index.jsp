@@ -54,7 +54,6 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<div class="well">
-								<div>
 
 								<img src="../style/image/blue/glri_logo.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
 								
@@ -90,6 +89,8 @@
 							
 							
 							<div class="well clearfix" ng-if="transient.currentItem">
+
+									<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
 									
 									<h2>{{transient.currentItem.title}}</h2>
 									<div class="template-list">
