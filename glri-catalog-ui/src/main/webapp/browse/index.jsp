@@ -42,7 +42,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<jsp:include page="${pageScope.rootPath}template/header.jsp">
+					<jsp:include page="${pageScope.rootPath}/browse/template/header.jsp">
 						<jsp:param name="relPath" value="../" />
 						<jsp:param name="header-class" value="" />
 						<jsp:param name="site-title" value="Great Lakes Restoration Initiative (GLRI)" />
@@ -79,7 +79,7 @@
 							</div>
 							
 							<div class="well" ng-if="! transient.currentItem">
-								<h1>Home Page content</h1>
+								The U.S. Geological Survey (USGS) GLRI effort is being coordinated and managed by the USGS Midwest Region in accordance with the USGS science strategy - one that is driven by cross-disciplinary integrative science and conducted in collaboration with partners to provide resource managers with the information and decision-making tools they need to help restore the Great Lakes.
 							</div>
 							<div class="well clearfix" ng-if="transient.currentItem">
 
@@ -171,7 +171,7 @@
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<jsp:include page="${pageScope.rootPath}template/footer.jsp">
+					<jsp:include page="${pageScope.rootPath}/browse/template/footer.jsp">
 						<jsp:param name="relPath" value="${pageScope.rootPath}" />
 						<jsp:param name="header-class" value="" />
 						<jsp:param name="site-url" value="" />
