@@ -1,9 +1,11 @@
 'use strict';
 
 /* Controllers */
-var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap']);
+var GLRICatalogApp = angular.module('GLRICatalogApp', ['mgcrea.ngStrap', 'mgcrea.ngStrap.tooltip', 'mgcrea.ngStrap.helpers.dimensions', 'mgcrea.ngStrap.modal']);
+
 
 GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeout) {
+
 
 	$scope.ANY_VALUE = "Any";
 	
@@ -33,6 +35,14 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
 	$scope.transient = new Object();
+	
+	$scope.transient.dropdown = [
+		{text: 'My Text', href: '#anotherAction'},
+		{text: '<i class="fa fa-globe"></i>&nbsp;Display an alert', click: '$alert("Holy guacamole!")'},
+		{text: '<i class="fa fa-external-link"></i>&nbsp;External link', href: '/auth/facebook', target: '_self'},
+		{divider: true},
+		{text: 'Separated link', href: '#separatedLink'}
+	];
 	
 	//The array of funding templates to choose from.  Init as "Any", but async load from vocab server.
 	$scope.transient.templateValues = [
