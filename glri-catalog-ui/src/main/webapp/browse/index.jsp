@@ -54,7 +54,6 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<div class="well">
-								<div>
 
 								<img src="../style/image/blue/glri_logo.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
 								
