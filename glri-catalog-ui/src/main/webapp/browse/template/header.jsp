@@ -5,7 +5,7 @@
             <!-- Not actually visible unless printed -->
             <div id="usgs-header-logo">
                 <a href="http://www.usgs.gov" title="Link to the US Geological Survey main web page">
-                    <img alt="USGS Logo - science for a changing world" title="U.S. Geological Survey Home Page" src='${param['relPath']}/style/image/blue/black_banner.png' />
+                    <img alt="USGS Logo - science for a changing world" title="U.S. Geological Survey Home Page" src='${param['relPath']}template/images/usgs_logo.jpg' />
                 </a>
             </div>
             <ul id="ccsa-area">
