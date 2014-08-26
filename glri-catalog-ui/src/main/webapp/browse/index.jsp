@@ -55,8 +55,13 @@
 						<div class="col-xs-12">
 							<div class="well">
 								<div>
+
+								<img src="../style/image/blue/glri_logo.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
+								
+								
+								<div style="margin-top: 15px;">
 									<div class="btn-group" ng-repeat="tab in transient.tabs" dropdown is-open="tab.title == transient.currentTab.title">
-									  <button type="button" class="btn btn-primary dropdown-toggle">
+									  <button type="button" class="btn btn-primary dropdown-toggle" ng-click="transient.currentItem=null">
 										{{tab.title}}
 									  </button>
 									  <ul class="dropdown-menu" role="menu">
@@ -70,7 +75,6 @@
 							</div>
 							
 							<div class="well" ng-if="! transient.currentItem">
-								<img src="http://cida.usgs.gov/glri/images/official_logo_glri.png"/>
 								<hr />
 								<p>The U.S. Geological Survey (USGS) GLRI effort is being coordinated and managed by the 
 									USGS Midwest Region in accordance with the USGS science strategy - 
@@ -87,11 +91,6 @@
 							
 							<div class="well clearfix" ng-if="transient.currentItem">
 
-									<div class="resource-icon">
-										<a title="Click to go directly to this record in ScienceBase" href="{{transient.currentItem.url}}" target="_blank">
-											<img ng-src="${pageScope.rootPath}style/image/darkblue/project.svg" />
-										</a>
-									</div>
 									<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
 									
 									<h2>{{transient.currentItem.title}}</h2>
