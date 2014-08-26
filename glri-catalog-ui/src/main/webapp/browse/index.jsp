@@ -86,15 +86,9 @@
 							
 							
 							<div class="well clearfix" ng-if="transient.currentItem">
-
-									<div class="resource-icon">
-										<a title="Click to go directly to this record in ScienceBase" href="{{transient.currentItem.url}}" target="_blank">
-											<img ng-src="${pageScope.rootPath}style/image/darkblue/project.svg" />
-										</a>
-									</div>
-									<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
 									
 									<h2>{{transient.currentItem.title}}</h2>
+									<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
 									<div class="template-list">
 										<h5>Template(s):
 											<span class="no-template-found" ng-if="transient.currentItem.templates.length == 0">No funding template found</span>
@@ -113,6 +107,8 @@
 									
 									<h4>Contacts</h4>
 									<p class="point-of-contact">{{transient.currentItem.contactText}}</p>
+									
+									<h4>For more information, <a title="Click to go directly to this record in ScienceBase" href="{{transient.currentItem.url}}" target="_blank">see all of this project's metadata in ScienceBase &gt;&gt;</a></h4>
 									
 									<div ng-if="false">
 										<div class="related-links" ng-if="transient.currentItem.mainLink || (transient.currentItem.hasChildren == true)">

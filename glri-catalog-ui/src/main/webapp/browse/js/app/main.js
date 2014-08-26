@@ -243,7 +243,48 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	
 	$scope.loadProjectDetail = function(item) {
 		$scope.transient.currentItem = item;
-	}
+	};
+	
+	/**
+	 * Loads child records to the parent records as:
+	 * parentRecord.childItems
+	 * parentRecord.childRecordState
+	 * childItems is an array of child records.
+	 * childRecordState is one of:
+	 * notloaded : nothing has been done w/ child items
+	 * loading : Attempting to load the child records for this parent
+	 * complete : Completed loading child records
+	 * failed : Failed to load the child records
+	 * closed : Records were loaded, but the user has closed them (they are still assigned to childItems).
+	 * 
+	 * 
+	 * @param {type} parentRecord
+	 * @returns {undefined}
+	 */
+	$scope.loadChildItems = function(parentRecord) {
+		
+		if (parentRecord.childRecordState == "closed") {
+			//already loaded
+			parentRecord.childRecordState = "complete";
+		} else {
+			var url = $scope.getBaseQueryUrl() + "folder=" + parentRecord.id;
+
+			parentRecord.childRecordState = "loading";
+
+			$http.get(url).success(function(data) {
+				var childItems = $scope.processGlriResults(data.items);
+				childItems = $filter('orderBy')(childItems, $scope.userState.orderProp);
+
+				parentRecord.childItems = childItems;
+
+				parentRecord.childRecordState = "complete";
+
+			}).error(function(data, status, headers, config) {
+				parentRecord.childRecordState = "failed";
+				alert("Unable to connect to ScienceBase.gov to find child records.");
+			});
+		}
+	};
 	
 	
 	$scope.getBaseQueryUrl = function() {
