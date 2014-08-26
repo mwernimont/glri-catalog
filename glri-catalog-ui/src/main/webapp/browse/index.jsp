@@ -25,9 +25,7 @@
 
 		<script type="text/javascript" src="${pageScope.rootPath}webjars/jquery/2.1.0/jquery.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}webjars/angularjs/1.2.16/angular.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}webjars/angular-strap/2.0.5/angular-strap.min.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}webjars/angular-strap/2.0.5/angular-strap.tpl.min.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}webjars/openlayers/2.13.1/OpenLayers.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
 
 		<script type="text/javascript" src="js/app/main.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}js/app/cida-analytics.js"></script>
@@ -38,7 +36,7 @@
 		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}style/themes/theme1.css"/>
 
 		<!-- Application custom -->
-		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="css/custom.css" />
 	</head>
 	<body>
 		<div class="container">
@@ -57,12 +55,103 @@
 						<div class="col-xs-12">
 							<div class="well">
 
-								<button id="mybutton" type="button" class="btn btn-lg btn-primary" data-animation="am-flip-x" bs-dropdown="dropdown" trigger="hover" container="#mybutton">Click to toggle dropdown
-								<br>
-								<small>(using an object)</small>
-								</button>
-									
+								
+								
+								
+								<div>
+									<div class="btn-group" ng-repeat="tab in transient.tabs" dropdown is-open="tab.title == transient.currentTab.title">
+									  <button type="button" class="btn btn-primary dropdown-toggle">
+										{{tab.title}}
+									  </button>
+									  <ul class="dropdown-menu" role="menu">
+										<li ng-repeat="item in tab.items">
+											<a target="_blank" ng-if="$index == 0" href="{{item.url}}">{{item.title}}</a>
+											<a target="_blank" ng-if="$index != 0" ng-click="loadProjectDetail(item.item)">{{item.title}} </a>
+										</li>
+									  </ul>
+									</div>
+								</div>
+								
+								
+								
+								
 
+							</div>
+							
+							<div class="well" ng-if="! transient.currentItem">
+								<h1>Home Page content</h1>
+							</div>
+							<div class="well clearfix" ng-if="transient.currentItem">
+
+									<div class="resource-icon">
+										<a title="Click to go directly to this record in ScienceBase" href="{{transient.currentItem.url}}" target="_blank">
+											<img ng-src="${pageScope.rootPath}style/image/darkblue/project.svg" />
+										</a>
+									</div>
+									<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
+									
+									<h4>{{transient.currentItem.title}}</h4>
+									<p class="summary">{{transient.currentItem.summary}}</p>
+									
+									<h4>Contacts</h4>
+									<p class="point-of-contact">{{transient.currentItem.contactText}}</p>
+									
+									<div ng-if="false">
+										<div class="related-links" ng-if="transient.currentItem.mainLink || (transient.currentItem.hasChildren == true)">
+											<div ng-if="transient.currentItem.mainLink">
+												<a href="{{transient.currentItem.mainLink.url}}" target="_blank">{{transient.currentItem.mainLink.title}}</a>
+											</div>
+											<div ng-if="transient.currentItem.hasChildren == true">
+												<a href="" ng-click="toggleChildItems(record)">Publications and Datasets
+													<span ng-if="transient.currentItem.childRecordState == 'notloaded'"><span class="glyphicon glyphicon-chevron-down"></span></span>
+													<span ng-if="transient.currentItem.childRecordState == 'loading'"><span class="glyphicon glyphicon-repeat"></span></span>
+													<span ng-if="transient.currentItem.childRecordState == 'complete'"><span class="glyphicon glyphicon-remove-circle"></span></span>
+													<span ng-if="transient.currentItem.childRecordState == 'failed'"><span class="glyphicon glyphicon-warning-sign"></span></span>
+													<span ng-if="transient.currentItem.childRecordState == 'closed'"><span class="glyphicon glyphicon-eye-open"></span></span>
+												</a>
+											</div>
+										</div>
+
+
+										<div ng-if="transient.currentItem.childRecordState == 'loading'" class="progress progress-striped active">
+											<div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+												<span>Loading...</span>
+											</div>
+										</div>
+
+										<div ng-if="transient.currentItem.childItems &amp;&amp; transient.currentItem.childRecordState == 'complete'" class="child-records">
+											<div class="list-head clearfix">
+												<div class="pull-right"><a href="" ng-click="toggleChildItems(record)">Close child list <span class="glyphicon glyphicon-remove-circle"></span></a></div>
+												<h4>{{transient.currentItem.childItems.length}} Child record(s) (projects and datasets)</h4>
+											</div>
+											<ul>
+												<li ng-repeat="child in transient.currentItem.childItems" class="{{child.resource}}">
+													<div class="resource-icon">
+														<a title="{{child.resource}}: Click to go directly to this record in ScienceBase" href="{{child.url}}" target="_blank">
+															<img ng-src="${pageScope.rootPath}style/image/darkblue/{{child.resource}}.svg" />
+														</a>
+													</div>
+													<h4>{{child.title}}</h4>
+													<p class="point-of-contact">{{child.contactText}}</p>
+													<div class="related-links">
+														<div ng-if="child.mainLink">
+															<a href="{{child.mainLink.url}}" target="_blank">{{child.mainLink.title}}</a>
+														</div>
+													</div>
+													<p class="summary">{{child.summary}}</p>
+												</li>
+											</ul>
+											<div class="list-foot clearfix">
+												<div class="pull-right"><a href="" ng-click="toggleChildItems(record)">Close child list <span class="glyphicon glyphicon-remove-circle"></span></a></div>
+											</div>
+										</div>
+
+
+
+
+									</div>
+								
+								
 							</div>
 						</div>
 					</div>
