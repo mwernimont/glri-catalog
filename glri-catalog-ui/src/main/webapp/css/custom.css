@@ -143,10 +143,12 @@ ul.result-records li {
 	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#666666');
 }
 
-ul.result-records .resource-icon {
+.resource-icon {
 	display: block; float: left; margin: -.2em .3em .3em -.2em;
 }
-ul.result-records .resource-icon img { width: 50px; height: 50px; margin: 0; }
+.resource-icon img { width: 50px; height: 50px; margin: 0; }
+
+.browse-image { width: 600px; height: 600px; float: right; margin-left: 1em; margin-bottom: 1em; }
 
 ul.result-records .related-links {
 	display: block; float: right; width: 16em; padding: .2em; margin: 1em 0 .5em 1em;
