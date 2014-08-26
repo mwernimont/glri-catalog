@@ -89,10 +89,9 @@
 							
 							
 							<div class="well clearfix" ng-if="transient.currentItem">
-
-									<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
 									
 									<h2>{{transient.currentItem.title}}</h2>
+									<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
 									<div class="template-list">
 										<h5>Template(s):
 											<span class="no-template-found" ng-if="transient.currentItem.templates.length == 0">No funding template found</span>
