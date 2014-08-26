@@ -324,3 +324,6 @@ option.any-option { font-weight: bold; }
 img.olImageLoadError { background-color: transparent !important; visibility: hidden !important;}
 
 .carousel img { display: block; margin: 0 auto 0 auto; }
+
+.well { background-color: #fff !important; }
+body { background: none !important; }
