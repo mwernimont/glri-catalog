@@ -74,15 +74,8 @@
 							</div>
 							
 							<div class="well" ng-if="! transient.currentItem">
-								<hr />
-								<p>The U.S. Geological Survey (USGS) GLRI effort is being coordinated and managed by the 
-									USGS Midwest Region in accordance with the USGS science strategy - 
-									one that is driven by cross-disciplinary integrative science and conducted in 
-									collaboration with partners to provide resource managers with the information and 
-									decision-making tools they need to help restore the Great Lakes.
-								</p>
 								<div class="carousel">
-									<img src="http://cida.usgs.gov/glri/images/glri/GLRI_pic_asian_carp_page.jpg" />
+									<img src="style/image/home.png" />
 								</div>
 									
 							</div>
