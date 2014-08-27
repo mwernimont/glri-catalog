@@ -70,6 +70,9 @@
 										</li>
 									  </ul>
 									</div>
+									  <button type="button" class="btn btn-primary" onclick="window.location='/glri-catalog'">
+										Search
+									  </button>
 								</div>
 							</div>
 							
