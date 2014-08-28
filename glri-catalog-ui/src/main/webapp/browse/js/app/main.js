@@ -241,8 +241,25 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		}
 	};
 	
+	
+	$scope.menuClick = function(tabName) {
+		if (tabName==='Home') {
+			$scope.transient.currentItem = null;
+		}
+		if ( angular.isDefined(tabName) ) {
+			ga('send', 'screenview', {
+				  'screenName': tabName
+			});
+		}
+	}
+	
 	$scope.loadProjectDetail = function(item) {
 		$scope.transient.currentItem = item;
+		if ( angular.isDefined(item) && angular.isDefined(item.title) ) {
+			ga('send', 'screenview', {
+				  'screenName': item.title
+			});
+		}
 	};
 	
 	/**
