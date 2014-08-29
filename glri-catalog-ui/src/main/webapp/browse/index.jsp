@@ -63,7 +63,7 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<jsp:include page="${pageScope.rootPath}/browse/template/header.jsp">
+					<jsp:include page="${pageScope.rootPath}/template/header.jsp">
 						<jsp:param name="relPath" value="../" />
 						<jsp:param name="header-class" value="" />
 						<jsp:param name="site-title" value="Great Lakes Restoration Initiative (GLRI)" />
@@ -774,7 +774,7 @@ $(function() {
 			</div>
 			<div class="row">
 				<div class="col-xs-12">
-					<jsp:include page="${pageScope.rootPath}/browse/template/footer.jsp">
+					<jsp:include page="${pageScope.rootPath}/template/footer.jsp">
 						<jsp:param name="relPath" value="${pageScope.rootPath}" />
 						<jsp:param name="header-class" value="" />
 						<jsp:param name="site-url" value="" />

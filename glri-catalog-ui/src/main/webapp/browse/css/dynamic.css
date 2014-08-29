@@ -17,7 +17,7 @@ table, caption, tbody, tfoot, thead, tr, th, td {
 	vertical-align: baseline;
 }
 
-p, ul { font-size: 12px; }
+p, ul { font-size: 14px; }
 
 /* remember to define focus styles! */
 :focus {
