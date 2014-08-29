@@ -76,7 +76,7 @@
 						<div class="col-xs-12">
 							<div class="well">
 
-								<img src="../style/image/blue/glri_logo.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
+								<img src="../browse/style/image/blue/official_logo_glri.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
 								
 								
 								<div style="margin-top: 15px;">
