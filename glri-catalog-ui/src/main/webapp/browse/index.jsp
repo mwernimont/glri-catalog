@@ -35,9 +35,6 @@
 		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}webjars/bootstrap/3.1.1/css/bootstrap.css"/>
 		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}style/themes/theme1.css"/>
 
-		<!-- Application custom -->
-		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}css/custom.css" />
-
 		<!-- legacy css -->
 		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}css/dynamic.css">
 		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}css/style.css"></link>
@@ -45,6 +42,10 @@
 		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}css/common.css"></link>
 		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}css/dropdown2.css"></link>
 		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}css/theme.css"></link>
+
+		<!-- Application custom -->
+		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}css/custom.css" />
+
 		
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -74,10 +75,7 @@
 					<div class="row">
 						<div class="col-xs-12">
 							<div class="well">
-
-								<img src="${pageScope.rootPath}style/image/darkblue/official_logo_glri.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
-								
-								
+																
 								<div style="margin-top: 15px;">
 									<div class="btn-group" ng-repeat="tab in transient.tabs" dropdown is-open="tab.title == transient.currentTab.title">
 									  <button type="button" class="btn btn-primary dropdown-toggle" ng-click="transient.currentItem=null">
@@ -95,16 +93,24 @@
 									  </button>
 								</div>
 							</div>
-							
-<div class="border col-xs-9">
-								<div class="btall">
-									<div class="ltall">
-										<div class="rtall">
-											<div class="tleft">
-												<div class="tright">
-													<div class="bleft">
-														<div class="bright">
-															<div class="ind">
+
+
+<!-- left -->
+<div class="col-left col-xs-3">
+<!-- nav -->
+<div id="nav" class="border" style="height:300px">
+
+	Place Holder Text
+
+</div>
+</div>
+
+
+
+<!-- right -->							
+<div class="col-right col-xs-9">
+<!-- home -->
+<div class="border">
 
 
 
@@ -128,9 +134,13 @@
 				<!--[endif]-->
 
 
-<div style="border-top:solid #EFEFEF 1px; padding-top:15px;">
+<div>
 
-<div style="padding-left:20px;padding-right:20px;">The U.S. Geological Survey (USGS) GLRI effort is being coordinated and managed by the USGS Midwest Region in accordance with the USGS science strategy - one that is driven by cross-disciplinary integrative science and conducted in collaboration with partners to provide resource managers with the information and decision-making tools they need to help restore the Great Lakes.</div>
+<div style="border-bottom:solid #EFEFEF 1px;padding: 0 20px 10px 20px;">
+	<img src="${pageScope.rootPath}style/image/darkblue/official_logo_glri.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
+
+	The U.S. Geological Survey (USGS) GLRI effort is being coordinated and managed by the USGS Midwest Region in accordance with the USGS science strategy - one that is driven by cross-disciplinary integrative science and conducted in collaboration with partners to provide resource managers with the information and decision-making tools they need to help restore the Great Lakes.
+</div>
 
     
 <div id="headlineWrapper" style="margin-left:70px;">	
@@ -671,15 +681,7 @@ $(function() {
 <!--[endif]-->
 
 
-															</div>
-														</div>
-													</div>
-												</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+</div> <!-- home -->
 						</div>							
 							
 							<div class="well clearfix" ng-if="transient.currentItem">
