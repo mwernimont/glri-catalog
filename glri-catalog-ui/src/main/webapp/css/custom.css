@@ -1,7 +1,21 @@
+body {
+	background-color: white;
+}
 #header #banner-area {
 	background-image: url(../browse/style/image/blue/dark_banner.png);
 	background-position-x: 0px;
 	background-color: #000;
+}
+.well { 
+	background-color: white !important; }
+	margin-bottom: .8em; 
+	min-height:105px !important;
+}
+#ccsa-area > li > a  {
+	line-height: 1.47 !important;
+}
+ul#ccsa-area {
+	line-height: 1.47 !important;
 }
 
 //Set the font for the entire app to the USGS standard
@@ -33,7 +47,6 @@ ul#ccsa-area {
 
 
 #sb-query-form .well { padding: .6em; }
-.well { margin-bottom: .8em; }
 
 #sb-query-form .map-contols { padding: .6em; text-align: center; }
 

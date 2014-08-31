@@ -36,16 +36,15 @@
 		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}style/themes/theme1.css"/>
 
 		<!-- Application custom -->
-		<link rel="stylesheet" type="text/css" href="css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}css/custom.css" />
 
 		<!-- legacy css -->
-		<link type="text/css" rel="stylesheet" href="css/dynamic.css">
-		<link type="text/css" rel="stylesheet" href="css/style.css"></link>
-		<link type="text/css" rel="stylesheet" href="css/layout.css"></link>
-		<link type="text/css" rel="stylesheet" href="css/common.css"></link>
-		<link type="text/css" rel="stylesheet" href="css/custom2.css"></link>
-		<link type="text/css" rel="stylesheet" href="css/dropdown2.css"></link>
-		<link type="text/css" rel="stylesheet" href="css/theme.css"></link>
+		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}css/dynamic.css">
+		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}css/style.css"></link>
+		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}css/layout.css"></link>
+		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}css/common.css"></link>
+		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}css/dropdown2.css"></link>
+		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}css/theme.css"></link>
 		
 <script>
   (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -76,7 +75,7 @@
 						<div class="col-xs-12">
 							<div class="well">
 
-								<img src="../browse/style/image/blue/official_logo_glri.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
+								<img src="${pageScope.rootPath}style/image/darkblue/official_logo_glri.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
 								
 								
 								<div style="margin-top: 15px;">

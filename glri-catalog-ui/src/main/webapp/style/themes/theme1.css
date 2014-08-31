@@ -6,33 +6,12 @@
  */
 
 html {
-	/*
-	min-height: 		100%;
-    	height: 			100%;
-    	*/
-    	
-    	min-width:		440px;
+    min-width:			440px;
 }
 
 body {
-	/*
-	min-height: 		100%;
-    	height: 			100%;
-    	*/
-    	
-	margin:							0;
-	padding:							0;
-	background: rgb(2,2,26); /* Old browsers */
-	background: -moz-linear-gradient(top,  rgba(0, 51, 102,.5) 10%, rgba(255,255,255,0) 80%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(10%,rgba(0, 51, 102,.5)), color-stop(80%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  rgba(0, 51, 102,.5) 10%,rgba(255,255,255,0) 80%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  rgba(0, 51, 102,.5) 10%,rgba(255,255,255,1) 80%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  rgba(0, 51, 102,.5) 10%,rgba(255,255,255,1) 80%); /* IE10+ */
-	background: linear-gradient(to bottom,  rgba(0, 51, 102,.5) 10%,rgba(255,255,255,0) 80%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#0066cc', endColorstr='#ffffff',GradientType=0 ); /* IE6-9 */
-
-	background-repeat:					no-repeat;
-	background-attachment:				fixed;
+	margin:				0;
+	padding:			0;
 }
 
 #site_header {
@@ -55,11 +34,11 @@ body {
 	
 	background-color:					#345280;
 	-moz-border-radius-topleft:			1px;
-	-moz-border-radius-topright:			1px;
+	-moz-border-radius-topright:		1px;
 	-moz-border-radius-bottomleft:		8px;
 	-moz-border-radius-bottomright:		8px;
 	border-top-left-radius:				1px;
-	border-top-right-radius:				1px;
+	border-top-right-radius:			1px;
 	border-bottom-left-radius:			8px;
 	border-bottom-right-radius:			8px;
 }
@@ -68,7 +47,7 @@ body {
 }
 
 #copyright {
-	font-family: 		ff-meta-web-pro,sans-serif;
+	font-family: 	ff-meta-web-pro,sans-serif;
 	font-size:		11px;
 	text-align:		right;
 	color:			#ddd;
@@ -96,7 +75,7 @@ body {
 .site_version {
 	color:			#fff;
 	font-size: 		10px;
-	line-height: 		22px;
+	line-height: 	22px;
 	float:			right;
 }
 
@@ -105,23 +84,11 @@ body {
 }
 
 .site_body_content {
-	/*
-	min-height: 		100%;
-    	height: 			100%;
-    	*/
-    		
-    	/* For use with Twitter Bootstrap "navbar-fixed-bottom" */
-	/* padding-bottom: 	55px; */
 	padding-bottom: 	10px;
 }
 
 .page_body_content {
-	/*
-	min-height: 		100%;
-    	height: 			100%;
-    	*/
-    	
-    	padding-bottom: 10px;
+    padding-bottom: 10px;
 }
 
 
