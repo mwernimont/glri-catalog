@@ -88,9 +88,9 @@
 										</li>
 									  </ul>
 									</div>
-									  <button type="button" class="btn btn-primary" onclick="window.location='/glri-catalog'">
-										Search
-									  </button>
+								  <button type="button" class="btn btn-primary" onclick="window.location='/glri-catalog'">
+									Search
+								  </button>
 								</div>
 							</div>
 
@@ -100,7 +100,25 @@
 <!-- nav -->
 <div id="nav" class="border" style="height:300px">
 
-	Place Holder Text
+
+	<div class="btn-group"  is-open="tab.title == transient.currentTab.title">
+		<button ng-repeat="tab in nav.tabs" ng-bind="tab.title" class="btn btn-primary btn-horizontal"/>
+	</div>
+	<div is-open="tab.title == transient.currentTab.title">
+		<button ng-repeat="tab in transient.tabs" ng-bind="tab.title" class="btn btn-primary"/>
+	</div>
+<!--
+	<div class="btn-group" ng-repeat="tab in transient.tabs" dropdown is-open="tab.title == transient.currentTab.title">
+	  <button type="button" class="btn btn-primary dropdown-toggle" ng-click="transient.currentItem=null">
+	  </button>
+	  <ul class="dropdown-menu" role="menu">
+		<li ng-repeat="item in tab.items">
+			<a target="_blank" ng-if="$index == 0" href="{{item.url}}">{{item.title}}</a>
+			<a target="_blank" ng-if="$index != 0" ng-click="loadProjectDetail(item.item)">{{item.title}} </a>
+		</li>
+	</div>
+-->
+
 
 </div>
 </div>

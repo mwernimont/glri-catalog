@@ -237,22 +237,40 @@ option.any-option { font-weight: bold; }
 @-webkit-keyframes spin { from { -webkit-transform: rotate(0deg); } to { -webkit-transform: rotate(360deg); } }
 @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
 
-/* Change the primary buttons to our color scheme */
-.glri_content .btn-primary {
-  background-color: #022553;
-  border-color: #357ebd;
+#nav .btn-group {
+	width: 100% !important;
+	margin-bottom: 5px !important;
+	margin-left: 3px !important;
 }
+
+/* Change the primary buttons to our color scheme */
+.glri_content .btn-horizontal {
+	display: inline-block !important;
+	width: 33% !important;
+}
+
+.glri_content .btn-primary {
+	background-color: white;
+	border-color: #036;
+	color: #036;
+	margin-bottom: 1px !important;
+	display: block;
+	width: 100%;
+}
+
 .glri_content .btn-primary:hover,
 .glri_content .btn-primary:focus,
 .glri_content .open .dropdown-toggle.btn-primary {
-  background-color: #304D70;
-  border-color: #285e8e;
+  background-color: #036;
+  color: white;
+  border-color: #38E;
 }
 
 .glri_content .btn-primary:active,
 .glri_content .btn-primary.active {
-  background-color: #4E6687;
-  border-color: #285e8e;
+  background-color: #036;
+  color: white;
+  border-color: #38E;
 }
 
 .glri_content .btn-primary.disabled,

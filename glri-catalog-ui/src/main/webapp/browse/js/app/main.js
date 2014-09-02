@@ -6,17 +6,22 @@ var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap']);
 
 GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeout) {
 
-	$scope.CONST = new Object();
+	$scope.CONST = {};
 	$scope.CONST.FOCUS_AREA_SCHEME = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea";
 	$scope.CONST.TEMPLATE_SCHEME = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates";
 
+	$scope.nav = {};
+	$scope.nav.tabs = [
+	    { title:'Home', isHome: false, items: []},
+   	    { title:'Browse', isHome: false, items: []},
+   	    { title:'Search', isHome: false, items: []},
+   	];
+	
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
-	$scope.transient = new Object();
+	$scope.transient = {};
 	
-
 	$scope.transient.tabs = [
-		{ title:'Home', isHome: false, items: []},
 		{ title:'Toxic Substances', isHome: false, items: [
 			{title:"INFO-SHEET: Toxic Substances and Areas of Concern Projects for the Great Lakes Restoration Initiative", url:"http://cida.usgs.gov/glri/infosheets/GLRI_1_Toxic_Substances.pdf"}
 	
