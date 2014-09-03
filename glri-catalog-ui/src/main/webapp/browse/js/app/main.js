@@ -10,16 +10,22 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	$scope.CONST.FOCUS_AREA_SCHEME = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea";
 	$scope.CONST.TEMPLATE_SCHEME = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates";
 
-	$scope.nav = {};
-	$scope.nav.tabs = [
-	    { title:'Home', isHome: false, items: []},
-   	    { title:'Browse', isHome: false, items: []},
-   	    { title:'Search', isHome: false, items: []},
-   	];
+	
+	$scope.navClick = function(nav) {
+		if (nav === 'Search') {
+			window.location='/glri-catalog'
+		}
+	}
 	
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
 	$scope.transient = {};
+	
+	$scope.transient.nav = [
+	                    { title:'Home', isHome: false, items: []},
+	              	    { title:'Browse', isHome: false, items: []},
+	              	    { title:'Search', isHome: false, items: []},
+	              	];
 	
 	$scope.transient.tabs = [
 		{ title:'Toxic Substances', isHome: false, items: [
