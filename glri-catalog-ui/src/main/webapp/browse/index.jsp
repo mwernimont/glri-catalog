@@ -103,7 +103,10 @@
 				class="btn btn-primary btn-horizontal" ng-click="navClick(tab.title)"
 				ng-class="transient.currentNav==tab.title ?'active' :'' "></button>
 	</div>
+	<hr/>
 	
+	<glri-nav-home>home</glri-nav-home>
+
 	<div is-open="tab.title == transient.currentTab.title" ng-if="transient.currentNav=='Browse'">
 		<button ng-repeat="tab in transient.tabs" ng-bind="tab.title" class="btn btn-primary"
 				ng-click="transient.currentTab.title = tab.title"></button>

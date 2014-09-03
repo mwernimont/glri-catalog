@@ -237,8 +237,25 @@ option.any-option { font-weight: bold; }
 @-webkit-keyframes spin { from { -webkit-transform: rotate(0deg); } to { -webkit-transform: rotate(360deg); } }
 @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
 
+.col-left {
+	margin-bottom: 10px;
+}
+.col-right {
+	padding-left: 5px;
+}
+
+.border {
+	padding: 4px 4px 15px 2px;
+	border:  1px solid #ddd;
+	border-radius: 5px;
+	width:   100%;
+}
+
+
 #nav {
 	height: 100% !important;
+	min-height: 772px;
+	margin-bottom: 10px;
 }
 
 #nav .btn-group {

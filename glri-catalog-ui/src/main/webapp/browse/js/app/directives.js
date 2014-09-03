@@ -30,4 +30,14 @@ GLRICatalogApp.directive("glriRecords",[function(){
 	}	
 }])
 
+GLRICatalogApp.directive("glriNavHome",[function(){
+	return {
+		restrict   : 'E', //AEC
+		replace    : true,
+		transclude : true,
+		scope      : true,
+		templateUrl: 'templates/navHome.html',
+	}	
+}])
+
 }) ()
