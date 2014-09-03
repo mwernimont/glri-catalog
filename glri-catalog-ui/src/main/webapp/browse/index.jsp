@@ -100,7 +100,8 @@
 
 	<div class="btn-group" >
 		<button ng-repeat="tab in transient.nav" ng-bind="tab.title" 
-		class="btn btn-primary btn-horizontal" ng-click="navClick(tab.title)"/>
+		class="btn btn-primary btn-horizontal" ng-click="navClick(tab.title)"
+		ng-class="transient.currentNav==tab.title ?'active' :'' "/>
 	</div>
 	
 	<div is-open="tab.title == transient.currentTab.title">
@@ -129,7 +130,7 @@
 <!-- right -->							
 <div class="col-right col-xs-9">
 <!-- home -->
-<div class="border">
+<div class="border" ng-if="transient.currentNav=='Home'">
 
 
 
@@ -703,7 +704,7 @@ $(function() {
 </div> <!-- home -->
 						</div>							
 							
-							<div class="well clearfix" ng-if="transient.currentItem">
+							<div class="well clearfix" ng-if="transient.currentNav=='Browse' && transient.currentItem">
 									
 									<h2>{{transient.currentItem.title}}</h2>
 									<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />

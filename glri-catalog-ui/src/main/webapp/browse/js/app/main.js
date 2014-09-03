@@ -15,6 +15,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		if (nav === 'Search') {
 			window.location='/glri-catalog'
 		}
+		$scope.transient.currentNav = nav
 	}
 	
 	//storage of state that would not be preserved if the user were to follow a
@@ -26,6 +27,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	              	    { title:'Browse', isHome: false, items: []},
 	              	    { title:'Search', isHome: false, items: []},
 	              	];
+	$scope.transient.currentNav = $scope.transient.nav[0].title;
 	
 	$scope.transient.tabs = [
 		{ title:'Toxic Substances', isHome: false, items: [
