@@ -4,7 +4,9 @@
 var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap']);
 
 
-GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeout) {
+GLRICatalogApp.controller('CatalogCtrl',
+['$scope', '$http', '$filter', '$timeout', 
+function($scope, $http, $filter, $timeout) {
 
 	$scope.CONST = {};
 	$scope.CONST.FOCUS_AREA_SCHEME = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea";
@@ -12,10 +14,11 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 	
 	$scope.navClick = function(nav) {
+		$scope.transient.currentTab = null;		
 		if (nav === 'Search') {
-			window.location='/glri-catalog'
+			window.location='/glri-catalog';
 		}
-		$scope.transient.currentNav = nav
+		$scope.transient.currentNav = nav;
 	}
 	
 	//storage of state that would not be preserved if the user were to follow a
@@ -31,44 +34,51 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	
 	$scope.transient.tabs = [
 		{ title:'Toxic Substances', isHome: false, items: [
-			{title:"INFO-SHEET: Toxic Substances and Areas of Concern Projects for the Great Lakes Restoration Initiative", url:"http://cida.usgs.gov/glri/infosheets/GLRI_1_Toxic_Substances.pdf"}
-	
+			{title:"INFO-SHEET: Toxic Substances and Areas of Concern Projects for the Great Lakes Restoration Initiative", 
+			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_1_Toxic_Substances.pdf"}
 		]},
 		{ title:'Invasive Species', isHome: false, items: [
-			{title:"INFO-SHEET: Combating Invasive Species Projects for the Great Lakes Restoration Initiative", url:"http://cida.usgs.gov/glri/infosheets/GLRI_2_invasive_species.pdf"}
+			{title:"INFO-SHEET: Combating Invasive Species Projects for the Great Lakes Restoration Initiative", 
+			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_2_invasive_species.pdf"}
 		]},
 		{ title:'Nearshore Health', isHome: false, items: [
-			{title:"INFO-SHEET: Nearshore Health and Watershed Protection Projects for the Great Lakes Restoration Initiative", url:"http://cida.usgs.gov/glri/infosheets/GLRI_3_Nearshore.pdf"}
+			{title:"INFO-SHEET: Nearshore Health and Watershed Protection Projects for the Great Lakes Restoration Initiative", 
+			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_3_Nearshore.pdf"}
 		]},
 		{ title:'Habitat & Wildlife', isHome: false, items: [
-			{title:"INFO-SHEET: Habitat & Wildlife Protection and Restoration", url:"http://cida.usgs.gov/glri/infosheets/GLRI_4_Habitat_Restore.pdf"}
+			{title:"INFO-SHEET: Habitat & Wildlife Protection and Restoration", 
+			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_4_Habitat_Restore.pdf"}
 		]},
 		{ title:'Accountability', isHome: false, items: [
-			{title:"INFO-SHEET: Tracking Progress and Working with Partners Projects for the Great Lakes Restoration Initiative", url:"http://cida.usgs.gov/glri/infosheets/GLRI_5_Tracking_progress_working_w_partners.pdf"}
+			{title:"INFO-SHEET: Tracking Progress and Working with Partners Projects for the Great Lakes Restoration Initiative", 
+			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_5_Tracking_progress_working_w_partners.pdf"}
 		]}
 	];
 	
 	$scope.transient.currentItem = null;
 
-	$scope.rawResult = null;	//array of all the returned items, UNprocessed
+	var rawResult = null;	// array of all the returned items, UNprocessed
 
-	//Called at the bottom of this JS file
-	$scope.init = function() {
-		$scope.loadProjectLists();
+	
+	// Called at the bottom of this JS file
+	var init = function() {
+		loadProjectLists();
 	};
 	
-	$scope.loadProjectLists = function() {
+	
+	var loadProjectLists = function() {
 
-		$http.get($scope.buildDataUrl()).success(function(data, status, headers, config) {
-			$scope.processProjectListResponse(data);
+		$http.get(buildDataUrl()).success(function(data, status, headers, config) {
+			processProjectListResponse(data);
 		}).error(function(data, status, headers, config) {
 			alert("Unable to connect to ScienceBase.gov to find records.");
 		});
 
 	};
 	
-	$scope.processProjectListResponse = function(unfilteredJsonData) {
-		$scope.rawResult = unfilteredJsonData;
+	
+	var processProjectListResponse = function(unfilteredJsonData) {
+		rawResult = unfilteredJsonData;
 		
 		if (unfilteredJsonData) {
 			
@@ -76,7 +86,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 			for (var i = 0; i < items.length; i++) {
 				
-				var item = $scope.processItem(items[i]);
+				var item = processItem(items[i]);
 				var tags = item.tags;
 				
 				if (tags) {
@@ -84,7 +94,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 						var tag = tags[j];
 						if ($scope.CONST.FOCUS_AREA_SCHEME == tag.scheme) {
 							var name = tag.name;
-							$scope.addProjectToTabList(item, tag.name);
+							addProjectToTabList(item, tag.name);
 						}
 					}
 				}
@@ -93,12 +103,13 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		}
 	};
 	
-	$scope.processItem = function(item) {
+	
+	var processItem = function(item) {
 
 		var link = item['link']['url'];
 		item['url'] = link;
-		item['mainLink'] = $scope.findLink(item["webLinks"], ["home", "html", "index page"], true);
-		item['browseImage'] = $scope.findBrowseImage(item);
+		item['mainLink'] = findLink(item["webLinks"], ["home", "html", "index page"], true);
+		item['browseImage'] = findBrowseImage(item);
 
 		//Have we loaded child records yet?  (hint: no)
 		item['childRecordState'] = "notloaded";
@@ -152,6 +163,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		return item;
 	};
 	
+	
 	/**
 	 * Finds a link from a list of ScienceBase webLinks based on a list
 	 * of search keys, which are searched for in order against the
@@ -171,7 +183,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	 * @param {type} defaultToFirst If nothing is found, return the first link if true.
 	 * @returns {url, title} or null
 	 */
-	$scope.findLink = function(linkArray, searchArray, defaultToFirst) {
+	var findLink = function(linkArray, searchArray, defaultToFirst) {
 
 		if (linkArray && linkArray.length > 0) {
 
@@ -182,11 +194,11 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 				for (var linkIdx = 0; linkIdx < linkArray.length; linkIdx++) {
 					if (linkArray[linkIdx].rel == searchlKey) {
 						retVal.url = linkArray[linkIdx].uri;
-						retVal.title = $scope.cleanTitle(linkArray[linkIdx].title, "Home Page");
+						retVal.title = cleanTitle(linkArray[linkIdx].title, "Home Page");
 						return retVal;
 					} else if (linkArray[linkIdx].title == searchlKey) {
 						retVal.url = linkArray[linkIdx].uri;
-						retVal.title = $scope.cleanTitle(linkArray[linkIdx].title, "Home Page");
+						retVal.title = cleanTitle(linkArray[linkIdx].title, "Home Page");
 						return retVal;
 					}
 				}
@@ -203,13 +215,14 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		}
 	};
 	
+	
 	/**
 	 * Replaces boilerplate link titles from ScienceBase w/ a default one if the proposed one is generic.
 	 * @param {type} proposedTitle
 	 * @param {type} defaultTitle
 	 * @returns The passed title or the default title.
 	 */
-	$scope.cleanTitle = function(proposedTitle, defaultTitle) {
+	var cleanTitle = function(proposedTitle, defaultTitle) {
 		var p = proposedTitle;
 		if (! (p) || p == "html" || p == "jpg" || p == "unspecified") {
 			return defaultTitle;
@@ -218,7 +231,8 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		}
 	};
 	
-	$scope.findBrowseImage = function(item) {
+	
+	var findBrowseImage = function(item) {
 		var webLinks = item.webLinks;
 		if (webLinks) {
 			for (var i = 0; i < webLinks.length; i++) {
@@ -232,6 +246,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		return null;
 	};
 	
+	
 	/**
 	 * Adds an Item returned from the ScienceBase query to the tab data structure.
 	 * 
@@ -239,7 +254,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	 * @param {type} focusArea
 	 * @returns {undefined}
 	 */
-	$scope.addProjectToTabList = function(sbItem, focusArea) {
+	var addProjectToTabList = function(sbItem, focusArea) {
 		for (var i = 0; i < $scope.transient.tabs.length; i++) {
 			var tab = $scope.transient.tabs[i];
 			if (focusArea == tab.title) {
@@ -275,6 +290,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		}
 	};
 	
+	
 	/**
 	 * Loads child records to the parent records as:
 	 * parentRecord.childItems
@@ -292,12 +308,12 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	 * @returns {undefined}
 	 */
 	$scope.loadChildItems = function(parentRecord) {
-		
+//asdf		
 		if (parentRecord.childRecordState == "closed") {
 			//already loaded
 			parentRecord.childRecordState = "complete";
 		} else {
-			var url = $scope.getBaseQueryUrl() + "folder=" + parentRecord.id;
+			var url = getBaseQueryUrl() + "folder=" + parentRecord.id;
 
 			parentRecord.childRecordState = "loading";
 
@@ -317,17 +333,18 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	};
 	
 	
-	$scope.getBaseQueryUrl = function() {
+	var getBaseQueryUrl = function() {
 		return "../ScienceBaseService?";
 	};
 
-	$scope.buildDataUrl = function() {
-		var url = $scope.getBaseQueryUrl();
+	
+	var buildDataUrl = function() {
+		var url = getBaseQueryUrl();
 		url += "resource=" + encodeURI("Project&");
 		url += "fields=" + encodeURI("tags,title,contacts,hasChildren,webLinks,purpose,body");
 		
 		return url;
 	};
 
-	$scope.init();
-});
+	init();
+}]);

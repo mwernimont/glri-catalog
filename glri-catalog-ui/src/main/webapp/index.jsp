@@ -160,7 +160,7 @@
 						</div>
 					</form>
 				</div>
-				<div class="col-xs-12 col-sm-8">
+				<div id="searchResults" class="col-xs-12 col-sm-8">
 					<div class="row">
 						<div class="col-xs-12">
 							<div class="well well-sm clearfix result-header" ng-if="filteredRecords.length > 0">
@@ -241,7 +241,7 @@
 								<span class="glyphicon glyphicon-repeat"></span>
 							</div>
 
-							<ul class="result-records">
+							<ul id="glri-records" class="result-records">
 								<li ng-repeat="record in pageRecords" class="{{record.resource}}">
 									<div class="resource-icon">
 										<a title="{{record.resource}}: Click to go directly to this record in ScienceBase" href="{{record.url}}" target="_blank">

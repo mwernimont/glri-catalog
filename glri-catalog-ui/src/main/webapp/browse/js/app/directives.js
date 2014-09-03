@@ -10,7 +10,7 @@ GLRICatalogApp.directive("glriHome",[function(){
 	}	
 }])
 
-GLRICatalogApp.directive("glriBrowseDetail",[function(){
+GLRICatalogApp.directive("glriDetail",[function(){
 	return {
 		restrict   : 'E', //AEC
 		replace    : true,
@@ -20,5 +20,14 @@ GLRICatalogApp.directive("glriBrowseDetail",[function(){
 	}	
 }])
 
+GLRICatalogApp.directive("glriRecords",[function(){
+	return {
+		restrict   : 'E', //AEC
+		replace    : true,
+		transclude : true,
+		scope      : true,
+		templateUrl: 'templates/contentRecords.html',
+	}	
+}])
 
 }) ()

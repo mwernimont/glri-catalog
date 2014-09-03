@@ -98,15 +98,15 @@
 
 <div id="nav" class="border" style="height:300px">
 
-	<div class="btn-group" >
+	<div id="navBrowse" class="btn-group">
 		<button ng-repeat="tab in transient.nav" ng-bind="tab.title" 
-		class="btn btn-primary btn-horizontal" ng-click="navClick(tab.title)"
-		ng-class="transient.currentNav==tab.title ?'active' :'' "/>
+				class="btn btn-primary btn-horizontal" ng-click="navClick(tab.title)"
+				ng-class="transient.currentNav==tab.title ?'active' :'' "></button>
 	</div>
 	
-	<div is-open="tab.title == transient.currentTab.title">
+	<div is-open="tab.title == transient.currentTab.title" ng-if="transient.currentNav=='Browse'">
 		<button ng-repeat="tab in transient.tabs" ng-bind="tab.title" class="btn btn-primary"
-				ng-click="transient.currentTab.title = tab.title"/>
+				ng-click="transient.currentTab.title = tab.title"></button>
 	</div>
 
 <!--
@@ -125,13 +125,13 @@
 </div><!-- navPane -->
 
 
-
 <div id="contentPane" class="col-right col-xs-9">
 
 	<glri-home></glri-home>
-	<glri-browse-detail></glri-browse-detail>
-	
-	
+	<glri-records></glri-records>
+	<glri-detail></glri-detail>
+	<glri-search></glri-search>
+
 </div><!-- contentPane -->
 						
 					</div><!-- innerCol -->
