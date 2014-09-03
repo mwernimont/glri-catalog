@@ -88,9 +88,6 @@
 										</li>
 									  </ul>
 									</div>
-								  <button type="button" class="btn btn-primary" onclick="window.location='/glri-catalog'">
-									Search
-								  </button>
 								</div>
 							</div>
 
@@ -101,12 +98,16 @@
 <div id="nav" class="border" style="height:300px">
 
 
-	<div class="btn-group"  is-open="tab.title == transient.currentTab.title">
-		<button ng-repeat="tab in nav.tabs" ng-bind="tab.title" class="btn btn-primary btn-horizontal"/>
+	<div class="btn-group" >
+		<button ng-repeat="tab in transient.nav" ng-bind="tab.title" 
+		class="btn btn-primary btn-horizontal" ng-click="navClick(tab.title)"/>
 	</div>
+	
 	<div is-open="tab.title == transient.currentTab.title">
-		<button ng-repeat="tab in transient.tabs" ng-bind="tab.title" class="btn btn-primary"/>
+		<button ng-repeat="tab in transient.tabs" ng-bind="tab.title" class="btn btn-primary"
+				ng-click="transient.currentTab.title = tab.title"/>
 	</div>
+
 <!--
 	<div class="btn-group" ng-repeat="tab in transient.tabs" dropdown is-open="tab.title == transient.currentTab.title">
 	  <button type="button" class="btn btn-primary dropdown-toggle" ng-click="transient.currentItem=null">
@@ -138,7 +139,7 @@
 <table>
 <tr>
 <td>				
-<img src="http://cida.usgs.gov/glri/images/official_logo_glri.png" alt="GLRI Logo" align="left" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;background-color:#ffffff;" />
+<img src="http://cida.usgs.gov/glri/${pageScope.rootPath}images/official_logo_glri.png" alt="GLRI Logo" align="left" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;background-color:#ffffff;" />
 </td>
 <div style="margin-top:2px;">
 </tr>
@@ -311,7 +312,7 @@
 		<div class="overlay" style="opacity: 0.50; -moz-opacity: 0.50; filter:alpha(opacity=50);">&nbsp;</div>	
 					 
          	 <p>A DOI team (USGS, FWS, NPS) is working together to determine why botulism outbreaks, which have caused extensive mortality of fish and fish-eating birds, are occurring in the Great Lakes.  This project has multiple components, including developing a new assay for testing for the presence of the toxin more quickly, evaluating how birds are exposed to the toxin through study of their locations and feeding habits, and determining what factors need to link together to trigger an outbreak.
-<br><span style="margin-left:20px;font-size:7pt;color:#FFFFFF;font-weight:bold;background:#60B4DB;padding-left:5px;padding-right:5px;">CONTACT:</span><a href="mailto:sriley@usgs.gov" style="font-size:7pt;color:#60B4DB;"> Stephen Riley,</a><a href="mailto:cbunck@usgs.gov" style="font-size:7pt;color:#60B4DB;"> Christine Bunck</a></p><div style="position:absolute;top:279px;left:380px;"><a href="http://www.umesc.usgs.gov/terrestrial/migratory_birds/loons/migrations.html"> <img src="images/track_common_loons.png" alt="Track Movements of 5 Common Loons"> </a></div><p></p>
+<br><span style="margin-left:20px;font-size:7pt;color:#FFFFFF;font-weight:bold;background:#60B4DB;padding-left:5px;padding-right:5px;">CONTACT:</span><a href="mailto:sriley@usgs.gov" style="font-size:7pt;color:#60B4DB;"> Stephen Riley,</a><a href="mailto:cbunck@usgs.gov" style="font-size:7pt;color:#60B4DB;"> Christine Bunck</a></p><div style="position:absolute;top:279px;left:380px;"><a href="http://www.umesc.usgs.gov/terrestrial/migratory_birds/loons/migrations.html"> <img src="${pageScope.rootPath}images/track_common_loons.png" alt="Track Movements of 5 Common Loons"> </a></div><p></p>
 		
 	</div>	
 
@@ -326,7 +327,7 @@
 		<div class="overlay" style="opacity: 0.50; -moz-opacity: 0.50; filter:alpha(opacity=50);">&nbsp;</div>	
 					 
           	<p style="font-size:8pt;">USGS is restoring native Atlantic salmon in Lake Ontario by raising fish, stocking them and conducting assessments to evaluate success.  Working closely with NY State, Iroquis Native Americans, and Ontario governments, USGS is ensuring that scientifically-based techniques and strategies are used to provide the highest probability of rehabilitation success and avoid potential fish diseases.  This project will phase in restoration of deepwater coregonids and lake sturgeon in Lake Ontario using similar methods. 
-<br><span style="margin-left:20px;font-size:7pt;color:#FFFFFF;font-weight:bold;background:#60B4DB;padding-left:5px;padding-right:5px;">CONTACT:</span><a href="mailto:jhjohnson@usgs.gov" style="font-size:7pt;color:#60B4DB;"> Jim Johnson</a></p><div style="position:absolute;top:279px;left:380px;"><a href="http://cida.usgs.gov/glri/projects/habitat_and_wildlife/fish_culture_facility.html"> <img src="images/attention_restore_fish.png" alt="Native Fish Restoration in the Lake Ontario Basin"> </a></div><p></p>
+<br><span style="margin-left:20px;font-size:7pt;color:#FFFFFF;font-weight:bold;background:#60B4DB;padding-left:5px;padding-right:5px;">CONTACT:</span><a href="mailto:jhjohnson@usgs.gov" style="font-size:7pt;color:#60B4DB;"> Jim Johnson</a></p><div style="position:absolute;top:279px;left:380px;"><a href="http://cida.usgs.gov/glri/projects/habitat_and_wildlife/fish_culture_facility.html"> <img src="${pageScope.rootPath}images/attention_restore_fish.png" alt="Native Fish Restoration in the Lake Ontario Basin"> </a></div><p></p>
 		
 	</div>
 
@@ -460,7 +461,7 @@
 	  
 	  <h1><span>Asian Carp Science</span></h1>  
 	     
-        	<a href="projects/invasive_species/asian_carp_science.html"><img src="images/glri/GLRI_pic_asian_carp_page.jpg" alt="story6"></a>
+        	<a href="projects/invasive_species/asian_carp_science.html"><img src="${pageScope.rootPath}images/glri/GLRI_pic_asian_carp_page.jpg" alt="story6"></a>
 		
 		<div class="overlay" style="opacity: 0.50; -moz-opacity: 0.50; filter:alpha(opacity=50);">&nbsp;</div>	
 					 
@@ -477,7 +478,7 @@
 	  
 	  <h1><span>Toxicity Studies for EPA</span></h1>  
 	     
-        	<a href="projects/toxic_substances/EPA_toxicity_studies.html"><img src="images/glri/GLRI_pic_147_page.png" alt="story5"></a>
+        	<a href="projects/toxic_substances/EPA_toxicity_studies.html"><img src="${pageScope.rootPath}images/glri/GLRI_pic_147_page.png" alt="story5"></a>
 		
 		<div class="overlay" style="opacity: 0.50; -moz-opacity: 0.50; filter:alpha(opacity=50);">&nbsp;</div>	
 					 
@@ -494,7 +495,7 @@
 	  
 	  <h1><span>Great Lakes Legacy Act Support</span></h1>  
 	     
-        	<a href="projects/toxic_substances/Great_Lakes_Legacy_Act.html"><img src="images/glri/GLRI_pic_143_page.png" alt="story4"></a>
+        	<a href="projects/toxic_substances/Great_Lakes_Legacy_Act.html"><img src="${pageScope.rootPath}images/glri/GLRI_pic_143_page.png" alt="story4"></a>
 		
 		<div class="overlay" style="opacity: 0.50; -moz-opacity: 0.50; filter:alpha(opacity=50);">&nbsp;</div>	
 					 
@@ -508,7 +509,7 @@
 	  
 	  <h1><span>Birds as Indicators of Contaminant Exposure in the Great Lakes</span></h1>  
 	     
-        	<a href="projects/toxic_substances/birds_as_indicators.html"><img src="images/glri/GLRI_pic_80_page.png" alt="story3"></a>		
+        	<a href="projects/toxic_substances/birds_as_indicators.html"><img src="${pageScope.rootPath}images/glri/GLRI_pic_80_page.png" alt="story3"></a>		
 
 		<div class="overlay" style="opacity: 0.50; -moz-opacity: 0.50; filter:alpha(opacity=50);">&nbsp;</div>	
 					 
@@ -524,7 +525,7 @@
 	  
 	  <h1><span>Mercury Cycling and Bioaccumulation in the Great Lakes</span></h1>  
 	     
-        	<a href="projects/toxic_substances/mercury_cycling.html"><img src="images/glri/GLRI_pic_79_page.png" alt="story2"></a>
+        	<a href="projects/toxic_substances/mercury_cycling.html"><img src="${pageScope.rootPath}images/glri/GLRI_pic_79_page.png" alt="story2"></a>
 		
 		<div class="overlay" style="opacity: 0.50; -moz-opacity: 0.50; filter:alpha(opacity=50);">&nbsp;</div>	
 					 
@@ -540,7 +541,7 @@
 	  
 	  <h1><span>Determine Baseline and Sources of Toxic Contaminant Loadings</span></h1>  
 	     
-        	<a href="projects/toxic_substances/contaminant_loadings.html"><img src="images/glri/GLRI_pic_78b_page.png" alt="story1"></a>
+        	<a href="projects/toxic_substances/contaminant_loadings.html"><img src="${pageScope.rootPath}images/glri/GLRI_pic_78b_page.png" alt="story1"></a>
 		
 		<div class="overlay" style="opacity: 0.50; -moz-opacity: 0.50; filter:alpha(opacity=50);">&nbsp;</div>	
 					 
@@ -554,7 +555,7 @@
 	  
 	  <h1><span>Asian Carp Science</span></h1>  
 	     
-        	<a href="projects/invasive_species/asian_carp_science.html"><img src="images/glri/GLRI_pic_asian_carp_page.jpg" alt="story6"></a>
+        	<a href="projects/invasive_species/asian_carp_science.html"><img src="${pageScope.rootPath}images/glri/GLRI_pic_asian_carp_page.jpg" alt="story6"></a>
 		
 		<div class="overlay" style="opacity: 0.50; -moz-opacity: 0.50; filter:alpha(opacity=50);">&nbsp;</div>	
 					 
@@ -575,7 +576,7 @@
 <div id="controls" class="" style="margin-left:45px;">
 	
       <ul>
-        <li class="prev"><a href="#" class="prev"><img src="images/controlPrev.jpg" alt="previous headline article" style="margin-right:5px;"></a></li>
+        <li class="prev"><a href="#" class="prev"><img src="${pageScope.rootPath}images/controlPrev.jpg" alt="previous headline article" style="margin-right:5px;"></a></li>
     	<li class="nolink3 link nolink">1<a href="#">1</a></li>
 	<li class="nolink3 link">2<a href="#">2</a></li>
 	<li class="nolink3 link">3<a href="#">3</a></li>
@@ -601,7 +602,7 @@
 	<li class="nolink3">23<a href="#">23</a></li>	
 	<li class="nolink3">24<a href="#">24</a></li>	
 	<li class="nolink3">25<a href="#">25</a></li>				
-        <li class="next"><a href="#" class="next"><img src="images/controlNext.jpg" alt="next headline article"></a></li>
+        <li class="next"><a href="#" class="next"><img src="${pageScope.rootPath}images/controlNext.jpg" alt="next headline article"></a></li>
       </ul>
 
     </div>
@@ -620,7 +621,7 @@
 
 <script type="text/javascript">
 $(function() {
-	headlineImages = new Array('<img src=\'images/glri/GLRI_pic_164_page.png\' alt=\'story25\' />','<img src=\'images/glri/GLRI_pic_84_page.png\' alt=\'story24\' />','<img src=\'images/glri/GLRI_pic_83_page.png\' alt=\'story23\' />','<img src=\'images/glri/GLRI_pic_82_page.png\' alt=\'story22\' />','<img src=\'images/glri/GLRI_pic_81b_page.png\' alt=\'story21\' />','<img src=\'images/glri/GLRI_pic_75_page.png\' alt=\'story20\' />','<img src=\'images/glri/GLRI_pic_68b_page.png\' alt=\'story19\' />','<img src=\'images/glri/GLRI_pic_backbone_page.png\' alt=\'story18\' />','<img src=\'images/glri/GLRI_pic_74b_page.png\' alt=\'story17\' />','<img src=\'images/glri/GLRI_pic_73_page.png\' alt=\'story16\' />','<img src=\'images/glri/GLRI_pic_72_page.png\' alt=\'story15\' />','<img src=\'images/glri/GLRI_pic_71b_page.png\' alt=\'story14\' />','<img src=\'images/glri/GLRI_pic_70b_page.png\' alt=\'story13\' />','<img src=\'images/glri/GLRI_pic_137_page.png\' alt=\'story12\' />','<img src=\'images/glri/GLRI_pic_134_page.png\' alt=\'story11\' />','<img src=\'images/glri/GLRI_pic_77_page.png\' alt=\'story10\' />','<img src=\'images/glri/GLRI_pic_76_page.png\' alt=\'story9\' />','<img src=\'images/glri/GLRI_pic_zmdigestive_page.jpg\' alt=\'story8\' />','<img src=\'images/glri/GLRI_pic_67_page.png\' alt=\'story7\' />','<img src=\'images/glri/GLRI_pic_asian_carp_page.jpg\' alt=\'story6\' />','<img src=\'images/glri/GLRI_pic_147_page.png\' alt=\'story5\' />','<img src=\'images/glri/GLRI_pic_143_page.png\' alt=\'story4\' />','<img src=\'images/glri/GLRI_pic_80_page.png\' alt=\'story3\' />','<img src=\'images/glri/GLRI_pic_79_page.png\' alt=\'story2\' />','<img src=\'images/glri/GLRI_pic_78b_page.png\' alt=\'story1\' />');
+	headlineImages = new Array('<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_164_page.png\' alt=\'story25\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_84_page.png\' alt=\'story24\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_83_page.png\' alt=\'story23\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_82_page.png\' alt=\'story22\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_81b_page.png\' alt=\'story21\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_75_page.png\' alt=\'story20\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_68b_page.png\' alt=\'story19\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_backbone_page.png\' alt=\'story18\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_74b_page.png\' alt=\'story17\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_73_page.png\' alt=\'story16\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_72_page.png\' alt=\'story15\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_71b_page.png\' alt=\'story14\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_70b_page.png\' alt=\'story13\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_137_page.png\' alt=\'story12\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_134_page.png\' alt=\'story11\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_77_page.png\' alt=\'story10\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_76_page.png\' alt=\'story9\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_zmdigestive_page.jpg\' alt=\'story8\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_67_page.png\' alt=\'story7\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_asian_carp_page.jpg\' alt=\'story6\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_147_page.png\' alt=\'story5\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_143_page.png\' alt=\'story4\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_80_page.png\' alt=\'story3\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_79_page.png\' alt=\'story2\' />','<img src=\'${pageScope.rootPath}images/glri/GLRI_pic_78b_page.png\' alt=\'story1\' />');
 	headlineImages.reverse();
 	removeLink = function() {
 		return $('div#controls ul li.nolink').removeClass('nolink').addClass('link');	
@@ -690,12 +691,12 @@ $(function() {
 		</div>
 		
 <!--[if IE]>
-		<center><img style="margin-top:-21px;margin-left:16px;" src="images/categories3.png" alt="USEPA GLRI Project Categories" /></center>
+		<center><img style="margin-top:-21px;margin-left:16px;" src="${pageScope.rootPath}images/categories3.png" alt="USEPA GLRI Project Categories" /></center>
 <![endif]-->
 
 <!--[if !IE]-->
 
-		<center><img style="margin-top:-21px;;margin-left:16px;" src="images/categories3.png" alt="USEPA GLRI Project Categories"></center>
+		<center><img style="margin-top:-21px;;margin-left:16px;" src="${pageScope.rootPath}images/categories3.png" alt="USEPA GLRI Project Categories"></center>
 <!--[endif]-->
 
 
