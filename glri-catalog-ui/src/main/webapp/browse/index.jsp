@@ -70,10 +70,11 @@
 					</jsp:include>
 				</div>
 			</div>
-			<div class="row glri_content" ng-controller="CatalogCtrl">
-				<div class="col-xs-12">
+			
+			<div id="catalogCtrl" class="row glri_content" ng-controller="CatalogCtrl">
+				<div id="outerCol" class="col-xs-12">
 					<div class="row">
-						<div class="col-xs-12">
+						<div id="innerCol" class="col-xs-12">
 							<div class="well">
 																
 								<div style="margin-top: 15px;">
@@ -92,11 +93,9 @@
 							</div>
 
 
-<!-- left -->
-<div class="col-left col-xs-3">
-<!-- nav -->
-<div id="nav" class="border" style="height:300px">
+<div id="navPane" class="col-left col-xs-3">
 
+<div id="nav" class="border" style="height:300px">
 
 	<div class="btn-group" >
 		<button ng-repeat="tab in transient.nav" ng-bind="tab.title" 
@@ -120,17 +119,15 @@
 		</li>
 	</div>
 -->
+</div><!-- nav -->
+
+</div><!-- navPane -->
 
 
-</div>
-</div>
 
+<div id="contentPane" class="col-right col-xs-9">
 
-
-<!-- right -->							
-<div class="col-right col-xs-9">
-<!-- home -->
-<div class="border" ng-if="transient.currentNav=='Home'">
+<div id="contentHome" class="border" ng-if="transient.currentNav=='Home'">
 
 
 
@@ -701,10 +698,11 @@ $(function() {
 <!--[endif]-->
 
 
-</div> <!-- home -->
-						</div>							
-							
-							<div class="well clearfix" ng-if="transient.currentNav=='Browse' && transient.currentItem">
+</div>
+
+</div><!-- contentHome -->
+
+							<div id="contentBrowseDetail" class="well clearfix" ng-if="transient.currentNav=='Browse' && transient.currentItem">
 									
 									<h2>{{transient.currentItem.title}}</h2>
 									<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
@@ -785,15 +783,17 @@ $(function() {
 									</div>
 								
 								
-							</div>
-						</div>
-					</div>
+							</div><!-- contentBrowseDetail -->
+</div><!-- contentPane -->
+						
+					</div><!-- innerCol -->
 
 					
 
 				</div>				
-			</div>
-			<div class="row">
+			</div> <!-- outerCol -->
+			
+			<div id="footerContainer" class="row">
 				<div class="col-xs-12">
 					<jsp:include page="${pageScope.rootPath}/template/footer.jsp">
 						<jsp:param name="relPath" value="${pageScope.rootPath}" />
@@ -804,7 +804,9 @@ $(function() {
 						<jsp:param name="buildVersion" value="${project.version}" />
 					</jsp:include>
 				</div>
-			</div>
-		</div>
+			</div> <!-- footerContainer -->
+			
+		</div><!-- catalogCtrl -->
+		
 	</body>
 </html>
