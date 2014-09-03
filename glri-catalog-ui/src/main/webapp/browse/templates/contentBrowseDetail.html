@@ -1,0 +1,83 @@
+	<div id="contentBrowseDetail" class="well clearfix" ng-if="transient.currentNav=='Browse' && transient.currentItem">
+			
+			<h2>{{transient.currentItem.title}}</h2>
+			<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
+			<div class="template-list">
+				<h5>Template(s):
+					<span class="no-template-found" ng-if="transient.currentItem.templates.length == 0">No funding template found</span>
+					<span class="template-name" ng-repeat="template in transient.currentItem.templates">
+						{{template}}<span class="template-separator" ng-if="transient.currentItem.templates.length &gt; 1 &amp;&amp; !$last">, </span>
+					</span>
+					
+				</h5>
+			</div>
+			
+			<h4>Background/Problem</h4>
+			<p class="background">{{transient.currentItem.purpose}}</p>
+			
+			<h4>Description of Work</h4>
+			<p class="description-of-work">{{transient.currentItem.body}}</p>
+			
+			<h4>Contacts</h4>
+			<p class="point-of-contact">{{transient.currentItem.contactText}}</p>
+			
+			<h4>For more information, <a title="Click to go directly to this record in ScienceBase" href="{{transient.currentItem.url}}" target="_blank">see all of this project's metadata in ScienceBase &gt;&gt;</a></h4>
+			
+			<div ng-if="false">
+				<div class="related-links" ng-if="transient.currentItem.mainLink || (transient.currentItem.hasChildren == true)">
+					<div ng-if="transient.currentItem.mainLink">
+						<a href="{{transient.currentItem.mainLink.url}}" target="_blank">{{transient.currentItem.mainLink.title}}</a>
+					</div>
+					<div ng-if="transient.currentItem.hasChildren == true">
+						<a href="" ng-click="toggleChildItems(record)">Publications and Datasets
+							<span ng-if="transient.currentItem.childRecordState == 'notloaded'"><span class="glyphicon glyphicon-chevron-down"></span></span>
+							<span ng-if="transient.currentItem.childRecordState == 'loading'"><span class="glyphicon glyphicon-repeat"></span></span>
+							<span ng-if="transient.currentItem.childRecordState == 'complete'"><span class="glyphicon glyphicon-remove-circle"></span></span>
+							<span ng-if="transient.currentItem.childRecordState == 'failed'"><span class="glyphicon glyphicon-warning-sign"></span></span>
+							<span ng-if="transient.currentItem.childRecordState == 'closed'"><span class="glyphicon glyphicon-eye-open"></span></span>
+						</a>
+					</div>
+				</div>
+
+
+				<div ng-if="transient.currentItem.childRecordState == 'loading'" class="progress progress-striped active">
+					<div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+						<span>Loading...</span>
+					</div>
+				</div>
+
+				<div ng-if="transient.currentItem.childItems &amp;&amp; transient.currentItem.childRecordState == 'complete'" class="child-records">
+					<div class="list-head clearfix">
+						<div class="pull-right"><a href="" ng-click="toggleChildItems(record)">Close child list <span class="glyphicon glyphicon-remove-circle"></span></a></div>
+						<h4>{{transient.currentItem.childItems.length}} Child record(s) (projects and datasets)</h4>
+					</div>
+					<ul>
+						<li ng-repeat="child in transient.currentItem.childItems" class="{{child.resource}}">
+							<div class="resource-icon">
+								<a title="{{child.resource}}: Click to go directly to this record in ScienceBase" href="{{child.url}}" target="_blank">
+									<img ng-src="../style/image/darkblue/{{child.resource}}.svg" />
+								</a>
+							</div>
+							<h4>{{child.title}}</h4>
+							<p class="point-of-contact">{{child.contactText}}</p>
+							<div class="related-links">
+								<div ng-if="child.mainLink">
+									<a href="{{child.mainLink.url}}" target="_blank">{{child.mainLink.title}}</a>
+								</div>
+							</div>
+							<p class="summary">{{child.summary}}</p>
+						</li>
+					</ul>
+					<div class="list-foot clearfix">
+						<div class="pull-right"><a href="" ng-click="toggleChildItems(record)">Close child list <span class="glyphicon glyphicon-remove-circle"></span></a></div>
+					</div>
+				</div>
+
+
+
+
+			</div>
+		
+		
+	<!-- contentBrowseDetail -->
+	</div>
