@@ -2,7 +2,7 @@ body {
 	background-color: white;
 }
 #header #banner-area {
-	background-image: url(../browse/style/image/blue/dark_banner.png);
+	background-image: url(../style/image/blue/dark_banner.png);
 	background-position-x: 0px;
 	background-color: #000;
 }
@@ -18,8 +18,8 @@ ul#ccsa-area {
 	line-height: 1.47 !important;
 }
 
-//Set the font for the entire app to the USGS standard
-body div.container * { font-family: Verdana, Arial, Helvetica, sans-serif !important; }
+/* Set the font for the entire app to the USGS standard */
+body div.container * { font-family: Verdana, Arial, Helvetica, sans-serif !important;font-size:12px; }
 
 #site-title { background-color: #036; }
 #site-title img { height: 3em; margin-right: 1em; }
@@ -237,6 +237,10 @@ option.any-option { font-weight: bold; }
 @-webkit-keyframes spin { from { -webkit-transform: rotate(0deg); } to { -webkit-transform: rotate(360deg); } }
 @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
 
+#nav {
+	height: 100% !important;
+}
+
 #nav .btn-group {
 	width: 100% !important;
 	margin-bottom: 5px !important;
@@ -247,6 +251,7 @@ option.any-option { font-weight: bold; }
 .glri_content .btn-horizontal {
 	display: inline-block !important;
 	width: 33% !important;
+	line-height: 0.7;
 }
 
 .glri_content .btn-primary {
