@@ -1,3 +1,11 @@
+img.icon {
+	width: 40px;
+	float: left;
+	margin-top: 13px;
+	margin-right: 5px;	
+	margin-left: 5px;	
+}
+
 body {
 	background-color: white;
 }
@@ -232,6 +240,10 @@ option.any-option { font-weight: bold; }
     animation-timing-function: linear;
 }
 
+ul.list-tick {
+	margin-left: 30px !important;
+}
+
 @-ms-keyframes spin { from { -ms-transform: rotate(0deg); } to { -ms-transform: rotate(360deg); } }
 @-moz-keyframes spin { from { -moz-transform: rotate(0deg); } to { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { from { -webkit-transform: rotate(0deg); } to { -webkit-transform: rotate(360deg); } }
@@ -255,7 +267,7 @@ option.any-option { font-weight: bold; }
 #nav {
 	height: 100% !important;
 	min-height: 772px;
-	margin-bottom: 10px;
+	padding-bottom: 25px;
 }
 
 #nav .btn-group {
