@@ -1,13 +1,35 @@
-#header #banner-area {
-	background-image: url(../style/image/darkblue/usgs_banner.jpg);
-	background-position-x: -150px;
-	background-color: #000;
+img.icon {
+	width: 40px;
+	float: left;
+	margin-top: 13px;
+	margin-right: 5px;	
+	margin-left: 5px;	
 }
 
-//Set the font for the entire app to the USGS standard
-body div.container * { font-family: Verdana, Arial, Helvetica, sans-serif !important; }
+body {
+	background-color: white;
+}
+#header #banner-area {
+	background-image: url(../style/image/darkblue/dark_banner.png);
+	background-position-x: 0px;
+	background-color: #000;
+}
+.well { 
+	background-color: white !important; }
+	margin-bottom: .8em; 
+	min-height:105px !important;
+}
+#ccsa-area > li > a  {
+	line-height: 1.47 !important;
+}
+ul#ccsa-area {
+	line-height: 1.47 !important;
+}
 
-#site-title { background-color: #022553; }
+/* Set the font for the entire app to the USGS standard */
+body div.container * { font-family: Verdana, Arial, Helvetica, sans-serif !important;font-size:12px; }
+
+#site-title { background-color: #036; }
 #site-title img { height: 3em; margin-right: 1em; }
 #site-title h1 { font-size: 1.2em; padding: 0; margin: .3em 0 .1em .5em; }
 #site-title h4 { font-size: .9em; font-style: italic; padding: 0; margin: 0 1em; }
@@ -33,7 +55,6 @@ ul#ccsa-area {
 
 
 #sb-query-form .well { padding: .6em; }
-.well { margin-bottom: .8em; }
 
 #sb-query-form .map-contols { padding: .6em; text-align: center; }
 
@@ -219,27 +240,118 @@ option.any-option { font-weight: bold; }
     animation-timing-function: linear;
 }
 
+ul.list-tick {
+	margin-left: 30px !important;
+}
+
+.content2col {
+	margin: 5px 0px;
+}
+
+a {
+	color:#38E !important;
+}
+a:visited {
+	color:069 !important;
+}
+
+.strong2 {
+	font-size:18px !important; 
+	font-weight:bold; 
+	color:#039;
+}
+
+
+.largetitle {
+	font-size:22px !important;
+	font-weight:bold; 
+	color:#000000;
+	line-height:90%;
+	height: 90px;
+	padding-top: 40px;
+	margin-left: 300px;
+}
+
+.navHomeEntry {
+	height: 125px;
+}
+
+.navHomeEntry a::before {
+	content:"> ";
+}
+
+.navHomeEntry img {
+	border:solid #EFEFEF 1px;
+	padding:4px;
+	float:left;
+	margin-right:10px;	
+}
+
+.navHomeEntry .descr {
+	font-size:10px;
+}
+
 @-ms-keyframes spin { from { -ms-transform: rotate(0deg); } to { -ms-transform: rotate(360deg); } }
 @-moz-keyframes spin { from { -moz-transform: rotate(0deg); } to { -moz-transform: rotate(360deg); } }
 @-webkit-keyframes spin { from { -webkit-transform: rotate(0deg); } to { -webkit-transform: rotate(360deg); } }
 @keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
 
-/* Change the primary buttons to our color scheme */
-.glri_content .btn-primary {
-  background-color: #022553;
-  border-color: #357ebd;
+.col-left {
+	margin-bottom: 10px;
 }
+.col-right {
+	padding-left: 5px;
+}
+
+.border {
+	padding: 4px 4px 15px 2px;
+	border:  1px solid #ddd;
+	border-radius: 5px;
+	width:   100%;
+}
+
+
+#nav {
+	height: 100% !important;
+	min-height: 772px;
+	padding-bottom: 25px;
+}
+
+#nav .btn-group {
+	width: 100% !important;
+	margin-bottom: 5px !important;
+	margin-left: 3px !important;
+}
+
+/* Change the primary buttons to our color scheme */
+.glri_content .btn-horizontal {
+	display: inline-block !important;
+	width: 33% !important;
+	line-height: 0.7;
+}
+
+.glri_content .btn-primary {
+	background-color: white;
+	border-color: #036;
+	color: #036;
+	margin-bottom: 1px !important;
+	display: block;
+	width: 100%;
+}
+
 .glri_content .btn-primary:hover,
 .glri_content .btn-primary:focus,
 .glri_content .open .dropdown-toggle.btn-primary {
-  background-color: #304D70;
-  border-color: #285e8e;
+  background-color: #036;
+  color: white;
+  border-color: #38E;
 }
 
 .glri_content .btn-primary:active,
 .glri_content .btn-primary.active {
-  background-color: #4E6687;
-  border-color: #285e8e;
+  background-color: #036;
+  color: white;
+  border-color: #38E;
 }
 
 .glri_content .btn-primary.disabled,
@@ -267,3 +379,43 @@ option.any-option { font-weight: bold; }
 
 /* tiles that fail to load should be transparent, not pink w/ a broken icon */
 img.olImageLoadError { background-color: transparent !important; visibility: hidden !important;}
+
+
+
+.popupImage{
+position: relative;
+z-index: 0;
+}
+
+.popupImage:hover{
+background-color: transparent;
+z-index: 50;
+}
+
+.popupImage span{ /*CSS for enlarged image*/
+position: absolute;
+background-color: #FFFFFF;
+padding: 5px;
+left: -1000px;
+border: 1px dashed gray;
+visibility: hidden;
+color: black;
+text-decoration: none;
+}
+
+.popupImage span img{ /*CSS for enlarged image*/
+border-width: 0;
+padding: 2px;
+}
+
+.popupImage:hover span{ /*CSS for enlarged image on hover*/
+visibility: visible;
+top: 0;
+left: 60px; /*position where enlarged image should offset horizontally */
+
+}
+
+.noteworthy {
+	width :20px;
+	margin-left:10px;
+}
