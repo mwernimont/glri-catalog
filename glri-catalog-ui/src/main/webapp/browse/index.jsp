@@ -108,7 +108,7 @@
 	<glri-nav-home>home</glri-nav-home>
 
 	<div is-open="tab.title == transient.currentTab.title" ng-if="transient.currentNav=='Browse'">
-		<button ng-repeat="tab in transient.tabs" ng-bind="tab.title" class="btn btn-primary"
+		<button ng-repeat="tab in transient.tabs" ng-bind="tab.title" class="btn btn-primary btn-vertical"
 				ng-click="transient.currentTab.title = tab.title"></button>
 	</div>
 

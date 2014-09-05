@@ -328,7 +328,10 @@ a:visited {
 .glri_content .btn-horizontal {
 	display: inline-block !important;
 	width: 33% !important;
-	line-height: 0.7;
+	line-height: 1.4;
+}
+.glri_content .btn-vertical {
+	font-size:18px;
 }
 
 .glri_content .btn-primary {
@@ -338,6 +341,7 @@ a:visited {
 	margin-bottom: 1px !important;
 	display: block;
 	width: 100%;
+	font-weight:bold;
 }
 
 .glri_content .btn-primary:hover,
