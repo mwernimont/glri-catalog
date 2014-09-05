@@ -130,26 +130,30 @@
 
 <div id="contentPane" class="col-right col-xs-9">
 
-	<glri-home></glri-home>
-	<glri-asian-carp></glri-asian-carp>
-	<glri-invasive></glri-invasive>
-	<glri-project-lists></glri-project-lists>
-	<glri-records></glri-records>
-	<glri-detail></glri-detail>
-	<glri-search></glri-search>
-	
-	<div ng-if="contentShow('BeachHealth') && false" >
-		<object id="MediaPlayer" width="192" height="190" type="video/x-ms-asf">
-			<param name="FileName"value="../resources/GLRI Webinar_Feb11.2014_edited.wmv.wmv">
-			<param name="autostart" value="false">
-			<param name="ShowControls" value="true">
-			<param name="ShowStatusBar" value="false">
-			<param name="ShowDisplay" value="false">
-			<embed type="application/x-mplayer2" src="../resources/GLRI Webinar_Feb11.2014_edited.wmv.wmv" 
-			width="192" height="190" ShowControls="1" ShowStatusBar="0" ShowDisplay="0" autostart="0" />
-		</object>
-	</div>
+	<div class="border">
 
+		<glri-home></glri-home>
+		<glri-asian-carp></glri-asian-carp>
+		<glri-invasive></glri-invasive>
+		<glri-project-lists></glri-project-lists>
+		<glri-records></glri-records>
+		<glri-detail></glri-detail>
+		<glri-search></glri-search>
+		
+		<div ng-if="contentShow('BeachHealth') && false" >
+			<object id="MediaPlayer" width="192" height="190" type="video/x-ms-asf">
+				<param name="FileName"value="../resources/GLRI Webinar_Feb11.2014_edited.wmv.wmv">
+				<param name="autostart" value="false">
+				<param name="ShowControls" value="true">
+				<param name="ShowStatusBar" value="false">
+				<param name="ShowDisplay" value="false">
+				<embed type="application/x-mplayer2" src="../resources/GLRI Webinar_Feb11.2014_edited.wmv.wmv" 
+				width="192" height="190" ShowControls="1" ShowStatusBar="0" ShowDisplay="0" autostart="0" />
+			</object>
+		</div>
+
+	</div>
+	
 </div><!-- contentPane -->
 						
 					</div><!-- innerCol -->

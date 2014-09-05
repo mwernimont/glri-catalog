@@ -245,7 +245,7 @@ ul.list-tick {
 }
 
 .content2col {
-	margin: 5px 0px;
+	margin: 25px 0px 5px 0px;
 }
 
 a {
@@ -308,6 +308,7 @@ a:visited {
 	border:  1px solid #ddd;
 	border-radius: 5px;
 	width:   100%;
+	margin-bottom: 5px;
 }
 
 
