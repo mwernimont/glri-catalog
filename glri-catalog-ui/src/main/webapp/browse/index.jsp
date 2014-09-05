@@ -99,9 +99,9 @@
 <div id="nav" class="border" style="height:300px">
 
 	<div id="navBrowse" class="btn-group">
-		<button ng-repeat="tab in transient.nav" ng-bind="tab.title" 
-				class="btn btn-primary btn-horizontal" ng-click="navClick(tab.title)"
-				ng-class="transient.currentNav==tab.title ?'active' :'' "></button>
+		<button ng-repeat="nav in transient.nav" ng-bind="nav.title" 
+				class="btn btn-primary btn-horizontal" ng-click="navRoot(nav.title)"
+				ng-class="navShow(nav.title) ?'active' :'' "></button>
 	</div>
 	<hr/>
 	
@@ -131,9 +131,23 @@
 <div id="contentPane" class="col-right col-xs-9">
 
 	<glri-home></glri-home>
+	<glri-asian-carp></glri-asian-carp>
+	<glri-invasive></glri-invasive>
 	<glri-records></glri-records>
 	<glri-detail></glri-detail>
 	<glri-search></glri-search>
+	
+	<div ng-if="contentShow('BeachHealth') && false" >
+		<object id="MediaPlayer" width="192" height="190" type="video/x-ms-asf">
+			<param name="FileName"value="../resources/GLRI Webinar_Feb11.2014_edited.wmv.wmv">
+			<param name="autostart" value="false">
+			<param name="ShowControls" value="true">
+			<param name="ShowStatusBar" value="false">
+			<param name="ShowDisplay" value="false">
+			<embed type="application/x-mplayer2" src="../resources/GLRI Webinar_Feb11.2014_edited.wmv.wmv" 
+			width="192" height="190" ShowControls="1" ShowStatusBar="0" ShowDisplay="0" autostart="0" />
+		</object>
+	</div>
 
 </div><!-- contentPane -->
 						

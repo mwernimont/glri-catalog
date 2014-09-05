@@ -13,12 +13,26 @@ function($scope, $http, $filter, $timeout) {
 	$scope.CONST.TEMPLATE_SCHEME = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates";
 
 	
-	$scope.navClick = function(nav) {
+	$scope.navRoot = function(nav) {
 		$scope.transient.currentTab = null;		
 		if (nav === 'Search') {
 			window.location='/glri-catalog';
 		}
-		$scope.transient.currentNav = nav;
+		$scope.transient.currentNav = [nav];
+	}
+	$scope.navAdd = function(nav) {
+		var navs = $scope.transient.currentNav
+		if (navs) {
+			navs.push(nav);
+		}
+	}
+	$scope.navShow = function(nav) {
+		var navs = $scope.transient.currentNav
+		return navs  &&  navs.indexOf(nav)!=-1
+	}
+	$scope.contentShow = function(nav) {
+		var navs = $scope.transient.currentNav
+		return navs  &&  navs[ navs.length-1 ]===nav
 	}
 	
 	//storage of state that would not be preserved if the user were to follow a
@@ -30,7 +44,7 @@ function($scope, $http, $filter, $timeout) {
 	              	    { title:'Browse', isHome: false, items: []},
 	              	    { title:'Search', isHome: false, items: []},
 	              	];
-	$scope.transient.currentNav = $scope.transient.nav[0].title;
+	$scope.transient.currentNav = [$scope.transient.nav[0].title];
 	
 	$scope.transient.tabs = [
 		{ title:'Toxic Substances', isHome: false, items: [

@@ -30,6 +30,28 @@ GLRICatalogApp.directive("glriRecords",[function(){
 	}	
 }])
 
+GLRICatalogApp.directive("glriAsianCarp",[function(){
+	return {
+		restrict   : 'E', //AEC
+		replace    : true,
+		transclude : true,
+		scope      : true,
+		templateUrl: 'templates/contentAsianCarp.html',
+	}		
+}])
+
+GLRICatalogApp.directive("glriInvasive",[function(){
+	return {
+		restrict   : 'E', //AEC
+		replace    : true,
+		transclude : true,
+		scope      : true,
+		templateUrl: 'templates/contentInvasive.html',
+	}		
+}])
+
+		
+
 GLRICatalogApp.directive("glriNavHome",[function(){
 	return {
 		restrict   : 'E', //AEC

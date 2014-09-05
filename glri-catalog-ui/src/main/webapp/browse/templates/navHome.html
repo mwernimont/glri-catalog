@@ -1,81 +1,34 @@
-<div class="padding" ng-if="transient.currentNav=='Home'">
+<div class="padding" ng-if="navShow('Home')">
 
-<!--[if IE]>
-	<div style="padding-bottom:40px;">
-		<img style="border:solid #EFEFEF 1px;padding:4px;float:left;margin-right:10px;" alt="Asian Carp Science" src="../images/asian_carp_studies_badge.png" />
-		<strong>Asian Carp Science.</strong><br />
-		<div class="tiny2">The USGS is conducting several sub-projects as part of the GLRI.</div>
-		<div class="tiny2"><a href="projects/invasive_species/asian_carp_science.html">>LEARN MORE</a></div>
-	</div>
-	<div style="padding-bottom:20px;">
-		<img style="border:solid #EFEFEF 1px;padding:4px;float:left;margin-right:10px;" alt="Beach Health Webinar - 2014" src="../images/beach_webinar_badge.jpg" />
-		<strong>Beach Health Webinar - Feb. 2014</strong><br />
-		<div class="tiny2">Providing the beach-going public with the best water-quality information available.</div>
-		<div class="tiny2"><a href="http://cida.usgs.gov/glri/videos/GLRI Webinar_Feb11.2014_edited.wmv">>WATCH VIDEO</a></div>
-	</div>
-	<div style="padding-bottom:20px;">
-		<img style="border:solid #EFEFEF 1px;padding:4px;float:left;margin-right:10px;" alt="Controlling Dreissenid Mussels with Pseudomonas fluorescens CL145A" src="../images/zm_control_badge.jpg" />
-		<strong>Invasive Species Project</strong><br />
-		<div class="tiny2">Controlling Dreissenid Mussels with Pseudomonas fluorescens CL145A.</div>
-		<div class="tiny2"><a href="http://cida.usgs.gov/glri/projects/invasive_species/zm_control.html">>LEARN MORE</a></div>
-	</div>
-	<div style="padding-bottom:20px;">
-		<img style="border:solid #EFEFEF 1px;padding:4px;float:left;margin-right:10px;" alt="USGS GLRI Project Metadata Catalog" src="../images/geonetwork_badge.png" />
-		<strong>GLRI Project Metadata Catalog</strong><br />
-		<div class="tiny2">The USGS is compiling a catalog of great lakes data and project outcomes.</div>
-		<div class="tiny2"><a href="http://cida.usgs.gov/glri/geonetwork/">>LEARN MORE</a></div>
-	</div>
-	<div style="margin-bottom:50px;">
-		<img style="border:solid #EFEFEF 1px;padding:4px;float:left;margin-right:10px;" alt="Ohio GLRI Projects List" src="../images/projects_list_badge.png" />
-		<strong>Projects List</strong><br />
-		<div class="tiny2">What is the USGS working on?</div>
-		<div class="tiny2"><a href="projects.html">>LEARN MORE</a></div>
-	</div>	
-	<div style="margin-bottom:20px;">
-		<img style="border:solid #EFEFEF 1px;padding:4px;float:left;margin-right:10px;" alt="Loon Tracking" src="../images/loon_tracking_badge.png" />
-		<strong>Loon Migration Studies</strong><br />
-		<div class="tiny2">Track the movements and migrations of loons.</div>
-		<div class="tiny2"><a href="http://www.umesc.usgs.gov/terrestrial/migratory_birds/loons/migrations.html">>TRY IT</a></div>
-	</div>	
-<![endif]-->
-
-<!--[if !IE]-->
-	<div style="margin-bottom:40px;">
-		<img style="border:solid #EFEFEF 1px;padding:4px;float:left;margin-right:10px;" alt="Asian Carp Science" src="../images/asian_carp_studies_badge.png">
+	<div class="navHomeEntry">
+		<img alt="Asian Carp Science" src="../images/asian_carp_studies_badge.png">
 		<strong>Asian Carp Science.</strong><br>
-		<div class="tiny">The USGS is conducting several sub-projects as part of the GLRI.</div>
-		<div class="tiny"><a href="projects/invasive_species/asian_carp_science.html">&gt;LEARN MORE</a></div>
+		<div class="descr">The USGS is conducting several sub-projects as part of the GLRI.</div>
+		<a href="#" ng-click="navAdd('AsianCarp')">LEARN MORE</a>
 	</div>
-	<div style="margin-bottom:20px;">
-		<img style="border:solid #EFEFEF 1px;padding:4px;float:left;margin-right:10px;" alt="Beach Health Webinar - 2014" src="../images/beach_webinar_badge.jpg">
+	<div class="navHomeEntry">
+		<img  alt="Beach Health Webinar - 2014" src="../images/beach_webinar_badge.jpg">
 		<strong>Beach Health Webinar - Feb. 2014</strong><br>
-		<div class="tiny">Providing the beach-going public with the best water-quality information available.</div>
-		<div class="tiny"><a href="http://cida.usgs.gov/glri/videos/GLRI Webinar_Feb11.2014_edited.wmv">&gt;WATCH VIDEO</a></div>
+		<div class="descr">Providing the beach-going public with the best water-quality information available.</div>
+		<a href="http://cida.usgs.gov/glri/videos/GLRI Webinar_Feb11.2014_edited.wmv">WATCH VIDEO</a>
 	</div>																
-	<div style="margin-bottom:20px;">
-		<img style="border:solid #EFEFEF 1px;padding:4px;float:left;margin-right:10px;" alt="Controlling Dreissenid Mussels with Pseudomonas fluorescens CL145A" src="../images/zm_control_badge.jpg">
+	<div class="navHomeEntry">
+		<img alt="Controlling Dreissenid Mussels with Pseudomonas fluorescens CL145A" src="../images/zm_control_badge.jpg">
 		<strong>NEW Invasive Species Project</strong><br>
-		<div class="tiny">Controlling Dreissenid Mussels with Pseudomonas fluorescens CL145A.</div>
-		<div class="tiny"><a href="http://cida.usgs.gov/glri/projects/invasive_species/zm_control.html">&gt;LEARN MORE</a></div>
+		<div class="descr">Controlling Dreissenid Mussels with Pseudomonas fluorescens CL145A.</div>
+		<a href="#" ng-click="navAdd('Invasive')">LEARN MORE</a>
 	</div>
-	<div style="margin-bottom:20px;">
-		<img style="border:solid #EFEFEF 1px;padding:4px;float:left;margin-right:10px;" alt="USGS GLRI Project Metadata Catalog" src="../images/geonetwork_badge.png">
-		<strong>GLRI Project Metadata Catalog</strong><br>
-		<div class="tiny">The USGS is compiling a catalog of great lakes data and project outcomes.</div>
-		<div class="tiny"><a href="http://cida.usgs.gov/glri/geonetwork/">&gt;LEARN MORE</a></div>
-	</div>
-	<div style="margin-bottom:50px;">
-		<img style="border:solid #EFEFEF 1px;padding:4px;float:left;margin-right:10px;" alt="Ohio GLRI Projects List" src="../images/projects_list_badge.png">
+	<div class="navHomeEntry">
+		<img alt="Ohio GLRI Projects List" src="../images/projects_list_badge.png">
 		<strong>Projects List</strong><br>
-		<div class="tiny">What is the USGS working on?</div>
-		<div class="tiny"><a href="projects.html">&gt;LEARN MORE</a></div>
+		<div class="descr">What is the USGS working on?</div>
+		<a href="projects.html">LEARN MORE</a>
 	</div>
-	<div style="margin-bottom:20px;">
-		<img style="border:solid #EFEFEF 1px;padding:4px;float:left;margin-right:10px;" alt="Loon Tracking" src="../images/loon_tracking_badge.png">
+	<div class="navHomeEntry">
+		<img alt="Loon Tracking" src="../images/loon_tracking_badge.png">
 		<strong>Loon Migration Studies</strong><br>
-		<div class="tiny">Track the movements and migrations of loons.</div>
-		<div class="tiny"><a href="http://www.umesc.usgs.gov/terrestrial/migratory_birds/loons/migrations.html">&gt;TRY IT</a></div>
+		<div class="descr">Track the movements and migrations of loons.</div>
+		<a href="http://www.umesc.usgs.gov/terrestrial/migratory_birds/loons/migrations.html">TRY IT</a>
 	</div>	
-<!--[endif]-->
 														
 </div>

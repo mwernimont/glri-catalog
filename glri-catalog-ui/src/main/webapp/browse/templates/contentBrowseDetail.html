@@ -1,4 +1,4 @@
-	<div id="contentBrowseDetail" class="well clearfix" ng-if="transient.currentNav=='Browse' && transient.currentItem">
+	<div id="contentBrowseDetail" class="well clearfix" ng-if="contentShow('Browse') && transient.currentItem">
 			
 			<h2>{{transient.currentItem.title}}</h2>
 			<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
