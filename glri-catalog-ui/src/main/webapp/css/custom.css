@@ -415,3 +415,7 @@ left: 60px; /*position where enlarged image should offset horizontally */
 
 }
 
+.noteworthy {
+	width :20px;
+	margin-left:10px;
+}

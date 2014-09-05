@@ -49,6 +49,15 @@ GLRICatalogApp.directive("glriInvasive",[function(){
 		templateUrl: 'templates/contentInvasive.html',
 	}		
 }])
+GLRICatalogApp.directive("glriProjectLists",[function(){
+	return {
+		restrict   : 'E', //AEC
+		replace    : true,
+		transclude : true,
+		scope      : true,
+		templateUrl: 'templates/contentProjectLists.html',
+	}		
+}])
 
 		
 

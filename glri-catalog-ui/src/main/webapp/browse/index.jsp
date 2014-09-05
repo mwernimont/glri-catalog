@@ -133,6 +133,7 @@
 	<glri-home></glri-home>
 	<glri-asian-carp></glri-asian-carp>
 	<glri-invasive></glri-invasive>
+	<glri-project-lists></glri-project-lists>
 	<glri-records></glri-records>
 	<glri-detail></glri-detail>
 	<glri-search></glri-search>
