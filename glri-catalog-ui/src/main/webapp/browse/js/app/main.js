@@ -279,9 +279,7 @@ function($scope, $http, $filter, $timeout) {
 	}
 	
 	$scope.focusAreaClick = function(focusArea) {
-		console.log(focusArea)
 		$scope.transient.currentTab = focusArea
-		console.log($scope.transient.focusAreas[$scope.transient.currentTab].items)
 	}
 	
 	
