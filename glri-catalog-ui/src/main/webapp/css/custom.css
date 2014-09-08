@@ -1,6 +1,41 @@
-#header #banner-area {
-	background-image: url(../style/image/black_banner.png);
+img.icon {
+	width: 40px;
+	float: left;
+	margin-top: 13px;
+	margin-right: 5px;	
+	margin-left: 5px;	
 }
+
+body {
+	background-color: white;
+}
+#header #banner-area {
+	background-image: url(../style/image/darkblue/dark_banner.png);
+	background-position-x: 0px;
+	background-color: #000;
+}
+.well { 
+	background-color: white !important; }
+	margin-bottom: .8em; 
+	min-height:105px !important;
+}
+#ccsa-area > li > a  {
+	line-height: 1.47 !important;
+}
+ul#ccsa-area {
+	line-height: 1.47 !important;
+}
+
+/* Set the font for the entire app to the USGS standard */
+body div.container * { font-family: Verdana, Arial, Helvetica, sans-serif !important;font-size:12px; }
+
+#site-title { background-color: #036; }
+#site-title img { height: 3em; margin-right: 1em; }
+#site-title h1 { font-size: 1.2em; padding: 0; margin: .3em 0 .1em .5em; }
+#site-title h4 { font-size: .9em; font-style: italic; padding: 0; margin: 0 1em; }
+
+.gap {margin-top: 1em;}
+.gap-lg {margin-top: 2em;}
 
 ul#ccsa-area {
 	list-style: none; padding: .3em 0 0 0; margin: 0;
@@ -10,7 +45,26 @@ ul#ccsa-area {
 
 .sub-title img {width: 200px; height: 66px; }
 
-#sb-query-form .submit-button { margin-top: 10px; }
+#title-header { padding-top: .2em; padding-bottom: .2em; }
+
+#sb-query-form .form-group {
+	margin-bottom: .7em;
+}
+#sb-query-form .form-group label.col-xs-4 { padding: 0 .2em 0 .2em; }
+#sb-query-form .form-group .col-xs-8 { padding-left: .2em; }
+
+
+#sb-query-form .well { padding: .6em; }
+
+#sb-query-form .map-contols { padding: .6em; text-align: center; }
+
+#sb-query-form-footer-controls { margin-top: .5em; }
+
+#sb-query-submit { padding-left: 3em; padding-right: 3em; }
+
+.no-records { margin: 10% auto; width: 70%; display: block; }
+
+.no-records .badge { background-color: #333; }
 
 th a {
   color: #000 !important;
@@ -22,8 +76,40 @@ th a:hover {
 .hidden { display: none; }
 
 .glri_content {
-	/*              top     | right 	| bottom	| left */
-     padding:       0;
+     padding: 0; margin-top: .6em;
+}
+
+.record-load-progress { width: 100%; position: fixed; left: 50%; top: 1.5em; font-size: 20em; }
+.record-load-progress .glyphicon { margin-left: -.5em; padding-bottom: .002em; color: rgba(3,37,83,.5)}
+
+@media (min-width: 768px) {
+	.record-load-progress { left: 65%; top: .5em; font-size: 30em; }
+}
+
+.result-header, .result-footer {
+	padding-top: .2em !important; padding-bottom: .2em !important;
+}
+
+.result-header .btn-group button, .result-footer .btn-group button{
+	padding: .2em;
+}
+
+.page-nav { font-weight: bold; }
+.page-nav a { text-decoration: none !important; }
+.page-nav .previous.has-previous {}
+.page-nav .previous.has-no-previous { color: #ccc; }
+.page-nav .next.has-next {}
+.page-nav .next.has-no-next { color: #ccc; }
+.selectable-list .item {
+	padding: .1em; text-align: center; border: .2em solid transparent; border-radius: .3em; text-decoration: none !important;
+}
+
+.selectable-list .current {
+	border-color: #333;
+}
+
+.selectable-list .non-current:hover {
+	border-color: #aaa;
 }
 
 .boundingBoxButton {
@@ -68,7 +154,7 @@ ul.result-records {
 }
 
 ul.result-records li {
-	display: block; margin: 1em 0 1em 0; padding: .4em; background-color: #fff;
+	display: block; margin: 0 0 1em 0; padding: .4em; background-color: #fff;
 	
 	/* Drop shadow */
 	-moz-box-shadow: 2px 2px 5px #666;
@@ -78,10 +164,12 @@ ul.result-records li {
 	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=5, Direction=135, Color='#666666');
 }
 
-ul.result-records .resource-icon {
+.resource-icon {
 	display: block; float: left; margin: -.2em .3em .3em -.2em;
 }
-ul.result-records .resource-icon img { width: 50px; height: 50px; margin: 0; }
+.resource-icon img { width: 50px; height: 50px; margin: 0; }
+
+.browse-image { width: 600px; height: 600px; float: right; margin-left: 1em; margin-bottom: 1em; }
 
 ul.result-records .related-links {
 	display: block; float: right; width: 16em; padding: .2em; margin: 1em 0 .5em 1em;
@@ -96,5 +184,239 @@ ul.result-records .related-links {
 
 .result-records .point-of-contact { font-style: italic; }
 
+.child-records {
+	padding-right: .3em; margin-left: 1em;
+	background-color: #C7D1DC;
+	border: #C7D1DC solid .2em;
+	border-left: #C7D1DC solid 1em;
+
+	
+	/* Drop shadow */
+	-moz-box-shadow: 1px 1px 4px #666;
+	-webkit-box-shadow: 1px 1px 4px #666;
+	box-shadow: 1px 1px 4px #666;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#666666')";
+	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#666666');
+}
+
+.child-records .list-head { background-color: #C7D1DC; }
+.child-records .list-head h4 { margin-top: 0; }
+.child-records ul { margin-left: 0; padding-left: 0;}
+
+.result-records .child-records .resource-icon img { width: 30px; height: 30px; }
+
 #resource_input img {width: 1.8em; height: 1.8em; margin-top: -3px; /* Makes up for button padding */ }
 
+/* Modify basic spacing */
+.col-xs-1, .col-sm-1, .col-md-1, .col-lg-1, .col-xs-2, .col-sm-2, .col-md-2, .col-lg-2, .col-xs-3, .col-sm-3, .col-md-3, .col-lg-3, .col-xs-4, .col-sm-4, .col-md-4, .col-lg-4, .col-xs-5, .col-sm-5, .col-md-5, .col-lg-5, .col-xs-6, .col-sm-6, .col-md-6, .col-lg-6, .col-xs-7, .col-sm-7, .col-md-7, .col-lg-7, .col-xs-8, .col-sm-8, .col-md-8, .col-lg-8, .col-xs-9, .col-sm-9, .col-md-9, .col-lg-9, .col-xs-10, .col-sm-10, .col-md-10, .col-lg-10, .col-xs-11, .col-sm-11, .col-md-11, .col-lg-11, .col-xs-12, .col-sm-12, .col-md-12, .col-lg-12 {
+  padding-right: .4em; padding-left: .4em;
+}
+
+.row { margin-right: -.4em; margin-left: -.4em; }
+
+.form-horizontal .form-group { margin: .5em -.4em .5em -.4em; }
+option.any-option { font-weight: bold; }
+
+.tooltip.right .tooltip-inner { width: 12em; }
+
+.glyphicon { color: #022553; }
+.glyphicon-repeat {
+	
+    -webkit-animation-name: spin;
+    -webkit-animation-duration: 3000ms;
+    -webkit-animation-iteration-count: infinite;
+    -webkit-animation-timing-function: linear;
+    -moz-animation-name: spin;
+    -moz-animation-duration: 3000ms;
+    -moz-animation-iteration-count: infinite;
+    -moz-animation-timing-function: linear;
+    -ms-animation-name: spin;
+    -ms-animation-duration: 3000ms;
+    -ms-animation-iteration-count: infinite;
+    -ms-animation-timing-function: linear;
+    animation-name: spin;
+    animation-duration: 3000ms;
+    animation-iteration-count: infinite;
+    animation-timing-function: linear;
+}
+
+ul.list-tick {
+	margin-left: 30px !important;
+}
+
+.content2col {
+	margin: 25px 0px 5px 0px;
+}
+
+a {
+	color:#38E !important;
+}
+a:visited {
+	color:069 !important;
+}
+
+.strong2 {
+	font-size:18px !important; 
+	font-weight:bold; 
+	color:#039;
+}
+
+
+.largetitle {
+	font-size:22px !important;
+	font-weight:bold; 
+	color:#000000;
+	line-height:90%;
+	height: 90px;
+	padding-top: 40px;
+	margin-left: 300px;
+}
+
+.navHomeEntry {
+	height: 125px;
+}
+
+.navHomeEntry a::before {
+	content:"> ";
+}
+
+.navHomeEntry img {
+	border:solid #EFEFEF 1px;
+	padding:4px;
+	float:left;
+	margin-right:10px;	
+}
+
+.navHomeEntry .descr {
+	font-size:10px;
+}
+
+@-ms-keyframes spin { from { -ms-transform: rotate(0deg); } to { -ms-transform: rotate(360deg); } }
+@-moz-keyframes spin { from { -moz-transform: rotate(0deg); } to { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { from { -webkit-transform: rotate(0deg); } to { -webkit-transform: rotate(360deg); } }
+@keyframes spin { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+
+.col-left {
+	margin-bottom: 10px;
+}
+.col-right {
+	padding-left: 5px;
+}
+
+.border {
+	padding: 4px 4px 15px 2px;
+	border:  1px solid #ddd;
+	border-radius: 5px;
+	width:   100%;
+	margin-bottom: 5px;
+}
+
+
+#nav {
+	height: 100% !important;
+	min-height: 772px;
+	padding-bottom: 25px;
+}
+
+#nav .btn-group {
+	width: 100% !important;
+	margin-bottom: 5px !important;
+	margin-left: 3px !important;
+}
+
+/* Change the primary buttons to our color scheme */
+.glri_content .btn-horizontal {
+	display: inline-block !important;
+	width: 33% !important;
+	line-height: 0.7;
+}
+
+.glri_content .btn-primary {
+	background-color: white;
+	border-color: #036;
+	color: #036;
+	margin-bottom: 1px !important;
+	display: block;
+	width: 100%;
+}
+
+.glri_content .btn-primary:hover,
+.glri_content .btn-primary:focus,
+.glri_content .open .dropdown-toggle.btn-primary {
+  background-color: #036;
+  color: white;
+  border-color: #38E;
+}
+
+.glri_content .btn-primary:active,
+.glri_content .btn-primary.active {
+  background-color: #036;
+  color: white;
+  border-color: #38E;
+}
+
+.glri_content .btn-primary.disabled,
+.glri_content .btn-primary[disabled],
+.glri_content fieldset[disabled] .btn-primary,
+.glri_content .btn-primary.disabled:hover,
+.glri_content .btn-primary[disabled]:hover,
+.glri_content fieldset[disabled] .btn-primary:hover,
+.glri_content .btn-primary.disabled:focus,
+.glri_content .btn-primary[disabled]:focus,
+.glri_content fieldset[disabled] .btn-primary:focus,
+.glri_content .btn-primary.disabled:active,
+.glri_content .btn-primary[disabled]:active,
+.glri_content fieldset[disabled] .btn-primary:active,
+.glri_content .btn-primary.disabled.active,
+.glri_content .btn-primary[disabled].active,
+.glri_content fieldset[disabled] .btn-primary.active {
+  background-color: #677C98;
+  border-color: #357ebd;
+}
+
+/**
+ * Openlayers map styling
+ */
+
+/* tiles that fail to load should be transparent, not pink w/ a broken icon */
+img.olImageLoadError { background-color: transparent !important; visibility: hidden !important;}
+
+
+
+.popupImage{
+position: relative;
+z-index: 0;
+}
+
+.popupImage:hover{
+background-color: transparent;
+z-index: 50;
+}
+
+.popupImage span{ /*CSS for enlarged image*/
+position: absolute;
+background-color: #FFFFFF;
+padding: 5px;
+left: -1000px;
+border: 1px dashed gray;
+visibility: hidden;
+color: black;
+text-decoration: none;
+}
+
+.popupImage span img{ /*CSS for enlarged image*/
+border-width: 0;
+padding: 2px;
+}
+
+.popupImage:hover span{ /*CSS for enlarged image on hover*/
+visibility: visible;
+top: 0;
+left: 60px; /*position where enlarged image should offset horizontally */
+
+}
+
+.noteworthy {
+	width :20px;
+	margin-left:10px;
+}

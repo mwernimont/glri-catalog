@@ -3,15 +3,15 @@
 
     <groupId>gov.usgs.cida.glri</groupId>
 	<artifactId>glri-catalog-ui</artifactId>
-    <version>0.4.2-SNAPSHOT</version>
+    <version>0.4.5-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>glri-catalog-ui</name>
+    <name>GLRI Catalog UI</name>
 	
 	<parent>
 		<groupId>gov.usgs.cida.glri</groupId>
 		<artifactId>glri-catalog</artifactId>
-		<version>0.4.2-SNAPSHOT</version>
+		<version>0.4.5-SNAPSHOT</version>
 	</parent>
 
     <dependencies>
@@ -57,7 +57,7 @@
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			<version>2.1.0</version>
+			<version>2.1.0-2</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -66,13 +66,40 @@
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
-			<artifactId>bootstrap-select</artifactId>
-			<version>1.4.2</version>
+			<artifactId>angularjs</artifactId>
+			<version>1.2.16</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
-			<artifactId>angularjs</artifactId>
-			<version>1.2.13</version>
+			<artifactId>angular-ui-bootstrap</artifactId>
+			<version>0.10.0-1</version>
+		</dependency>
+		
+		<!--
+			An alternative to angular-ui-bootstrap
+			Currently the 'browse' page uses angular-strap because it needs hover
+			triggered button activation, while the search page uses 'angular-ui-bootstrap'.
+			I can't find much info on these two competing projects, but here are my impressions:
+			angular-ui-bootstrap: http://angular-ui.github.io/bootstrap
+				* Developed by the AngularJS team
+				* Seems to be a 'pure' implementation of angularJS/Bootstrap integration
+				* Documentation seems very minimal - they have examples only.
+			angular-strap: http://mgcrea.github.io/angular-strap
+				* Develped independently from the AJS team
+				* They have better docs, including lists of options and params
+				* They provide more in-depth integration:  Where a-u-b only provides
+					a way to create a list of dropdown button, a-s includes config
+					options to trigger the buttons.
+		-->
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>angular-strap</artifactId>
+			<version>2.0.5</version>
+		</dependency>
+		<dependency>
+			<groupId>org.webjars</groupId>
+			<artifactId>openlayers</artifactId>
+			<version>2.13.1</version>
 		</dependency>
 		
 		<!-- HTML Dependencies -->
@@ -132,6 +159,7 @@
 									  <directory>src/main/webapp/</directory> 
 									  <includes> 
 										<include>**/*.jsp</include>
+										<include>**/cida-analytics.js</include>
 									  </includes> 
 									  <filtering>true</filtering> 
 								</resource> 

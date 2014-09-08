@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+    <groupId>gov.usgs.cida.glri</groupId>
+    <artifactId>glri-catalog-jmeter-plugin</artifactId>
+    <version>0.4.2.1-SNAPSHOT</version>
+    <packaging>jar</packaging>
+	<parent>
+		<groupId>gov.usgs.cida.glri</groupId>
+		<artifactId>glri-catalog</artifactId>
+		<version>0.4.2.1-SNAPSHOT</version>
+	</parent>
+	<name>JMeter Templating Util</name>
+	
+	<description>
+		Creates a jar that can be added to the JMeter /lib directory to add
+		Velocity templates functionality to JMeter.
+		
+		To use in a HTTP Sampler, add the following to the body of a HTTP Sampler
+		Request:
+		${__BeanShell(gov.usgs.cida.jmetertemplate.Template.run("relOrAbsTemplatePathToTemplate.vm"\, ctx\, log))}
+		
+		Escaping the commas is REQUIRED.
+		The first argument is the path/name to the Apache Velocity template.
+		If a relative path, it is relative to the .jmx file being run.
+		
+		The second argument should be 'ctx' (no quotes).  This is a JMeter supplied
+		variable that is the current Context.  It includes all the current variables,
+		user parameters and system settings.
+		
+		The third argument should be 'log' (no quotes).  This is a JMeter supplied
+		variable with the current logging object.
+		
+		The template will then have access to all the current variables, thus, you
+		can use the the template w/ access to variables just as you would in
+		JMeter, eg: ${yourVarName}.  However, you will have the added ability to
+		use the control statements, loops and conditional logic provided by
+		Velocity.
+	</description>
+	
+    <properties>
+		<jmeter.version>2.8</jmeter.version>
+    </properties>
+	
+
+    <repositories>
+        <repository>
+            <id>cloudera repository</id>
+            <url>https://repository.cloudera.com/artifactory/cloudera-repos/</url>
+        </repository>
+    </repositories>
+	
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>Build_RunAllTests</id>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.jmeter</groupId>
+			<artifactId>ApacheJMeter_core</artifactId>
+			<version>${jmeter.version}</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity</artifactId>
+			<version>1.7</version>
+		</dependency>
+	</dependencies>
+</project>

@@ -3,7 +3,7 @@
 
     <groupId>gov.usgs.cida.glri</groupId>
     <artifactId>glri-catalog</artifactId>
-    <version>0.4.2-SNAPSHOT</version>
+    <version>0.4.5-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>GLRI Catalog</name>
 	
@@ -14,12 +14,59 @@
 	
 	<inceptionYear>2014</inceptionYear>
 	
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+		<cida.maven.url>http://internal.cida.usgs.gov/maven</cida.maven.url>
+		<timestamp>${maven.build.timestamp}</timestamp>
+		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
+    	<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
+		<analytics.domain>usgs.gov</analytics.domain>
+		<cida.production-build>false</cida.production-build>
+		
+		<!-- Setting this domain to your public site domain means it will only
+				work from that domain and not when accessed at other domains
+				(page hits seems to work, but events are blocked).
+				Setting to 'auto' should allow it to work regardless of the url
+				it is accessed on.
+		-->
+		<cida.google.analytics.domain>auto</cida.google.analytics.domain>
+		<cida.google.analytics.trackingid>UA-50454186-1</cida.google.analytics.trackingid>
+		
+		<!-- Set based on profile, below -->
+		<!-- <cida.google.analytics.enabled>false</cida.google.analytics.enabled> -->
+    </properties>
+	
 	<profiles>
 		<profile>
-			<id>basic-build-with-all-modules</id>
+			<id>basic-build-with-all-modules-dev</id>
 			<activation>
 				<activeByDefault>true</activeByDefault>
 			</activation>
+			
+			<properties>
+				<cida.google.analytics.enabled>false</cida.google.analytics.enabled>
+			</properties>
+			
+			<modules>
+				<module>glri-catalog-ui</module>
+				<module>glri-catalog-jmeter-plugin</module>
+				<module>glri-catalog-sample-records-script</module>
+			</modules>
+		</profile>
+		<profile>
+			<id>basic-build-with-all-modules-prod</id>
+			<activation>
+				<property>
+					<name>cida.production-build</name>
+					<value>true</value>
+				</property>
+			</activation>
+			
+			<properties>
+				<cida.google.analytics.enabled>true</cida.google.analytics.enabled>
+			</properties>
 			
 			<modules>
 				<module>glri-catalog-ui</module>
@@ -27,6 +74,10 @@
 			</modules>
 		</profile>
 		<profile>
+			<!--
+			This profile activated only runs the JMeter util that populates
+			the ScienceBase service with records.
+			-->
 			<id>generate-test-records-in-sciencebasebeta</id>
 			<activation>
 				<property>
@@ -48,14 +99,6 @@
 			<organization>USGS / CIDA</organization>
 		</developer>
 	</developers>
-
-    <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<cida.maven.url>http://internal.cida.usgs.gov/maven</cida.maven.url>
-		<timestamp>${maven.build.timestamp}</timestamp>
-		<maven.build.timestamp.format>yyyy-MM-dd HH:mm</maven.build.timestamp.format>
-    	<endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
-    </properties>
 	
 	<scm>
 		<connection>scm:git:http://github.com/USGS-CIDA/glri-catalog.git</connection>
