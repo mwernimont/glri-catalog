@@ -76,22 +76,6 @@
 				<div id="outerCol" class="col-xs-12">
 					<div class="row">
 						<div id="innerCol" class="col-xs-12">
-							<div class="well">
-																
-								<div style="margin-top: 15px;">
-									<div class="btn-group" ng-repeat="tab in transient.tabs" dropdown is-open="tab.title == transient.currentTab.title">
-									  <button type="button" class="btn btn-primary dropdown-toggle" ng-click="transient.currentItem=null">
-										{{tab.title}}
-									  </button>
-									  <ul class="dropdown-menu" role="menu">
-										<li ng-repeat="item in tab.items">
-											<a target="_blank" ng-if="$index == 0" href="{{item.url}}">{{item.title}}</a>
-											<a target="_blank" ng-if="$index != 0" ng-click="loadProjectDetail(item.item)">{{item.title}} </a>
-										</li>
-									  </ul>
-									</div>
-								</div>
-							</div>
 
 
 <div id="navPane" class="col-left col-xs-3">
@@ -109,7 +93,7 @@
 
 	<div is-open="tab.title == transient.currentTab.title" ng-if="navShow('Browse')">
 		<button ng-repeat="tab in transient.tabs" ng-bind="tab.title" class="btn btn-primary btn-vertical"
-				ng-click="transient.currentTab = tab.title"></button>
+				ng-click="focusAreaClick(tab.title)"></button>
 	</div>
 
 <!--
@@ -133,7 +117,7 @@
 	<div class="border">
 
 		<glri-home ng-if="contentShow('Home')"></glri-home>
-		<glri-records ng-if="contentShow('Browse') && transient.focusArea[transient.currentTab].items.length>0"></glri-records>
+		<glri-records ng-if="contentShow('Browse') && transient.focusAreas[transient.currentTab].items.length>0"></glri-records>
 
 		<glri-asian-carp  ng-if="contentShow('AsianCarp')"></glri-asian-carp>
 		<glri-invasive ng-if="contentShow('Invasive')"></glri-invasive>

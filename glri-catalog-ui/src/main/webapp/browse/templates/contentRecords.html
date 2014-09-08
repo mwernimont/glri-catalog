@@ -1,61 +1,11 @@
-	<ul id="contentRecords" class="result-records" ng-if="transient.currentNav=='Browse' && transient.pageRecords">
+<ul id="contentRecords" class="result-records">
+
+	<li ng-repeat="record in transient.focusAreas[transient.currentTab].items">
+		<h3 ng-bind="record.title"></h3>
+		<p> Template<span ng-if="record.templates.length>1">s</span>: 
+			<span ng-repeat="template in record.templates">{{template}} </span>
+		</p>		
+		<p ng-bind="record.contacts"></p>		
+	</li>
 	
-		<li ng-repeat="record in transient.pageRecords" class="{{record.resource}}">
-			<div class="resource-icon">
-				<a title="{{record.resource}}: Click to go directly to this record in ScienceBase" href="{{record.url}}" target="_blank">
-					<img ng-src="../style/image/darkblue/{{record.resource}}.svg" />
-				</a>
-			</div>
-			<h4>{{record.title}}</h4>
-			<p class="point-of-contact">{{record.contactText}}</p>
-			<div class="related-links" ng-if="record.mainLink || (record.hasChildren == true)">
-				<div ng-if="record.mainLink">
-					<a href="{{record.mainLink.url}}" target="_blank">{{record.mainLink.title}}</a>
-				</div>
-				<div ng-if="record.hasChildren == true">
-					<a href="" ng-click="toggleChildItems(record)">Publications and Datasets
-						<span ng-if="record.childRecordState == 'notloaded'"><span class="glyphicon glyphicon-chevron-down"></span></span>
-						<span ng-if="record.childRecordState == 'loading'"><span class="glyphicon glyphicon-repeat"></span></span>
-						<span ng-if="record.childRecordState == 'complete'"><span class="glyphicon glyphicon-remove-circle"></span></span>
-						<span ng-if="record.childRecordState == 'failed'"><span class="glyphicon glyphicon-warning-sign"></span></span>
-						<span ng-if="record.childRecordState == 'closed'"><span class="glyphicon glyphicon-eye-open"></span></span>
-					</a>
-				</div>
-			</div>
-			<p class="summary">{{record.summary}}</p>
-			
-			<div ng-if="record.childRecordState == 'loading'" class="progress progress-striped active">
-				<div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-					<span>Loading...</span>
-				</div>
-			</div>
-			
-			<div ng-if="record.childItems &amp;&amp; record.childRecordState == 'complete'" class="child-records">
-				<div class="list-head clearfix">
-					<div class="pull-right"><a href="" ng-click="toggleChildItems(record)">Close child list <span class="glyphicon glyphicon-remove-circle"></span></a></div>
-					<h4>{{record.childItems.length}} Child record(s) (projects and datasets)</h4>
-				</div>
-				<ul>
-					<li ng-repeat="child in record.childItems" class="{{child.resource}}">
-						<div class="resource-icon">
-							<a title="{{child.resource}}: Click to go directly to this record in ScienceBase" href="{{child.url}}" target="_blank">
-								<img ng-src="../style/image/darkblue/{{child.resource}}.svg" />
-							</a>
-						</div>
-						<h4>{{child.title}}</h4>
-						<p class="point-of-contact">{{child.contactText}}</p>
-						<div class="related-links">
-							<div ng-if="child.mainLink">
-								<a href="{{child.mainLink.url}}" target="_blank">{{child.mainLink.title}}</a>
-							</div>
-						</div>
-						<p class="summary">{{child.summary}}</p>
-					</li>
-				</ul>
-				<div class="list-foot clearfix">
-					<div class="pull-right"><a href="" ng-click="toggleChildItems(record)">Close child list <span class="glyphicon glyphicon-remove-circle"></span></a></div>
-				</div>
-			</div>
-		</li>
-		
-	</ul>
+</ul>
