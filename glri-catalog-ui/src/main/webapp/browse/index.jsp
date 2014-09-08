@@ -105,11 +105,11 @@
 	</div>
 	<hr/>
 	
-	<glri-nav-home>home</glri-nav-home>
+	<glri-nav-home ng-if="navShow('Home')">home</glri-nav-home>
 
-	<div is-open="tab.title == transient.currentTab.title" ng-if="transient.currentNav=='Browse'">
+	<div is-open="tab.title == transient.currentTab.title" ng-if="navShow('Browse')">
 		<button ng-repeat="tab in transient.tabs" ng-bind="tab.title" class="btn btn-primary btn-vertical"
-				ng-click="transient.currentTab.title = tab.title"></button>
+				ng-click="transient.currentTab = tab.title"></button>
 	</div>
 
 <!--
@@ -132,13 +132,15 @@
 
 	<div class="border">
 
-		<glri-home></glri-home>
-		<glri-asian-carp></glri-asian-carp>
-		<glri-invasive></glri-invasive>
-		<glri-project-lists></glri-project-lists>
-		<glri-records></glri-records>
-		<glri-detail></glri-detail>
+		<glri-home ng-if="contentShow('Home')"></glri-home>
+		<glri-records ng-if="contentShow('Browse') && transient.focusArea[transient.currentTab].items.length>0"></glri-records>
+
+		<glri-asian-carp  ng-if="contentShow('AsianCarp')"></glri-asian-carp>
+		<glri-invasive ng-if="contentShow('Invasive')"></glri-invasive>
+		<glri-project-lists ng-if="contentShow('ProjectLists')"></glri-project-lists>
 		<glri-search></glri-search>
+<!-- 
+		<glri-detail></glri-detail>
 		
 		<div ng-if="contentShow('BeachHealth') && false" >
 			<object id="MediaPlayer" width="192" height="190" type="video/x-ms-asf">
@@ -151,6 +153,7 @@
 				width="192" height="190" ShowControls="1" ShowStatusBar="0" ShowDisplay="0" autostart="0" />
 			</object>
 		</div>
+ -->		
 
 	</div>
 	
