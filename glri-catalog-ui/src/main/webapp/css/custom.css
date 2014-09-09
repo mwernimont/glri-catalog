@@ -1,3 +1,35 @@
+img.twigs {
+	margin-top: -21px;
+	margin-left: 29px;
+	width: 650px;	
+}
+.twigs {
+	margin-top: -20px;
+	margin-left: 52px;
+	width:650px;
+}
+.twigs div {
+	width: 21%;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 9px !important;
+}
+.twigs div:nth-child(odd) {
+    color: #4C81C2;	
+}
+.twigs div:nth-child(even) {
+    color: #016699;	
+}
+.twigs div.short {
+	position: relative;
+	top: -8px;
+}
+.twigs div.small {
+	width: 10%;
+}
+.twigs div.large {
+	width: 24%;
+}
 
 
 #sb-query-form .btn-primary {
