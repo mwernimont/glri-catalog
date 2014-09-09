@@ -1,11 +1,16 @@
 
+#contentBrowseDetail {
+	padding:5px;
+}
+
 #contentBrowseDetail h4 {
 	font-weight:bold;
+	color:#039
 }
 
 .detailTitle {
 	color:white;
-	background-color: #039;
+	background-color: #036;
 	text-align: center;
 	padding: 5px;
 	margin-bottom: 5px;
