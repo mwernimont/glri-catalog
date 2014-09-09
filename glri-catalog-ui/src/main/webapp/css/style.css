@@ -87,7 +87,6 @@ p {margin-left:15px;margin-right:15px;}
 #footer a {color:#444444; font-weight:bold;}
 
 
-.h_text {padding-bottom:2px; background:url(../images/h_text_bg.gif) bottom repeat-x;}
 
 .more {text-align:right;}
 .more a{background:url(../images/more_bg.gif) top right no-repeat; padding-right:13px; color:#000000; font-weight:bold;}
@@ -97,7 +96,6 @@ p {margin-left:15px;margin-right:15px;}
 li { color:#3d6f92;}
 li a {color:#3d6f92; font-size:11px;}
 
-.bot_line {background:url(../images/h_text_bg.gif) bottom repeat-x;}
 .b_text {color:#3d6f92;}
 /* index */
 
