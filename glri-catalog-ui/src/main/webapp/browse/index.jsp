@@ -96,17 +96,6 @@
 				ng-click="focusAreaClick(tab.title)"></button>
 	</div>
 
-<!--
-	<div class="btn-group" ng-repeat="tab in transient.tabs" dropdown is-open="tab.title == transient.currentTab.title">
-	  <button type="button" class="btn btn-primary dropdown-toggle" ng-click="transient.currentItem=null">
-	  </button>
-	  <ul class="dropdown-menu" role="menu">
-		<li ng-repeat="item in tab.items">
-			<a target="_blank" ng-if="$index == 0" href="{{item.url}}">{{item.title}}</a>
-			<a target="_blank" ng-if="$index != 0" ng-click="loadProjectDetail(item.item)">{{item.title}} </a>
-		</li>
-	</div>
--->
 </div><!-- nav -->
 
 </div><!-- navPane -->
@@ -117,14 +106,16 @@
 	<div class="border">
 
 		<glri-home ng-if="contentShow('Home')"></glri-home>
-		<glri-records ng-if="contentShow('Browse') && transient.focusAreas[transient.currentTab].items.length>0"></glri-records>
-
 		<glri-asian-carp  ng-if="contentShow('AsianCarp')"></glri-asian-carp>
 		<glri-invasive ng-if="contentShow('Invasive')"></glri-invasive>
 		<glri-project-lists ng-if="contentShow('ProjectLists')"></glri-project-lists>
+		
+		<glri-records ng-if="contentShow('Browse') && transient.focusAreas[transient.currentTab].items.length>0"></glri-records>
+		<glri-detail ng-if="contentShow('Browse',true)"></glri-detail>
+
 		<glri-search></glri-search>
 <!-- 
-		<glri-detail></glri-detail>
+
 		
 		<div ng-if="contentShow('BeachHealth') && false" >
 			<object id="MediaPlayer" width="192" height="190" type="video/x-ms-asf">

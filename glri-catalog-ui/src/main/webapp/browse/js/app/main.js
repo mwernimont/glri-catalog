@@ -30,9 +30,15 @@ function($scope, $http, $filter, $timeout) {
 		var navs = $scope.transient.currentNav
 		return navs  &&  navs.indexOf(nav)!=-1
 	}
-	$scope.contentShow = function(nav) {
+	$scope.contentShow = function(nav, detail) {
 		var navs = $scope.transient.currentNav
-		return navs  &&  navs[ navs.length-1 ]===nav
+		var show = navs  &&  navs[ navs.length-1 ]===nav
+		if (detail) {
+			show = show && $scope.transient.currentItem != null
+		} else {
+			show = show && $scope.transient.currentItem == null
+		}
+		return show
 	}
 	
 	//storage of state that would not be preserved if the user were to follow a
@@ -280,6 +286,8 @@ function($scope, $http, $filter, $timeout) {
 	
 	$scope.focusAreaClick = function(focusArea) {
 		$scope.transient.currentTab = focusArea
+		$scope.transient.currentItem = null
+		
 	}
 	
 	
@@ -321,7 +329,7 @@ function($scope, $http, $filter, $timeout) {
 	 * @returns {undefined}
 	 */
 	$scope.loadChildItems = function(parentRecord) {
-//asdf		
+
 		if (parentRecord.childRecordState == "closed") {
 			//already loaded
 			parentRecord.childRecordState = "complete";

@@ -1,3 +1,17 @@
+.detailTitle {
+	color:white;
+	background-color: #039;
+	text-align: center;
+	padding: 5px;
+	margin-bottom: 5px;
+	font-weight: bold;	
+}
+
+ul.result-records li:hover {
+	background-color: whitesmoke;
+	cursor: pointer;
+}
+
 .focusAreaTitle {
 	color: #039;
 	font-size: 18px !important;
