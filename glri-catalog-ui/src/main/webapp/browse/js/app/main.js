@@ -30,9 +30,15 @@ function($scope, $http, $filter, $timeout) {
 		var navs = $scope.transient.currentNav
 		return navs  &&  navs.indexOf(nav)!=-1
 	}
-	$scope.contentShow = function(nav) {
+	$scope.contentShow = function(nav, detail) {
 		var navs = $scope.transient.currentNav
-		return navs  &&  navs[ navs.length-1 ]===nav
+		var show = navs  &&  navs[ navs.length-1 ]===nav
+		if (detail) {
+			show = show && $scope.transient.currentItem != null
+		} else {
+			show = show && $scope.transient.currentItem == null
+		}
+		return show
 	}
 	
 	//storage of state that would not be preserved if the user were to follow a
@@ -40,9 +46,9 @@ function($scope, $http, $filter, $timeout) {
 	$scope.transient = {};
 	
 	$scope.transient.nav = [
-	                    { title:'Home', isHome: false, items: []},
-	              	    { title:'Browse', isHome: false, items: []},
-	              	    { title:'Search', isHome: false, items: []},
+	                    { title:'Home'},
+	              	    { title:'Browse'},
+	              	    { title:'Search'},
 	              	];
 	$scope.transient.currentNav = [$scope.transient.nav[0].title];
 	
@@ -68,6 +74,12 @@ function($scope, $http, $filter, $timeout) {
 			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_5_Tracking_progress_working_w_partners.pdf"}
 		]}
 	];
+	
+	$scope.transient.focusAreas = {}
+	for (var t=0; t<$scope.transient.tabs.length; t++) {
+		var tab = $scope.transient.tabs[t]
+		$scope.transient.focusAreas[tab.title] =  {infosheet:tab.items[0].url, items:[]}
+	}
 	
 	$scope.transient.currentItem = null;
 
@@ -135,30 +147,24 @@ function($scope, $http, $filter, $timeout) {
 		var tags = item.tags;
 		
 		if (contacts) {
+			var sep = "";
 			for (var j = 0; j < contacts.length; j++) {
+				var contact = contacts[j];
+				var name = contact['name'];
+				var type = contact['type'];
 
-				if (j < 3) {
-					var contact = contacts[j];
-					var name = contact['name'];
-					var type = contact['type'];
+				if (type == null) type = "??";
+				if (type == 'Principle Investigator') type = "PI";
 
-					if (type == null) type = "??";
-					if (type == 'Principle Investigator') type = "PI";
-
-					contactText+= name + " (" + type + "), ";
-				} else if (j == 3) {
-					contactText+= "and others.  "
-				} else {
-					break;
-				}
+				contactText+=sep + name + " (" + type + ") ";
+				sep = ", ";
 			}
 		}
 
-		if (contactText.length > 0) {
-			contactText = contactText.substr(0, contactText.length - 2);	//rm trailing ', '
-		} else {
+		if (contactText.length === 0) {
 			contactText = "[No contact information listed]";
 		}
+		item.contactText = contactText;
 		
 		
 		//Add template info
@@ -173,7 +179,6 @@ function($scope, $http, $filter, $timeout) {
 			}
 		}
 
-		item['contactText'] = contactText;
 		return item;
 	};
 	
@@ -269,19 +274,21 @@ function($scope, $http, $filter, $timeout) {
 	 * @returns {undefined}
 	 */
 	var addProjectToTabList = function(sbItem, focusArea) {
-		for (var i = 0; i < $scope.transient.tabs.length; i++) {
-			var tab = $scope.transient.tabs[i];
-			if (focusArea == tab.title) {
-				tab.items.push(
-					{
-						title: sbItem.title,
-						id: sbItem.id,
-						item: sbItem
-					}
-				);
-			}
-		}
-	};
+		var fa = $scope.transient.focusAreas[focusArea]
+		fa.items.push({
+			title: sbItem.title,
+			id: sbItem.id,
+			item: sbItem,
+			contacts: sbItem.contactText,
+			templates: sbItem.templates,
+		});
+	}
+	
+	$scope.focusAreaClick = function(focusArea) {
+		$scope.transient.currentTab = focusArea
+		$scope.transient.currentItem = null
+		
+	}
 	
 	
 	$scope.menuClick = function(tabName) {
@@ -299,7 +306,7 @@ function($scope, $http, $filter, $timeout) {
 		$scope.transient.currentItem = item;
 		if ( angular.isDefined(item) && angular.isDefined(item.title) ) {
 			ga('send', 'screenview', {
-				  'screenName': item.title
+				  'screenName': item.id +":"+ item.title
 			});
 		}
 	};
@@ -322,7 +329,7 @@ function($scope, $http, $filter, $timeout) {
 	 * @returns {undefined}
 	 */
 	$scope.loadChildItems = function(parentRecord) {
-//asdf		
+
 		if (parentRecord.childRecordState == "closed") {
 			//already loaded
 			parentRecord.childRecordState = "complete";

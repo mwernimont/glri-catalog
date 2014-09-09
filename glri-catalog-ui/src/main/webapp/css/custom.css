@@ -1,3 +1,43 @@
+
+#contentBrowseDetail {
+	padding:5px;
+}
+
+#contentBrowseDetail h4 {
+	font-weight:bold;
+	color:#039
+}
+
+.detailTitle {
+	color:white;
+	background-color: #036;
+	text-align: center;
+	padding: 5px;
+	margin-bottom: 5px;
+	font-weight: bold;	
+}
+
+ul.result-records li:hover {
+	background-color: whitesmoke;
+	cursor: pointer;
+}
+
+.focusAreaTitle {
+	color: #039;
+	font-size: 18px !important;
+	font-weight: bold;
+	text-align: center;
+	margin: 8px;	
+}
+.circleList {
+	list-style-type:circle;
+	margin-left:30px;
+}
+
+#innerCol {
+	margin-top: 10px;
+}
+
 img.icon {
 	width: 40px;
 	float: left;
@@ -169,7 +209,7 @@ ul.result-records li {
 }
 .resource-icon img { width: 50px; height: 50px; margin: 0; }
 
-.browse-image { width: 600px; height: 600px; float: right; margin-left: 1em; margin-bottom: 1em; }
+.browse-image { width: 600px; float: right; margin-left: 1em; margin-bottom: 1em; }
 
 ul.result-records .related-links {
 	display: block; float: right; width: 16em; padding: .2em; margin: 1em 0 .5em 1em;
@@ -328,7 +368,10 @@ a:visited {
 .glri_content .btn-horizontal {
 	display: inline-block !important;
 	width: 33% !important;
-	line-height: 0.7;
+	line-height: 1.4;
+}
+.glri_content .btn-vertical {
+	font-size:18px;
 }
 
 .glri_content .btn-primary {
@@ -338,6 +381,7 @@ a:visited {
 	margin-bottom: 1px !important;
 	display: block;
 	width: 100%;
+	font-weight:bold;
 }
 
 .glri_content .btn-primary:hover,
