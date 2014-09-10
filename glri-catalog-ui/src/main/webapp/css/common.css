@@ -8,6 +8,13 @@ You can customize some areas of the header ONLY by making the changes in the cus
 
 /* ===STANDARD HEADER===*/
 
+#usgs-header-panel a {
+	color: white !important;
+}
+#usgs-footer-panel a {
+	color: white !important;
+}
+
 #usgscolorband {
 	font: 14px Verdana, Arial, Helvetica, sans-serif;
 	width: 100%;
