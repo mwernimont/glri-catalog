@@ -36,14 +36,6 @@ img.twigs {
 	width:auto;
 }
 
-body p.serif span {
-	font-weight: bold !important;
-	font-size: 32px !important;
-	position: relative;
-	top:  7px;
-	left: 7px;
-	color: #036;
-}
 
 #contentBrowseDetail {
 	padding:5px;
@@ -71,11 +63,35 @@ body p.serif span {
 
 img.icon {
 	width: 40px;
-	float: left;
+	float: right;
 	margin-top: 13px;
 	margin-right: 5px;	
 	margin-left: 5px;	
 }
+body p.serif span {
+	font-weight: bold !important;
+	font-size: 32px !important;
+	position: relative;
+	top:  7px;
+	left: 7px;
+	color: #036;
+}
+body p.serif span.overlay {
+	font-weight: bold !important;
+	font-size: 11px !important;
+	position: relative;
+	top:  -50px;
+	left: 20px;
+	color: #036;
+}
+.overlayAdjust {
+	margin-top: -25px;
+}
+.sectionIndent {
+	margin-left: 10px;
+}
+
+
 
 body {
 	background-color: white;
@@ -352,7 +368,7 @@ option.any-option { font-weight: bold; }
 }
 
 ul.list-tick {
-	margin-left: 30px !important;
+	margin-left: 40px !important;
 }
 
 .content2col {
