@@ -1,3 +1,41 @@
+img.twigs {
+	margin-top: -21px;
+	margin-left: 29px;
+	width: 650px;	
+}
+.twigs {
+	margin-top: -20px;
+	margin-left: 52px;
+	width:650px;
+}
+.twigs div {
+	width: 21%;
+	display: inline-block;
+	font-weight: bold;
+	font-size: 9px !important;
+}
+.twigs div:nth-child(odd) {
+    color: #4C81C2;	
+}
+.twigs div:nth-child(even) {
+    color: #016699;	
+}
+.twigs div.short {
+	position: relative;
+	top: -8px;
+}
+.twigs div.small {
+	width: 10%;
+}
+.twigs div.large {
+	width: 24%;
+}
+
+
+#sb-query-form .btn-primary {
+	width:auto;
+}
+
 
 #contentBrowseDetail {
 	padding:5px;
@@ -17,22 +55,7 @@
 	font-weight: bold;	
 }
 
-ul.result-records li:hover {
-	background-color: whitesmoke;
-	cursor: pointer;
-}
 
-.focusAreaTitle {
-	color: #039;
-	font-size: 18px !important;
-	font-weight: bold;
-	text-align: center;
-	margin: 8px;	
-}
-.circleList {
-	list-style-type:circle;
-	margin-left:30px;
-}
 
 #innerCol {
 	margin-top: 10px;
@@ -40,11 +63,35 @@ ul.result-records li:hover {
 
 img.icon {
 	width: 40px;
-	float: left;
+	float: right;
 	margin-top: 13px;
 	margin-right: 5px;	
 	margin-left: 5px;	
 }
+body p.serif span {
+	font-weight: bold !important;
+	font-size: 32px !important;
+	position: relative;
+	top:  7px;
+	left: 7px;
+	color: #036;
+}
+body p.serif span.overlay {
+	font-weight: bold !important;
+	font-size: 11px !important;
+	position: relative;
+	top:  -50px;
+	left: 20px;
+	color: #036;
+}
+.overlayAdjust {
+	margin-top: -25px;
+}
+.sectionIndent {
+	margin-left: 10px;
+}
+
+
 
 body {
 	background-color: white;
@@ -189,6 +236,46 @@ th a:hover {
         margin-top: 10px;
 }
 
+ul.browse-results {
+	list-style: none; margin: 0; padding: 0;	
+}
+ul.browse-results li {
+	display: block; margin: 0 0 1em 0; padding: .4em; background-color: #eee;
+}
+ul.browse-results li:hover {
+	background-color: whitesmoke;
+	cursor: pointer;
+}
+ul.browse-results h3 {
+	color: #459;
+	margin-left: 15px;
+	margin-top: 5px;
+}
+ul.browse-results p {
+	color: black;
+}
+h1.focusAreaTitle {
+	color: black;
+	font-size: 20px !important;
+	font-weight: bold;
+	margin: 5px;
+	margin-top: 13px;
+}
+p.focusAreaTitle {
+	color: black;
+	font-size: 14px !important;
+	margin: 5px;	
+}
+a.focusPdf {
+	margin: 5px;
+}
+.circleList {
+	list-style-type:circle;
+	margin-left:30px;
+}
+
+
+
 ul.result-records {
 	list-style: none; margin: 0; padding: 0;
 }
@@ -281,7 +368,7 @@ option.any-option { font-weight: bold; }
 }
 
 ul.list-tick {
-	margin-left: 30px !important;
+	margin-left: 40px !important;
 }
 
 .content2col {

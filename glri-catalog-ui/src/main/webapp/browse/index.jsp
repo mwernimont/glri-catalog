@@ -104,7 +104,7 @@
 
 	<div class="border">
 
-		<glri-home ng-if="contentShow('Home')"></glri-home>
+		<glri-home ></glri-home>
 		<glri-asian-carp  ng-if="contentShow('AsianCarp')"></glri-asian-carp>
 		<glri-invasive ng-if="contentShow('Invasive')"></glri-invasive>
 		<glri-project-lists ng-if="contentShow('ProjectLists')"></glri-project-lists>
@@ -113,21 +113,16 @@
 		<glri-detail ng-if="contentShow('Browse',true)"></glri-detail>
 
 		<glri-search></glri-search>
-<!-- 
 
-		
-		<div ng-if="contentShow('BeachHealth') && false" >
-			<object id="MediaPlayer" width="192" height="190" type="video/x-ms-asf">
-				<param name="FileName"value="../resources/GLRI Webinar_Feb11.2014_edited.wmv.wmv">
-				<param name="autostart" value="false">
-				<param name="ShowControls" value="true">
-				<param name="ShowStatusBar" value="false">
-				<param name="ShowDisplay" value="false">
-				<embed type="application/x-mplayer2" src="../resources/GLRI Webinar_Feb11.2014_edited.wmv.wmv" 
-				width="192" height="190" ShowControls="1" ShowStatusBar="0" ShowDisplay="0" autostart="0" />
-			</object>
+		<div ng-if="contentShow('BeachHealth')" >
+		<div>
+			<img src="../style/image/darkblue/official_logo_glri.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
+			<div class="largetitle">GLRI Beach Health Webinar Feb11 2014</div>
 		</div>
- -->		
+		<center>
+			<iframe width="640" height="390" src="//www.youtube.com/embed/0Q6TdzX_jG0" frameborder="0" allowfullscreen></iframe>
+		</center>
+		</div>
 
 	</div>
 	

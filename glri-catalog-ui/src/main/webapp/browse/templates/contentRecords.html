@@ -1,5 +1,6 @@
 <div>
-<h1 class="focusAreaTitle">{{transient.currentTab}}</h1>
+
+<h1 class="focusAreaTitle"> Focus Area Detail Title Place Holder</h1>
 
 <p>
 The Great Lakes Restoration Initiative (GLRI) is an interagency program that addresses the most significant environmental problems in the Great Lakes ecosystem. Results from U.S. Geological Survey (USGS) scientific studies and monitoring are helping guide the restoration effort. The GLRI is made up of five focus areas that address these issues:
@@ -12,10 +13,16 @@ The Great Lakes Restoration Initiative (GLRI) is an interagency program that add
 	<li> Restoring and protecting habitats and wildlife</li>
 	<li> Tracking progress and working strategically with partners</li>
 </ul>
+<br>
+<a class="focusPdf" href="{{transient.focusAreas[transient.currentTab].infosheet}}" target="_blank">
+More information about the GLRI {{transient.currentTab}} (pdf)</a>
 
 <br>
 
-<ul id="contentRecords" class="result-records">
+<h1 class="focusAreaTitle">{{transient.currentTab}} Projects</h1>
+<p class="focusAreaTitle">Click on a project for more details</p>
+
+<ul id="contentRecords" class="browse-results">
 
 	<li ng-repeat="record in transient.focusAreas[transient.currentTab].items"
 		ng-click="loadProjectDetail(record.item)">
