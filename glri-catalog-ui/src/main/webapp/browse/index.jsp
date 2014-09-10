@@ -104,7 +104,7 @@
 
 	<div class="border">
 
-		<glri-home ng-if="contentShow('Home')"></glri-home>
+		<glri-home ></glri-home>
 		<glri-asian-carp  ng-if="contentShow('AsianCarp')"></glri-asian-carp>
 		<glri-invasive ng-if="contentShow('Invasive')"></glri-invasive>
 		<glri-project-lists ng-if="contentShow('ProjectLists')"></glri-project-lists>
