@@ -38,11 +38,11 @@ img.twigs {
 
 body p.serif span {
 	font-weight: bold !important;
-	font-family: "Times New Roman", Times, serif  !important;
 	font-size: 32px !important;
 	position: relative;
 	top:  7px;
 	left: 7px;
+	color: #036;
 }
 
 #contentBrowseDetail {
