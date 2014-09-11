@@ -29,6 +29,7 @@
 		<script type="text/javascript" src="${pageScope.rootPath}webjars/openlayers/2.13.1/OpenLayers.js"></script>
 
 		<script type="text/javascript" src="${pageScope.rootPath}js/app/main.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/directives.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}js/app/cida-analytics.js"></script>
 		<script type="application/javascript" src="http://www.usgs.gov/scripts/analytics/usgs-analytics.js"></script>
 
@@ -58,9 +59,9 @@
 							<div class="col-xs-12">
 								<div id="nav" class="well">
 	<div id="navBrowse" class="btn-group">
-		<button ng-repeat="nav in transient.nav" ng-bind="nav.title" 
-				class="btn btn-primary btn-horizontal" ng-click="navRoot(nav.title)"
-				ng-class="navShow(nav.title) ?'active' :'' "></button>
+		<a preventDefault ng-repeat="nav in transient.nav" ng-bind="nav.title" 
+				class="btn btn-primary btn-horizontal" href="{{'browse/index.jsp?'+nav.title}}"
+				ng-class="navShow(nav.title) ?'active' :'' "></a>
 	</div>
 	<hr/>
 									<div class="row map">

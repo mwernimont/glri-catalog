@@ -16,7 +16,7 @@ function($scope, $http, $filter, $timeout) {
 	$scope.navRoot = function(nav) {
 		$scope.transient.currentTab = null;		
 		if (nav === 'Search') {
-			window.location='/glri-catalog';
+			window.location.href='/glri-catalog';
 		}
 		$scope.transient.currentNav = [nav];
 	}
