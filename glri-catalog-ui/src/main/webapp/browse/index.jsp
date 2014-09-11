@@ -25,6 +25,7 @@
 
 		<script type="text/javascript" src="${pageScope.rootPath}webjars/jquery/2.1.0/jquery.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}webjars/angularjs/1.2.16/angular.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}webjars/angular-sanitize/1.2.16/angular-sanitize.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
 
 		<script type="text/javascript" src="js/app/main.js"></script>
@@ -94,6 +95,11 @@
 		<button ng-repeat="tab in transient.tabs" ng-bind="tab.title" class="btn btn-primary btn-vertical"
 				ng-click="focusAreaClick(tab.title)"></button>
 	</div>
+	
+	<a href="https://www.sciencebase.gov/catalog/items?community=Great+Lakes+Restoration+Initiative"
+		 target="_blank" title="ScienceBase, a repository of projects, data and metadata">
+		<img width="206" src="style/image/darkblue/sciencebase.png" alt="Science Base attribution icon">
+	</a>
 
 </div><!-- nav -->
 

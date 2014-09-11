@@ -1,7 +1,7 @@
 'use strict';
 
 /* Controllers */
-var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap']);
+var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap','ngSanitize']);
 
 
 GLRICatalogApp.controller('CatalogCtrl',
@@ -156,19 +156,24 @@ function($scope, $http, $filter, $timeout) {
 		//build contactText
 		var contacts = item['contacts'];
 		var contactText = "";	//combined contact text
+		var contactHtml = "";	//combined contact text
 		var tags = item.tags;
 		
 		if (contacts) {
 			var sep = "";
 			for (var j = 0; j < contacts.length; j++) {
 				var contact = contacts[j];
-				var name = contact['name'];
-				var type = contact['type'];
-
-				if (type == null) type = "??";
-				if (type == 'Principle Investigator') type = "PI";
-
-				contactText+=sep + name + " (" + type + ") ";
+				var type = contact.type;
+				if (type == 'Principle Investigator') {
+					type = "PI";
+				}
+				var name   = contact.name
+				var mailto = contact.name
+				if ( angular.isDefined(contact.email) ) {
+					mailto = '<a href="mailto:'+contact.email+'">' +contact.name+ '</a>'
+				}
+				contactText += sep + name + (type!=null ?" (" + type + ") " :"");
+				contactHtml += sep + mailto + (type!=null ?" (" + type + ") " :"");
 				sep = ", ";
 			}
 		}
@@ -177,6 +182,7 @@ function($scope, $http, $filter, $timeout) {
 			contactText = "[No contact information listed]";
 		}
 		item.contactText = contactText;
+		item.contactHtml = contactHtml;
 		
 		
 		//Add template info
