@@ -35,7 +35,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	
 	//The array of funding templates to choose from.  Init as "Any", but async load from vocab server.
 	$scope.transient.templateValues = [
-		{key: "", display:"Any", sort: -1},
+		{key: "", display:"Any Template", sort: -1},
 		{key: "xxx", display:"...loading template list...", sort: 0},
 	];
 	
