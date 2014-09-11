@@ -458,7 +458,7 @@ ul.list-tick {
 	padding-bottom: 25px;
 }
 
-#nav .btn-group {
+#nav #navBrowse.btn-group {
 	width: 100% !important;
 	margin-bottom: 5px !important;
 	margin-left: 3px !important;

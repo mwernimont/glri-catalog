@@ -56,7 +56,13 @@
 					<form id="sb-query-form" class="form-horizontal" action="ScienceBaseService">
 						<div class="row">
 							<div class="col-xs-12">
-								<div class="well">
+								<div id="nav" class="well">
+	<div id="navBrowse" class="btn-group">
+		<button ng-repeat="nav in transient.nav" ng-bind="nav.title" 
+				class="btn btn-primary btn-horizontal" ng-click="navRoot(nav.title)"
+				ng-class="navShow(nav.title) ?'active' :'' "></button>
+	</div>
+	<hr/>
 									<div class="row map">
 										<div class="col-xs-12">
 											<div id="map" class="boundingMap"></div>
