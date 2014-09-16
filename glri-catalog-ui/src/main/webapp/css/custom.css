@@ -6,12 +6,12 @@
 
 img.twigs {
 	margin-top: -21px;
-	margin-left: 29px;
+	margin-left: 30px;
 	width: 650px;	
 }
-.twigs {
+center.twigs {
 	margin-top: -20px;
-	margin-left: 52px;
+	margin-left: 65px;
 	width:650px;
 }
 .twigs div {
@@ -33,8 +33,13 @@ img.twigs {
 .twigs div.small {
 	width: 10%;
 }
+.twigs div.medium {
+	width: 15%;
+	top: 1px;
+	margin-left: 9px;
+}
 .twigs div.large {
-	width: 24%;
+	width: 29%;
 }
 
 
