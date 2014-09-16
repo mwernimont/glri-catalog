@@ -1,3 +1,9 @@
+.noImgPadding {
+	width: 1.8em;
+	height: 1.8em;
+	float: left;
+}
+
 img.twigs {
 	margin-top: -21px;
 	margin-left: 29px;
@@ -181,12 +187,13 @@ th a:hover {
 	padding: .2em;
 }
 
+
 .page-nav { font-weight: bold; }
-.page-nav a { text-decoration: none !important; }
+.page-nav a { text-decoration: none !important;  color: #567 !important;}
 .page-nav .previous.has-previous {}
-.page-nav .previous.has-no-previous { color: #ccc; }
+.page-nav .previous.has-no-previous { color: #ccc !important; }
 .page-nav .next.has-next {}
-.page-nav .next.has-no-next { color: #ccc; }
+.page-nav .next.has-no-next { color: #ccc !important; }
 .selectable-list .item {
 	padding: .1em; text-align: center; border: .2em solid transparent; border-radius: .3em; text-decoration: none !important;
 }
@@ -308,6 +315,12 @@ ul.result-records .related-links {
 	-ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#666666')";
 	filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#666666');
 }
+.related-links a {
+	color:#567 !important;
+}
+.page-nav-settings a {
+	color:#567 !important;
+}
 
 .result-records .point-of-contact { font-style: italic; }
 
@@ -375,11 +388,11 @@ ul.list-tick {
 	margin: 25px 0px 5px 0px;
 }
 
-a {
-	color:#38E !important;
+.glri_content a {
+	color:#38E;
 }
-a:visited {
-	color:069 !important;
+.glri_content a:visited {
+	color:069;
 }
 
 .strong2 {
@@ -445,7 +458,7 @@ a:visited {
 	padding-bottom: 25px;
 }
 
-#nav .btn-group {
+#nav #navBrowse.btn-group {
 	width: 100% !important;
 	margin-bottom: 5px !important;
 	margin-left: 3px !important;

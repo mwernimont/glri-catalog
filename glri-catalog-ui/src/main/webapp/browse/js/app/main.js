@@ -16,7 +16,7 @@ function($scope, $http, $filter, $timeout) {
 	$scope.navRoot = function(nav) {
 		$scope.transient.currentTab = null;		
 		if (nav === 'Search') {
-			window.location='/glri-catalog';
+			window.location.href='/glri-catalog';
 		}
 		$scope.transient.currentNav = [nav];
 	}
@@ -50,7 +50,19 @@ function($scope, $http, $filter, $timeout) {
 	              	    { title:'Browse'},
 	              	    { title:'Search'},
 	              	];
-	$scope.transient.currentNav = [$scope.transient.nav[0].title];
+	var initNav = function() {
+		if (location.search) {
+			angular.forEach( $scope.transient.nav, function(nav, key) {
+				if (location.search.indexOf(nav.title)>0) {
+					console.log('found ' + nav.title)
+					$scope.transient.currentNav = [nav.title];
+				}
+			})
+		} else {
+			$scope.transient.currentNav = [$scope.transient.nav[0].title];
+		}
+	}
+	initNav()
 	
 	$scope.transient.tabs = [
 		{ title:'Toxic Substances', isHome: false, items: [

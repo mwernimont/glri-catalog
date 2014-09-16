@@ -29,6 +29,7 @@
 		<script type="text/javascript" src="${pageScope.rootPath}webjars/openlayers/2.13.1/OpenLayers.js"></script>
 
 		<script type="text/javascript" src="${pageScope.rootPath}js/app/main.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/directives.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}js/app/cida-analytics.js"></script>
 		<script type="application/javascript" src="http://www.usgs.gov/scripts/analytics/usgs-analytics.js"></script>
 
@@ -52,11 +53,17 @@
 				</div>
 			</div>
 			<div class="row glri_content" ng-controller="CatalogCtrl">
-				<div class="col-xs-12 col-sm-4">
+				<div class="col-xs-12 col-sm-3">
 					<form id="sb-query-form" class="form-horizontal" action="ScienceBaseService">
 						<div class="row">
 							<div class="col-xs-12">
-								<div class="well">
+								<div id="nav" class="well">
+	<div id="navBrowse" class="btn-group">
+		<a preventDefault ng-repeat="nav in transient.nav" ng-bind="nav.title" 
+				class="btn btn-primary btn-horizontal" href="{{'browse/index.jsp?'+nav.title}}"
+				ng-class="navShow(nav.title) ?'active' :'' "></a>
+	</div>
+	<hr/>
 									<div class="row map">
 										<div class="col-xs-12">
 											<div id="map" class="boundingMap"></div>
@@ -70,17 +77,16 @@
 											</div>
 										</div>
 									</div>
-									<div class="form-group">
-										<label class="control-label col-xs-4">Text Search</label>
-										<div class="col-xs-8">
-											<input type="text" class="form-control" id="text_query" name="text_query" ng-model="model.text_query" tooltip-placement="right" tooltip="Search on all text fields, &QUOT;water soil&QUOT; would find only records that contain BOTH terms.">
+									<div class="form-group">										
+										<div>
+											<input placeholder="Text Search" type="text" class="form-control" id="text_query" name="text_query" ng-model="model.text_query" tooltip-placement="right" tooltip="Search on all text fields, &QUOT;water soil&QUOT; would find only records that contain BOTH terms.">
 										</div>
 									</div> 
 									<div class="form-group">
-										<label class="control-label col-xs-4">Water Feature</label>
-										<div class="col-xs-8">
+										<div>
 											<select class="form-control" ng-model="model.location" name="location" tooltip-placement="right" tooltip="Limit results to a specific water feature, or a type of one.">
-												<option value="">Any</option>
+												<option value="" disabled selected>Water Feature</option>
+												<option value="">Any Water Feature</option>
 												<optgroup label="Lakes">
 													<option class="any-option" value="Lake">~Any of the Lakes~</option>
 													<option value="Lake:Lake Michigan">Lake Michigan</option>
@@ -111,10 +117,10 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-xs-4 control-label">Focus Area</label>
-										<div class="col-xs-8">
+										<div>
 											<select class="form-control" name="focus" id="focus_input" title="Any" ng-model="model.focus" tooltip-placement="right" tooltip="Limit results to a GLRI funding area/category.">
-												<option value="">Any</option>
+												<option value="" disabled selected>Focus Area</option>
+												<option value="">Any Focus Area</option>
 												<option value="Toxic Substances">Toxic Substances</option>
 												<option value="Invasive Species">Invasive Species</option>
 												<option value="Nearshore Health">Nearshore Health</option>
@@ -124,18 +130,19 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-xs-4 control-label">Template</label>
-										<div class="col-xs-8">
+										<div>
 											<select class="form-control" name="template" id="template_input" title="Any" ng-model="model.template" tooltip-placement="right" tooltip="Limit results to a GLRI funding template. Projects are associated with one or more templates.">
+												<option value="" disabled selected>Template</option>
 												<option ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="{{entry.key}}">{{entry.display}}</option>
 											</select>
 										</div>
 									</div>
 									<div class="form-group">
-										<label class="col-xs-4 control-label">Resource Type</label>
-										<div id="resource_input" class="btn-group-vertical col-xs-8" tooltip-placement="right" tooltip="Narrow the results to a resource type such as &QUOT;Data&QUOT; for datasets or &QUOT;Project&QUOT; for a USGS GLRI study. A Project may have associated Data and/or Publications.">
+										<div id="resource_input" class="btn-group-vertical" style="width:100%" tooltip-placement="right" tooltip="Narrow the results to a resource type such as &QUOT;Data&QUOT; for datasets or &QUOT;Project&QUOT; for a USGS GLRI study. A Project may have associated Data and/or Publications.">
+											<label class="control-label">Resource Type</label>
 											<button type="button" class="btn btn-default val-{{name}}" ng-repeat="(key, name) in FACET_DEFS" ng-model="userState.resourceFilter" btn-radio="key">
 												<img ng-src="${pageScope.rootPath}style/image/darkblue/{{name | lowercase}}.svg" ng-if="key != '1'" class="pull-left"/>
+												<div class="noImgPadding" ng-if="key==='1'"></div>
 												<span ng-if="key != '1'" class="badge pull-right"></span>
 												<span class="value">{{name}}</span>
 											</button>

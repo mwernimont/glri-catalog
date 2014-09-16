@@ -31,11 +31,24 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
-	$scope.transient = new Object();
+	$scope.transient = {};
+	
+	$scope.transient.nav = [
+		                    { title:'Home'},
+		              	    { title:'Browse'},
+		              	    { title:'Search'},
+		              	];
+	$scope.transient.currentNav = 'Search';
+
+	$scope.navShow = function(nav) {
+		var navs = $scope.transient.currentNav
+		return navs  &&  navs.indexOf(nav)!=-1
+	}
+	
 	
 	//The array of funding templates to choose from.  Init as "Any", but async load from vocab server.
 	$scope.transient.templateValues = [
-		{key: "", display:"Any", sort: -1},
+		{key: "", display:"Any Template", sort: -1},
 		{key: "xxx", display:"...loading template list...", sort: 0},
 	];
 	

@@ -1,5 +1,16 @@
 (function() {
 
+// nice utility directive
+GLRICatalogApp.directive('preventDefault', function() {
+	return function(scope, element, attrs) {
+		$(element).click(function(event) {
+			event.preventDefault();
+		});
+	}
+})
+	
+	
+	
 GLRICatalogApp.directive("glriHome",[function(){
 	return {
 		restrict   : 'E', //AEC
