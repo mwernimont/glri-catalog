@@ -1,12 +1,12 @@
 	<div id="contentBrowseDetail" class="clearfix">
 			
-			<h2 class="detailTitle">{{transient.currentItem.title}}</h2>
+			<h2 class="detailTitle" ng-bind="transient.currentItem.title"></h2>
 			<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
 			<div class="template-list">
 				<h5>Template(s):
 					<span class="no-template-found" ng-if="transient.currentItem.templates.length == 0">No funding template found</span>
 					<span class="template-name" ng-repeat="template in transient.currentItem.templates">
-						{{template}}<span class="template-separator" ng-if="transient.currentItem.templates.length &gt; 1 &amp;&amp; !$last">, </span>
+						<span ng-bind="template"></span><span class="template-separator" ng-if="transient.currentItem.templates.length &gt; 1 &amp;&amp; !$last">, </span>
 					</span>
 					
 				</h5>
@@ -14,20 +14,24 @@
 			</div>
 			
 			<h4>Background/Problem</h4>
-			<p class="background">{{transient.currentItem.purpose}}</p>
+			<p class="background" ng-bind="transient.currentItem.purpose"></p>
 			
 			<h4>Description of Work</h4>
-			<p class="description-of-work">{{transient.currentItem.body}}</p>
+			<p class="description-of-work" ng-bind="transient.currentItem.body"></p>
 			
 			<h4>Contacts</h4>
-			<p class="point-of-contact">{{transient.currentItem.contactText}}</p>
+			<p class="point-of-contact" ng-bind-html="transient.currentItem.contactHtml"></p>
 			
-			<h4>For more information, <a title="Click to go directly to this record in ScienceBase" href="{{transient.currentItem.url}}" target="_blank">see all of this project's metadata in ScienceBase &gt;&gt;</a></h4>
+			<h4>For more information</h4>
+			<p>
+				<a title="Click to go directly to this record in ScienceBase" href="{{transient.currentItem.url}}" 
+				target="_blank">see all of this project's metadata in ScienceBase &gt;&gt;</a>
+			</p>
 			
 			<div ng-if="false">
 				<div class="related-links" ng-if="transient.currentItem.mainLink || (transient.currentItem.hasChildren == true)">
 					<div ng-if="transient.currentItem.mainLink">
-						<a href="{{transient.currentItem.mainLink.url}}" target="_blank">{{transient.currentItem.mainLink.title}}</a>
+						<a href="{{transient.currentItem.mainLink.url}}" target="_blank" ng-bind="transient.currentItem.mainLink.title"></a>
 					</div>
 					<div ng-if="transient.currentItem.hasChildren == true">
 						<a href="" ng-click="toggleChildItems(record)">Publications and Datasets
@@ -59,14 +63,14 @@
 									<img ng-src="../style/image/darkblue/{{child.resource}}.svg" />
 								</a>
 							</div>
-							<h4>{{child.title}}</h4>
-							<p class="point-of-contact">{{child.contactText}}</p>
+							<h4 ng-bind="child.title"></h4>
+							<p class="point-of-contact" ng-bind="child.contactText"></p>
 							<div class="related-links">
 								<div ng-if="child.mainLink">
-									<a href="{{child.mainLink.url}}" target="_blank">{{child.mainLink.title}}</a>
+									<a href="{{child.mainLink.url}}" target="_blank" ng-bind="child.mainLink.title"></a>
 								</div>
 							</div>
-							<p class="summary">{{child.summary}}</p>
+							<p class="summary" ng-bind="child.summary"></p>
 						</li>
 					</ul>
 					<div class="list-foot clearfix">
