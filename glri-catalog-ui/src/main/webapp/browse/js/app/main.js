@@ -33,22 +33,22 @@ function($scope, $http, $filter, $timeout) {
 	}
 	$scope.navAdd = function(nav) {
 		var navs = $scope.transient.currentNav
-		if (navs) {
+		if ( angular.isDefined(navs) ) {
 			navs.push(nav);
 		}
 		setHash($scope.transient.currentNav)
 	}
 	$scope.navShow = function(nav) {
 		var navs = $scope.transient.currentNav
-		return navs  &&  navs.indexOf(nav)!=-1
+		return angular.isDefined(navs)  &&  navs.indexOf(nav)!=-1
 	}
 	$scope.contentShow = function(nav, detail) {
 		var navs = $scope.transient.currentNav
 		var show = navs  &&  navs[ navs.length-1 ]===nav
 		if (detail) {
-			show = show && $scope.transient.currentItem != null
+			show = show && ! angular.isDefined($scope.transient.currentItem)
 		} else {
-			show = show && $scope.transient.currentItem == null
+			show = show && angular.isDefined($scope.transient.currentItem)
 		}
 		return show
 	}
@@ -150,7 +150,8 @@ function($scope, $http, $filter, $timeout) {
 	var processProjectListResponse = function(unfilteredJsonData) {
 		rawResult = unfilteredJsonData;
 		
-		if (unfilteredJsonData) {
+		if (angular.isDefined(unfilteredJsonData) 
+		 && angular.isDefined(unfilteredJsonData.items) ) {
 			
 			var items = unfilteredJsonData.items;
 
@@ -350,6 +351,11 @@ function($scope, $http, $filter, $timeout) {
 		$scope.navAdd(focusArea.id)
 		focusAreaActivate(focusArea)
 	}
+	
+	$scope.loadedFocusAreas = function(focusArea) {
+ 		return angular.isDefined(focusArea)
+ 			&& $scope.transient.focusAreas[focusArea].items.length>0
+ 	}
 	
 	
 	$scope.menuClick = function(tabName) {
