@@ -83,17 +83,18 @@
 <div id="nav" class="border" style="height:300px">
 
 	<div id="navBrowse" class="btn-group">
-		<button ng-repeat="nav in transient.nav" ng-bind="nav.title" 
-				class="btn btn-primary btn-horizontal" ng-click="navRoot(nav.title)"
-				ng-class="navShow(nav.title) ?'active' :'' "></button>
+		<a ng-repeat="nav in transient.nav" class="btn btn-primary btn-horizontal" 
+			preventDefault href="{{'#'+nav.title}}"
+			ng-click="navRoot(nav.title)" ng-class="navShow(nav.title) ?'active' :'' " ng-bind="nav.title"></a>
 	</div>
 	<hr/>
 	
 	<glri-nav-home ng-if="navShow('Home')">home</glri-nav-home>
 
-	<div is-open="tab.title == transient.currentTab.title" ng-if="navShow('Browse')">
-		<button ng-repeat="tab in transient.tabs" ng-bind="tab.title" class="btn btn-primary btn-vertical"
-				ng-click="focusAreaClick(tab.title)"></button>
+	<div id="focusAreas" is-open="focusArea.title == transient.currentTab.title" ng-if="navShow('Browse')">
+		<button id="{{focusArea.id}}" ng-repeat="focusArea in transient.tabs" 
+				ng-bind="focusArea.title" class="btn btn-primary btn-vertical"
+				ng-click="focusAreaClick(focusArea)"></button>
 	</div>
 	
 	<a href="https://www.sciencebase.gov/catalog/items?community=Great+Lakes+Restoration+Initiative"

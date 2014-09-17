@@ -13,18 +13,30 @@ function($scope, $http, $filter, $timeout) {
 	$scope.CONST.TEMPLATE_SCHEME = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates";
 
 	
+	var setHash = function(navs) {
+		var hash="#"
+		var sep=""
+		for (var n in navs) {
+			hash += sep + navs[n]
+			sep="/"
+		}
+		location.hash=hash
+	}
+	
 	$scope.navRoot = function(nav) {
 		$scope.transient.currentTab = null;		
 		if (nav === 'Search') {
 			window.location.href='/glri-catalog';
 		}
 		$scope.transient.currentNav = [nav];
+		setHash($scope.transient.currentNav)
 	}
 	$scope.navAdd = function(nav) {
 		var navs = $scope.transient.currentNav
 		if (navs) {
 			navs.push(nav);
 		}
+		setHash($scope.transient.currentNav)
 	}
 	$scope.navShow = function(nav) {
 		var navs = $scope.transient.currentNav
@@ -51,37 +63,56 @@ function($scope, $http, $filter, $timeout) {
 	              	    { title:'Search'},
 	              	];
 	var initNav = function() {
-		if (location.search) {
-			angular.forEach( $scope.transient.nav, function(nav, key) {
-				if (location.search.indexOf(nav.title)>0) {
-					console.log('found ' + nav.title)
-					$scope.transient.currentNav = [nav.title];
-				}
-			})
+		if (location.hash && location.hash.length>1) {
+			var parts = location.hash.split(/\/+/)
+			if (parts.length>=1) {
+				angular.forEach( $scope.transient.nav, function(nav, key) {
+					if (parts[0].indexOf(nav.title)>0) {
+						console.log('found ' + nav.title)
+						$scope.transient.currentNav = [nav.title];
+						if (nav.title === 'Browse') {
+							switch(parts.length) {
+							case 3: var id = parts[2] // buildDataUrl()
+								var url = "https://www.sciencebase.gov/catalog/item/"+id+"?format=json"
+								$http.get(url).success(function(data, status, headers, config) {
+									var item = processItem(data)
+									$scope.loadProjectDetail(item)
+								}).error(function(data, status, headers, config) {
+									alert("Unable to connect to ScienceBase.gov to find records.");
+								});
+							case 2: var focus = parts[1]
+								var focusArea = {id:focus,title:$('#'+focus).text()}
+								focusAreaActivate(focusArea)
+								break;
+							default:
+							}
+						}
+					}
+				})
+			}
 		} else {
 			$scope.transient.currentNav = [$scope.transient.nav[0].title];
 		}
 	}
-	initNav()
 	
 	$scope.transient.tabs = [
-		{ title:'Toxic Substances', isHome: false, items: [
+		{ title:'Toxic Substances', id:"fats", isHome: false, items: [
 			{title:"INFO-SHEET: Toxic Substances and Areas of Concern Projects for the Great Lakes Restoration Initiative", 
 			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_1_Toxic_Substances.pdf"}
 		]},
-		{ title:'Invasive Species', isHome: false, items: [
+		{ title:'Invasive Species', id:"fais", isHome: false, items: [
 			{title:"INFO-SHEET: Combating Invasive Species Projects for the Great Lakes Restoration Initiative", 
 			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_2_invasive_species.pdf"}
 		]},
-		{ title:'Nearshore Health', isHome: false, items: [
+		{ title:'Nearshore Health', id:"fanh", isHome: false, items: [
 			{title:"INFO-SHEET: Nearshore Health and Watershed Protection Projects for the Great Lakes Restoration Initiative", 
 			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_3_Nearshore.pdf"}
 		]},
-		{ title:'Habitat & Wildlife', isHome: false, items: [
+		{ title:'Habitat & Wildlife', id:"fahw", isHome: false, items: [
 			{title:"INFO-SHEET: Habitat & Wildlife Protection and Restoration", 
 			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_4_Habitat_Restore.pdf"}
 		]},
-		{ title:'Accountability', isHome: false, items: [
+		{ title:'Accountability', id:"faac", isHome: false, items: [
 			{title:"INFO-SHEET: Tracking Progress and Working with Partners Projects for the Great Lakes Restoration Initiative", 
 			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_5_Tracking_progress_working_w_partners.pdf"}
 		]}
@@ -100,6 +131,7 @@ function($scope, $http, $filter, $timeout) {
 	
 	// Called at the bottom of this JS file
 	var init = function() {
+		initNav()
 		loadProjectLists();
 	};
 	
@@ -301,11 +333,22 @@ function($scope, $http, $filter, $timeout) {
 			templates: sbItem.templates,
 		});
 	}
+
+
+	var focusAreaActivate = function(focusArea) {
+		$scope.transient.currentTab = focusArea.title
+		setTimeout(function(){
+			$('#focusAreas button').removeClass('active')
+			$('#'+focusArea.id).addClass('active')
+		}, 10)
+	}
+
 	
 	$scope.focusAreaClick = function(focusArea) {
-		$scope.transient.currentTab = focusArea
 		$scope.transient.currentItem = null
-		
+		$scope.navRoot('Browse') // might not be necessary
+		$scope.navAdd(focusArea.id)
+		focusAreaActivate(focusArea)
 	}
 	
 	
