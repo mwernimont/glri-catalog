@@ -116,8 +116,8 @@
 		<glri-invasive ng-if="contentShow('Invasive')"></glri-invasive>
 		<glri-project-lists ng-if="contentShow('ProjectLists')"></glri-project-lists>
 		
-		<glri-records ng-if="contentShow('Browse') && transient.focusAreas[transient.currentTab].items.length>0"></glri-records>
-		<glri-detail ng-if="contentShow('Browse',true)"></glri-detail>
+		<glri-records ng-if="contentShow('Browse',0) && loadedFocusAreas(transient.currentTab)"></glri-records>
+		<glri-detail ng-if="contentShow('Browse',0,true)"></glri-detail>
 
 		<glri-search></glri-search>
 

@@ -42,9 +42,10 @@ function($scope, $http, $filter, $timeout) {
 		var navs = $scope.transient.currentNav
 		return angular.isDefined(navs)  &&  navs.indexOf(nav)!=-1
 	}
-	$scope.contentShow = function(nav, detail) {
+	$scope.contentShow = function(nav, index, detail) {
 		var navs = $scope.transient.currentNav
-		var show = navs  &&  navs[ navs.length-1 ]===nav
+		index = angular.isDefined(index) ?index :navs.length-1
+		var show = angular.isDefined(navs)  &&  navs[index]===nav
 		if (detail) {
 			show = show && ! angular.isDefined($scope.transient.currentItem)
 		} else {
