@@ -71,6 +71,17 @@ function($scope, $http, $filter, $timeout) {
 					if (parts[0].indexOf(nav.title)>0) {
 						console.log('found ' + nav.title)
 						$scope.transient.currentNav = [nav.title];
+						
+						if (nav.title === 'Home') {
+							setTimeout( function(){
+								switch(parts.length) {
+								case 2: var nav = parts[1]
+									$('.navHomeEntry a')[nav].click()
+									break;
+								default:
+								}
+							},100)
+						}
 						if (nav.title === 'Browse') {
 							switch(parts.length) {
 							case 3: var id = parts[2] // buildDataUrl()
