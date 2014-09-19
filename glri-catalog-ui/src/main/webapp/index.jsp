@@ -60,7 +60,7 @@
 								<div id="nav" class="well">
 	<div id="navBrowse" class="btn-group">
 		<a preventDefault ng-repeat="nav in transient.nav" ng-bind="nav.title" 
-				class="btn btn-primary btn-horizontal" href="{{'browse/index.jsp?'+nav.title}}"
+				class="btn btn-primary btn-horizontal" href="{{'browse/index.jsp#'+nav.title}}"
 				ng-class="navShow(nav.title) ?'active' :'' "></a>
 	</div>
 	<hr/>
