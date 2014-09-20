@@ -21,23 +21,23 @@ GLRICatalogApp.directive("glriHome",[function(){
 	}	
 }])
 
-GLRICatalogApp.directive("glriDetail",[function(){
+GLRICatalogApp.directive("glriProjectDetail",[function(){
 	return {
 		restrict   : 'E', //AEC
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: 'templates/contentBrowseDetail.html',
+		templateUrl: 'templates/contentProjectDetail.html',
 	}	
 }])
 
-GLRICatalogApp.directive("glriRecords",[function(){
+GLRICatalogApp.directive("glriFocusArea",[function(){
 	return {
 		restrict   : 'E', //AEC
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: 'templates/contentRecords.html',
+		templateUrl: 'templates/contentFocusArea.html',
 	}	
 }])
 

@@ -24,7 +24,9 @@ function($scope, $http, $filter, $timeout) {
 	}
 	
 	$scope.navRoot = function(nav) {
-		$scope.transient.currentTab = null;		
+		$scope.transient.currentFA   = undefined
+		$scope.transient.currentItem = undefined
+		
 		if (nav === 'Search') {
 			window.location.href='/glri-catalog';
 		}
@@ -47,12 +49,20 @@ function($scope, $http, $filter, $timeout) {
 		index = angular.isDefined(index) ?index :navs.length-1
 		var show = angular.isDefined(navs)  &&  navs[index]===nav
 		if (detail) {
-			show = show && ! angular.isDefined($scope.transient.currentItem)
+			show = show &&   angular.isDefined($scope.transient.currentItem)
 		} else {
-			show = show && angular.isDefined($scope.transient.currentItem)
+			show = show && ! angular.isDefined($scope.transient.currentItem)
 		}
 		return show
 	}
+
+
+	// Called at the bottom of this JS file
+	var init = function() {
+		initNav()
+		loadProjectLists();
+	};
+		
 	
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
@@ -92,8 +102,8 @@ function($scope, $http, $filter, $timeout) {
 								}).error(function(data, status, headers, config) {
 									alert("Unable to connect to ScienceBase.gov to find records.");
 								});
-							case 2: var focus = parts[1]
-								var focusArea = {id:focus,title:$('#'+focus).text()}
+							case 2: var focusArea = parts[1]
+								//var focusArea = {id:focus,title:$('#'+focus).text()}
 								focusAreaActivate(focusArea)
 								break;
 							default:
@@ -107,46 +117,53 @@ function($scope, $http, $filter, $timeout) {
 		}
 	}
 	
-	$scope.transient.tabs = [
-		{ title:'Toxic Substances', id:"fats", isHome: false, items: [
-			{title:"INFO-SHEET: Toxic Substances and Areas of Concern Projects for the Great Lakes Restoration Initiative", 
-			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_1_Toxic_Substances.pdf"}
-		]},
-		{ title:'Invasive Species', id:"fais", isHome: false, items: [
-			{title:"INFO-SHEET: Combating Invasive Species Projects for the Great Lakes Restoration Initiative", 
-			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_2_invasive_species.pdf"}
-		]},
-		{ title:'Nearshore Health', id:"fanh", isHome: false, items: [
-			{title:"INFO-SHEET: Nearshore Health and Watershed Protection Projects for the Great Lakes Restoration Initiative", 
-			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_3_Nearshore.pdf"}
-		]},
-		{ title:'Habitat & Wildlife', id:"fahw", isHome: false, items: [
-			{title:"INFO-SHEET: Habitat & Wildlife Protection and Restoration", 
-			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_4_Habitat_Restore.pdf"}
-		]},
-		{ title:'Accountability', id:"faac", isHome: false, items: [
-			{title:"INFO-SHEET: Tracking Progress and Working with Partners Projects for the Great Lakes Restoration Initiative", 
-			   url:"http://cida.usgs.gov/glri/infosheets/GLRI_5_Tracking_progress_working_w_partners.pdf"}
-		]}
-	];
+	$scope.transient.focusAreaOrder = ['fats','fais','fanh','fahw','facc']
 	
-	$scope.transient.focusAreas = {}
-	for (var t=0; t<$scope.transient.tabs.length; t++) {
-		var tab = $scope.transient.tabs[t]
-		$scope.transient.focusAreas[tab.title] =  {infosheet:tab.items[0].url, items:[]}
+	
+	$scope.transient.focusAreas = {
+		fats : {
+			name:'Toxic Substances',
+			description: "Toxic Substances and Areas of Concern Projects for the Great Lakes Restoration Initiative",
+			infosheet:"http://cida.usgs.gov/glri/infosheets/GLRI_1_Toxic_Substances.pdf",
+			items: [],
+		},
+		fais : {
+			name:'Invasive Species',
+			description: "Combating Invasive Species Projects for the Great Lakes Restoration Initiative",
+			infosheet:"http://cida.usgs.gov/glri/infosheets/GLRI_2_invasive_species.pdf",
+			items: [],
+		},
+		fanh : {
+			name:'Nearshore Health',
+			description:"Nearshore Health and Watershed Protection Projects for the Great Lakes Restoration Initiative",
+			infoSheet:"http://cida.usgs.gov/glri/infosheets/GLRI_3_Nearshore.pdf",
+			items: [],
+		},
+		fahw : {
+			name:'Habitat & Wildlife',
+			description:"Habitat & Wildlife Protection and Restoration",
+			infosheet:"http://cida.usgs.gov/glri/infosheets/GLRI_4_Habitat_Restore.pdf",
+			items: [],
+		},
+		facc : {
+			name:'Accountability',
+			description :"Tracking Progress and Working with Partners Projects for the Great Lakes Restoration Initiative",
+			infosheet:"http://cida.usgs.gov/glri/infosheets/GLRI_5_Tracking_progress_working_w_partners.pdf",
+			items: [],
+		},
 	}
 	
-	$scope.transient.currentItem = null;
-
-	var rawResult = null;	// array of all the returned items, UNprocessed
-
+	// reverse lookup
+	$scope.transient.focusAreasByName = {}
+	for (var fa in $scope.transient.focusAreas) {
+		var focusArea = $scope.transient.focusAreas[fa]
+		$scope.transient.focusAreasByName[focusArea.name] =  fa
+	}
 	
-	// Called at the bottom of this JS file
-	var init = function() {
-		initNav()
-		loadProjectLists();
-	};
-	
+	$scope.transient.currentItem = undefined;
+
+	var rawResult = undefined;	// array of all the returned items, UNprocessed
+
 	
 	var loadProjectLists = function() {
 
@@ -176,14 +193,16 @@ function($scope, $http, $filter, $timeout) {
 					for (var j = 0; j < tags.length; j++) {
 						var tag = tags[j];
 						if ($scope.CONST.FOCUS_AREA_SCHEME == tag.scheme) {
-							var name = tag.name;
-							addProjectToTabList(item, tag.name);
+							var focusArea = $scope.transient.focusAreasByName[tag.name]
+							addProjectToTabList(item, focusArea);
 						}
 					}
 				}
 				
 			}
 		}
+		
+		setTimeout(function(){$scope.$apply()},10)
 	};
 	
 	
@@ -258,12 +277,12 @@ function($scope, $http, $filter, $timeout) {
 	 * The return value is an associative array where the title can be used for dispaly:
 	 * {url, title}
 	 * 
-	 * If no matching link is found, null is returned.
+	 * If no matching link is found, undefined is returned.
 	 * 
 	 * @param {type} linkArray Array taken from ScienceBase search response webLinks.
 	 * @param {type} searchArray List of link 'rel' or 'titles' to search for, in order.
 	 * @param {type} defaultToFirst If nothing is found, return the first link if true.
-	 * @returns {url, title} or null
+	 * @returns {url, title} or undefined
 	 */
 	var findLink = function(linkArray, searchArray, defaultToFirst) {
 
@@ -290,10 +309,10 @@ function($scope, $http, $filter, $timeout) {
 				retVal.title = linkArray[0].title;
 				return retVal;
 			} else {
-				return null;
+				return undefined;
 			}
 		} else {
-			return null;
+			return undefined;
 		}
 	};
 	
@@ -325,7 +344,7 @@ function($scope, $http, $filter, $timeout) {
 			}
 		}
 		
-		return null;
+		return undefined;
 	};
 	
 	
@@ -336,43 +355,44 @@ function($scope, $http, $filter, $timeout) {
 	 * @param {type} focusArea
 	 * @returns {undefined}
 	 */
-	var addProjectToTabList = function(sbItem, focusArea) {
+	var addProjectToTabList = function(item, focusArea) {
 		var fa = $scope.transient.focusAreas[focusArea]
 		fa.items.push({
-			title: sbItem.title,
-			id: sbItem.id,
-			item: sbItem,
-			contacts: sbItem.contactText,
-			templates: sbItem.templates,
+			title:     item.title,
+			id:        item.id,
+			item:      item,
+			contacts:  item.contactText,
+			templates: item.templates,
 		});
 	}
 
 
 	var focusAreaActivate = function(focusArea) {
-		$scope.transient.currentTab = focusArea.title
+		$scope.transient.currentFA = focusArea
 		setTimeout(function(){
 			$('#focusAreas button').removeClass('active')
-			$('#'+focusArea.id).addClass('active')
+			$('#'+focusArea).addClass('active')
 		}, 10)
 	}
 
 	
 	$scope.focusAreaClick = function(focusArea) {
-		$scope.transient.currentItem = null
 		$scope.navRoot('Browse') // might not be necessary
-		$scope.navAdd(focusArea.id)
+		$scope.navAdd(focusArea)
 		focusAreaActivate(focusArea)
 	}
 	
 	$scope.loadedFocusAreas = function(focusArea) {
- 		return angular.isDefined(focusArea)
+ 		return angular.isDefined(focusArea) 
+ 			&& angular.isDefined($scope.transient.focusAreas[focusArea])
+ 			&& angular.isDefined($scope.transient.focusAreas[focusArea].items)
  			&& $scope.transient.focusAreas[focusArea].items.length>0
  	}
 	
 	
 	$scope.menuClick = function(tabName) {
 		if (tabName==='Home') {
-			$scope.transient.currentItem = null;
+			$scope.transient.currentItem = undefined;
 		}
 		if ( angular.isDefined(tabName) ) {
 			ga('send', 'screenview', {
@@ -383,6 +403,7 @@ function($scope, $http, $filter, $timeout) {
 	
 	$scope.loadProjectDetail = function(item) {
 		$scope.transient.currentItem = item;
+		$scope.navAdd(item.id)
 		if ( angular.isDefined(item) && angular.isDefined(item.title) ) {
 			ga('send', 'screenview', {
 				  'screenName': item.id +":"+ item.title

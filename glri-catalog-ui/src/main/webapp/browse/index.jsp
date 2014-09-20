@@ -91,10 +91,10 @@
 	
 	<glri-nav-home ng-if="navShow('Home')">home</glri-nav-home>
 
-	<div id="focusAreas" is-open="focusArea.title == transient.currentTab.title" ng-if="navShow('Browse')">
-		<button id="{{focusArea.id}}" ng-repeat="focusArea in transient.tabs" 
-				ng-bind="focusArea.title" class="btn btn-primary btn-vertical"
-				ng-click="focusAreaClick(focusArea)"></button>
+	<div id="focusAreas" ng-if="navShow('Browse')">
+		<button id="{{fa}}" ng-repeat="fa in transient.focusAreaOrder" 
+				ng-bind="transient.focusAreas[fa].name" class="btn btn-primary btn-vertical"
+				ng-click="focusAreaClick(fa)"></button>
 	</div>
 	
 	<a href="https://www.sciencebase.gov/catalog/items?community=Great+Lakes+Restoration+Initiative"
@@ -112,14 +112,12 @@
 	<div class="border">
 
 		<glri-home ></glri-home>
-		<glri-asian-carp  ng-if="contentShow('AsianCarp')"></glri-asian-carp>
-		<glri-invasive ng-if="contentShow('Invasive')"></glri-invasive>
-		<glri-project-lists ng-if="contentShow('ProjectLists')"></glri-project-lists>
+		<glri-asian-carp     ng-if="contentShow('AsianCarp')"></glri-asian-carp>
+		<glri-invasive       ng-if="contentShow('Invasive')"></glri-invasive>
+		<glri-project-lists  ng-if="contentShow('ProjectLists')"></glri-project-lists>
 		
-		<glri-records ng-if="contentShow('Browse',0) && loadedFocusAreas(transient.currentTab)"></glri-records>
-		<glri-detail ng-if="contentShow('Browse',0,true)"></glri-detail>
-
-		<glri-search></glri-search>
+		<glri-focus-area     ng-if="contentShow('Browse',0,false) && loadedFocusAreas(transient.currentFA)"></glri-focus-area>
+		<glri-project-detail ng-if="contentShow('Browse',0,true)"></glri-project-detail>
 
 		<div ng-if="contentShow('BeachHealth')" >
 		<div>
