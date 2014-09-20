@@ -24,7 +24,9 @@ function($scope, $http, $filter, $timeout) {
 	}
 	
 	$scope.navRoot = function(nav) {
-		$scope.transient.currentFA = null;		
+		$scope.transient.currentFA   = undefined
+		$scope.transient.currentItem = undefined
+		
 		if (nav === 'Search') {
 			window.location.href='/glri-catalog';
 		}
@@ -47,9 +49,9 @@ function($scope, $http, $filter, $timeout) {
 		index = angular.isDefined(index) ?index :navs.length-1
 		var show = angular.isDefined(navs)  &&  navs[index]===nav
 		if (detail) {
-			show = show && ! angular.isDefined($scope.transient.currentItem)
-		} else {
 			show = show &&   angular.isDefined($scope.transient.currentItem)
+		} else {
+			show = show && ! angular.isDefined($scope.transient.currentItem)
 		}
 		return show
 	}
@@ -158,9 +160,9 @@ function($scope, $http, $filter, $timeout) {
 		$scope.transient.focusAreasByName[focusArea.name] =  fa
 	}
 	
-	$scope.transient.currentItem = null;
+	$scope.transient.currentItem = undefined;
 
-	var rawResult = null;	// array of all the returned items, UNprocessed
+	var rawResult = undefined;	// array of all the returned items, UNprocessed
 
 	
 	var loadProjectLists = function() {
@@ -275,12 +277,12 @@ function($scope, $http, $filter, $timeout) {
 	 * The return value is an associative array where the title can be used for dispaly:
 	 * {url, title}
 	 * 
-	 * If no matching link is found, null is returned.
+	 * If no matching link is found, undefined is returned.
 	 * 
 	 * @param {type} linkArray Array taken from ScienceBase search response webLinks.
 	 * @param {type} searchArray List of link 'rel' or 'titles' to search for, in order.
 	 * @param {type} defaultToFirst If nothing is found, return the first link if true.
-	 * @returns {url, title} or null
+	 * @returns {url, title} or undefined
 	 */
 	var findLink = function(linkArray, searchArray, defaultToFirst) {
 
@@ -307,10 +309,10 @@ function($scope, $http, $filter, $timeout) {
 				retVal.title = linkArray[0].title;
 				return retVal;
 			} else {
-				return null;
+				return undefined;
 			}
 		} else {
-			return null;
+			return undefined;
 		}
 	};
 	
@@ -342,7 +344,7 @@ function($scope, $http, $filter, $timeout) {
 			}
 		}
 		
-		return null;
+		return undefined;
 	};
 	
 	
@@ -375,7 +377,6 @@ function($scope, $http, $filter, $timeout) {
 
 	
 	$scope.focusAreaClick = function(focusArea) {
-		$scope.transient.currentItem = null
 		$scope.navRoot('Browse') // might not be necessary
 		$scope.navAdd(focusArea)
 		focusAreaActivate(focusArea)
@@ -391,7 +392,7 @@ function($scope, $http, $filter, $timeout) {
 	
 	$scope.menuClick = function(tabName) {
 		if (tabName==='Home') {
-			$scope.transient.currentItem = null;
+			$scope.transient.currentItem = undefined;
 		}
 		if ( angular.isDefined(tabName) ) {
 			ga('send', 'screenview', {
@@ -402,6 +403,7 @@ function($scope, $http, $filter, $timeout) {
 	
 	$scope.loadProjectDetail = function(item) {
 		$scope.transient.currentItem = item;
+		$scope.navAdd(item.id)
 		if ( angular.isDefined(item) && angular.isDefined(item.title) ) {
 			ga('send', 'screenview', {
 				  'screenName': item.id +":"+ item.title
