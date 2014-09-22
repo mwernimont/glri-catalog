@@ -496,13 +496,6 @@ ul.list-tick {
 	font-weight:bold;
 }
 
-.glri_content .btn-primary:hover,
-.glri_content .btn-primary:focus,
-.glri_content .open .dropdown-toggle.btn-primary {
-  background-color: #036;
-  color: white;
-  border-color: #38E;
-}
 
 .glri_content .btn-primary:active,
 .glri_content .btn-primary.active {
