@@ -286,7 +286,7 @@ function($scope, $http, $filter, $location) {
 			for (var j = 0; j < tags.length; j++) {
 				var tag = tags[j];
 				if ($scope.CONST.TEMPLATE_SCHEME == tag.scheme) {
-					item.templates.push(tag.name);
+					item.templates.push(tag.name.replace('Template ', ''));
 				}
 			}
 		}

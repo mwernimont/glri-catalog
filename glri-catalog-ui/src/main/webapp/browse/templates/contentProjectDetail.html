@@ -3,8 +3,9 @@
 			<h2 class="detailTitle" ng-bind="transient.currentItem.title"></h2>
 			<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
 			<div class="template-list">
-				<h5>Template(s):
-					<span class="no-template-found" ng-if="transient.currentItem.templates.length == 0">No funding template found</span>
+				<h5>Template<span ng-if="transient.currentItem.templates && transient.currentItem.templates.length>1">s</span>:
+					<span ng-if="!transient.currentItem.templates || transient.currentItem.templates.length == 0"
+						  class="no-template-found" >No funding template found</span>
 					<span class="template-name" ng-repeat="template in transient.currentItem.templates">
 						<span ng-bind="template"></span><span class="template-separator" ng-if="transient.currentItem.templates.length &gt; 1 &amp;&amp; !$last">, </span>
 					</span>
