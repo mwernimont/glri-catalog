@@ -5,40 +5,52 @@ var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap','ngSanitiz
 
 
 GLRICatalogApp.controller('CatalogCtrl',
-['$scope', '$http', '$filter', '$timeout', 
-function($scope, $http, $filter, $timeout) {
+['$scope', '$http', '$filter', '$location', 
+function($scope, $http, $filter, $location) {
 
 	$scope.CONST = {};
 	$scope.CONST.FOCUS_AREA_SCHEME = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea";
 	$scope.CONST.TEMPLATE_SCHEME = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates";
 
 	
-	var setHash = function(navs) {
-		var hash="#"
+	var setPath = function(navs) {
+		var path=""
 		var sep=""
 		for (var n in navs) {
-			hash += sep + navs[n]
+			path += sep + navs[n]
 			sep="/"
 		}
-		location.hash=hash
+		$location.path(path)
 	}
 	
-	$scope.navRoot = function(nav) {
+	var isCaptureHistory = true
+	var setCaptureHistory = function(state) {
+		isCaptureHistory = state
+	}
+	
+
+	var setNavRoot = function(nav) {
 		$scope.transient.currentFA   = undefined
 		$scope.transient.currentItem = undefined
-		
+		$scope.transient.currentNav = [nav];
+	}	
+	$scope.doNavRoot = function(nav) {
+		setNavRoot(nav)
+				
 		if (nav === 'Search') {
 			window.location.href='/glri-catalog';
 		}
-		$scope.transient.currentNav = [nav];
-		setHash($scope.transient.currentNav)
+		setPath($scope.transient.currentNav)
 	}
-	$scope.navAdd = function(nav) {
+	var setNavAdd = function(nav) {
 		var navs = $scope.transient.currentNav
 		if ( angular.isDefined(navs) ) {
 			navs.push(nav);
 		}
-		setHash($scope.transient.currentNav)
+	}
+	$scope.doNavAdd = function(nav) {
+		setNavAdd(nav)
+		setPath($scope.transient.currentNav)
 	}
 	$scope.navShow = function(nav) {
 		var navs = $scope.transient.currentNav
@@ -59,7 +71,7 @@ function($scope, $http, $filter, $timeout) {
 
 	// Called at the bottom of this JS file
 	var init = function() {
-		initNav()
+		doNav(true)
 		loadProjectLists();
 	};
 		
@@ -73,48 +85,66 @@ function($scope, $http, $filter, $timeout) {
 	              	    { title:'Browse'},
 	              	    { title:'Search'},
 	              	];
-	var initNav = function() {
-		if (location.hash && location.hash.length>1) {
+	var doNav = function(init) {
+	
+	  try {
+	
+		setCaptureHistory(false)		
+	
+		if ($location.path() && $location.path().length>2) {
 			var parts = location.hash.split(/\/+/)
-			if (parts.length>=1) {
-				angular.forEach( $scope.transient.nav, function(nav, key) {
-					if (parts[0].indexOf(nav.title)>0) {
-						console.log('found ' + nav.title)
-						$scope.transient.currentNav = [nav.title];
-						
-						if (nav.title === 'Home') {
-							setTimeout( function(){
-								switch(parts.length) {
-								case 2: var nav = parts[1]
-									$('.navHomeEntry a')[nav].click()
-									break;
-								default:
-								}
-							},100)
-						}
-						if (nav.title === 'Browse') {
-							switch(parts.length) {
-							case 3: var id = parts[2] // buildDataUrl()
-								var url = "https://www.sciencebase.gov/catalog/item/"+id+"?format=json"
-								$http.get(url).success(function(data, status, headers, config) {
-									var item = processItem(data)
-									$scope.loadProjectDetail(item)
-								}).error(function(data, status, headers, config) {
-									alert("Unable to connect to ScienceBase.gov to find records.");
-								});
-							case 2: var focusArea = parts[1]
-								//var focusArea = {id:focus,title:$('#'+focus).text()}
-								focusAreaActivate(focusArea)
-								break;
-							default:
-							}
-						}
+			if (parts.length<=1) {
+				$scope.doNavRoot('Home')
+			}
+			if (parts.length==2) {
+				$scope.doNavRoot(parts[1])
+			}
+			if (parts.length>2) {
+				if ($location.path().indexOf('Home')>0) {
+					switch(parts.length) {
+					case 3: var ofNote = parts[2]
+						$scope.ofNoteClick(ofNote)
+						break;
+					default:
 					}
-				})
+				}
+				if ($location.path().indexOf('Browse')>0) {
+					if (init) {
+						setNavRoot('Browse')
+					}
+					switch(parts.length) {
+					case 4: var id = parts[3]
+						var focusArea = parts[2]
+						focusAreaActivate(focusArea)
+						if (init) {
+							setNavAdd(focusArea)
+						}
+						var url = "https://www.sciencebase.gov/catalog/item/"+id+"?format=json"
+						$http.get(url).success(function(data, status, headers, config) {
+							var item = processItem(data)
+							setProjectDetail(item)
+						}).error(function(data, status, headers, config) {
+							alert("Unable to connect to ScienceBase.gov to find records.");
+						});
+						break;
+					case 3: var focusArea = parts[2]
+						focusAreaActivate(focusArea)
+						break;
+					default:
+					}
+				}
 			}
 		} else {
-			$scope.transient.currentNav = [$scope.transient.nav[0].title];
+			$scope.doNavRoot($scope.transient.nav[0].title)
 		}
+	  } finally {
+	  	setCaptureHistory(true)
+	  }
+	}
+	window.onpopstate = function(event) {
+		console.log('onpopstate')
+		doNav()
+		setTimeout(function(){$scope.$apply()},10)
 	}
 	
 	$scope.transient.focusAreaOrder = ['fats','fais','fanh','fahw','facc']
@@ -256,7 +286,7 @@ function($scope, $http, $filter, $timeout) {
 			for (var j = 0; j < tags.length; j++) {
 				var tag = tags[j];
 				if ($scope.CONST.TEMPLATE_SCHEME == tag.scheme) {
-					item.templates.push(tag.name);
+					item.templates.push(tag.name.replace('Template ', ''));
 				}
 			}
 		}
@@ -368,17 +398,24 @@ function($scope, $http, $filter, $timeout) {
 
 
 	var focusAreaActivate = function(focusArea) {
+		console.log($scope.transient.currentFA +' -> '+ focusArea)
 		$scope.transient.currentFA = focusArea
+		$scope.transient.currentItem = undefined;
+		
 		setTimeout(function(){
 			$('#focusAreas button').removeClass('active')
 			$('#'+focusArea).addClass('active')
 		}, 10)
 	}
 
+	$scope.ofNoteClick = function(ofNote) {
+		setNavRoot('Home')
+		$scope.doNavAdd(ofNote)
+	}
 	
 	$scope.focusAreaClick = function(focusArea) {
-		$scope.navRoot('Browse') // might not be necessary
-		$scope.navAdd(focusArea)
+		setNavRoot('Browse')
+		$scope.doNavAdd(focusArea)
 		focusAreaActivate(focusArea)
 	}
 	
@@ -401,14 +438,17 @@ function($scope, $http, $filter, $timeout) {
 		}
 	}
 	
-	$scope.loadProjectDetail = function(item) {
+	var setProjectDetail = function(item) {
 		$scope.transient.currentItem = item;
-		$scope.navAdd(item.id)
 		if ( angular.isDefined(item) && angular.isDefined(item.title) ) {
 			ga('send', 'screenview', {
 				  'screenName': item.id +":"+ item.title
 			});
 		}
+	}
+	$scope.loadProjectDetail = function(item) {
+		setProjectDetail(item)
+		$scope.doNavAdd(item.id)
 	};
 	
 	

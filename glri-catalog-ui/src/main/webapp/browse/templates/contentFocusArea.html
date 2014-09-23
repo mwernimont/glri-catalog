@@ -26,8 +26,9 @@ More information about the GLRI
 	<li ng-repeat="project in transient.focusAreas[transient.currentFA].items"
 		ng-click="loadProjectDetail(project.item)">
 		<h3 ng-bind="project.title"></h3>
-		<p> Template<span ng-if="project.templates.length>1">s</span>: 
-			<span ng-repeat="template in project.templates">{{template}} </span>
+		<p> Template<span ng-if="project.templates.length && project.templates.length>1">s</span>: 
+			<span ng-repeat="template in project.templates">{{template}}<span ng-if="project.templates.indexOf(template)!=project.templates.length-1">,</span> </span>
+			<span ng-if="!project.templates.length || project.templates.length==0">none</span>
 		</p>		
 		<p ng-bind="project.contacts"></p>		
 	</li>
