@@ -122,7 +122,7 @@
 
 		<div ng-if="contentShow('BeachHealth')" >
 		<div>
-			<img src="../style/image/darkblue/official_logo_glri.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
+			<img src="../style/image/darkblue/glri_logo.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
 			<div class="largetitle">GLRI Beach Health Webinar Feb11 2014</div>
 		</div>
 		<center>
