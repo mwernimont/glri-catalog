@@ -506,6 +506,27 @@ function($scope, $http, $filter, $location) {
 		
 		return url;
 	};
+	
+	
+	var closeMenu = function() {
+		$('#navPane').addClass('hidden-xs')
+		$('#navPane').removeClass('menu-navPane')
+	}
+	var openMenu = function() {
+		$('#navPane').removeClass('hidden-xs')
+		$('#navPane').addClass('menu-navPane')
+	}
+	
+	$scope.toggleNav = function() {
+		if ( $('#navPane.hidden-xs').length>0 ) {
+			openMenu()
+			setTimeout(function(){
+				$('body').one('click', closeMenu)
+			},100)
+		} else {
+			closeMenu()
+		}
+	}
 
 	init();
 }]);

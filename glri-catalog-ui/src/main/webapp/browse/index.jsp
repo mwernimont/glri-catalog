@@ -60,7 +60,7 @@
 </script>
 		
 	</head>
-	<body>
+	<body  ng-controller="CatalogCtrl">
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
@@ -69,10 +69,11 @@
 						<jsp:param name="header-class" value="" />
 						<jsp:param name="site-title" value="Great Lakes Restoration Initiative (GLRI)" />
 					</jsp:include>
+					<img class="glyphicon glyphicon-menu visible-xs" src="../images/xicon_mobile_nav_menu.svg" ng-click="toggleNav()">
 				</div>
 			</div>
 			
-			<div id="catalogCtrl" class="row glri_content" ng-controller="CatalogCtrl">
+			<div id="catalogCtrl" class="row glri_content">
 				<div id="outerCol" class="col-xs-12">
 					<div class="row">
 						<div id="innerCol" class="col-xs-12">
@@ -82,7 +83,7 @@
 
 <div id="nav" class="border" style="height:300px">
 
-	<div id="navBrowse" class="btn-group">
+	<div id="navBrowse" class="btn-group navBrowse">
 		<a ng-repeat="nav in transient.nav" class="btn btn-primary btn-horizontal" 
 			preventDefault href="javascript:void(0)"
 			ng-click="doNavRoot(nav.title)" ng-class="navShow(nav.title) ?'active' :'' " ng-bind="nav.title"></a>

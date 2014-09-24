@@ -562,6 +562,26 @@ ul.list-tick {
 	}
 }
 
+.menu-navPane {
+	display:block ! improtant;
+	width: 300px;
+	float:right;
+}
+
+.menu-navPane .btn {
+	height:40px;
+	font-size:150%;
+}
+
+.glyphicon-menu {
+	float: right;
+	position: relative;
+	top: -23px;
+	width: 30px;
+	padding-right: 3px;
+	cursor:pointer;
+}
+
 .glri_content .btn-primary {
 	background-color: white;
 	border-color: #036;
