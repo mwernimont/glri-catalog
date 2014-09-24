@@ -40,8 +40,6 @@ GLRICatalogApp.directive("glriFocusArea",[function(){
 		templateUrl: 'templates/contentFocusArea.html',
 		
 		link : function($scope, $el, $attrs) {
-			console.log('link')
-			
 			if ($attrs.focusArea==='all') {
 				$scope.focusArea = 'all'
 				$scope.projects  = $scope.transient.allProjects
@@ -49,9 +47,6 @@ GLRICatalogApp.directive("glriFocusArea",[function(){
 				$scope.focusArea = $scope.transient.focusAreas[$attrs.focusArea]
 				$scope.projects  = $scope.transient.focusAreas[$attrs.focusArea].items
 			}
-			
-			console.log($scope.focusArea)
-			console.log($scope.projects)
 		}
 	}	
 }])

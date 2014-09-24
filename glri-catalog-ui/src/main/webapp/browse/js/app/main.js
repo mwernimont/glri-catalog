@@ -387,11 +387,10 @@ function($scope, $http, $filter, $location) {
 	 */
 	var addProjectToTabList = function(item, focusArea) {
 		
-		var dateCreated=""
 		for (var d in item.dates) {
 			var date = item.dates[d]
 			if (date.type === "dateCreated") {
-				dateCreated = date.dateString
+				item.dateCreated = date.dateString
 				break
 			}
 		}
@@ -400,7 +399,7 @@ function($scope, $http, $filter, $location) {
 			title:      item.title,
 			id:         item.id,
 			item:       item,
-			dateCreated:dateCreated,
+			dateCreated:item.dateCreated,
 			contacts:   item.contactText,
 			templates:  item.templates,
 		}
