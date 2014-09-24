@@ -78,7 +78,7 @@
 						<div id="innerCol" class="col-xs-12">
 
 
-<div id="navPane" class="col-left col-xs-3">
+<div id="navPane" class="col-left col-sm-3 hidden-xs">
 
 <div id="nav" class="border" style="height:300px">
 
@@ -99,7 +99,7 @@
 	
 	<a href="https://www.sciencebase.gov/catalog/items?community=Great+Lakes+Restoration+Initiative"
 		 target="_blank" title="ScienceBase, a repository of projects, data and metadata">
-		<img width="206" src="style/image/darkblue/sciencebase.png" alt="Science Base attribution icon">
+		<img class="powered-img" src="style/image/darkblue/sciencebase.png" alt="Science Base attribution icon">
 	</a>
 
 </div><!-- nav -->
@@ -107,7 +107,7 @@
 </div><!-- navPane -->
 
 
-<div id="contentPane" class="col-right col-xs-9">
+<div id="contentPane" class="col-right col-sm-9 col-xs-12">
 
 	<div class="border">
 

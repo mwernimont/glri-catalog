@@ -234,7 +234,7 @@ div#headline { width: 650px; height: 345px;}
 
 /* NEW */ div#headline div.story { width: 650px; height: 345px; position: absolute; top: 0; left: 0; background: #fff;}
 
-/* NEW */ div#headlineWrapper { width: 650px; height: 345px; margin:5px; float: left; display: inline; overflow: hidden; position: relative;  }
+/* NEW */ div#headlineWrapper { width: 650px; height: 345px; margin:0 auto;  overflow: hidden; position: relative;  }
 
 /* NEW */ div#headline div.story p { color: #fff; font-size: 12px; line-height: 16px; padding: 20px; display: block; width: 610px; height: 127px; position: absolute; bottom: 5px; left: 0;  }
 
@@ -242,7 +242,7 @@ div#headline { width: 650px; height: 345px;}
 
 /* NEW */
 
-div#controls ul li { position: relative; float: left;  display: block; width: 26px; height: 25px; line-height: 25px; color: #fff; font-weight: bold; text-align: center; background: url(../images/gray-01.svg) no-repeat; margin-bottom:20px;}
+div#controls ul li { position: relative; float: left;  display: block; width: 24px; height: 25px; line-height: 25px; color: #fff; font-weight: bold; text-align: center; background: url(../images/gray-01.svg) no-repeat; margin-bottom:20px;}
 
 div#controls ul li a { position: absolute; top: 0; left: 0; background: url(../images/darkblue-01.svg) no-repeat; color: #fff !important; font-weight: bold; display: block; width: 26px; height: 25px; line-height: 25px;  } 
 

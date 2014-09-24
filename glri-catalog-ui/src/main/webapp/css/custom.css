@@ -1,3 +1,14 @@
+.powered-img {
+	width:100%
+}
+
+.center {
+	margin:0 auto;
+}
+.slider-controls {
+	width:650px;
+}
+
 .noImgPadding {
 	width: 1.8em;
 	height: 1.8em;
@@ -5,14 +16,14 @@
 }
 
 img.twigs {
-	margin-top: -21px;
-	margin-left: 30px;
-	width: 650px;	
+	margin-top : -21px;
+	margin-left:  21px;
+	width: 610px;
 }
-center.twigs {
+div.twigs {
 	margin-top: -20px;
-	margin-left: 65px;
 	width:650px;
+	text-align:center;
 }
 .twigs div {
 	width: 21%;
@@ -86,10 +97,11 @@ img.icon {
 	margin-right: 5px;	
 	margin-left: 5px;	
 }
+
 body p.serif span {
 	font-weight: bold !important;
-	font-size: 32px !important;
 	position: relative;
+	font-size: inherit;
 	top:  7px;
 	left: 7px;
 	color: #036;
@@ -187,9 +199,6 @@ th a:hover {
 .record-load-progress { width: 100%; position: fixed; left: 50%; top: 1.5em; font-size: 20em; }
 .record-load-progress .glyphicon { margin-left: -.5em; padding-bottom: .002em; color: rgba(3,37,83,.5)}
 
-@media (min-width: 768px) {
-	.record-load-progress { left: 65%; top: .5em; font-size: 30em; }
-}
 
 .result-header, .result-footer {
 	padding-top: .2em !important; padding-bottom: .2em !important;
@@ -425,9 +434,12 @@ ul.list-tick {
 }
 
 .navHomeEntry {
-	height: 125px;
+	height: 140px;
 }
 
+.navHomeEntry a {
+	float: right;
+}
 .navHomeEntry a::before {
 	content:"> ";
 }
@@ -436,12 +448,14 @@ ul.list-tick {
 	border:solid #EFEFEF 1px;
 	padding:4px;
 	float:left;
-	margin-right:10px;	
+	margin-right:4px;	
 }
 
 .navHomeEntry .descr {
 	font-size:10px;
 }
+
+
 
 @-ms-keyframes spin { from { -ms-transform: rotate(0deg); } to { -ms-transform: rotate(360deg); } }
 @-moz-keyframes spin { from { -moz-transform: rotate(0deg); } to { -moz-transform: rotate(360deg); } }
@@ -481,9 +495,71 @@ ul.list-tick {
 	display: inline-block !important;
 	width: 33% !important;
 	line-height: 1.4;
+	min-width:45px;
 }
 .glri_content .btn-vertical {
-	font-size:18px;
+	min-width:145px;
+}
+
+@media (min-width: 768px) {
+	.record-load-progress { 
+		left: 65%; 
+		top: .5em; 
+		font-size: 30em; 
+	}
+}
+@media (max-width: 767px) {
+	.glri_content .btn-vertical {
+		font-size: 12px;
+	}
+	.glri_content .btn-horizontal {
+		font-size: 7px;
+	}
+	.font-large {
+		font-size: 150% !important;	
+	}
+	.navHomeEntry .descr {
+		width:100%;
+	}
+}
+@media (min-width: 768px) and (max-width: 991px) {
+	.glri_content .btn-vertical {
+		font-size: 14px;
+	}
+	.glri_content .btn-horizontal {
+		font-size: 10px;
+	}
+	.font-large {
+		font-size: 175% !important;	
+	}
+	.navHomeEntry img {
+		width:100%;
+		margin-top: 100px;
+	}
+	.navGroup {
+		position: relative;
+		top: -100px;
+	}
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+	.glri_content .btn-vertical {
+		font-size: 16px;
+	}
+	.font-large {
+		font-size: 250% !important;	
+	}
+	.navHomeEntry .descr {
+		float: right;
+		width: 113px;
+	}
+}
+@media (min-width: 1200px) {
+	.font-large {
+		font-size: 250% !important;	
+	}
+	.content2col .border {
+		height:700px;
+	}
 }
 
 .glri_content .btn-primary {
@@ -494,6 +570,7 @@ ul.list-tick {
 	display: block;
 	width: 100%;
 	font-weight:bold;
+	padding:2px 0;
 }
 
 
