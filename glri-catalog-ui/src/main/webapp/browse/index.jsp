@@ -60,7 +60,7 @@
 </script>
 		
 	</head>
-	<body>
+	<body  ng-controller="CatalogCtrl">
 		<div class="container">
 			<div class="row">
 				<div class="col-xs-12">
@@ -69,20 +69,21 @@
 						<jsp:param name="header-class" value="" />
 						<jsp:param name="site-title" value="Great Lakes Restoration Initiative (GLRI)" />
 					</jsp:include>
+					<img class="glyphicon glyphicon-menu visible-xs" src="../images/xicon_mobile_nav_menu.svg" ng-click="toggleNav()">
 				</div>
 			</div>
 			
-			<div id="catalogCtrl" class="row glri_content" ng-controller="CatalogCtrl">
+			<div id="catalogCtrl" class="row glri_content">
 				<div id="outerCol" class="col-xs-12">
 					<div class="row">
 						<div id="innerCol" class="col-xs-12">
 
 
-<div id="navPane" class="col-left col-xs-3">
+<div id="navPane" class="col-left col-sm-3 hidden-xs">
 
 <div id="nav" class="border" style="height:300px">
 
-	<div id="navBrowse" class="btn-group">
+	<div id="navBrowse" class="btn-group navBrowse">
 		<a ng-repeat="nav in transient.nav" class="btn btn-primary btn-horizontal" 
 			preventDefault href="javascript:void(0)"
 			ng-click="doNavRoot(nav.title)" ng-class="navShow(nav.title) ?'active' :'' " ng-bind="nav.title"></a>
@@ -99,7 +100,7 @@
 	
 	<a href="https://www.sciencebase.gov/catalog/items?community=Great+Lakes+Restoration+Initiative"
 		 target="_blank" title="ScienceBase, a repository of projects, data and metadata">
-		<img width="206" src="style/image/darkblue/sciencebase.png" alt="Science Base attribution icon">
+		<img class="powered-img" src="style/image/darkblue/sciencebase.png" alt="Science Base attribution icon">
 	</a>
 
 </div><!-- nav -->
@@ -107,7 +108,7 @@
 </div><!-- navPane -->
 
 
-<div id="contentPane" class="col-right col-xs-9">
+<div id="contentPane" class="col-right col-sm-9 col-xs-12">
 
 	<div class="border">
 
@@ -121,7 +122,7 @@
 
 		<div ng-if="contentShow('BeachHealth')" >
 		<div>
-			<img src="../style/image/darkblue/official_logo_glri.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
+			<img src="../style/image/darkblue/glri_logo.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
 			<div class="largetitle">GLRI Beach Health Webinar Feb11 2014</div>
 		</div>
 		<center>
