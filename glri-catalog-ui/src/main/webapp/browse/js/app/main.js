@@ -78,7 +78,7 @@ function($scope, $http, $filter, $location) {
 	
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
-	$scope.transient = {};
+	$scope.transient = {allProjects:[]};
 	
 	$scope.transient.nav = [
 	                    { title:'Home'},
@@ -383,17 +383,33 @@ function($scope, $http, $filter, $location) {
 	 * 
 	 * @param {type} sbItem
 	 * @param {type} focusArea
-	 * @returns {undefined}
+	 * @returns {project}
 	 */
 	var addProjectToTabList = function(item, focusArea) {
+		
+		var dateCreated=""
+		for (var d in item.dates) {
+			var date = item.dates[d]
+			if (date.type === "dateCreated") {
+				dateCreated = date.dateString
+				break
+			}
+		}
+		
+		var project = {
+			title:      item.title,
+			id:         item.id,
+			item:       item,
+			dateCreated:dateCreated,
+			contacts:   item.contactText,
+			templates:  item.templates,
+		}
+		
 		var fa = $scope.transient.focusAreas[focusArea]
-		fa.items.push({
-			title:     item.title,
-			id:        item.id,
-			item:      item,
-			contacts:  item.contactText,
-			templates: item.templates,
-		});
+		fa.items.push(project)
+		$scope.transient.allProjects.push(project)
+		
+		return project
 	}
 
 
@@ -502,7 +518,7 @@ function($scope, $http, $filter, $location) {
 	var buildDataUrl = function() {
 		var url = getBaseQueryUrl();
 		url += "resource=" + encodeURI("Project&");
-		url += "fields=" + encodeURI("tags,title,contacts,hasChildren,webLinks,purpose,body");
+		url += "fields=" + encodeURI("tags,title,contacts,hasChildren,webLinks,purpose,body,dates");
 		
 		return url;
 	};
