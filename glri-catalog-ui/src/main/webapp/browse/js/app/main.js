@@ -85,6 +85,11 @@ function($scope, $http, $filter, $location) {
 	              	    { title:'Browse'},
 	              	    { title:'Search'},
 	              	];
+	
+	window.clickNav = function(){
+		setTimeout(function(){doNav(true)},10)		
+	}
+	
 	var doNav = function(init) {
 	
 	  try {
