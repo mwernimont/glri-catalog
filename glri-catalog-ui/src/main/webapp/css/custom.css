@@ -1,5 +1,6 @@
 .powered-img {
-	width:100%
+	width:100%;
+	max-width: 175px;
 }
 
 .center {
@@ -556,6 +557,9 @@ ul.list-tick {
 @media (min-width: 1200px) {
 	.glri_content .btn-vertical {
 		font-size: 18px;
+	}
+	.font-large {
+		font-size: 250% !important;	
 	}
 	.content2col .border {
 		height:700px;
