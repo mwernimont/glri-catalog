@@ -23,11 +23,6 @@
 			<h4>Contacts</h4>
 			<p class="point-of-contact" ng-bind-html="transient.currentItem.contactHtml"></p>
 			
-			<div ng-if="transient.currentItem.dateCreated">
-			<h4>Date Entered</h4>
-			<p ng-bind="transient.currentItem.dateCreated.split('T')[0]"></p>
-			</div>
-			
 			<h4>For more information</h4>
 			<p> see all of this project's metadata in 
 				<a title="Click to go directly to this record in ScienceBase" href="{{transient.currentItem.url}}" 
