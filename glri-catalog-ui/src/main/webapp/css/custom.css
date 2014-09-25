@@ -554,8 +554,8 @@ ul.list-tick {
 	}
 }
 @media (min-width: 1200px) {
-	.font-large {
-		font-size: 250% !important;	
+	.glri_content .btn-vertical {
+		font-size: 18px;
 	}
 	.content2col .border {
 		height:700px;

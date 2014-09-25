@@ -36,8 +36,18 @@ GLRICatalogApp.directive("glriFocusArea",[function(){
 		restrict   : 'E', //AEC
 		replace    : true,
 		transclude : true,
-		scope      : true,
+		scope      : true, // sub-scope
 		templateUrl: 'templates/contentFocusArea.html',
+		
+		link : function($scope, $el, $attrs) {
+			if ($attrs.focusArea==='all') {
+				$scope.focusArea = 'all'
+				$scope.projects  = $scope.transient.allProjects
+			} else {
+				$scope.focusArea = $scope.transient.focusAreas[$attrs.focusArea]
+				$scope.projects  = $scope.transient.focusAreas[$attrs.focusArea].items
+			}
+		}
 	}	
 }])
 

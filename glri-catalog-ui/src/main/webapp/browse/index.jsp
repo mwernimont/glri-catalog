@@ -117,7 +117,8 @@
 		<glri-invasive       ng-if="contentShow('Invasive')"></glri-invasive>
 		<glri-project-lists  ng-if="contentShow('ProjectLists')"></glri-project-lists>
 		
-		<glri-focus-area     ng-if="contentShow('Browse',0,false) && loadedFocusAreas(transient.currentFA)"></glri-focus-area>
+		<glri-focus-area     focus-area="all"                ng-if="contentShow('Browse',0,false) && !transient.currentFA"></glri-focus-area>
+		<glri-focus-area     focus-area="{{transient.currentFA}}"  ng-if="transient.currentFA && contentShow('Browse',0,false) && loadedFocusAreas(transient.currentFA)"></glri-focus-area>
 		<glri-project-detail ng-if="contentShow('Browse',0,true)"></glri-project-detail>
 
 		<div ng-if="contentShow('BeachHealth')" >
