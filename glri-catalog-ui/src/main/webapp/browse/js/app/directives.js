@@ -51,6 +51,20 @@ GLRICatalogApp.directive("glriFocusArea",[function(){
 	}	
 }])
 
+GLRICatalogApp.directive("glriPublications",[function(){
+	return {
+		restrict   : 'E', //AEC
+		replace    : true,
+		transclude : true,
+		scope      : true, // sub-scope
+		templateUrl: 'templates/contentPublications.html',
+		
+		link : function($scope, $el, $attrs) {
+			$scope.publications  = $scope.transient.allPublications
+		}
+	}	
+}])
+
 GLRICatalogApp.directive("glriAsianCarp",[function(){
 	return {
 		restrict   : 'E', //AEC
