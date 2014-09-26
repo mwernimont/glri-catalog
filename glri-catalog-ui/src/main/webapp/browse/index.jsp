@@ -116,6 +116,7 @@
 		<glri-asian-carp     ng-if="contentShow('AsianCarp')"></glri-asian-carp>
 		<glri-invasive       ng-if="contentShow('Invasive')"></glri-invasive>
 		<glri-project-lists  ng-if="contentShow('ProjectLists')"></glri-project-lists>
+		<glri-publications   ng-if="contentShow('Publications')"></glri-publications>
 		
 		<glri-focus-area     focus-area="all"                ng-if="contentShow('Browse',0,false) && !transient.currentFA"></glri-focus-area>
 		<glri-focus-area     focus-area="{{transient.currentFA}}"  ng-if="transient.currentFA && contentShow('Browse',0,false) && loadedFocusAreas(transient.currentFA)"></glri-focus-area>

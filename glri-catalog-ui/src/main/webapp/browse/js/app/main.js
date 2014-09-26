@@ -78,7 +78,7 @@ function($scope, $http, $filter, $location) {
 	
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
-	$scope.transient = {allProjects:[]};
+	$scope.transient = {allProjects:[], allPublications:[]};
 	
 	$scope.transient.nav = [
 	                    { title:'Home'},
@@ -207,12 +207,34 @@ function($scope, $http, $filter, $location) {
 		}).error(function(data, status, headers, config) {
 			alert("Unable to connect to ScienceBase.gov to find records.");
 		});
+		
+		$http.get(buildPubUrl()).success(function(data, status, headers, config) {
+			processPublicationResponse(data);
+		}).error(function(data, status, headers, config) {
+			alert("Unable to connect to ScienceBase.gov to find publications.");
+		});
+
 
 	};
 	
+	var processPublicationResponse = function(unfilteredJsonData) {
+
+		if (angular.isDefined(unfilteredJsonData) 
+		 && angular.isDefined(unfilteredJsonData.items) ) {
+			
+			var items = unfilteredJsonData.items;
+
+			for (var i = 0; i < items.length; i++) {
+				
+				var item = processItem(items[i]);
+				$scope.transient.allPublications.push(item)				
+			}
+		}
+		
+		setTimeout(function(){$scope.$apply()},10)
+	}
 	
 	var processProjectListResponse = function(unfilteredJsonData) {
-		rawResult = unfilteredJsonData;
 		
 		if (angular.isDefined(unfilteredJsonData) 
 		 && angular.isDefined(unfilteredJsonData.items) ) {
@@ -241,22 +263,11 @@ function($scope, $http, $filter, $location) {
 	};
 	
 	
-	var processItem = function(item) {
-
-		var link = item['link']['url'];
-		item['url'] = link;
-		item['mainLink'] = findLink(item["webLinks"], ["home", "html", "index page"], true);
-		item['browseImage'] = findBrowseImage(item);
-
-		//Have we loaded child records yet?  (hint: no)
-		item['childRecordState'] = "notloaded";
-
-
+	var processContacts = function(item, includeHTML) {
 		//build contactText
-		var contacts = item['contacts'];
+		var contacts = item.contacts;
 		var contactText = "";	//combined contact text
 		var contactHtml = "";	//combined contact text
-		var tags = item.tags;
 		
 		if (contacts) {
 			var sep = "";
@@ -280,13 +291,31 @@ function($scope, $http, $filter, $location) {
 		if (contactText.length === 0) {
 			contactText = "[No contact information listed]";
 		}
-		item.contactText = contactText;
-		item.contactHtml = contactHtml;
 		
+		item.contactText = contactText;
+		
+		if (includeHTML) {
+			item.contactHtml = contactHtml;
+		}
+	}
+	
+	var processItem = function(item) {
+
+		item.item = item // self link for publications
+		item.url  = item.link.url;
+		item.mainLink    = findLink(item.webLinks, ["home", "html", "index page"], true);
+		item.browseImage = findBrowseImage(item);
+		item.dateCreated = findDate(item.dates, "dateCreated")
+
+		//Have we loaded child records yet?  (hint: no)
+		item.childRecordState = "notloaded";
+
+		processContacts(item, true)
 		
 		//Add template info
 		item.templates = [];
 		
+		var tags = item.tags;
 		if (tags) {
 			for (var j = 0; j < tags.length; j++) {
 				var tag = tags[j];
@@ -299,6 +328,16 @@ function($scope, $http, $filter, $location) {
 		return item;
 	};
 	
+	
+	var findDate = function(dates, type) {
+		for (var d in dates) {
+			var date = dates[d]
+			if (date.type === type) {
+				return date.dateString
+			}
+		}
+		return "none"
+	}
 	
 	/**
 	 * Finds a link from a list of ScienceBase webLinks based on a list
@@ -392,14 +431,6 @@ function($scope, $http, $filter, $location) {
 	 */
 	var addProjectToTabList = function(item, focusArea) {
 		
-		for (var d in item.dates) {
-			var date = item.dates[d]
-			if (date.type === "dateCreated") {
-				item.dateCreated = date.dateString
-				break
-			}
-		}
-		
 		var project = {
 			title:      item.title,
 			id:         item.id,
@@ -472,57 +503,19 @@ function($scope, $http, $filter, $location) {
 	};
 	
 	
-	/**
-	 * Loads child records to the parent records as:
-	 * parentRecord.childItems
-	 * parentRecord.childRecordState
-	 * childItems is an array of child records.
-	 * childRecordState is one of:
-	 * notloaded : nothing has been done w/ child items
-	 * loading : Attempting to load the child records for this parent
-	 * complete : Completed loading child records
-	 * failed : Failed to load the child records
-	 * closed : Records were loaded, but the user has closed them (they are still assigned to childItems).
-	 * 
-	 * 
-	 * @param {type} parentRecord
-	 * @returns {undefined}
-	 */
-	$scope.loadChildItems = function(parentRecord) {
-
-		if (parentRecord.childRecordState == "closed") {
-			//already loaded
-			parentRecord.childRecordState = "complete";
-		} else {
-			var url = getBaseQueryUrl() + "folder=" + parentRecord.id;
-
-			parentRecord.childRecordState = "loading";
-
-			$http.get(url).success(function(data) {
-				var childItems = $scope.processGlriResults(data.items);
-				childItems = $filter('orderBy')(childItems, $scope.userState.orderProp);
-
-				parentRecord.childItems = childItems;
-
-				parentRecord.childRecordState = "complete";
-
-			}).error(function(data, status, headers, config) {
-				parentRecord.childRecordState = "failed";
-				alert("Unable to connect to ScienceBase.gov to find child records.");
-			});
-		}
-	};
-	
-	
 	var getBaseQueryUrl = function() {
 		return "../ScienceBaseService?";
 	};
-
-	
 	var buildDataUrl = function() {
 		var url = getBaseQueryUrl();
 		url += "resource=" + encodeURI("Project&");
 		url += "fields=" + encodeURI("tags,title,contacts,hasChildren,webLinks,purpose,body,dates");
+		
+		return url;
+	};
+	var buildPubUrl = function() {
+		var url = getBaseQueryUrl();
+		url += "resource=" + encodeURI("Publication");
 		
 		return url;
 	};

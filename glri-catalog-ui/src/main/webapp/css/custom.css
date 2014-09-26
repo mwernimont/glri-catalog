@@ -57,6 +57,7 @@ div.twigs {
 
 #sb-query-form .btn-primary {
 	width:auto;
+	padding:4px;
 }
 
 .template-list {
@@ -547,7 +548,7 @@ ul.list-tick {
 		font-size: 16px;
 	}
 	.font-large {
-		font-size: 250% !important;	
+		font-size: 250% !important;
 	}
 	.navHomeEntry .descr {
 		float: right;
