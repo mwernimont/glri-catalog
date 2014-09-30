@@ -244,10 +244,8 @@
 								</p>
 							</div>
 							
-							<div class="record-load-progress" ng-if="isSearching">
-								<span class="glyphicon glyphicon-repeat"></span>
-							</div>
-
+							<glri-loading state="isSearching"></glri-loading>
+							
 							<ul id="glri-records" class="result-records">
 								<li ng-repeat="record in pageRecords" class="{{record.resource}}">
 									<div class="resource-icon">
@@ -273,11 +271,7 @@
 									</div>
 									<p class="summary">{{record.summary}}</p>
 									
-									<div ng-if="record.childRecordState == 'loading'" class="progress progress-striped active">
-										<div class="progress-bar"  role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
-											<span>Loading...</span>
-										</div>
-									</div>
+									<glri-loading state="record.childRecordState"></glri-loading>
 									
 									<div ng-if="record.childItems &amp;&amp; record.childRecordState == 'complete'" class="child-records">
 										<div class="list-head clearfix">

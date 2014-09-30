@@ -200,6 +200,40 @@ function($scope, $http, $filter, $location) {
 	var rawResult = undefined;	// array of all the returned items, UNprocessed
 
 	
+	var loadChildItems = function(parentRecord) {
+		
+		if (parentRecord.publications !== 'loading') {
+			return
+		}
+		
+		if (parentRecord.childRecordState == "closed") {
+			parentRecord.childRecordState = "complete";			//already loaded
+			
+		} else {
+			parentRecord.childRecordState = "loading";
+			var url = getBaseQueryUrl() + "folder=" + parentRecord.id;
+			url += "&fields=" + encodeURI("url,title,contacts,summary,dateCreated,facets")
+
+
+			$http.get(url).success(function(data) {
+				processPublicationResponse(data, parentRecord.publications=[]);
+				//var childItems = processPub(data.items);
+				//childItems = $filter('orderBy')(childItems, $scope.userState.orderProp);
+
+				//parentRecord.childItems = childItems;
+
+				parentRecord.childRecordState = "complete";
+				
+				if (parentRecord.publications.length===0) {
+					parentRecord.publications = undefined
+				}
+
+			}).error(function(data, status, headers, config) {
+				parentRecord.childRecordState = "failed";
+				alert("Unable to connect to ScienceBase.gov to find child records.");
+			});
+		}
+	};	
 	var loadProjectLists = function() {
 
 		$http.get(buildDataUrl()).success(function(data, status, headers, config) {
@@ -209,15 +243,14 @@ function($scope, $http, $filter, $location) {
 		});
 		
 		$http.get(buildPubUrl()).success(function(data, status, headers, config) {
-			processPublicationResponse(data);
+			processPublicationResponse(data, $scope.transient.allPublications);
 		}).error(function(data, status, headers, config) {
 			alert("Unable to connect to ScienceBase.gov to find publications.");
 		});
 
-
 	};
 	
-	var processPublicationResponse = function(unfilteredJsonData) {
+	var processPublicationResponse = function(unfilteredJsonData, collection) {
 
 		if (angular.isDefined(unfilteredJsonData) 
 		 && angular.isDefined(unfilteredJsonData.items) ) {
@@ -225,13 +258,29 @@ function($scope, $http, $filter, $location) {
 			var items = unfilteredJsonData.items;
 
 			for (var i = 0; i < items.length; i++) {
-				
-				var item = processItem(items[i]);
-				$scope.transient.allPublications.push(item)				
+				var pub = processPublication(items[i])
+				collection.push(pub)
 			}
 		}
 		
 		setTimeout(function(){$scope.$apply()},10)
+	}
+	
+	var processPublication = function(pub) {
+		pub = processItem(pub);
+		
+		pub.item = pub // self link for publications
+		
+		var citation
+		for (var f in pub.facets) {
+			var facet = pub.facets[f]
+			if (facet.facetName === "Citation") {
+				citation = facet.note.replace(/;(\S)/g,"; $1")
+			}
+		}
+		pub.citation = citation
+		
+		return pub
 	}
 	
 	var processProjectListResponse = function(unfilteredJsonData) {
@@ -301,14 +350,13 @@ function($scope, $http, $filter, $location) {
 	
 	var processItem = function(item) {
 
-		item.item = item // self link for publications
 		item.url  = item.link.url;
 		item.mainLink    = findLink(item.webLinks, ["home", "html", "index page"], true);
 		item.browseImage = findBrowseImage(item);
-		item.dateCreated = findDate(item.dates, "dateCreated")
+//		item.dateCreated = findDate(item.dates, "dateCreated")
 
 		//Have we loaded child records yet?  (hint: no)
-		item.childRecordState = "notloaded";
+		item.childRecordState = "loading";
 
 		processContacts(item, true)
 		
@@ -324,6 +372,8 @@ function($scope, $http, $filter, $location) {
 				}
 			}
 		}
+		
+		item.publications = 'loading' // default to loading until we have the publications
 
 		return item;
 	};
@@ -491,6 +541,7 @@ function($scope, $http, $filter, $location) {
 	
 	var setProjectDetail = function(item) {
 		$scope.transient.currentItem = item;
+		loadChildItems(item)
 		if ( angular.isDefined(item) && angular.isDefined(item.title) ) {
 			ga('send', 'screenview', {
 				  'screenName': item.id +":"+ item.title
@@ -509,14 +560,14 @@ function($scope, $http, $filter, $location) {
 	var buildDataUrl = function() {
 		var url = getBaseQueryUrl();
 		url += "resource=" + encodeURI("Project&");
-		url += "fields=" + encodeURI("tags,title,contacts,hasChildren,webLinks,purpose,body,dates");
+		url += "fields=" + encodeURI("tags,title,contacts,hasChildren,webLinks,purpose,body,dateCreated,parentId");
 		
 		return url;
 	};
 	var buildPubUrl = function() {
 		var url = getBaseQueryUrl();
-		url += "resource=" + encodeURI("Publication");
-		
+		url += "resource=" + encodeURI("Publication&");
+		url += "fields=" + encodeURI("url,title,contacts,summary,dateCreated,facets")
 		return url;
 	};
 	

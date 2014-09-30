@@ -17,7 +17,7 @@ GLRICatalogApp.directive("glriHome",[function(){
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: 'templates/contentHome.html',
+		templateUrl: '/glri-catalog/browse/templates/contentHome.html',
 	}	
 }])
 
@@ -27,7 +27,7 @@ GLRICatalogApp.directive("glriProjectDetail",[function(){
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: 'templates/contentProjectDetail.html',
+		templateUrl: '/glri-catalog/browse/templates/contentProjectDetail.html',
 	}	
 }])
 
@@ -37,7 +37,7 @@ GLRICatalogApp.directive("glriFocusArea",[function(){
 		replace    : true,
 		transclude : true,
 		scope      : true, // sub-scope
-		templateUrl: 'templates/contentFocusArea.html',
+		templateUrl: '/glri-catalog/browse/templates/contentFocusArea.html',
 		
 		link : function($scope, $el, $attrs) {
 			if ($attrs.focusArea==='all') {
@@ -57,7 +57,7 @@ GLRICatalogApp.directive("glriPublications",[function(){
 		replace    : true,
 		transclude : true,
 		scope      : true, // sub-scope
-		templateUrl: 'templates/contentPublications.html',
+		templateUrl: '/glri-catalog/browse/templates/contentPublications.html',
 		
 		link : function($scope, $el, $attrs) {
 			$scope.publications  = $scope.transient.allPublications
@@ -71,7 +71,7 @@ GLRICatalogApp.directive("glriAsianCarp",[function(){
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: 'templates/contentAsianCarp.html',
+		templateUrl: '/glri-catalog/browse/templates/contentAsianCarp.html',
 	}		
 }])
 
@@ -81,7 +81,7 @@ GLRICatalogApp.directive("glriInvasive",[function(){
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: 'templates/contentInvasive.html',
+		templateUrl: '/glri-catalog/browse/templates/contentInvasive.html',
 	}		
 }])
 GLRICatalogApp.directive("glriProjectLists",[function(){
@@ -90,7 +90,7 @@ GLRICatalogApp.directive("glriProjectLists",[function(){
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: 'templates/contentProjectLists.html',
+		templateUrl: '/glri-catalog/browse/templates/contentProjectLists.html',
 	}		
 }])
 
@@ -102,7 +102,26 @@ GLRICatalogApp.directive("glriNavHome",[function(){
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: 'templates/navHome.html',
+		templateUrl: '/glri-catalog/browse/templates/navHome.html',
+	}	
+}])
+
+
+GLRICatalogApp.directive("glriLoading",['$parse', function($parse){
+	return {
+		restrict   : 'E', //AEC
+		replace    : true,
+		transclude : true,
+		scope      : true, // sub-scope
+		templateUrl: '/glri-catalog/browse/templates/glriLoading.html',
+		
+		link : function($scope, $el, $attrs) {
+			$scope.isLoading = $parse($attrs.state)() === 'loading'
+
+			$scope.$watch($attrs.state, function(foo) {
+				$scope.isLoading = (foo === 'loading')
+			})
+		}
 	}	
 }])
 
