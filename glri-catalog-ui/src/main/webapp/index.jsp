@@ -25,6 +25,7 @@
 
 		<script type="text/javascript" src="${pageScope.rootPath}webjars/jquery/2.1.0/jquery.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}webjars/angularjs/1.2.16/angular.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}webjars/angular-sanitize/1.2.16/angular-sanitize.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}webjars/openlayers/2.13.1/OpenLayers.js"></script>
 
@@ -58,12 +59,12 @@
 						<div class="row">
 							<div class="col-xs-12">
 								<div id="nav" class="well">
-	<div id="navBrowse" class="btn-group">
-		<a preventDefault ng-repeat="nav in transient.nav" ng-bind="nav.title" 
-				class="btn btn-primary btn-horizontal" href="{{'browse/index.jsp#'+nav.title}}"
-				ng-class="navShow(nav.title) ?'active' :'' "></a>
-	</div>
-	<hr/>
+									<div id="navBrowse" class="btn-group">
+										<a preventDefault ng-repeat="nav in transient.nav" ng-bind-html="nav.title" 
+												class="btn btn-primary btn-horizontal" href="{{'browse/index.jsp#'+nav.title}}"
+												ng-class="navShow(nav.title) ?'active' :'' "></a>
+									</div>
+									<hr/>
 									<div class="row map">
 										<div class="col-xs-12">
 											<div id="map" class="boundingMap"></div>
@@ -133,7 +134,7 @@
 										<div>
 											<select class="form-control" name="template" id="template_input" title="Any" ng-model="model.template" tooltip-placement="right" tooltip="Limit results to a GLRI funding template. Projects are associated with one or more templates.">
 												<option value="" disabled selected>Template</option>
-												<option ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="{{entry.key}}">{{entry.display}}</option>
+												<option ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="{{entry.key}}" ng-bind-html="entry.display"></option>
 											</select>
 										</div>
 									</div>
@@ -144,7 +145,7 @@
 												<img ng-src="${pageScope.rootPath}style/image/darkblue/{{name | lowercase}}.svg" ng-if="key != '1'" class="pull-left"/>
 												<div class="noImgPadding" ng-if="key==='1'"></div>
 												<span ng-if="key != '1'" class="badge pull-right"></span>
-												<span class="value">{{name}}</span>
+												<span class="value" ng-bind-html="name"></span>
 											</button>
 										</div>
 									</div>
@@ -180,7 +181,7 @@
 											<label class="control-label col-xs-4">Sort by:&nbsp;</label>
 											<div class="col-xs-8">
 												<select class="form-control" ng-model="userState.orderProp" ng-change="sortChange()" data-width="auto">
-													<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}">{{sortOption.display}}</option>
+													<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}" ng-bind-html="sortOption.display"></option>
 												</select>
 											</div>
 										</div>
@@ -200,7 +201,8 @@
 									<div class="col-xs-6 col-sm-12 col-md-6 page-nav-settings text-right">
 										<span class="selectable-list">
 											<span>Show</span>
-											<a href="" class="item" ng-repeat="ps in pageRecordsPerPageOptions" ng-class="(pageSize==ps)?'current':'non-current'" ng-click="setPageSize(ps)">{{ps}}</a>
+											<a href="" class="item" ng-repeat="ps in pageRecordsPerPageOptions" ng-class="(pageSize==ps)?'current':'non-current'" 
+											ng-click="setPageSize(ps)" ng-bind="ps"></a>
 											<span>results per page</span>
 										</span>
 									</div>
@@ -247,17 +249,17 @@
 							<glri-loading state="isSearching"></glri-loading>
 							
 							<ul id="glri-records" class="result-records">
-								<li ng-repeat="record in pageRecords" class="{{record.resource}}">
+								<li ng-repeat="record in pageRecords" ng-class="record.resource">
 									<div class="resource-icon">
 										<a title="{{record.resource}}: Click to go directly to this record in ScienceBase" href="{{record.url}}" target="_blank">
 											<img ng-src="${pageScope.rootPath}style/image/darkblue/{{record.resource}}.svg" />
 										</a>
 									</div>
-									<h4>{{record.title}}</h4>
-									<p class="point-of-contact">{{record.contactText}}</p>
+									<h4 ng-bind-html="record.title"></h4>
+									<p class="point-of-contact" ng-bind-html="record.contactText"></p>
 									<div class="related-links" ng-if="record.mainLink || (record.hasChildren == true)">
 										<div ng-if="record.mainLink">
-											<a href="{{record.mainLink.url}}" target="_blank">{{record.mainLink.title}}</a>
+											<a href="{{record.mainLink.url}}" target="_blank" ng-bind-html="record.mainLink.title"></a>
 										</div>
 										<div ng-if="record.hasChildren == true">
 											<a href="" ng-click="toggleChildItems(record)">Publications and Datasets
@@ -269,7 +271,7 @@
 											</a>
 										</div>
 									</div>
-									<p class="summary">{{record.summary}}</p>
+									<p class="summary" ng-bind-html="record.summary"></p>
 									
 									<glri-loading state="record.childRecordState"></glri-loading>
 									
@@ -279,20 +281,20 @@
 											<h4>{{record.childItems.length}} Child record(s) (projects and datasets)</h4>
 										</div>
 										<ul>
-											<li ng-repeat="child in record.childItems" class="{{child.resource}}">
+											<li ng-repeat="child in record.childItems" ng-class="child.resource">
 												<div class="resource-icon">
 													<a title="{{child.resource}}: Click to go directly to this record in ScienceBase" href="{{child.url}}" target="_blank">
 														<img ng-src="${pageScope.rootPath}style/image/darkblue/{{child.resource}}.svg" />
 													</a>
 												</div>
-												<h4>{{child.title}}</h4>
-												<p class="point-of-contact">{{child.contactText}}</p>
+												<h4 ng-bind-html="child.title"></h4>
+												<p class="point-of-contact" ng-bind-html="child.contactText"></p>
 												<div class="related-links">
 													<div ng-if="child.mainLink">
-														<a href="{{child.mainLink.url}}" target="_blank">{{child.mainLink.title}}</a>
+														<a href="{{child.mainLink.url}}" target="_blank" ng-bind-html="child.mainLink.title"></a>
 													</div>
 												</div>
-												<p class="summary">{{child.summary}}</p>
+												<p class="summary" ng-bind-html="child.summary"></p>
 											</li>
 										</ul>
 										<div class="list-foot clearfix">
@@ -333,7 +335,7 @@
 											<label class="control-label col-xs-4">Sort by:&nbsp;</label>
 											<div class="col-xs-8">
 												<select class="form-control" ng-model="userState.orderProp" ng-change="sortChange()" data-width="auto">
-													<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}">{{sortOption.display}}</option>
+													<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}" ng-bind-html="sortOption.display"></option>
 												</select>
 											</div>
 										</div>
@@ -353,7 +355,8 @@
 									<div class="col-xs-6 col-sm-12 col-md-6 page-nav-settings text-right" ng-if="filteredRecords.length > 0">
 										<span class="selectable-list">
 											<span>Show</span>
-											<a href="" class="item" ng-repeat="ps in pageRecordsPerPageOptions" ng-class="(pageSize==ps)?'current':'non-current'" ng-click="setPageSize(ps)">{{ps}}</a>
+											<a href="" class="item" ng-repeat="ps in pageRecordsPerPageOptions" ng-class="(pageSize==ps)?'current':'non-current'" 
+												ng-click="setPageSize(ps)" ng-bind="ps"></a>
 											<span>results per page</span>
 										</span>
 									</div>
