@@ -379,10 +379,6 @@ function($scope, $http, $filter, $location) {
 			}
 		}
 		
-		if (item.body) {
-			item.body = item.body.replace("Description of Work",'')
-		}
-		
 		item.publications = 'loading' // default to loading until we have the publications
 
 		return item;
