@@ -1,7 +1,7 @@
 'use strict';
 
 /* Controllers */
-var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap']);
+var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap','ngSanitize']);
 
 GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeout) {
 
