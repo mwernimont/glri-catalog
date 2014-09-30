@@ -57,15 +57,19 @@ function($scope, $http, $filter, $location) {
 		return angular.isDefined(navs)  &&  navs.indexOf(nav)!=-1
 	}
 	$scope.contentShow = function(nav, index, detail) {
-		var navs = $scope.transient.currentNav
-		index = angular.isDefined(index) ?index :navs.length-1
-		var show = angular.isDefined(navs)  &&  navs[index]===nav
+		var show = isNav(nav,index)
 		if (detail) {
 			show = show &&   angular.isDefined($scope.transient.currentItem)
 		} else {
 			show = show && ! angular.isDefined($scope.transient.currentItem)
 		}
 		return show
+	}
+	var isNav = function(nav, index) {
+		var navs = $scope.transient.currentNav
+		index = angular.isDefined(index) ?index :navs.length-1
+		var isNav = angular.isDefined(navs)  &&  navs[index]===nav
+		return isNav
 	}
 
 
@@ -556,6 +560,9 @@ function($scope, $http, $filter, $location) {
 	}
 	$scope.loadProjectDetail = function(item) {
 		setProjectDetail(item)
+		if ( isNav('Browse') ) {
+			setNavAdd('all')
+		}
 		$scope.doNavAdd(item.id)
 	};
 	
