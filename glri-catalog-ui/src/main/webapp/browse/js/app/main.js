@@ -36,7 +36,7 @@ function($scope, $http, $filter, $location) {
 	}	
 	$scope.doNavRoot = function(nav) {
 		setNavRoot(nav)
-				
+		
 		if (nav === 'Search') {
 			window.location.href='/glri-catalog';
 		}
