@@ -85,8 +85,8 @@
 
 	<div id="navBrowse" class="btn-group navBrowse">
 		<a ng-repeat="nav in transient.nav" class="btn btn-primary btn-horizontal" 
-			preventDefault href="javascript:void(0)"
-			ng-click="doNavRoot(nav.title)" ng-class="navShow(nav.title) ?'active' :'' " ng-bind="nav.title"></a>
+			preventDefault href="javascript:void(0)" ng-click="doNavRoot(nav.title)" 
+			ng-class="navShow(nav.title) ?'active' :'' " ng-bind="nav.title"></a>
 	</div>
 	<hr/>
 	
