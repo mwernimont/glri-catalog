@@ -20,15 +20,16 @@
 	<h4>Description of Work</h4>
 	<p class="description-of-work" ng-bind-html="transient.currentItem.body"></p>
 	
-	<h4>Publications</h4>
-	<p   ng-if=" ! transient.currentItem.publications">none</p>
-	<div style="width:200px" ng-if="transient.currentItem.publications==='loading'">
-		<glri-loading state="transient.currentItem.publications"></glri-loading>
-	</div>
-	<div ng-if="transient.currentItem.publications && transient.currentItem.publications!=='loading'">
-		<p ng-repeat="publication in transient.currentItem.publications | orderBy:'dateCreated':true">
-			<a href="{{publication.url}}" target="_blank" ng-bind-html="publication.citation"></a>
-		</p>
+	<div ng-if="transient.currentItem.publications">
+		<h4>Publications</h4>
+		<div style="width:200px" ng-if="transient.currentItem.publications==='loading'">
+			<glri-loading state="transient.currentItem.publications"></glri-loading>
+		</div>
+		<div ng-if="transient.currentItem.publications && transient.currentItem.publications!=='loading'">
+			<p ng-repeat="publication in transient.currentItem.publications | orderBy:'dateCreated':true">
+				<a href="{{publication.url}}" target="_blank" ng-bind-html="publication.citation"></a>
+			</p>
+		</div>
 	</div>
 	
 	<h4>Contacts</h4>

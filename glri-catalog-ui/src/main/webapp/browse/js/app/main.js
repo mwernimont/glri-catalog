@@ -78,7 +78,7 @@ function($scope, $http, $filter, $location) {
 	
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
-	$scope.transient = {allProjects:[], allPublications:[]};
+	$scope.transient = {allProjects:[], allPublications:[], publicationsLoadStatus:'loading', projectsLoadStatus:'loading'};
 	
 	$scope.transient.nav = [
 	                    { title:'Home'},
@@ -238,12 +238,14 @@ function($scope, $http, $filter, $location) {
 
 		$http.get(buildDataUrl()).success(function(data, status, headers, config) {
 			processProjectListResponse(data);
+			$scope.transient.projectsLoadStatus='done'
 		}).error(function(data, status, headers, config) {
 			alert("Unable to connect to ScienceBase.gov to find records.");
 		});
 		
 		$http.get(buildPubUrl()).success(function(data, status, headers, config) {
 			processPublicationResponse(data, $scope.transient.allPublications);
+			$scope.transient.publicationsLoadStatus='done'
 		}).error(function(data, status, headers, config) {
 			alert("Unable to connect to ScienceBase.gov to find publications.");
 		});
