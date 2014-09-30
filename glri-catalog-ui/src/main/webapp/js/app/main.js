@@ -139,7 +139,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		event.preventDefault();
 		event.stopPropagation();
 		
-		$scope.isSearching = true;
+		$scope.isSearching = 'loading';
 		$http.get($scope.buildDataUrl()).success(function(data) {
 			$scope.processRawScienceBaseResponse(data);
 			$scope.isUIFresh = false;

@@ -9,11 +9,10 @@
 			
 			<a href="{{publication.url}}" target="_blank">
 			
-				<h3 ng-bind="publication.title" style="font-size: 16px;"></h3>
+				<h3 ng-bind-html="publication.citation" ng-if="publication.citation"  style="font-size: 14px;"></h3>
+				<h3 ng-bind="publication.title"    ng-if=" ! publication.citation" style="font-size: 14px;"></h3>
 				
-				<p ng-bind="publication.contactText" style="margin-top:10px;"></p>
-				
-				<p ng-bind="publication.summary" style="font-weight:normal;"></p>
+				<p ng-bind="publication.summary" style="font-weight:normal;margin-top:5px;"></p>
 			</a>
 			
 		</li>
