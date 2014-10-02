@@ -45,7 +45,7 @@
 		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}css/theme.css"></link>
 
 		<!-- Application custom -->
-		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}css/glri.css" />
 
 		
 <script>

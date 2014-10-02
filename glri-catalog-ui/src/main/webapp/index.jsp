@@ -39,7 +39,7 @@
 		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}style/themes/theme1.css"/>
 
 		<!-- Application custom -->
-		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}css/custom.css" />
+		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}css/glri.css" />
 	</head>
 	<body>
 		<div class="container">
