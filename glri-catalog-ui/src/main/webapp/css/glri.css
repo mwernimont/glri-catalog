@@ -1,5 +1,15 @@
+.description-of-work {
+	margin-left:15px !important;
+}
 .description-of-work h4 {
-	margin-left:-15px;
+	margin-left:-15px !important;
+}
+.description-of-work img {
+	margin-left:15px !important;
+}
+.description-of-work ul {
+	margin-left:15px !important;
+	list-style:disc !important;
 }
 
 .powered-img {
