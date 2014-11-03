@@ -13,7 +13,7 @@
 		<jsp:include page="${pageScope.rootPath}template/USGSHead.jsp">
 			<jsp:param name="relPath" value="${pageScope.rootPath}" />
 			<jsp:param name="shortName" value="${project.name}" />
-			<jsp:param name="title" value="Great Lakes Restoration Initiative (GLRI) Catalog" />
+			<jsp:param name="title" value="Great Lakes Restoration Initiative (GLRI) Science Explorer" />
 			<jsp:param name="description" value="An application that allows the user to search for GLRI Projects, Datasets and Publications.  Actual data and metadata are kept in ScienceBase (sciencebase.gov)" />
 			<jsp:param name="author" value="Great Lakes Restoration Initiative (GLRI), GLRI" />
 			<jsp:param name="keywords" value="Great Lakes Restoration Initiative, GLRI, ScienceBase" />
@@ -48,8 +48,7 @@
 					<jsp:include page="${pageScope.rootPath}template/header.jsp">
 						<jsp:param name="relPath" value="${pageScope.rootPath}" />
 						<jsp:param name="header-class" value="" />
-						<jsp:param name="site-title" value="Great Lakes RESTORATION Initiative Science Explorer" />
-						<jsp:param name="site-sub-title" value="Discover USGS Science in the Great Lakes" />
+						<jsp:param name="site-title" value="Great Lakes Restoration Initiative (GLRI)" />
 					</jsp:include>
 				</div>
 			</div>
@@ -215,7 +214,9 @@
 							<!--Body content-->
 							
 							<div class="well well-sm clearfix" ng-if="isUIFresh">
-								<h4>Welcome to the Great Lakes Restoration Initiative Science Explorer!</h4>
+								<h4>Welcome to the Great Lakes RESTORATION Initiative Science Explorer!</h4>
+								<h4>Discover USGS Science in the Great Lakes</h4>
+								
 								<p>The Great Lakes Restoration Initiative (GLRI) is a wide-ranging,
 									coordinated effort between many organizations and individuals to help the Great Lakes recover economically and ecologically.
 									Driven by cross-disciplinary integrative science and conducted in collaboration with partners,
