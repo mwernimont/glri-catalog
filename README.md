@@ -8,7 +8,7 @@ GLRI Website and Science Explorer
   [
     <span property="dct:title">The Center For Integrated Data Analytics</span>](http://cida.usgs.gov/)
   has waived all copyright and related or neighboring rights to
-  <span property="dct:title">The GLRI-ScienceBase-Integration</span>.
+  <span property="dct:title">The GLRI Website and Science Explorer</span>.
 This work is published from:
 <span property="vcard:Country" datatype="dct:ISO3166"
       content="US" about="http://cida.usgs.gov/">
