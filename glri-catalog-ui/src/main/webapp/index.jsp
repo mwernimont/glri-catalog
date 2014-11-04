@@ -214,26 +214,22 @@
 							<!--Body content-->
 							
 							<div class="well well-sm clearfix" ng-if="isUIFresh">
-								<h4>Welcome to the Great Lakes RESTORATION Initiative Science Explorer!</h4>
-								<h4>Discover USGS Science in the Great Lakes</h4>
-								
-								<p>The Great Lakes Restoration Initiative (GLRI) is a wide-ranging,
-									coordinated effort between many organizations and individuals to help the Great Lakes recover economically and ecologically.
-									Driven by cross-disciplinary integrative science and conducted in collaboration with partners,
-									U.S. Geological Survey (USGS) researchers are working to provide resource managers with the information and
-									decision-making tools they need to help restore the Great Lakes.
+								<strong style="color:#036;font-size:16px">Welcome to the Great Lakes RESTORATION Initiative Science Explorer!</strong>
+								<br>
+								<i style="color:#036">Discover USGS Science in the Great Lakes</i>
+								<br>
+								<br>
+								<p>The Great Lakes Restoration Initiative (GLRI) is a wide-ranging, coordinated effort between many organizations and individuals to help the Great Lakes recover economically and ecologically. Driven by cross-disciplinary integrative science and conducted in collaboration with partners, U.S. Geological Survey (USGS) researchers are working to provide resource managers with the information and decision-making tools they need to help restore the Great Lakes.
 								</p>
 
-								<h4>What is the GLRI Science Explorer?</h4>
-								<p>The GLRI Science Explorer is a search tool that allows you to seek out and
-									discover the valuable research USGS scientists are conducting in the Great Lakes region.
+								<strong>What is the GLRI Science Explorer?</strong>
+								<br>
+								<p>The GLRI Science Explorer is a search tool that allows you to seek out and discover the valuable research USGS scientists are conducting in the Great Lakes region.
 								</p>
 
-								<h4>How does it work?</h4>
+								<strong>How does it work?</strong>
 								<ul>
-									<li>With the search tool you can find information about current and past science projects.
-										Each project record provides details about a study (e.g. study start date, description/abstract,
-										principle investigator and location).</li>
+									<li>With the search tool you can find information about current and past science projects. Each project record provides details about a study (e.g. study start date, description/abstract, principle investigator and location).</li>
 									<li>For each project you can learn about associated information products, data sets and publications, that resulted from the projects.</li>
 								</ul>
 								
