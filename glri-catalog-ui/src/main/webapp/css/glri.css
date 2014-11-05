@@ -160,7 +160,7 @@ ul#ccsa-area {
 }
 
 /* Set the font for the entire app to the USGS standard */
-body div.container * { font-family: Verdana, Arial, Helvetica, sans-serif !important;font-size:12px; }
+body div.container * { font-family: Verdana, Arial, Helvetica, sans-serif, 'Glyphicons Halflings' !important;font-size:12px; }
 
 #site-title { background-color: #036; }
 #site-title img { height: 3em; margin-right: 1em; }
