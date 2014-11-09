@@ -228,7 +228,16 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		
 		if (unfilteredJsonData) {
 			$scope.resultItems = $scope.processGlriResults(unfilteredJsonData.items);
-			$scope.updateFacetCount($scope.rawResult.searchFacets[0].entries);
+			
+			var categories = {};
+			var keys = Object.keys($scope.FACET_DEFS);
+			keys.forEach(function(key) {
+				var category = $scope.FACET_DEFS[key]
+				var entries  = filterResults($scope.resultItems, category)
+				categories[category] = entries.length
+			})			
+			//$scope.updateFacetCount($scope.rawResult.searchFacets[0].entries);
+			$scope.updateFacetCount(categories)
 		} else {
 			$scope.resultItems = $scope.processGlriResults(null);
 			$scope.updateFacetCount(null);
@@ -457,13 +466,12 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 
 			if (facetJsonObject) {
-				for (var i in facetJsonObject) {
-					var term = facetJsonObject[i].term;
-					var count = facetJsonObject[i].count;
-
+				var keys = Object.keys(facetJsonObject);
+				keys.forEach(function(term) {
+					var count = facetJsonObject[term];
 					$scope.currentFacets[term] = count;
 					$('#resource_input button[class~="val-' + term + '"] span[class~="badge"]').html(count);
-				}
+				})
 			}
 		} else {
 			$('#resource_input button span[class~="badge"]').html("");
@@ -471,25 +479,29 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 	};
 
+	var filterResults = function(data, category) {
+		var filtered = new Array();
+
+		for (var i in data) {
+			var item = data[i];
+			if (item.browseCategories && (item.browseCategories[0] == category)) {
+				filtered.push(item);
+//			} else if (! item.browseCategories) {
+//				//We don't know what this thing is - add anyway??
+//				data.push(item);
+			}
+		}
+
+		return filtered;
+	}
+	
 	$scope.getFilteredResults = function() {
 		if ($scope.userState.resourceFilter != null && $scope.resultItems != null) {
 
 			if ($scope.userState.resourceFilter == "1") {
 				return $scope.resultItems;
 			} else {
-				var data = new Array();
-
-				for (var i in $scope.resultItems) {
-					var item = $scope.resultItems[i];
-					if (item.browseCategories && (item.browseCategories[0] == $scope.FACET_DEFS[$scope.userState.resourceFilter])) {
-						data.push(item);
-					} else if (! item.browseCategories) {
-						//We don't know what this thing is - add anyway??
-						data.push(item);
-					}
-				}
-
-				return data;
+				return filterResults($scope.resultItems, $scope.FACET_DEFS[$scope.userState.resourceFilter])
 			}
 		} else {
 			return $scope.resultItems;
