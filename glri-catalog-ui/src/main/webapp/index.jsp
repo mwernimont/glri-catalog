@@ -125,7 +125,7 @@
 												<option value="Toxic Substances">Toxic Substances</option>
 												<option value="Invasive Species">Invasive Species</option>
 												<option value="Nearshore Health">Nearshore Health</option>
-												<option value="Habitat & Wildlife">Habitat &amp; Wildlife</option>
+												<option value="Habitat %26 Wildlife">Habitat &amp; Wildlife</option>
 												<option value="Accountability">Accountability</option>
 											</select>
 										</div>
