@@ -24,6 +24,7 @@ import org.apache.http.util.EntityUtils;
  */
 public class ScienceBaseQuery {
 	
+	
 	public static final String DEFAULT_ENCODING = "UTF-8";
 	
 	private final Format format = Format.UNKNOWN;
@@ -67,8 +68,9 @@ public class ScienceBaseQuery {
 	protected void appendUserParams(Map<String, String[]> requestParams, URIBuilder uriBuild) {
 		for (UserSpecifiedParameters tag : UserSpecifiedParameters.values()) {
 			String val = tag.processParamValue(requestParams.get(tag.getLocalName()));
-			
+
 			if (val != null) {
+				val = val.replace(" %26 ", " & "); // prevent double encoding
 				uriBuild.addParameter(tag.processParamName(val), val);
 			}
 		}
