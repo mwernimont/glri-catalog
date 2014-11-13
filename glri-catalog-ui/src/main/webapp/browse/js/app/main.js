@@ -11,85 +11,158 @@ function($scope, $http, $filter, $location) {
 	$scope.CONST = {};
 	$scope.CONST.FOCUS_AREA_SCHEME = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea";
 	$scope.CONST.TEMPLATE_SCHEME = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates";
+	$scope.CONST.BASE_QUERY_URL = "../ScienceBaseService?";
 
-	
-	var setPath = function(navs) {
-		var path=""
-		var sep=""
-		for (var n in navs) {
-			path += sep + navs[n]
-			sep="/"
-		}
-		$location.path(path)
-	}
-	
-	var isCaptureHistory = true
-	var setCaptureHistory = function(state) {
-		isCaptureHistory = state
-	}
-	
-
-	var setNavRoot = function(nav) {
-		$scope.transient.currentFA   = undefined
-		$scope.transient.currentItem = undefined
-		$scope.transient.currentNav = [nav];
-	}	
-	$scope.doNavRoot = function(nav) {
-		setNavRoot(nav)
-		
-		if (nav === 'Search') {
-			window.location.href='/glri-catalog';
-		}
-		setPath($scope.transient.currentNav)
-	}
-	var setNavAdd = function(nav) {
-		var navs = $scope.transient.currentNav
-		if ( angular.isDefined(navs) ) {
-			navs.push(nav);
-		}
-	}
-	$scope.doNavAdd = function(nav) {
-		setNavAdd(nav)
-		setPath($scope.transient.currentNav)
-	}
-	$scope.navShow = function(nav) {
-		var navs = $scope.transient.currentNav
-		return angular.isDefined(navs)  &&  navs.indexOf(nav)!=-1
-	}
-	$scope.contentShow = function(nav, index, detail) {
-		var show = isNav(nav,index)
-		if (detail) {
-			show = show &&   angular.isDefined($scope.transient.currentItem)
-		} else {
-			show = show && ! angular.isDefined($scope.transient.currentItem)
-		}
-		return show
-	}
-	var isNav = function(nav, index) {
-		var navs = $scope.transient.currentNav
-		index = angular.isDefined(index) ?index :navs.length-1
-		var isNav = angular.isDefined(navs)  &&  navs[index]===nav
-		return isNav
-	}
-
-
-	// Called at the bottom of this JS file
-	var init = function() {
-		doNav(true)
-		loadProjectLists();
-	};
-		
-	
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
-	$scope.transient = {allProjects:[], allPublications:[], publicationsLoadStatus:'loading', projectsLoadStatus:'loading'};
+	$scope.transient = {};
 	
+	//Top level navigation tabs
 	$scope.transient.nav = [
 	                    { title:'Home'},
 	              	    { title:'Browse'},
 	              	    { title:'Search'},
 	              	];
 	
+	//An individually user identified item (type unknown?)
+	//Is this used?
+	$scope.transient.currentItem = undefined;
+	
+	
+	//Unknown what this is
+	$scope.transient.currentNav = undefined;
+	
+	//State of loading from ScienceBase.  Possible values?
+	$scope.transient.projectsLoadStatus = 'loading';
+	
+	//State of loading from ScienceBase.  Possible values?
+	$scope.transient.publicationsLoadStatus = 'loading';
+
+	
+	//??
+	$scope.transient.allPublications = [];
+	
+	//A filtered (or all) list of projects to be displayed on the browse tab
+	$scope.transient.currentProjectList = [];
+	
+	//A focus area objects (see focusareas) that is currently selected on the browse tab
+	$scope.transient.currentFocusArea = undefined;
+
+	//List of possible FocusAreas using the keys in focusAreaOrder.
+	//NOTE:  This could be a constant, but the .items portion is dynamic
+	$scope.transient.focusAreas = {
+		all : {
+			name:'All',
+			description: "Projects for all focus areas",
+			infosheet:undefined,
+			items: []
+		},
+		fats : {
+			name:'Toxic Substances',
+			description: "Toxic Substances and Areas of Concern Projects for the Great Lakes Restoration Initiative",
+			infosheet:"http://cida.usgs.gov/glri/infosheets/GLRI_1_Toxic_Substances.pdf",
+			items: [],
+		},
+		fais : {
+			name:'Invasive Species',
+			description: "Combating Invasive Species Projects for the Great Lakes Restoration Initiative",
+			infosheet:"http://cida.usgs.gov/glri/infosheets/GLRI_2_invasive_species.pdf",
+			items: [],
+		},
+		fanh : {
+			name:'Nearshore Health',
+			description:"Nearshore Health and Watershed Protection Projects for the Great Lakes Restoration Initiative",
+			infoSheet:"http://cida.usgs.gov/glri/infosheets/GLRI_3_Nearshore.pdf",
+			items: [],
+		},
+		fahw : {
+			name:'Habitat & Wildlife',
+			description:"Habitat & Wildlife Protection and Restoration",
+			infosheet:"http://cida.usgs.gov/glri/infosheets/GLRI_4_Habitat_Restore.pdf",
+			items: [],
+		},
+		facc : {
+			name:'Accountability',
+			description :"Tracking Progress and Working with Partners Projects for the Great Lakes Restoration Initiative",
+			infosheet:"http://cida.usgs.gov/glri/infosheets/GLRI_5_Tracking_progress_working_w_partners.pdf",
+			items: [],
+		}
+	};
+	
+	
+	var setPath = function(navs) {
+		var path="";
+		var sep="";
+		for (var n in navs) {
+			path += sep + navs[n];
+			sep="/";
+		}
+		$location.path(path);
+	};
+	
+	var isCaptureHistory = true;
+	var setCaptureHistory = function(state) {
+		isCaptureHistory = state;
+	};
+	
+
+	var setNavRoot = function(nav) {
+		$scope.transient.currentFocusArea = $scope.transient.focusAreas['all'];
+		$scope.transient.currentItem = undefined;
+		$scope.transient.currentNav = [nav];
+	};
+	
+	$scope.doNavRoot = function(nav) {
+		setNavRoot(nav);
+		
+		if (nav === 'Search') {
+			window.location.href='/glri-catalog';
+		} else if (nav === 'Browse') {
+			focusAreaActivate('all');
+		}
+		setPath($scope.transient.currentNav);
+	};
+	
+	var setNavAdd = function(nav) {
+		var navs = $scope.transient.currentNav;
+		if ( angular.isDefined(navs) ) {
+			navs.push(nav);
+		}
+	}
+	$scope.doNavAdd = function(nav) {
+		setNavAdd(nav);
+		setPath($scope.transient.currentNav);
+	}
+	$scope.navShow = function(nav) {
+		var navs = $scope.transient.currentNav;
+		return angular.isDefined(navs)  &&  navs.indexOf(nav)!=-1
+	}
+	$scope.contentShow = function(nav, index, detail) {
+		var show = isNav(nav,index)
+		if (detail) {
+			show = show &&   angular.isDefined($scope.transient.currentItem);
+		} else {
+			show = show && ! angular.isDefined($scope.transient.currentItem);
+		}
+		return show
+	}
+	var isNav = function(nav, index) {
+		var navs = $scope.transient.currentNav;
+		index = angular.isDefined(index) ?index :navs.length-1;
+		var isNav = angular.isDefined(navs)  &&  navs[index]===nav;
+		return isNav;
+	}
+
+
+	// Called at the bottom of this JS file
+	var init = function() {
+		doNav(true);
+		loadProjectLists();
+	};
+		
+	
+
+		
 	window.clickNav = function(){
 		setTimeout(function(){doNav(true)},10)		
 	}
@@ -98,12 +171,18 @@ function($scope, $http, $filter, $location) {
 	
 	  try {
 	
-		setCaptureHistory(false)		
+		setCaptureHistory(false);		
 	
 		if ($location.path() && $location.path().length>2) {
-			var parts = location.hash.split(/\/+/)
+			var parts = location.hash.split(/\/+/);
+			
+			//remove a possible last empty item - can be caused by a trailing slash
+			if (parts.length > 1 && parts[parts.length - 1] == "") {
+				parts.splice(-1, 1);
+			}
+			
 			if (parts.length<=1) {
-				$scope.doNavRoot('Home')
+				$scope.doNavRoot('Home');
 			}
 			if (parts.length==2) {
 				$scope.doNavRoot(parts[1])
@@ -144,7 +223,7 @@ function($scope, $http, $filter, $location) {
 				}
 			}
 		} else {
-			$scope.doNavRoot($scope.transient.nav[0].title)
+			$scope.doNavRoot($scope.transient.nav[0].title);
 		}
 	  } finally {
 	  	setCaptureHistory(true)
@@ -156,100 +235,28 @@ function($scope, $http, $filter, $location) {
 		setTimeout(function(){$scope.$apply()},10)
 	}
 	
-	$scope.transient.focusAreaOrder = ['fats','fais','fanh','fahw','facc']
-	
-	
-	$scope.transient.focusAreas = {
-		fats : {
-			name:'Toxic Substances',
-			description: "Toxic Substances and Areas of Concern Projects for the Great Lakes Restoration Initiative",
-			infosheet:"http://cida.usgs.gov/glri/infosheets/GLRI_1_Toxic_Substances.pdf",
-			items: [],
-		},
-		fais : {
-			name:'Invasive Species',
-			description: "Combating Invasive Species Projects for the Great Lakes Restoration Initiative",
-			infosheet:"http://cida.usgs.gov/glri/infosheets/GLRI_2_invasive_species.pdf",
-			items: [],
-		},
-		fanh : {
-			name:'Nearshore Health',
-			description:"Nearshore Health and Watershed Protection Projects for the Great Lakes Restoration Initiative",
-			infoSheet:"http://cida.usgs.gov/glri/infosheets/GLRI_3_Nearshore.pdf",
-			items: [],
-		},
-		fahw : {
-			name:'Habitat & Wildlife',
-			description:"Habitat & Wildlife Protection and Restoration",
-			infosheet:"http://cida.usgs.gov/glri/infosheets/GLRI_4_Habitat_Restore.pdf",
-			items: [],
-		},
-		facc : {
-			name:'Accountability',
-			description :"Tracking Progress and Working with Partners Projects for the Great Lakes Restoration Initiative",
-			infosheet:"http://cida.usgs.gov/glri/infosheets/GLRI_5_Tracking_progress_working_w_partners.pdf",
-			items: [],
-		},
-	}
 	
 	// reverse lookup
-	$scope.transient.focusAreasByName = {}
+	//TODO:  THIS SHOULD NOT BE IN TRANS SCOPE
+	$scope.transient.focusAreasByName = {};
 	for (var fa in $scope.transient.focusAreas) {
-		var focusArea = $scope.transient.focusAreas[fa]
-		$scope.transient.focusAreasByName[focusArea.name] =  fa
-	}
+		var focusArea = $scope.transient.focusAreas[fa];
+		$scope.transient.focusAreasByName[focusArea.name] =  fa;
+	};
 	
-	$scope.transient.currentItem = undefined;
-
-	var rawResult = undefined;	// array of all the returned items, UNprocessed
-
-	
-	var loadChildItems = function(parentRecord) {
-		
-		if (parentRecord.publications !== 'loading') {
-			return
-		}
-		
-		if (parentRecord.childRecordState == "closed") {
-			parentRecord.childRecordState = "complete";			//already loaded
-			
-		} else {
-			parentRecord.childRecordState = "loading";
-			var url = getBaseQueryUrl() + "folder=" + parentRecord.id;
-			url += "&fields=" + encodeURI("url,title,contacts,summary,dateCreated,facets")
-
-
-			$http.get(url).success(function(data) {
-				processPublicationResponse(data, parentRecord.publications=[]);
-				//var childItems = processPub(data.items);
-				//childItems = $filter('orderBy')(childItems, $scope.userState.orderProp);
-
-				//parentRecord.childItems = childItems;
-
-				parentRecord.childRecordState = "complete";
-				
-				if (parentRecord.publications.length===0) {
-					parentRecord.publications = undefined
-				}
-
-			}).error(function(data, status, headers, config) {
-				parentRecord.childRecordState = "failed";
-				alert("Unable to connect to ScienceBase.gov to find child records.");
-			});
-		}
-	};	
 	var loadProjectLists = function() {
 
 		$http.get(buildDataUrl()).success(function(data, status, headers, config) {
 			processProjectListResponse(data);
-			$scope.transient.projectsLoadStatus='done'
+			$scope.transient.projectsLoadStatus='done';
 		}).error(function(data, status, headers, config) {
 			alert("Unable to connect to ScienceBase.gov to find records.");
 		});
 		
+		//TODO:  IT LOOKS LIKE THIS SHOULD UPDATE TEH project status, not the publications status
 		$http.get(buildPubUrl()).success(function(data, status, headers, config) {
 			processPublicationResponse(data, $scope.transient.allPublications);
-			$scope.transient.publicationsLoadStatus='done'
+			$scope.transient.publicationsLoadStatus='done';
 		}).error(function(data, status, headers, config) {
 			alert("Unable to connect to ScienceBase.gov to find publications.");
 		});
@@ -494,37 +501,41 @@ function($scope, $http, $filter, $location) {
 			dateCreated:item.dateCreated,
 			contacts:   item.contactText,
 			templates:  item.templates,
-		}
+		};
 		
-		var fa = $scope.transient.focusAreas[focusArea]
-		fa.items.push(project)
-		$scope.transient.allProjects.push(project)
+		var fa = $scope.transient.focusAreas[focusArea];
+		fa.items.push(project);
+		$scope.transient.focusAreas['all'].items.push(project);
 		
-		return project
+		return project;
 	}
 
 
 	var focusAreaActivate = function(focusArea) {
-		console.log($scope.transient.currentFA +' -> '+ focusArea)
-		$scope.transient.currentFA = focusArea
+		
+		var currentFaName = ($scope.transient.currentFocusArea)?$scope.transient.currentFocusArea.name:'[none]';
+
+		console.log(currentFaName +' -> '+ focusArea);
 		$scope.transient.currentItem = undefined;
+
+		$scope.transient.currentFocusArea = $scope.transient.focusAreas[focusArea];
+		$scope.transient.currentProjectList = $scope.transient.focusAreas[focusArea].items;
 		
 		setTimeout(function(){
 			$('#focusAreas button').removeClass('active')
 			$('#'+focusArea).addClass('active')
-		}, 10)
-	}
+		}, 10);
+	};
 
 	$scope.ofNoteClick = function(ofNote) {
-		setNavRoot('Home')
-		$scope.doNavAdd(ofNote)
-	}
+		setNavRoot('Home');
+		$scope.doNavAdd(ofNote);
+	};
 	
 	$scope.focusAreaClick = function(focusArea) {
-		setNavRoot('Browse')
-		$scope.doNavAdd(focusArea)
-		focusAreaActivate(focusArea)
-	}
+		$scope.doNavAdd(focusArea);
+		focusAreaActivate(focusArea);
+	};
 	
 	$scope.loadedFocusAreas = function(focusArea) {
  		return angular.isDefined(focusArea) 
@@ -545,36 +556,15 @@ function($scope, $http, $filter, $location) {
 		}
 	}
 	
-	var setProjectDetail = function(item) {
-		$scope.transient.currentItem = item;
-		loadChildItems(item)
-		if ( angular.isDefined(item) && angular.isDefined(item.title) ) {
-			ga('send', 'screenview', {
-				  'screenName': item.id +":"+ item.title
-			});
-		}
-	}
-	$scope.loadProjectDetail = function(item) {
-		setProjectDetail(item)
-		if ( isNav('Browse') ) {
-			setNavAdd('all')
-		}
-		$scope.doNavAdd(item.id)
-	};
-	
-	
-	var getBaseQueryUrl = function() {
-		return "../ScienceBaseService?";
-	};
 	var buildDataUrl = function() {
-		var url = getBaseQueryUrl();
+		var url = $scope.CONST.BASE_QUERY_URL;
 		url += "resource=" + encodeURI("Project&");
 		url += "fields=" + encodeURI("tags,title,contacts,hasChildren,webLinks,purpose,body,dateCreated,parentId");
 		
 		return url;
 	};
 	var buildPubUrl = function() {
-		var url = getBaseQueryUrl();
+		var url = $scope.CONST.BASE_QUERY_URL;
 		url += "resource=" + encodeURI("Publication&");
 		url += "fields=" + encodeURI("url,title,contacts,summary,dateCreated,facets")
 		return url;

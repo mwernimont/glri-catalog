@@ -189,6 +189,8 @@ ul.artistQuotes li img { float:right; position: absolute; top: 20px; right: 10px
 
 /* headings */
 
+label.control-label { font-weight: bold; }
+
 h1, h2 { color: #fff; font-size: 18px; }
 
 .boxHeadlineBlack {
