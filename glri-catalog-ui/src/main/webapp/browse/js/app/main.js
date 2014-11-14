@@ -3,10 +3,20 @@
 /* Controllers */
 var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap','ngSanitize']);
 
+GLRICatalogApp.value('Status', {
+	
+	//State of loading from ScienceBase.  Possible values: 'loading or 'done'
+	projectsLoadStatus     : 'loading',
+	
+	//State of loading from ScienceBase.  Possible values: 'loading' or 'done'
+	publicationsLoadStatus : 'loading',
+	
+});
+
 
 GLRICatalogApp.controller('CatalogCtrl',
-['$scope', '$http', '$filter', '$location', 
-function($scope, $http, $filter, $location) {
+['$scope', '$http', '$filter', '$location', 'Status',
+function($scope, $http, $filter, $location, Status) {
 
 	$scope.CONST = {};
 	$scope.CONST.FOCUS_AREA_SCHEME = "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea";
@@ -16,6 +26,7 @@ function($scope, $http, $filter, $location) {
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
 	$scope.transient = {};
+	$scope.transient.status = Status;
 	
 	//Top level navigation tabs
 	$scope.transient.nav = [
@@ -28,25 +39,17 @@ function($scope, $http, $filter, $location) {
 	//Is this used?
 	$scope.transient.currentItem = undefined;
 	
+	//A focus area objects (see focusAreas) that is currently selected on the browse tab
+	$scope.transient.currentFocusArea = undefined;
 	
 	//Unknown what this is
-	$scope.transient.currentNav = undefined;
-	
-	//State of loading from ScienceBase.  Possible values?
-	$scope.transient.projectsLoadStatus = 'loading';
-	
-	//State of loading from ScienceBase.  Possible values?
-	$scope.transient.publicationsLoadStatus = 'loading';
-
-	
-	//??
-	$scope.transient.allPublications = [];
+	$scope.transient.currentNav  = undefined;
 	
 	//A filtered (or all) list of projects to be displayed on the browse tab
 	$scope.transient.currentProjectList = [];
 	
-	//A focus area objects (see focusareas) that is currently selected on the browse tab
-	$scope.transient.currentFocusArea = undefined;
+	// all the publication for a all projects
+	$scope.transient.allPublications    = [];	
 
 	//List of possible FocusAreas using the keys in focusAreaOrder.
 	//NOTE:  This could be a constant, but the .items portion is dynamic
@@ -241,22 +244,21 @@ function($scope, $http, $filter, $location) {
 	$scope.transient.focusAreasByName = {};
 	for (var fa in $scope.transient.focusAreas) {
 		var focusArea = $scope.transient.focusAreas[fa];
-		$scope.transient.focusAreasByName[focusArea.name] =  fa;
+		$scope.transient.focusAreasByName[focusArea.name] = fa;
 	};
 	
 	var loadProjectLists = function() {
 
 		$http.get(buildDataUrl()).success(function(data, status, headers, config) {
 			processProjectListResponse(data);
-			$scope.transient.projectsLoadStatus='done';
+			Status.projectsLoadStatus = 'done';
 		}).error(function(data, status, headers, config) {
 			alert("Unable to connect to ScienceBase.gov to find records.");
 		});
 		
-		//TODO:  IT LOOKS LIKE THIS SHOULD UPDATE TEH project status, not the publications status
 		$http.get(buildPubUrl()).success(function(data, status, headers, config) {
 			processPublicationResponse(data, $scope.transient.allPublications);
-			$scope.transient.publicationsLoadStatus='done';
+			Status.publicationsLoadStatus = 'done';
 		}).error(function(data, status, headers, config) {
 			alert("Unable to connect to ScienceBase.gov to find publications.");
 		});

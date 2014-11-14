@@ -31,27 +31,35 @@ GLRICatalogApp.directive("glriProjectDetail",[function(){
 	}	
 }])
 
-GLRICatalogApp.directive("glriFocusArea",['$http', function($http){
+GLRICatalogApp.directive("glriFocusArea",
+		['$http', 'Status',
+		 function($http, Status) {
 	
 	return {
 		restrict   : 'E', //AEC
 		replace    : true,
 		transclude : true,
+		templateUrl: '/glri-catalog/browse/templates/contentFocusArea.html',
 		scope      : {
 			selectedFocusArea : '=focusArea',
-			filteredProjects : '=projects',
-			loadStatus : '=projectLoadStatus',
-			baseQueryUrl : '=baseQueryUrl'
+			filteredProjects  : '=projects',
+			baseQueryUrl      : '=baseQueryUrl'
 		}, //isolated scope bringing in only transient
-		templateUrl: '/glri-catalog/browse/templates/contentFocusArea.html',
+		
 		controller : function($scope) {
-			
+						
 			$scope.transient = {};
 			$scope.transient.currentItem = undefined;
+			$scope.transient.status      = Status;
 			
 			$scope.selectProject = function(projectItem) {
 				$scope.transient.currentItem = projectItem;
 				loadChildItems(projectItem);
+				if ( angular.isDefined(projectItem) && angular.isDefined(projectItem.title) ) {
+					ga('send', 'screenview', {
+						  'screenName': item.id +":"+ item.title
+					});
+				}
 			};
 			
 //			$scope.setProjectDetail = function(item) {
@@ -65,7 +73,7 @@ GLRICatalogApp.directive("glriFocusArea",['$http', function($http){
 //			};
 //			
 //			$scope.loadProjectDetail = function(item) {
-//				setProjectDetail(item)
+//				$scope.selectProject(item)
 //				if ( isNav('Browse') ) {
 //					setNavAdd('all')
 //				}
@@ -73,7 +81,7 @@ GLRICatalogApp.directive("glriFocusArea",['$http', function($http){
 //			};
 			
 
-			loadChildItems = function(parentRecord) {
+			var loadChildItems = function(parentRecord) {
 
 				if (parentRecord.publications !== 'loading') {
 					return

@@ -23,7 +23,7 @@
 		<p class="focusAreaTitle">Click on a project for more details</p>
 	</div>
 
-	<glri-loading state="loadStatus"></glri-loading>
+	<glri-loading state="transient.status.projectsLoadStatus"></glri-loading>
 	
 	<glri-project-detail ng-if="transient.currentItem != null"></glri-project-detail>
 	<ul id="contentRecords" class="browse-results" ng-if="transient.currentItem == null">

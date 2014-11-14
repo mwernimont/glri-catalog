@@ -121,7 +121,6 @@
 		<glri-focus-area     ng-if="contentShow('Browse',0,false)" 
 							 focus-area="transient.currentFocusArea"
 							 projects="transient.currentProjectList"
-							 load-status="transient.projectsLoadStatus"
 							 base-query-url="CONST.BASE_QUERY_URL"></glri-focus-area>
 
 		<div ng-if="contentShow('BeachHealth')" >
