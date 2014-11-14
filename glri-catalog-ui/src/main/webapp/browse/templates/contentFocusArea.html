@@ -13,21 +13,22 @@
 	</ul>
 	<br>
 	
-	<div ng-hide="focusArea==='all'">
-		More information about the GLRI 
-		<a class="focusPdf" href="{{focusArea.infosheet}}" target="_blank">{{focusArea.name}} (pdf)</a>
+	<div>
+		<p ng-show="selectedFocusArea.infosheet">
+			More information about the GLRI 
+			<a class="focusPdf" href="{{selectedFocusArea.infosheet}}" target="_blank">{{selectedFocusArea.name}} (pdf)</a>
+		</p>
 		
-		<br>
-		
-		<h1 class="focusAreaTitle">{{transient.focusAreas[transient.currentFA].name}} Projects</h1>
+		<h1 class="focusAreaTitle">{{selectedFocusArea.name}} Projects</h1>
 		<p class="focusAreaTitle">Click on a project for more details</p>
 	</div>
 
-	<glri-loading state="transient.projectsLoadStatus"></glri-loading>
+	<glri-loading state="transient.status.projectsLoadStatus"></glri-loading>
 	
-	<ul id="contentRecords" class="browse-results">
+	<glri-project-detail ng-if="transient.currentItem != null"></glri-project-detail>
+	<ul id="contentRecords" class="browse-results" ng-if="transient.currentItem == null">
 	
-		<li ng-repeat="project in projects | orderBy:'dateCreated':true" ng-click="loadProjectDetail(project.item)">
+		<li ng-repeat="project in filteredProjects | orderBy:'dateCreated':true" ng-click="selectProject(project.item)">
 			
 			<h3 ng-bind-html="project.title"></h3>
 			
