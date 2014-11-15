@@ -93,10 +93,9 @@
 	<glri-nav-home ng-if="navShow('Home')">home</glri-nav-home>
 
 	<div id="focusAreas" ng-if="navShow('Browse')">
-		<label class="control-label">Project Focus Areas</label>
-		<button id="{{key}}" ng-repeat="(key, value) in transient.focusAreas" 
-				ng-bind="value.name" class="btn btn-primary btn-vertical"
-				ng-click="focusAreaClick(key)"></button>
+		<button id="{{focusArea}}" ng-repeat="focusArea in transient.focusAreaOrder" 
+				ng-bind="transient.focusAreas[focusArea].name" class="btn btn-primary btn-vertical"
+				ng-click="focusAreaClick(focusArea)"></button>
 	</div>
 	
 	<a href="https://www.sciencebase.gov/catalog/items?community=Great+Lakes+Restoration+Initiative"
