@@ -51,6 +51,7 @@ function($scope, $http, $filter, $location, Status) {
 	// all the publication for a all projects
 	$scope.transient.allPublications    = [];	
 
+	$scope.transient.focusAreaOrder = ['all','fats','fais','fanh','fahw','facc']
 	//List of possible FocusAreas using the keys in focusAreaOrder.
 	//NOTE:  This could be a constant, but the .items portion is dynamic
 	$scope.transient.focusAreas = {
@@ -75,7 +76,7 @@ function($scope, $http, $filter, $location, Status) {
 		fanh : {
 			name:'Nearshore Health',
 			description:"Nearshore Health and Watershed Protection Projects for the Great Lakes Restoration Initiative",
-			infoSheet:"http://cida.usgs.gov/glri/infosheets/GLRI_3_Nearshore.pdf",
+			infosheet:"http://cida.usgs.gov/glri/infosheets/GLRI_3_Nearshore.pdf",
 			items: [],
 		},
 		fahw : {
