@@ -536,6 +536,7 @@ function($scope, $http, $filter, $location, Status) {
 	};
 	
 	$scope.focusAreaClick = function(focusArea) {
+		setNavRoot('Browse')
 		$scope.doNavAdd(focusArea);
 		focusAreaActivate(focusArea);
 	};
