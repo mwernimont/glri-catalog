@@ -29,6 +29,11 @@
 		<script type="text/javascript" src="${pageScope.rootPath}webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
 
 		<script type="text/javascript" src="js/app/main.js"></script>
+		<script type="text/javascript" src="js/app/focusAreaManager.js"></script>
+		<script type="text/javascript" src="js/app/sciencebase.js"></script>
+		<script type="text/javascript" src="js/app/nav.js"></script>
+		<script type="text/javascript" src="js/app/controller.js"></script>
+		<script type="text/javascript" src="js/app/projectManager.js"></script>
 		<script type="text/javascript" src="js/app/directives.js"></script>
 		<script type="application/javascript" src="http://www.usgs.gov/scripts/analytics/usgs-analytics.js"></script>
 
@@ -84,17 +89,17 @@
 <div id="nav" class="border" style="height:300px">
 
 	<div id="navBrowse" class="btn-group navBrowse">
-		<a ng-repeat="nav in transient.nav" class="btn btn-primary btn-horizontal" 
-			preventDefault href="javascript:void(0)" ng-click="doNavRoot(nav.title)" 
-			ng-class="navShow(nav.title) ?'active' :'' " ng-bind="nav.title"></a>
+		<a ng-repeat="navName in nav.navNames" class="btn btn-primary btn-horizontal" 
+			preventDefault href="javascript:void(0)" ng-click="nav.doNavRoot(navName)" 
+			ng-class="nav.navShow(navName) ?'active' :'' " ng-bind="navName"></a>
 	</div>
 	<hr/>
 	
-	<glri-nav-home ng-if="navShow('Home')">home</glri-nav-home>
+	<glri-nav-home ng-if="nav.navShow('Home')">home</glri-nav-home>
 
-	<div id="focusAreas" ng-if="navShow('Browse')">
-		<button id="{{focusArea}}" ng-repeat="focusArea in transient.focusAreaOrder" 
-				ng-bind="transient.focusAreas[focusArea].name" class="btn btn-primary btn-vertical"
+	<div id="focusAreas" ng-if="nav.navShow('Browse')">
+		<button id="{{focusArea}}" ng-repeat="focusArea in focusAreaOrder" 
+				ng-bind="focusAreas[focusArea].name" class="btn btn-primary btn-vertical"
 				ng-click="focusAreaClick(focusArea)"></button>
 	</div>
 	
@@ -113,16 +118,13 @@
 	<div class="border">
 
 		<glri-home ></glri-home>
-		<glri-asian-carp     ng-if="contentShow('AsianCarp')"></glri-asian-carp>
-		<glri-invasive       ng-if="contentShow('Invasive')"></glri-invasive>
-		<glri-project-lists  ng-if="contentShow('ProjectLists')"></glri-project-lists>
-		<glri-publications   ng-if="contentShow('Publications')"></glri-publications>
-		<glri-focus-area     ng-if="contentShow('Browse',0,false)" 
-							 focus-area="transient.currentFocusArea"
-							 projects="transient.currentProjectList"
-							 base-query-url="CONST.BASE_QUERY_URL"></glri-focus-area>
+		<glri-asian-carp     ng-if="nav.contentShow('AsianCarp')"></glri-asian-carp>
+		<glri-invasive       ng-if="nav.contentShow('Invasive')"></glri-invasive>
+		<glri-project-lists  ng-if="nav.contentShow('ProjectLists')"></glri-project-lists>
+		<glri-publications   ng-if="nav.contentShow('Publications')"></glri-publications>
+		<glri-focus-area     ng-if="nav.contentShow('Browse',0,false)"></glri-focus-area>
 
-		<div ng-if="contentShow('BeachHealth')" >
+		<div ng-if="nav.contentShow('BeachHealth')" >
 		<div>
 			<img src="../style/image/darkblue/glri_logo.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
 			<div class="largetitle">GLRI Beach Health Webinar Feb11 2014</div>

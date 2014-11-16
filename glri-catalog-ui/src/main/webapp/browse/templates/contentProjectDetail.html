@@ -1,13 +1,13 @@
 <div id="contentBrowseDetail" class="clearfix">
 		
-	<h2 class="detailTitle" ng-bind-html="transient.currentItem.title"></h2>
-	<img class="browse-image" ng-if="transient.currentItem.browseImage" src="{{transient.currentItem.browseImage}}" />
+	<h2 class="detailTitle" ng-bind-html="status.currentItem.title"></h2>
+	<img class="browse-image" ng-if="status.currentItem.browseImage" src="{{status.currentItem.browseImage}}" />
 	<div class="template-list">
-		<h5>Template<span ng-if="transient.currentItem.templates && transient.currentItem.templates.length>1">s</span>:
-			<span ng-if="!transient.currentItem.templates || transient.currentItem.templates.length == 0"
+		<h5>Template<span ng-if="status.currentItem.templates && status.currentItem.templates.length>1">s</span>:
+			<span ng-if="!status.currentItem.templates || status.currentItem.templates.length == 0"
 				  class="no-template-found" >No funding template found</span>
-			<span class="template-name" ng-repeat="template in transient.currentItem.templates">
-				<span ng-bind-html="template"></span><span class="template-separator" ng-if="transient.currentItem.templates.length &gt; 1 &amp;&amp; !$last">, </span>
+			<span class="template-name" ng-repeat="template in status.currentItem.templates">
+				<span ng-bind-html="template"></span><span class="template-separator" ng-if="status.currentItem.templates.length &gt; 1 &amp;&amp; !$last">, </span>
 			</span>
 			
 		</h5>
@@ -15,28 +15,28 @@
 	</div>
 	
 	<h4>Background/Problem</h4>
-	<p class="background" ng-bind-html="transient.currentItem.purpose"></p>
+	<p class="background" ng-bind-html="status.currentItem.purpose"></p>
 	
-	<div class="description-of-work" ng-bind-html="transient.currentItem.body"></div>
+	<div class="description-of-work" ng-bind-html="status.currentItem.body"></div>
 	
-	<div ng-if="transient.currentItem.publications">
+	<div ng-if="status.currentItem.publications">
 		<h4>Publications</h4>
-		<div style="width:200px" ng-if="transient.currentItem.publications==='loading'">
-			<glri-loading state="transient.currentItem.publications"></glri-loading>
+		<div style="width:200px" ng-if="status.currentItem.publications==='loading'">
+			<glri-loading state="status.currentItem.publications"></glri-loading>
 		</div>
-		<div ng-if="transient.currentItem.publications && transient.currentItem.publications!=='loading'">
-			<p ng-repeat="publication in transient.currentItem.publications | orderBy:'dateCreated':true">
+		<div ng-if="status.currentItem.publications && transient.currentItem.publications!=='loading'">
+			<p ng-repeat="publication in status.currentItem.publications | orderBy:'dateCreated':true">
 				<a href="{{publication.url}}" target="_blank" ng-bind-html="publication.citation"></a>
 			</p>
 		</div>
 	</div>
 	
 	<h4>Contacts</h4>
-	<p class="point-of-contact" ng-bind-html="transient.currentItem.contactHtml"></p>
+	<p class="point-of-contact" ng-bind-html="status.currentItem.contactHtml"></p>
 	
 	<h4>For more information</h4>
 	<p> see all of this project's metadata in 
-		<a title="Click to go directly to this record in ScienceBase" href="{{transient.currentItem.url}}" 
+		<a title="Click to go directly to this record in ScienceBase" href="{{status.currentItem.url}}" 
 		target="_blank">ScienceBase &gt;&gt;</a>
 	</p>
 
