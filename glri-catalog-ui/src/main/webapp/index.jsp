@@ -29,6 +29,10 @@
 		<script type="text/javascript" src="${pageScope.rootPath}webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}webjars/openlayers/2.13.1/OpenLayers.js"></script>
 
+		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/main.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/focusAreaManager.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/sciencebase.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}js/app/pagination.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}js/app/main.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/directives.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}js/app/cida-analytics.js"></script>
@@ -168,47 +172,8 @@
 					</form>
 				</div>
 				<div id="searchResults" class="col-xs-12 col-sm-8">
-					<div class="row">
-						<div class="col-xs-12">
-							<div class="well well-sm clearfix result-header" ng-if="filteredRecords.length > 0">
-								<div class="row">
-									<div class="col-xs-6 record-display-status">
-										<h4>{{filteredRecords.length}} results, showing {{pageCurrentFirstRecordIndex + 1}} - {{pageCurrentLastRecordIndex + 1}}</h4>
-									</div>
-									<div class="col-xs-6 sort-options form-horizontal">
-										<div class="form-group">
-											<label class="control-label col-xs-4">Sort by:&nbsp;</label>
-											<div class="col-xs-8">
-												<select class="form-control" ng-model="userState.orderProp" ng-change="sortChange()" data-width="auto">
-													<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}" ng-bind-html="sortOption.display"></option>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-6 col-sm-12 col-md-6 page-nav">
-										<p>
-											<a href="" class="previous" ng-class="pageHasPrevious?'has-previous':'has-no-previous'" ng-click="gotoPreviousPage()">&lt; Previous</a>
-											<span class="selectable-list" ng-class="($index == pageCurrent)?'selected':''" ng-repeat="page in pageList">
-												<span class="item current page-number" ng-if="$index == pageCurrent" >{{$index + 1}}</span>
-												<a href="" class="item non-current selectable-list page-number" ng-if="$index != pageCurrent" ng-click="gotoPage($index)">{{$index + 1}}</a>
-											</span>
-											<a href="" class="next" ng-class="pageHasNext?'has-next':'has-no-next'" ng-click="gotoNextPage()">Next &gt;</a>
-										</p>
-									</div>
-									<div class="col-xs-6 col-sm-12 col-md-6 page-nav-settings text-right">
-										<span class="selectable-list">
-											<span>Show</span>
-											<a href="" class="item" ng-repeat="ps in pageRecordsPerPageOptions" ng-class="(pageSize==ps)?'current':'non-current'" 
-											ng-click="setPageSize(ps)" ng-bind="ps"></a>
-											<span>results per page</span>
-										</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					<pagerui></pagerui>
+
 					<div class="row">
 						<div class="col-xs-12">
 							<!--Body content-->
@@ -242,125 +207,29 @@
 									</a>
 								</p>
 							</div>
-							
-							<glri-loading state="isSearching"></glri-loading>
-							
-							<ul id="glri-records" class="result-records">
-								<li ng-repeat="record in pageRecords" ng-class="record.resource">
-									<div class="resource-icon">
-										<a title="{{record.resource}}: Click to go directly to this record in ScienceBase" href="{{record.url}}" target="_blank">
-											<img ng-src="${pageScope.rootPath}style/image/darkblue/{{record.resource}}.svg" />
-										</a>
-									</div>
-									<h4 ng-bind-html="record.title"></h4>
-									<p class="point-of-contact" ng-bind-html="record.contactText"></p>
-									<div class="related-links" ng-if="record.mainLink || (record.hasChildren == true)">
-										<div ng-if="record.mainLink">
-											<a href="{{record.mainLink.url}}" target="_blank" ng-bind-html="record.mainLink.title"></a>
-										</div>
-										<div ng-if="record.hasChildren == true">
-											<a href="" ng-click="toggleChildItems(record)">Publications and Datasets
-												<span ng-if="record.childRecordState == 'notloaded'"><span class="glyphicon glyphicon-chevron-down"></span></span>
-												<span ng-if="record.childRecordState == 'loading'"><span class="glyphicon glyphicon-repeat"></span></span>
-												<span ng-if="record.childRecordState == 'complete'"><span class="glyphicon glyphicon-remove-circle"></span></span>
-												<span ng-if="record.childRecordState == 'failed'"><span class="glyphicon glyphicon-warning-sign"></span></span>
-												<span ng-if="record.childRecordState == 'closed'"><span class="glyphicon glyphicon-eye-open"></span></span>
-											</a>
-										</div>
-									</div>
-									<p class="summary" ng-bind-html="record.summary"></p>
-									
-									<glri-loading state="record.childRecordState"></glri-loading>
-									
-									<div ng-if="record.childItems &amp;&amp; record.childRecordState == 'complete'" class="child-records">
-										<div class="list-head clearfix">
-											<div class="pull-right"><a href="" ng-click="toggleChildItems(record)">Close child list <span class="glyphicon glyphicon-remove-circle"></span></a></div>
-											<h4>{{record.childItems.length}} Child record(s) (projects and datasets)</h4>
-										</div>
-										<ul>
-											<li ng-repeat="child in record.childItems" ng-class="child.resource">
-												<div class="resource-icon">
-													<a title="{{child.resource}}: Click to go directly to this record in ScienceBase" href="{{child.url}}" target="_blank">
-														<img ng-src="${pageScope.rootPath}style/image/darkblue/{{child.resource}}.svg" />
-													</a>
-												</div>
-												<h4 ng-bind-html="child.title"></h4>
-												<p class="point-of-contact" ng-bind-html="child.contactText"></p>
-												<div class="related-links">
-													<div ng-if="child.mainLink">
-														<a href="{{child.mainLink.url}}" target="_blank" ng-bind-html="child.mainLink.title"></a>
-													</div>
-												</div>
-												<p class="summary" ng-bind-html="child.summary"></p>
-											</li>
-										</ul>
-										<div class="list-foot clearfix">
-											<div class="pull-right"><a href="" ng-click="toggleChildItems(record)">Close child list <span class="glyphicon glyphicon-remove-circle"></span></a></div>
-										</div>
-									</div>
-								</li>
-							</ul>
-							
-							<div ng-if="resultItems.length > 0 &amp;&amp; filteredRecords.length == 0" id="records-blocked-by-filter" class="panel panel-warning no-records">
+
+							<div ng-if=" ! isUIFresh && resultItems.length > 0 && filteredRecordCount == 0" id="records-blocked-by-filter" class="panel panel-warning no-records">
 								<div class="panel-heading"><h3>Records hidden by filter</h3></div>
 								<div class="panel-body">
-									Hold on! There <em>are</em> results from your query, but they are blocked by the <i>Resource Type</i> filter.
+									There <em>are</em> results from your query, but they are blocked by the <i>Resource Type</i> filter.
 									The little black ovals (<span class="badge">0</span>) indicate how many records were found for each resource type.
 								</div>
 							</div>
 							
-							<div ng-if="resultItems.length == 0 &amp;&amp; !isUIFresh" id="no-records-found" class="panel panel-warning no-records">
+							<div ng-if=" ! isUIFresh && resultItems.length == 0" id="no-records-found" class="panel panel-warning no-records">
 								<div class="panel-heading"><h3>No Records Found</h3></div>
 								<div class="panel-body">
-									Ah snap!  None of the records in the system match the criteria you were looking for.
+									None of the records in the system match the criteria you were looking for.
 								</div>
 							</div>
 
+							
+							<glri-loading state="isSearching"></glri-loading>
+							
+							
 						</div>
-					</div>
-					<div class="row" ng-show="filteredRecords.length > 2">
-						<div class="col-xs-12">
-							<div class="well well-sm clearfix result-footer">
-								<div class="row">
-									<div class="col-xs-6 record-display-status">
-										<div>
-											<h4>{{filteredRecords.length}} results, showing {{pageCurrentFirstRecordIndex + 1}} - {{pageCurrentLastRecordIndex + 1}}</h4>
-										</div>
-									</div>
-									<div class="col-xs-6 sort-options form-horizontal">
-										<div class="form-group">
-											<label class="control-label col-xs-4">Sort by:&nbsp;</label>
-											<div class="col-xs-8">
-												<select class="form-control" ng-model="userState.orderProp" ng-change="sortChange()" data-width="auto">
-													<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}" ng-bind-html="sortOption.display"></option>
-												</select>
-											</div>
-										</div>
-									</div>
-								</div>
-								<div class=""row>
-									<div class="col-xs-6 col-sm-12 col-md-6 page-nav">
-										<p>
-											<a href="" class="previous" ng-class="pageHasPrevious?'has-previous':'has-no-previous'" ng-click="gotoPreviousPage()">&lt; Previous</a>
-											<span class="selectable-list" ng-class="($index == pageCurrent)?'selected':''" ng-repeat="page in pageList">
-												<span class="item current page-number" ng-if="$index == pageCurrent" >{{$index + 1}}</span>
-												<a href="" class="item non-current selectable-list page-number" ng-if="$index != pageCurrent" ng-click="gotoPage($index)">{{$index + 1}}</a>
-											</span>
-											<a href="" class="next" ng-class="pageHasNext?'has-next':'has-no-next'" ng-click="gotoNextPage()">Next &gt;</a>
-										</p>
-									</div>
-									<div class="col-xs-6 col-sm-12 col-md-6 page-nav-settings text-right" ng-if="filteredRecords.length > 0">
-										<span class="selectable-list">
-											<span>Show</span>
-											<a href="" class="item" ng-repeat="ps in pageRecordsPerPageOptions" ng-class="(pageSize==ps)?'current':'non-current'" 
-												ng-click="setPageSize(ps)" ng-bind="ps"></a>
-											<span>results per page</span>
-										</span>
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+					</div>	
+					
 				</div>				
 			</div>
 			<div class="row">

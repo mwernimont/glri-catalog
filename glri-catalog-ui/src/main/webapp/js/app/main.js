@@ -1,9 +1,10 @@
 'use strict';
 
 /* Controllers */
-var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap','ngSanitize']);
 
-GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeout) {
+GLRICatalogApp.controller('CatalogCtrl',
+['$scope', '$http', '$filter', '$timeout', 'Pagination', 'ScienceBase',
+function($scope, $http, $filter, $timeout, pager, ScienceBase) {
 
 	$scope.ANY_VALUE = "Any";
 	
@@ -19,16 +20,16 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		{key: "contactText", display: "Author / PI / Creator"}
 	];
 	
-	$scope.isUIFresh = true;	//True until the user does the first search.   Used to display welcome message.
+	$scope.isUIFresh   = true;	//True until the user does the first search.   Used to display welcome message.
 	$scope.isSearching = false;	//true if we are waiting for results from the main (non-child) query.
 
-	$scope.model = new Object();
-	$scope.model.text_query = '';
-	$scope.model.location = '';
-	$scope.model.focus = '';
-	$scope.model.template = '';
-	$scope.model.spatial = '';
-	
+	$scope.model ={
+		text_query : '',
+		location   : '',
+		focus      : '',
+		template   : '',
+		spatial    : '',
+	}
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
 	$scope.transient = {};
@@ -40,18 +41,19 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		              	];
 	$scope.transient.currentNav = 'Search';
 
-	$scope.navShow = function(nav) {
-		var navs = $scope.transient.currentNav
-		return navs  &&  navs.indexOf(nav)!=-1
-	}
-	
-	
 	//The array of funding templates to choose from.  Init as "Any", but async load from vocab server.
 	$scope.transient.templateValues = [
 		{key: "", display:"Any Template", sort: -1},
 		{key: "xxx", display:"...loading template list...", sort: 0},
 	];
 	
+	
+	$scope.navShow = function(nav) {
+		var navs = $scope.transient.currentNav
+		return navs  &&  navs.indexOf(nav)!=-1
+	}
+	
+		
 	//These are the Google Analytics custom metrics for each search param.
 	//To log search usage, each search should register that a search was done
 	//and what type of search it was (actual search values are not tracked).
@@ -69,35 +71,19 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	
 	$scope.currentFacets = {};	//counts of the facets
 	
-	$scope.rawResult = null;	//array of all the returned items, UNprocessed
-	$scope.resultItems = null;	//array of all the returned items, processed to include display properties
-	$scope.filteredRecords = null;		//Current records, filtered based on facets.
+	$scope.searchResult = null;	//array of all the returned items, UNprocessed
+	$scope.resultItems  = null;	//array of all the returned items, processed to include display properties
+
 	
 	//Non-query user created state
-	$scope.userState = new Object();
-	$scope.userState.drawingBounds = false;	//true if dragging map should draw a box
-	$scope.userState.resourceFilter = "1";
-	$scope.userState.orderProp = 'title';
+	$scope.userState = {
+		drawingBounds  : false,	//true if dragging map should draw a box
+		resourceFilter : "1",
+		orderProp      : 'title',
+	}
 
-	//Pagination
-	$scope.pageRecordsPerPageOptions = [5, 10, 15];
-	$scope.pageCurrent = 0;
-	$scope.pageCurrentFirstRecordIndex = 0; //Use to display 'showing records 10 - 20'
-	$scope.pageCurrentLastRecordIndex = 0;	//Use to display 'showing records 10 - 20'
-	$scope.pageSize = $scope.pageRecordsPerPageOptions[0];
-	$scope.pageCount;
-	$scope.pageList = [];	//array of numbers, 0 to pageCount - 1.  Used by ng-repeat
-	$scope.pageRecords = [];
-	$scope.pageHasNext = false;
-	$scope.pageHasPrevious = false;
-
-	//Called at the bottom of this JS file
-	$scope.init = function() {
-		$scope.OpenLayersMap.init();
-		$scope.doTemplateVocabLoad();
-
-	};
 	
+// asdf ScienceBase	
 	/**
 	 * Loads the template picklist from the vocab service.
 	 * @returns void
@@ -132,7 +118,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 			});
 	};
 	
-	
+// asdf ScienceBase	
 	$scope.doRemoteLoad = function(event) {
 
 		//This is called from a form submit button, so don't let the form submit
@@ -151,28 +137,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		});
 	};
 	
-	/**
-	 * Show or hide the child items of a record, loading if needed.
-	 * @returns {undefined}
-	 */
-	$scope.toggleChildItems = function(parentRecord) {
-		switch (parentRecord.childRecordState) {
-			case 'loading':
-				return;	//nothing to do
-				break;
-			case 'complete':
-				parentRecord.childRecordState = 'closed';	//hides the records
-				break;
-			case 'closed' :
-				parentRecord.childRecordState = 'complete';	//shows the records
-				break;
-			case 'notloaded' :
-			case 'failed' :
-			default :
-				$scope.loadChildItems(parentRecord);
-		}
-	};
-	
+// asdf ScienceBase	
 	/**
 	 * Loads child records to the parent records as:
 	 * parentRecord.childItems
@@ -214,6 +179,8 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		}
 	};
 	
+	
+// asdf ScienceBase	
 	/**
 	 * For the main (non-nested child) records, read response metadata and add
 	 * extra properties to the records.
@@ -224,7 +191,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	 * @param {type} unfilteredJsonData from ScienceBase
 	 */
 	$scope.processRawScienceBaseResponse = function(unfilteredJsonData) {
-		$scope.rawResult = unfilteredJsonData;
+		$scope.searchResult = unfilteredJsonData;
 		
 		if (unfilteredJsonData) {
 			$scope.resultItems = $scope.processGlriResults(unfilteredJsonData.items);
@@ -236,15 +203,15 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 				var entries  = filterResults($scope.resultItems, category)
 				categories[category] = entries.length
 			})			
-			//$scope.updateFacetCount($scope.rawResult.searchFacets[0].entries);
-			$scope.updateFacetCount(categories)
+			//updateFacetCount($scope.searchResult.searchFacets[0].entries);
+			updateFacetCount(categories)
 		} else {
 			$scope.resultItems = $scope.processGlriResults(null);
-			$scope.updateFacetCount(null);
+			updateFacetCount(null);
 		}
 	};
 	
-
+// asdf ScienceBase	
 	$scope.processGlriResults = function(resultRecordsArray) {
 		var records = resultRecordsArray;
 		var newRecords = [];
@@ -269,7 +236,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 					var link = item['link']['url'];
 					item['url'] = link;
 					item['resource'] = resource;
-					item['mainLink'] = $scope.findLink(item["webLinks"], ["home", "html", "index page"], true);
+					item['mainLink'] = ScienceBase.findLink(item["webLinks"], ["home", "html", "index page"], true);
 
 
 					//Simplify the systemTypes
@@ -325,25 +292,26 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	 * @returns {undefined}
 	 */
 	$scope.processRecords = function() {
-		$timeout($scope._processRecords, 1, true);
+		$timeout(_processRecords, 1, true);
 	};
 	
 	/**
 	 * Starting from resultItems:  Sort, fiter, reset current page and update paged records.
 	 */
-	$scope._processRecords = function() {
+	var _processRecords = function() {
 		if (! $scope.resultItems) $scope.resultItems = [];
 		
 		$scope.resultItems = $filter('orderBy')($scope.resultItems, $scope.userState.orderProp);
-		$scope.filteredRecords = $scope.getFilteredResults();
-		$scope.pageCurrent = 0;
-		$scope.updatePageRecords();
+		pager.records = getFilteredResults();
+		$scope.filteredRecordCount = pager.records.length;
+		pager.pageCurrent = 0;
+		pager.updatePageRecords();
 	};
 	
 	$scope.clearForm = function(event) {
 		
-		$scope.OpenLayersMap.boxLayer.removeAllFeatures();
-		$scope.OpenLayersMap.map.setCenter(new OpenLayers.LonLat($scope.OpenLayersMap.orgLon, $scope.OpenLayersMap.orgLat), $scope.OpenLayersMap.orgZoom);
+		OpenLayersMap.boxLayer.removeAllFeatures();
+		OpenLayersMap.map.setCenter(new OpenLayers.LonLat(OpenLayersMap.orgLon, OpenLayersMap.orgLat), OpenLayersMap.orgZoom);
 		
 		$scope.model.text_query = '';
 		$scope.model.location = '';
@@ -351,116 +319,43 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		$scope.model.spatial = '';
 		$scope.userState.resourceFilter = "1";
 		
-		$scope.processRawScienceBaseResponse(null);
-		$scope.processRecords();
+		$scope.processRawScienceBaseResponse(null); // asdf ScienceBase	or ProjectManager
+		$scope.processRecords(); // asdf ScienceBase	or ProjectManager
 		
 		$scope.isUIFresh = true;
 	};
 	
-	$scope.gotoNextPage = function() {
-		if ($scope.pageHasNext) {
-			$scope.pageCurrent++;
-			$scope.updatePageRecords();
-		}
-	};
-	
-	$scope.gotoPreviousPage = function() {
-		if ($scope.pageHasPrevious) {
-			$scope.pageCurrent--;
-			$scope.updatePageRecords();
-		}
-	};
-	
-	$scope.gotoPage = function(pageNumber) {
-		if (pageNumber > -1 && pageNumber < $scope.pageCount) {
-			$scope.pageCurrent = pageNumber;
-			$scope.updatePageRecords();
-		}
-	};
-	
-	$scope.setPageSize = function(size) {
-		$scope.pageSize = size;
-		$scope.updatePageRecords();
-	};
-	
-	$scope.calcPageCount = function() {
-		if ($scope.filteredRecords) {
-			return Math.ceil($scope.filteredRecords.length/$scope.pageSize);
-		} else {
-			return 0;
-		}
-    };
-	
 	$scope.updatePageRecords = function() {
-		$timeout($scope._updatePageRecords, 1, true);
-	};
-	
-	/**
-	 * Update the paged records
-	 */
-	$scope._updatePageRecords = function() {
-		var startRecordIdx = $scope.pageCurrent * $scope.pageSize;
-		var endRecordIdx = startRecordIdx + $scope.pageSize;
-		
-		if (endRecordIdx > $scope.filteredRecords.length) endRecordIdx = $scope.filteredRecords.length;
-		
-		var newPgRecs = new Array();
-		var destIdx = 0;
-		for (var srcIdx = startRecordIdx; srcIdx < endRecordIdx; srcIdx++) {
-			newPgRecs[destIdx] = $scope.filteredRecords[srcIdx];
-			destIdx++;
-		}
-		
-		
-		$scope.pageRecords = newPgRecs;
-		$scope.pageCount = $scope.calcPageCount();
-		$scope.pageHasNext = ($scope.pageCurrent + 1) < $scope.pageCount;
-		$scope.pageHasPrevious = $scope.pageCurrent > 0;
-		$scope.pageCurrentFirstRecordIndex = $scope.pageCurrent * $scope.pageSize;
-		
-		if (($scope.pageCurrent + 1) < $scope.pageCount) {
-			//any page but the last page
-			$scope.pageCurrentLastRecordIndex = $scope.pageCurrentFirstRecordIndex + $scope.pageSize - 1;
-		} else {
-			//last page 
-			$scope.pageCurrentLastRecordIndex = $scope.filteredRecords.length - 1;
-		}
-		
-		if ($scope.pageList.length != $scope.pageCount) {
-			var newPageList = new Array();
-			for (var i = 0; i < $scope.pageCount; i++) {
-				newPageList[i] = i;
-			}
-			$scope.pageList = newPageList;
-		}
-		
+		$timeout(pager.updatePageRecords, 1, true);
 	};
 
 	$scope.$watch('userState.resourceFilter', function(newValue, oldValue) {
-		if (newValue != oldValue) {
-			$scope.processRecords();
+		if (newValue !== oldValue) {
+			$scope.processRecords();// asdf ScienceBase	or ProjectManager
 		}
 	});
 	
 	$scope.$watch("userState.drawingBounds", function() {
 		if ($scope.userState.drawingBounds) {
-			$scope.OpenLayersMap.boxControl.handler.stopDown = true;
-			$scope.OpenLayersMap.boxControl.handler.stopUp = true;
-			$scope.OpenLayersMap.boxControl.activate();
+			OpenLayersMap.boxControl.handler.stopDown = true;
+			OpenLayersMap.boxControl.handler.stopUp = true;
+			OpenLayersMap.boxControl.activate();
 		} else {
-			$scope.OpenLayersMap.boxControl.handler.stopDown = false;
-			$scope.OpenLayersMap.boxControl.handler.stopUp = false;
-			$scope.OpenLayersMap.boxControl.deactivate();
+			OpenLayersMap.boxControl.handler.stopDown = false;
+			OpenLayersMap.boxControl.handler.stopUp = false;
+			OpenLayersMap.boxControl.deactivate();
 		}
 	}); 
 
+	
 	$scope.sortChange = function() {
-		$scope.processRecords();
+		$scope.processRecords();// asdf ScienceBase	or ProjectManager
 	};
+	
+	
+	var updateFacetCount = function(facetJsonObject) {
 
-	$scope.updateFacetCount = function(facetJsonObject) {
-
-		if ($scope.rawResult) {
+		if ($scope.searchResult) {
 			//reset all facets to zero
 			$('#resource_input button span[class~="badge"]').html("0");
 
@@ -479,6 +374,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 	};
 
+	
 	var filterResults = function(data, category) {
 		var filtered = new Array();
 
@@ -495,7 +391,8 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		return filtered;
 	}
 	
-	$scope.getFilteredResults = function() {
+	
+	var getFilteredResults = function() {
 		if ($scope.userState.resourceFilter != null && $scope.resultItems != null) {
 
 			if ($scope.userState.resourceFilter == "1") {
@@ -506,78 +403,16 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		} else {
 			return $scope.resultItems;
 		}
-	};
+	}
 
-	/**
-	 * Finds a link from a list of ScienceBase webLinks based on a list
-	 * of search keys, which are searched for in order against the
-	 * 'rel' and 'title' fields of each link.
-	 * 
-	 * The GLRI project will mark the homepage link with 'rel' == 'home'.
-	 * The current Pubs are pushed into ScienceBase w/ 'title' == 'html'
-	 * for an (approximate) home page.
-	 * 
-	 * The return value is an associative array where the title can be used for dispaly:
-	 * {url, title}
-	 * 
-	 * If no matching link is found, null is returned.
-	 * 
-	 * @param {type} linkArray Array taken from ScienceBase search response webLinks.
-	 * @param {type} searchArray List of link 'rel' or 'titles' to search for, in order.
-	 * @param {type} defaultToFirst If nothing is found, return the first link if true.
-	 * @returns {url, title} or null
-	 */
-	$scope.findLink = function(linkArray, searchArray, defaultToFirst) {
-
-		if (linkArray && linkArray.length > 0) {
-
-			var retVal = {url: linkArray[0].uri, title: "Home Page"};
-
-			for (var searchIdx = 0; searchIdx < searchArray.length; searchIdx++) {
-				var searchlKey = searchArray[searchIdx];
-				for (var linkIdx = 0; linkIdx < linkArray.length; linkIdx++) {
-					if (linkArray[linkIdx].rel == searchlKey) {
-						retVal.url = linkArray[linkIdx].uri;
-						retVal.title = $scope.cleanTitle(linkArray[linkIdx].title, "Home Page");
-						return retVal;
-					} else if (linkArray[linkIdx].title == searchlKey) {
-						retVal.url = linkArray[linkIdx].uri;
-						retVal.title = $scope.cleanTitle(linkArray[linkIdx].title, "Home Page");
-						return retVal;
-					}
-				}
-			}
-
-			if (defaultToFirst) {
-				retVal.title = linkArray[0].title;
-				return retVal;
-			} else {
-				return null;
-			}
-		} else {
-			return null;
-		}
-	};
 	
-	/**
-	 * Replaces boilerplate link titles from ScienceBase w/ a default one if the proposed one is generic.
-	 * @param {type} proposedTitle
-	 * @param {type} defaultTitle
-	 * @returns The passed title or the default title.
-	 */
-	$scope.cleanTitle = function(proposedTitle, defaultTitle) {
-		var p = proposedTitle;
-		if (! (p) || p == "html" || p == "jpg" || p == "unspecified") {
-			return defaultTitle;
-		} else {
-			return p;
-		}
-	};
-	
+	// asdf ScienceBase
 	$scope.getBaseQueryUrl = function() {
 		return $("#sb-query-form").attr("action") + "?";
-	};
+	}
+	
 
+	// asdf ScienceBase
 	$scope.buildDataUrl = function() {
 		var url = $scope.getBaseQueryUrl();
 		
@@ -619,7 +454,7 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 	///////////
 	// Map Functions
 	///////////
-	$scope.OpenLayersMap = {
+	var OpenLayersMap = {
 
 		map: null,
 		orgLon: -85.47,
@@ -675,8 +510,8 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 
 			// register a listener for removing any boxes already drawn
 			this.boxControl.handler.callbacks.create = function(data) {
-				if ($scope.OpenLayersMap.boxLayer.features.length > 0) {
-					$scope.OpenLayersMap.boxLayer.removeAllFeatures();
+				if (OpenLayersMap.boxLayer.features.length > 0) {
+					OpenLayersMap.boxLayer.removeAllFeatures();
 				}
 			};
 
@@ -710,6 +545,13 @@ GLRICatalogApp.controller('CatalogCtrl', function($scope, $http, $filter, $timeo
 		
 	};
 	
-	$scope.init();
+	
+	//Called at the bottom of this JS file
+	var init = function() {
+		OpenLayersMap.init();
+		$scope.doTemplateVocabLoad();
+	}
 
-});
+	init();
+
+}]);
