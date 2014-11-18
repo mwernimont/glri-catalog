@@ -160,3 +160,20 @@ function(pager) {
 
 
 
+GLRICatalogApp.directive('pageruiControls',
+['Pagination',		
+function(pager) {
+	return {
+		restrict   : 'E', //AEC
+		replace    : true,
+		transclude : true,
+		scope      : true,
+		templateUrl: '/glri-catalog/pager-controls.html',
+		
+		controller : function($scope) {
+			
+			$scope.pager = pager
+			
+		}
+	}	
+}]);
