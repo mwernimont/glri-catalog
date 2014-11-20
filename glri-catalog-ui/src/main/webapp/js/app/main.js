@@ -3,84 +3,69 @@
 /* Controllers */
 
 GLRICatalogApp.controller('CatalogCtrl',
-['$scope', '$http', '$filter', '$timeout', 'Pagination', 'ScienceBase',
-function($scope, $http, $filter, $timeout, pager, ScienceBase) {
+['$scope', '$http', '$filter', '$timeout', 'Pagination', 'ScienceBase', 'Status',
+function($scope, $http, $filter, $timeout, pager, ScienceBase, Status) {
 
-	$scope.ANY_VALUE = "Any";
-	
-	$scope.FACET_DEFS = {
-		1: $scope.ANY_VALUE,
-		2: "Data",
-		3: "Publication",
-		4: "Project"
-	};
-	
+	$scope.FACET_DEFS = [
+		"Any",
+		"Data",
+		"Publication",
+		"Project"
+	];
 	$scope.SORT_OPTIONS = [
 		{key: "title", display: "Title"},
 		{key: "contactText", display: "Author / PI / Creator"}
 	];
+	//Non-query user created state
+	$scope.userState = {
+		drawingBounds  : false,	//true if dragging map should draw a box
+		resourceFilter : 0,
+		orderProp      : 'title',
+	};
+	$scope.model = {
+			text_query : '',
+			location   : '',
+			focus      : '',
+			template   : '',
+			spatial    : '',
+		};
 	
-	$scope.isUIFresh   = true;	//True until the user does the first search.   Used to display welcome message.
-	$scope.isSearching = false;	//true if we are waiting for results from the main (non-child) query.
+	$scope.isUIFresh     = true;	//True until the user does the first search.   Used to display welcome message.
+	$scope.isSearching   = false;	//true if we are waiting for results from the main (non-child) query.
+	$scope.currentFacets = {};	    //counts of the facets
+	$scope.searchResult  = null;	//array of all the returned items, UNprocessed (used for facet count)
+	$scope.resultItems   = null;	//array of all the returned items, processed to include display properties
 
-	$scope.model ={
-		text_query : '',
-		location   : '',
-		focus      : '',
-		template   : '',
-		spatial    : '',
-	}
+	
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
-	$scope.transient = {};
+	$scope.transient = {
+		//The array of funding templates to choose from.  Init as "Any", but async load from vocab server.
+		templateValues : [
+			{key: "", display:"Any Template", sort: -1},
+			{key: "xxx", display:"...loading template list...", sort: 0},
+		]
+	};
+
 	
+// asdf NAV
 	$scope.transient.nav = [
 		                    { title:'Home'},
 		              	    { title:'Browse'},
 		              	    { title:'Search'},
 		              	];
+// asdf NAV
 	$scope.transient.currentNav = 'Search';
 
-	//The array of funding templates to choose from.  Init as "Any", but async load from vocab server.
-	$scope.transient.templateValues = [
-		{key: "", display:"Any Template", sort: -1},
-		{key: "xxx", display:"...loading template list...", sort: 0},
-	];
-	
-	
+// asdf NAV
 	$scope.navShow = function(nav) {
 		var navs = $scope.transient.currentNav
 		return navs  &&  navs.indexOf(nav)!=-1
-	}
-	
-		
-	//These are the Google Analytics custom metrics for each search param.
-	//To log search usage, each search should register that a search was done
-	//and what type of search it was (actual search values are not tracked).
-	//location is split into either loc_type or name based on the value.
-	$scope.modelAnalytics = {
-		search: 1,
-		text_query: 2,
-		loc_type: 3,
-		loc_name: 4,
-		focus: 5,
-		spatial: 6,
-		template: 7
-	};
-	
-	
-	$scope.currentFacets = {};	//counts of the facets
-	
-	$scope.searchResult = null;	//array of all the returned items, UNprocessed
-	$scope.resultItems  = null;	//array of all the returned items, processed to include display properties
+	}	
 
 	
-	//Non-query user created state
-	$scope.userState = {
-		drawingBounds  : false,	//true if dragging map should draw a box
-		resourceFilter : "1",
-		orderProp      : 'title',
-	}
+
+	
 
 	
 // asdf ScienceBase	
@@ -88,97 +73,50 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase) {
 	 * Loads the template picklist from the vocab service.
 	 * @returns void
 	 */
-	$scope.doTemplateVocabLoad = function() {
-		$http({method: 'GET', url: 'ScienceBaseVocabService?parentId=53da7288e4b0fae13b6deb73&format=json'}).
-			success(function(data, status, headers, config) {
+	var doTemplateVocabLoad = function() {
+		$http({method: 'GET', url: 'ScienceBaseVocabService?parentId=53da7288e4b0fae13b6deb73&format=json'})
+		.success(function(data, status, headers, config) {
 				
-				//remove the 'loading' message at index 1
-				$scope.transient.templateValues.splice(1, 1);
+			//remove the 'loading' message at index 1
+			$scope.transient.templateValues.splice(1, 1);
+			
+			for (var i = 0; i < data.list.length; i++) {
+				var o = new Object();
+				o.key = data.list[i].name;
+				o.display = o.key;
 				
-				for (var i = 0; i < data.list.length; i++) {
-					var o = new Object();
-					o.key = data.list[i].name;
-					o.display = o.key;
-					
-					//take all digits at the end, ignoring any trailing spaces.
-					o.sort = Number(o.key.match(/(\d*)\s*$/)[1]);
-					
-					
-					$scope.transient.templateValues.push(o);
-				}
-			}).
-			error(function(data, status, headers, config) {
-				//just put in a mesage in the picklist - no alert.
-				//
-				//remove the 'loading' message at index 1
-				$scope.transient.templateValues.splice(1, 1);
-				$scope.transient.templateValues.push({
-					key: "", display:"(!) Failed to load template list", sort: 0
-				});
+				//take all digits at the end, ignoring any trailing spaces.
+				o.sort = Number(o.key.match(/(\d*)\s*$/)[1]);
+				
+				
+				$scope.transient.templateValues.push(o);
+			}
+		})
+		.error(function(data, status, headers, config) {
+			//just put in a mesage in the picklist - no alert.
+			//
+			//remove the 'loading' message at index 1
+			$scope.transient.templateValues.splice(1, 1);
+			$scope.transient.templateValues.push({
+				key: "", display:"(!) Failed to load template list", sort: 0
 			});
-	};
+		});
+	}
+	
 	
 // asdf ScienceBase	
-	$scope.doRemoteLoad = function(event) {
-
-		//This is called from a form submit button, so don't let the form submit
-		event.preventDefault();
-		event.stopPropagation();
+	$scope.loadSearchData = function(model,success,error) {
 		
-		$scope.isSearching = 'loading';
-		$http.get($scope.buildDataUrl()).success(function(data) {
+		$http.get( ScienceBase.buildSearchUrl(model) )
+		.success(function(data) {
 			$scope.processRawScienceBaseResponse(data);
-			$scope.isUIFresh = false;
-			$scope.isSearching = false;
-			$scope.processRecords();
+			processRecords();
+			if (success) success();
 		}).error(function(data, status, headers, config) {
-			$scope.isSearching = false;
+			if (error) error();
 			alert("Unable to connect to ScienceBase.gov to find records.");
 		});
-	};
-	
-// asdf ScienceBase	
-	/**
-	 * Loads child records to the parent records as:
-	 * parentRecord.childItems
-	 * parentRecord.childRecordState
-	 * childItems is an array of child records.
-	 * childRecordState is one of:
-	 * notloaded : nothing has been done w/ child items
-	 * loading : Attempting to load the child records for this parent
-	 * complete : Completed loading child records
-	 * failed : Failed to load the child records
-	 * closed : Records were loaded, but the user has closed them (they are still assigned to childItems).
-	 * 
-	 * 
-	 * @param {type} parentRecord
-	 * @returns {undefined}
-	 */
-	$scope.loadChildItems = function(parentRecord) {
-		
-		if (parentRecord.childRecordState == "closed") {
-			//already loaded
-			parentRecord.childRecordState = "complete";
-		} else {
-			var url = $scope.getBaseQueryUrl() + "folder=" + parentRecord.id;
-
-			parentRecord.childRecordState = "loading";
-
-			$http.get(url).success(function(data) {
-				var childItems = $scope.processGlriResults(data.items);
-				childItems = $filter('orderBy')(childItems, $scope.userState.orderProp);
-
-				parentRecord.childItems = childItems;
-
-				parentRecord.childRecordState = "complete";
-
-			}).error(function(data, status, headers, config) {
-				parentRecord.childRecordState = "failed";
-				alert("Unable to connect to ScienceBase.gov to find child records.");
-			});
-		}
-	};
-	
+	}
 	
 // asdf ScienceBase	
 	/**
@@ -194,119 +132,45 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase) {
 		$scope.searchResult = unfilteredJsonData;
 		
 		if (unfilteredJsonData) {
-			$scope.resultItems = $scope.processGlriResults(unfilteredJsonData.items);
+			ScienceBase.processProjectListResponse(unfilteredJsonData);
+			$scope.resultItems = unfilteredJsonData.items;
 			
-			var categories = {};
-			var keys = Object.keys($scope.FACET_DEFS);
-			keys.forEach(function(key) {
-				var category = $scope.FACET_DEFS[key]
+			$scope.FACET_DEFS.forEach(function(category) {
 				var entries  = filterResults($scope.resultItems, category)
-				categories[category] = entries.length
+				$scope.currentFacets[category] = entries.length
 			})			
-			//updateFacetCount($scope.searchResult.searchFacets[0].entries);
-			updateFacetCount(categories)
 		} else {
-			$scope.resultItems = $scope.processGlriResults(null);
-			updateFacetCount(null);
+			$scope.resultItems = ScienceBase.processProjectListResponse(null);
 		}
-	};
+	}
 	
-// asdf ScienceBase	
-	$scope.processGlriResults = function(resultRecordsArray) {
-		var records = resultRecordsArray;
-		var newRecords = [];
-
-		if (records) {
-			for (var i = 0; i < records.length; i++) {
-				var item = records[i];
-				
-				//The system type is set of special items like 'folder's, which we don't want in the results
-				var sysTypes = (item['systemTypes'])?item['systemTypes']:[];
-				var sysType = (sysTypes[0])?sysTypes[0].toLowerCase():'standard';
-				
-				//Resource type / browserCategory has its own faceted search
-				var resource = resource = "unknown";
-				if (item['browseCategories'] && item['browseCategories'][0]) {
-					resource = item['browseCategories'][0].toLowerCase();
-				}
-				
-				//don't include folders unless they are projects
-				if (sysType != 'folder' || (sysType == 'folder' && resource == 'project')) {
-					
-					var link = item['link']['url'];
-					item['url'] = link;
-					item['resource'] = resource;
-					item['mainLink'] = ScienceBase.findLink(item["webLinks"], ["home", "html", "index page"], true);
-
-
-					//Simplify the systemTypes
-					delete item['systemTypes'];
-					item['systemType'] = sysType;
-					
-					//Have we loaded child records yet?  (hint: no)
-					item['childRecordState'] = "notloaded";
-					
-					
-					//build contactText
-					var contacts = item['contacts'];
-					var contactText = "";	//combined contact text
-
-					if (contacts) {
-						for (var j = 0; j < contacts.length; j++) {
-
-							if (j < 3) {
-								var contact = contacts[j];
-								var name = contact['name'];
-								var type = contact['type'];
-
-								if (type == null) type = "??";
-								if (type == 'Principle Investigator') type = "PI";
-
-								contactText+= name + " (" + type + "), ";
-							} else if (j == 3) {
-								contactText+= "and others.  "
-							} else {
-								break;
-							}
-						}
-					}
-
-					if (contactText.length > 0) {
-						contactText = contactText.substr(0, contactText.length - 2);	//rm trailing ', '
-					} else {
-						contactText = "[No contact information listed]";
-					}
-
-					item['contactText'] = contactText;
-
-					newRecords.push(item);
-				}
-			}
-		}
-		
-		return newRecords;
-	};
 	
 	/**
 	 * Process records w/o stepping on any in-process UI updates.
 	 * @returns {undefined}
 	 */
-	$scope.processRecords = function() {
+	var processRecords = function() {
 		$timeout(_processRecords, 1, true);
-	};
+	}
+	
 	
 	/**
 	 * Starting from resultItems:  Sort, fiter, reset current page and update paged records.
 	 */
 	var _processRecords = function() {
-		if (! $scope.resultItems) $scope.resultItems = [];
+		if ( ! $scope.resultItems ) {
+			$scope.resultItems = [];
+		}
 		
 		$scope.resultItems = $filter('orderBy')($scope.resultItems, $scope.userState.orderProp);
-		pager.records = getFilteredResults();
+
+		pager.records      = filterResults($scope.resultItems, $scope.FACET_DEFS[$scope.userState.resourceFilter]);
 		$scope.filteredRecordCount = pager.records.length;
-		pager.pageCurrent = 0;
-		pager.updatePageRecords();
-	};
+		
+		pager.pageCurrent  = 0;
+		updatePageRecords();
+	}
+	
 	
 	$scope.clearForm = function(event) {
 		
@@ -314,26 +178,28 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase) {
 		OpenLayersMap.map.setCenter(new OpenLayers.LonLat(OpenLayersMap.orgLon, OpenLayersMap.orgLat), OpenLayersMap.orgZoom);
 		
 		$scope.model.text_query = '';
-		$scope.model.location = '';
-		$scope.model.focus = '';
-		$scope.model.spatial = '';
-		$scope.userState.resourceFilter = "1";
+		$scope.model.location   = '';
+		$scope.model.focus      = '';
+		$scope.model.spatial    = '';
+		$scope.isUIFresh        = true;
+		$scope.userState.resourceFilter = 0;
 		
 		$scope.processRawScienceBaseResponse(null); // asdf ScienceBase	or ProjectManager
-		$scope.processRecords(); // asdf ScienceBase	or ProjectManager
-		
-		$scope.isUIFresh = true;
-	};
+		processRecords();
+	}
 	
-	$scope.updatePageRecords = function() {
+	
+	var updatePageRecords = function() {
 		$timeout(pager.updatePageRecords, 1, true);
-	};
+	}
+	
 
 	$scope.$watch('userState.resourceFilter', function(newValue, oldValue) {
 		if (newValue !== oldValue) {
-			$scope.processRecords();// asdf ScienceBase	or ProjectManager
+			processRecords();
 		}
 	});
+	
 	
 	$scope.$watch("userState.drawingBounds", function() {
 		if ($scope.userState.drawingBounds) {
@@ -349,107 +215,63 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase) {
 
 	
 	$scope.sortChange = function() {
-		$scope.processRecords();// asdf ScienceBase	or ProjectManager
-	};
+		processRecords();
+	}
 	
 	
-	var updateFacetCount = function(facetJsonObject) {
-
-		if ($scope.searchResult) {
-			//reset all facets to zero
-			$('#resource_input button span[class~="badge"]').html("0");
-
-
-			if (facetJsonObject) {
-				var keys = Object.keys(facetJsonObject);
-				keys.forEach(function(term) {
-					var count = facetJsonObject[term];
-					$scope.currentFacets[term] = count;
-					$('#resource_input button[class~="val-' + term + '"] span[class~="badge"]').html(count);
-				})
-			}
-		} else {
-			$('#resource_input button span[class~="badge"]').html("");
-		}
-
-	};
-
+//	var updateFacetCount = function(facetJsonObject) {
+//
+//		if ($scope.searchResult) {
+//			//reset all facets to zero
+//			$('#resource_input button span[class~="badge"]').html("0");
+//
+//			if (facetJsonObject) {
+//				var keys = Object.keys(facetJsonObject);
+//				keys.forEach(function(term) {
+//					var count = facetJsonObject[term];
+//					$scope.currentFacets[term] = count;
+//					$('#resource_input button[class~="val-' + term + '"] span[class~="badge"]').html(count);
+//				})
+//			}
+//		} else {
+//			$('#resource_input button span[class~="badge"]').html("");
+//		}
+//
+//	}
+	
 	
 	var filterResults = function(data, category) {
-		var filtered = new Array();
-
-		for (var i in data) {
-			var item = data[i];
-			if (item.browseCategories && (item.browseCategories[0] == category)) {
-				filtered.push(item);
-//			} else if (! item.browseCategories) {
-//				//We don't know what this thing is - add anyway??
-//				data.push(item);
-			}
+		if ( data === null || category === null || category === 'Any') {
+			return data;
 		}
+		
+		var filtered = [];
+
+		data.forEach(function(item){
+			if (item.browseCategories && (item.browseCategories[0] === category)) {
+				filtered.push(item);
+			}
+		});
 
 		return filtered;
 	}
 	
 	
-	var getFilteredResults = function() {
-		if ($scope.userState.resourceFilter != null && $scope.resultItems != null) {
-
-			if ($scope.userState.resourceFilter == "1") {
-				return $scope.resultItems;
-			} else {
-				return filterResults($scope.resultItems, $scope.FACET_DEFS[$scope.userState.resourceFilter])
-			}
-		} else {
-			return $scope.resultItems;
-		}
-	}
-
-	
-	// asdf ScienceBase
-	$scope.getBaseQueryUrl = function() {
-		return $("#sb-query-form").attr("action") + "?";
-	}
-	
-
-	// asdf ScienceBase
-	$scope.buildDataUrl = function() {
-		var url = $scope.getBaseQueryUrl();
+	$scope.doRemoteLoad = function(event) {
+		// TODO use preventDefault directive instead
+		//This is called from a form submit button, so don't let the form submit
+		event.preventDefault();
+		event.stopPropagation();
 		
-		var gaMetrics = new Object();	//for reporting
-		
-		gaMetrics['metric1'] = 1;	//Add a general entry for the search happening
-		
-		$.each($scope.model, function(key, value) {
-			if (value != '' && value != 'Any') {
-				
-				var actualKey = key;	//for some param we use different keys based on the value
-				
-				if (key == "location") {
-					if (value.indexOf(":") > -1) {
-						//this is a location name like "Lake:Lake Michigan'
-						actualKey = "loc_name";
-					} else {
-						//this is a location type like "Lake"
-						actualKey = "loc_type";
-					}
-					
-				}
-				
-				if ($scope.modelAnalytics[actualKey]) gaMetrics['metric' + $scope.modelAnalytics[actualKey]] = 1;
-				
-				url += encodeURI(actualKey) + "=" + encodeURI(value) + "&";
-			}
+		$scope.isSearching     = true;
+		$scope.loadSearchData($scope.model, function(){
+			$scope.isUIFresh   = false;
+			$scope.isSearching = false;
+		}, function(){
+			$scope.isSearching = false;
 		});
 
-		if (url.lastIndexOf('&') == (url.length - 1)) url = url.substr(0, url.length - 1);
-
-		//Reports to Google Analytics that a search was done on which set of
-		//fields, but doesn't include what the search values were.
-		ga('send', 'event', 'action', 'search', gaMetrics);
-		
-		return url;
-	};
+	}	
 
 	///////////
 	// Map Functions
@@ -513,7 +335,7 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase) {
 				if (OpenLayersMap.boxLayer.features.length > 0) {
 					OpenLayersMap.boxLayer.removeAllFeatures();
 				}
-			};
+			}
 
 
 			// register a listener for drawing a box
@@ -543,13 +365,13 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase) {
 
 		}
 		
-	};
+	}
 	
 	
 	//Called at the bottom of this JS file
 	var init = function() {
 		OpenLayersMap.init();
-		$scope.doTemplateVocabLoad();
+		doTemplateVocabLoad();
 	}
 
 	init();

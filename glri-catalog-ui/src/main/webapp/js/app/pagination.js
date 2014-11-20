@@ -118,8 +118,8 @@ function(){
 
 
 GLRICatalogApp.directive('pagerui',
-['Pagination',		
-function(pager) {
+['Pagination', 'ScienceBase',		
+function(pager, ScienceBase) {
 	return {
 		restrict   : 'E', //AEC
 		replace    : true,
@@ -149,9 +149,7 @@ function(pager) {
 					case 'notloaded' :
 					case 'failed' :
 					default :
-						
-						// asdf sciencebase
-						$scope.loadChildItems(parentRecord);
+						ScienceBase.loadChildItems(parentRecord);
 				}
 			}
 		}

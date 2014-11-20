@@ -32,6 +32,7 @@
 		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/main.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/focusAreaManager.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/sciencebase.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/projectManager.js"></script>		
 		<script type="text/javascript" src="${pageScope.rootPath}js/app/pagination.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}js/app/main.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/directives.js"></script>
@@ -144,11 +145,11 @@
 									<div class="form-group">
 										<div id="resource_input" class="btn-group-vertical" style="width:100%" tooltip-placement="right" tooltip="Narrow the results to a resource type such as &QUOT;Data&QUOT; for datasets or &QUOT;Project&QUOT; for a USGS GLRI study. A Project may have associated Data and/or Publications.">
 											<label class="control-label">Resource Type</label>
-											<button type="button" class="btn btn-default val-{{name}}" ng-repeat="(key, name) in FACET_DEFS" ng-model="userState.resourceFilter" btn-radio="key">
-												<img ng-src="${pageScope.rootPath}style/image/darkblue/{{name | lowercase}}.svg" ng-if="key != '1'" class="pull-left"/>
-												<div class="noImgPadding" ng-if="key==='1'"></div>
-												<span ng-if="key != '1'" class="badge pull-right"></span>
-												<span class="value" ng-bind-html="name"></span>
+											<button type="button" class="btn btn-default val-{{name}}" ng-repeat="category in FACET_DEFS" ng-model="userState.resourceFilter" btn-radio="$index">
+												<img ng-src="${pageScope.rootPath}style/image/darkblue/{{category | lowercase}}.svg" ng-if="$index !== 0" class="pull-left"/>
+												<div class="noImgPadding" ng-if="$index === 0"></div>
+												<span class="badge pull-right" ng-if="$index !== 0" ng-bind="currentFacets[category]"></span>
+												<span class="value" ng-bind-html="category"></span>
 											</button>
 										</div>
 									</div>

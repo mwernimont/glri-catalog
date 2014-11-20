@@ -27,7 +27,7 @@ GLRICatalogApp.value('Status', {
 	CONST : {
 		FOCUS_AREA_SCHEME : "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
 		TEMPLATE_SCHEME   : "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
-		BASE_QUERY_URL    : "../ScienceBaseService?",
+		BASE_QUERY_URL    : "ScienceBaseService?",
 	},	
 
 });

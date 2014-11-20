@@ -23,4 +23,22 @@ function(Status, ScienceBase) {
 		}
 	}
 	
-}])
+}]);
+
+
+
+GLRICatalogApp.directive('projectRecord',
+[
+function() {
+	return {
+		restrict   : 'E', //AEC
+		replace    : true,
+		transclude : true,
+		scope      : true,
+		templateUrl: '/glri-catalog/project-record.html',
+		
+		controller : function($scope) {
+			
+		}
+	}	
+}]);
