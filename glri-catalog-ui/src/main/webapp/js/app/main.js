@@ -1,5 +1,12 @@
 'use strict';
 
+
+// angular does not check for null
+function isDefined(obj) {
+	return angular.isDefined(obj) && obj !== null;
+}
+
+
 /* Controllers */
 
 GLRICatalogApp.controller('CatalogCtrl',
@@ -184,7 +191,7 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status) {
 		$scope.isUIFresh        = true;
 		$scope.userState.resourceFilter = 0;
 		
-		$scope.processRawScienceBaseResponse(null); // asdf ScienceBase	or ProjectManager
+		$scope.processRawScienceBaseResponse(null); // asdf ScienceBase	or RecordManager
 		processRecords();
 	}
 	

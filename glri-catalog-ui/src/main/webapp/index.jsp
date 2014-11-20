@@ -32,7 +32,7 @@
 		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/main.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/focusAreaManager.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/sciencebase.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/projectManager.js"></script>		
+		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/recordManager.js"></script>		
 		<script type="text/javascript" src="${pageScope.rootPath}js/app/pagination.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}js/app/main.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}browse/js/app/directives.js"></script>

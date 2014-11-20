@@ -11,12 +11,12 @@
 			<a href="{{record.mainLink.url}}" target="_blank" ng-bind-html="record.mainLink.title"></a>
 		</div>
 		<div ng-if="record.hasChildren == true">
-			<a href="" ng-click="toggleChildItems(record)">Publications and Datasets
-				<span ng-if="record.childRecordState === 'notloaded'"><span class="glyphicon glyphicon-chevron-down"></span></span>
-				<span ng-if="record.childRecordState === 'loading'"><span class="glyphicon glyphicon-repeat"></span></span>
-				<span ng-if="record.childRecordState === 'complete'"><span class="glyphicon glyphicon-remove-circle"></span></span>
-				<span ng-if="record.childRecordState === 'failed'"><span class="glyphicon glyphicon-warning-sign"></span></span>
-				<span ng-if="record.childRecordState === 'closed'"><span class="glyphicon glyphicon-eye-open"></span></span>
+			<a href="" ng-click="toggleChildItems(record)">Publications and Datasets&nbsp;
+				<span ng-if="record.childRecordState === 'notloaded'"><span class="glyphicon glyphicon-cloud"></span></span>
+				<span ng-if="record.childRecordState === 'loading'">  <span class="glyphicon glyphicon-repeat"></span></span>
+				<span ng-if="record.childRecordState === 'complete'"> <span class="glyphicon glyphicon-chevron-down"></span></span>
+				<span ng-if="record.childRecordState === 'failed'">   <span class="glyphicon glyphicon-warning-sign"></span></span>
+				<span ng-if="record.childRecordState === 'closed'">   <span class="glyphicon glyphicon-chevron-up"></span></span>
 			</a>
 		</div>
 	</div>
@@ -26,7 +26,7 @@
 	
 	<div ng-if="record.childItems && record.childRecordState == 'complete'" class="child-records">
 		<div class="list-head clearfix">
-			<div class="pull-right"><a href="" ng-click="toggleChildItems(record)">Close child list <span class="glyphicon glyphicon-remove-circle"></span></a></div>
+			<div class="pull-right"><a href="" ng-click="toggleChildItems(record)"><span title="Close child list." class="glyphicon glyphicon-remove-circle"></span></a></div>
 			<h4>{{record.childItems.length}} Child record(s) (projects and datasets)</h4>
 		</div>
 		<ul>

@@ -1,8 +1,8 @@
 'use strict';
 
 GLRICatalogApp.service('Nav', 
-['$http', '$location', 'Status', 'FocusAreaManager', '$rootScope', 'ScienceBase', 'ProjectManager',
-function($http, $location, status, FocusAreaManager, $rootScope, ScienceBase, ProjectManager) {
+['$http', '$location', 'Status', 'FocusAreaManager', '$rootScope', 'ScienceBase', 'RecordManager',
+function($http, $location, status, FocusAreaManager, $rootScope, ScienceBase, RecordManager) {
 	
 	var ctx = this;
 	window.Nav = ctx;
@@ -14,7 +14,7 @@ function($http, $location, status, FocusAreaManager, $rootScope, ScienceBase, Pr
 	
 	ctx.setNavAdd = function(nav) {
 		var navs = ctx.currentNav;
-		if ( angular.isDefined(navs) ) {
+		if ( isDefined(navs) ) {
 			navs.push(nav);
 		}
 	}
@@ -28,16 +28,16 @@ function($http, $location, status, FocusAreaManager, $rootScope, ScienceBase, Pr
 	
 	ctx.navShow = function(nav) {
 		var navs = ctx.currentNav;
-		return angular.isDefined(navs)  &&  navs.indexOf(nav)!=-1
+		return isDefined(navs)  &&  navs.indexOf(nav)!=-1
 	}
 	
 	
 	ctx.contentShow = function(nav, index, detail) {
 		var show = ctx.isNav(nav,index)
 //		if (detail) {
-//			show = show &&   angular.isDefined(status.currentItem);
+//			show = show &&   isDefined(status.currentItem);
 //		} else {
-//			show = show && ! angular.isDefined(status.currentItem);
+//			show = show && ! isDefined(status.currentItem);
 //		}
 		return show
 	}
@@ -45,8 +45,8 @@ function($http, $location, status, FocusAreaManager, $rootScope, ScienceBase, Pr
 	
 	ctx.isNav = function(nav, index) {
 		var navs = ctx.currentNav;
-		index = angular.isDefined(index) ?index :navs.length-1;
-		var isNav = angular.isDefined(navs)  &&  navs[index]===nav;
+		index = isDefined(index) ?index :navs.length-1;
+		var isNav = isDefined(navs)  &&  navs[index]===nav;
 		return isNav;
 	}
 	
@@ -120,7 +120,7 @@ function($http, $location, status, FocusAreaManager, $rootScope, ScienceBase, Pr
 							var url = "https://www.sciencebase.gov/catalog/item/"+id+"?format=json"
 							$http.get(url).success(function(data, status, headers, config) {
 								var item = ScienceBase.processItem(data);
-								ProjectManager.setProjectDetail(item);
+								RecordManager.setProjectDetail(item);
 								$rootScope.$broadcast('do-scopeApply');
 
 							}).error(function(data, status, headers, config) {

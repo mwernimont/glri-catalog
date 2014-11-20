@@ -33,7 +33,7 @@
 		<script type="text/javascript" src="js/app/sciencebase.js"></script>
 		<script type="text/javascript" src="js/app/nav.js"></script>
 		<script type="text/javascript" src="js/app/controller.js"></script>
-		<script type="text/javascript" src="js/app/projectManager.js"></script>
+		<script type="text/javascript" src="js/app/recordManager.js"></script>
 		<script type="text/javascript" src="js/app/directives.js"></script>
 		<script type="application/javascript" src="http://www.usgs.gov/scripts/analytics/usgs-analytics.js"></script>
 

@@ -49,8 +49,8 @@ function($http, Status, FocusAreaManager, $rootScope){
 	
 	ctx.processPublicationResponse = function(unfilteredJsonData, collection) {
 
-		if (angular.isDefined(unfilteredJsonData) 
-		 && angular.isDefined(unfilteredJsonData.items) ) {
+		if (isDefined(unfilteredJsonData) 
+		 && isDefined(unfilteredJsonData.items) ) {
 			
 			var items = unfilteredJsonData.items;
 
@@ -84,8 +84,8 @@ function($http, Status, FocusAreaManager, $rootScope){
 	
 	ctx.processProjectListResponse = function(unfilteredJsonData) {
 		
-		if (angular.isDefined(unfilteredJsonData) 
-		 && angular.isDefined(unfilteredJsonData.items) ) {
+		if (isDefined(unfilteredJsonData) 
+		 && isDefined(unfilteredJsonData.items) ) {
 			
 			var items = unfilteredJsonData.items;
 
@@ -109,6 +109,7 @@ function($http, Status, FocusAreaManager, $rootScope){
 		$rootScope.$broadcast('do-scopeApply');
 		return unfilteredJsonData.items;
 	}	
+	
 	
 	ctx.processItem = function(item) {
 
@@ -134,8 +135,7 @@ function($http, Status, FocusAreaManager, $rootScope){
 			item.systemType  = sysType;
 			
 			//Have we loaded child records yet?  (hint: no)
-			item.childRecordState = "loading";
-		//		item.childRecordState = "notloaded";
+			item.childRecordState = "notloaded";
 			item.publications     = 'loading'; // default to loading until we have the publications
 		
 			ctx.processContacts(item, true)
@@ -177,7 +177,7 @@ function($http, Status, FocusAreaManager, $rootScope){
 					}
 					var name    = contact.name
 					var mailto  = contact.name
-					if ( angular.isDefined(contact.email) ) {
+					if ( isDefined(contact.email) ) {
 						mailto  = '<a href="mailto:'+contact.email+'">' +contact.name+ '</a>'
 					}
 					contactText += sep + name   + (type!=null ?" (" + type + ") " :"");

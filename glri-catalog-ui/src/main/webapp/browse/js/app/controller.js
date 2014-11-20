@@ -5,12 +5,12 @@ GLRICatalogApp.controller('CatalogCtrl',
 ['$scope', '$http', '$filter', 'Status', 'Nav', 'FocusAreaManager', 'ScienceBase',
 function($scope, $http, $filter, Status, Nav, FocusAreaManager, ScienceBase) {
 
-	$scope.nav        = Nav;
-	$scope.status     = Status;
-	$scope.focusAreas = FocusAreaManager.areasByType;	
+	$scope.nav            = Nav;
+	$scope.status         = Status;
+	$scope.focusAreas     = FocusAreaManager.areasByType;	
 	
 	// the display order set by the stake holder
-	$scope.focusAreaOrder =  FocusAreaManager.displayOrder;
+	$scope.focusAreaOrder = FocusAreaManager.displayOrder;
 		
 	
 	$scope.$on('do-ofNoteClick', function(event, args) {
@@ -37,9 +37,9 @@ function($scope, $http, $filter, Status, Nav, FocusAreaManager, ScienceBase) {
 	
 	
 	$scope.loadedFocusAreas = function(focusArea) {
- 		return angular.isDefined(focusArea) 
- 			&& angular.isDefined(FocusAreaManager.areasByType[focusArea])
- 			&& angular.isDefined(FocusAreaManager.areasByType[focusArea].items)
+ 		return isDefined(focusArea) 
+ 			&& isDefined(FocusAreaManager.areasByType[focusArea])
+ 			&& isDefined(FocusAreaManager.areasByType[focusArea].items)
  			&& FocusAreaManager.areasByType[focusArea].items.length>0
  	}
 	
@@ -48,7 +48,7 @@ function($scope, $http, $filter, Status, Nav, FocusAreaManager, ScienceBase) {
 		if (tabName==='Home') {
 			Status.currentItem = undefined;
 		}
-		if ( angular.isDefined(tabName) ) {
+		if ( isDefined(tabName) ) {
 			ga('send', 'screenview', {
 				  'screenName': tabName
 			});

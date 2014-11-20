@@ -33,8 +33,8 @@ GLRICatalogApp.directive("glriProjectDetail",[function(){
 
 
 GLRICatalogApp.directive("glriFocusArea",
-['$http', 'Status', 'ProjectManager', 'ScienceBase', 'Nav',
-function($http, Status, ProjectManager, ScienceBase, Nav) {
+['$http', 'Status', 'RecordManager', 'ScienceBase', 'Nav',
+function($http, Status, RecordManager, ScienceBase, Nav) {
 	
 	return {
 		restrict   : 'E', //AEC
@@ -50,7 +50,7 @@ function($http, Status, ProjectManager, ScienceBase, Nav) {
 
 			
 			$scope.showDetail = function() {
-				return angular.isDefined(Status.currentItem);
+				return isDefined(Status.currentItem);
 			}
 			$scope.showList = function() {
 				return ! $scope.showDetail();
@@ -58,7 +58,7 @@ function($http, Status, ProjectManager, ScienceBase, Nav) {
 			
 			
 			$scope.selectProject = function(projectItem) {
-				ProjectManager.setProjectDetail(projectItem);
+				RecordManager.setProjectDetail(projectItem);
 				
 				// TODO this might not be necessary any longer with the addition of 'all' focus area
 				// Nav to browse should automatically be Browse/all

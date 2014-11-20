@@ -343,7 +343,7 @@ ul.result-records li {
 .browse-image { width: 500px; float: right; margin-left: 1em; margin-bottom: 1em; }
 
 ul.result-records .related-links {
-	display: block; float: right; width: 16em; padding: .2em; margin: 1em 0 .5em 1em;
+	display: block; float: right; width: 17em; padding: .2em; margin: 1em 0 .5em 1em;
 	
 	/* Drop shadow */
 	-moz-box-shadow: 1px 1px 4px #666;
@@ -398,7 +398,8 @@ option.any-option { font-weight: bold; }
 
 .glyphicon { color: #022553; }
 .glyphicon-repeat {
-	
+	width: 11.5px;
+	height: 8px;
     -webkit-animation-name: spin;
     -webkit-animation-duration: 3000ms;
     -webkit-animation-iteration-count: infinite;
