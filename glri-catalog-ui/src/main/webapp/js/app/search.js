@@ -1,43 +1,54 @@
 'use strict';
 
 
-/* Controllers */
-
-GLRICatalogApp.controller('SearchCtrl',
-['$scope', '$http', '$filter', '$timeout', 'Pagination', 'ScienceBase', 'Status',
-function($scope, $http, $filter, $timeout, pager, ScienceBase, Status) {
-
-	$scope.FACET_DEFS = [
-		"Any",
-		"Data",
-		"Publication",
-		"Project"
-	];
-	$scope.SORT_OPTIONS = [
-		{key: "title", display: "Title"},
-		{key: "contactText", display: "Author / PI / Creator"}
-	];
+// the mediator between search nav and content
+GLRICatalogApp.service('Search',
+['$http', '$filter', '$timeout', 'Pagination', 'ScienceBase', 'Status',
+function($http, $filter, $timeout, pager, ScienceBase, Status) {
+	
+	var ctx = this;
+	
+	ctx.results = {
+		items  : [],	//array of all the returned items, processed to include display properties
+	}
+	
 	//Non-query user created state
-	$scope.userState = {
+	ctx.state = {
 		drawingBounds  : false,	//true if dragging map should draw a box
 		resourceFilter : 0,
 		orderProp      : 'title',
+		isFreshUI      : true,
+		isSearching    : false
 	};
-	$scope.model = {
-			text_query : '',
-			location   : '',
-			focus      : '',
-			template   : '',
-			spatial    : '',
-		};
-	
-	$scope.isUIFresh     = true;	//True until the user does the first search.   Used to display welcome message.
-	$scope.isSearching   = false;	//true if we are waiting for results from the main (non-child) query.
-	$scope.currentFacets = {};	    //counts of the facets
-	$scope.searchResult  = null;	//array of all the returned items, UNprocessed (used for facet count)
-	$scope.resultItems   = null;	//array of all the returned items, processed to include display properties
 
+	ctx.FACET_DEFS = [
+ 		"Any",
+ 		"Data",
+ 		"Publication",
+ 		"Project"
+ 	];
 	
+	ctx.currentFacets = {};	    //counts of the facets
+	
+	ctx.setSearching  = function(value) {
+		ctx.state.isFreshUI   = false;
+		ctx.state.isSearching = value;	//true if we are waiting for results from the main (non-child) query.
+	}
+	
+}]);
+
+
+/* Controllers */
+
+
+GLRICatalogApp.controller('SearchNavCtrl',
+['$scope', '$http', '$filter', '$timeout', 'Pagination', 'ScienceBase', 'Status', 'Search',
+function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
+	
+	$scope.state         = Search.state;
+	$scope.FACET_DEFS    = Search.FACET_DEFS;
+	$scope.currentFacets = Search.currentFacets;
+	$scope.results       = Search.results;
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
 	$scope.transient = {
@@ -47,9 +58,43 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status) {
 			{key: "xxx", display:"...loading template list...", sort: 0},
 		]
 	};
+	$scope.model = {
+		text_query : '',
+		location   : '',
+		focus      : '',
+		template   : '',
+		spatial    : '',
+	};
+	
+
+	$scope.doRemoteLoad = function(event) {
+		Search.setSearching(true);
+		$scope.loadSearchData($scope.model, function(){
+			Search.setSearching(false);
+		}, function(){
+			Search.setSearching(false);
+		});
+	}	
+	
+	
+	$scope.clearForm = function(event) {
+		
+		OpenLayersMap.boxLayer.removeAllFeatures();
+		OpenLayersMap.map.setCenter(new OpenLayers.LonLat(OpenLayersMap.orgLon, OpenLayersMap.orgLat), OpenLayersMap.orgZoom);
+		
+		$scope.model.text_query = '';
+		$scope.model.location   = '';
+		$scope.model.focus      = '';
+		$scope.model.spatial    = '';
+		Search.state.resourceFilter = 0;
+		Search.state.isFreshUI  = true;
+		
+		$scope.processRawScienceBaseResponse(null); // asdf ScienceBase	or RecordManager
+		processRecords();
+	}
 
 	
-// asdf ScienceBase	
+	// asdf ScienceBase	
 	/**
 	 * Loads the template picklist from the vocab service.
 	 * @returns void
@@ -83,177 +128,8 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status) {
 			});
 		});
 	}
-	
-	
-// asdf ScienceBase	
-	$scope.loadSearchData = function(model,success,error) {
-		
-		$http.get( ScienceBase.buildSearchUrl(model) )
-		.success(function(data) {
-			$scope.processRawScienceBaseResponse(data);
-			processRecords();
-			if (success) success();
-		}).error(function(data, status, headers, config) {
-			if (error) error();
-			alert("Unable to connect to ScienceBase.gov to find records.");
-		});
-	}
-	
-// asdf ScienceBase	
-	/**
-	 * For the main (non-nested child) records, read response metadata and add
-	 * extra properties to the records.
-	 * 
-	 * Side effects:
-	 * Results are saved as resultItems and the UI facets will be updated.
-	 * 
-	 * @param {type} unfilteredJsonData from ScienceBase
-	 */
-	$scope.processRawScienceBaseResponse = function(unfilteredJsonData) {
-		$scope.searchResult = unfilteredJsonData;
-		
-		if (unfilteredJsonData) {
-			ScienceBase.processProjectListResponse(unfilteredJsonData);
-			$scope.resultItems = unfilteredJsonData.items;
-			
-			$scope.FACET_DEFS.forEach(function(category) {
-				var entries  = filterResults($scope.resultItems, category)
-				$scope.currentFacets[category] = entries.length
-			})			
-		} else {
-			$scope.resultItems = ScienceBase.processProjectListResponse(null);
-		}
-	}
-	
-	
-	/**
-	 * Process records w/o stepping on any in-process UI updates.
-	 * @returns {undefined}
-	 */
-	var processRecords = function() {
-		$timeout(_processRecords, 1, true);
-	}
-	
-	
-	/**
-	 * Starting from resultItems:  Sort, fiter, reset current page and update paged records.
-	 */
-	var _processRecords = function() {
-		if ( ! $scope.resultItems ) {
-			$scope.resultItems = [];
-		}
-		
-		$scope.resultItems = $filter('orderBy')($scope.resultItems, $scope.userState.orderProp);
-
-		pager.records      = filterResults($scope.resultItems, $scope.FACET_DEFS[$scope.userState.resourceFilter]);
-		$scope.filteredRecordCount = pager.records.length;
-		
-		pager.pageCurrent  = 0;
-		updatePageRecords();
-	}
-	
-	
-	$scope.clearForm = function(event) {
-		
-		OpenLayersMap.boxLayer.removeAllFeatures();
-		OpenLayersMap.map.setCenter(new OpenLayers.LonLat(OpenLayersMap.orgLon, OpenLayersMap.orgLat), OpenLayersMap.orgZoom);
-		
-		$scope.model.text_query = '';
-		$scope.model.location   = '';
-		$scope.model.focus      = '';
-		$scope.model.spatial    = '';
-		$scope.isUIFresh        = true;
-		$scope.userState.resourceFilter = 0;
-		
-		$scope.processRawScienceBaseResponse(null); // asdf ScienceBase	or RecordManager
-		processRecords();
-	}
-	
-	
-	var updatePageRecords = function() {
-		$timeout(pager.updatePageRecords, 1, true);
-	}
-	
-
-	$scope.$watch('userState.resourceFilter', function(newValue, oldValue) {
-		if (newValue !== oldValue) {
-			processRecords();
-		}
-	});
-	
-	
-	$scope.$watch("userState.drawingBounds", function() {
-		if ($scope.userState.drawingBounds) {
-			OpenLayersMap.boxControl.handler.stopDown = true;
-			OpenLayersMap.boxControl.handler.stopUp = true;
-			OpenLayersMap.boxControl.activate();
-		} else {
-			OpenLayersMap.boxControl.handler.stopDown = false;
-			OpenLayersMap.boxControl.handler.stopUp = false;
-			OpenLayersMap.boxControl.deactivate();
-		}
-	}); 
 
 	
-	$scope.sortChange = function() {
-		processRecords();
-	}
-	
-	
-//	var updateFacetCount = function(facetJsonObject) {
-//
-//		if ($scope.searchResult) {
-//			//reset all facets to zero
-//			$('#resource_input button span[class~="badge"]').html("0");
-//
-//			if (facetJsonObject) {
-//				var keys = Object.keys(facetJsonObject);
-//				keys.forEach(function(term) {
-//					var count = facetJsonObject[term];
-//					$scope.currentFacets[term] = count;
-//					$('#resource_input button[class~="val-' + term + '"] span[class~="badge"]').html(count);
-//				})
-//			}
-//		} else {
-//			$('#resource_input button span[class~="badge"]').html("");
-//		}
-//
-//	}
-	
-	
-	var filterResults = function(data, category) {
-		if ( data === null || category === null || category === 'Any') {
-			return data;
-		}
-		
-		var filtered = [];
-
-		data.forEach(function(item){
-			if (item.browseCategories && (item.browseCategories[0] === category)) {
-				filtered.push(item);
-			}
-		});
-
-		return filtered;
-	}
-	
-	
-	$scope.doRemoteLoad = function(event) {
-		// TODO use preventDefault directive instead
-		//This is called from a form submit button, so don't let the form submit
-		event.preventDefault();
-		event.stopPropagation();
-		
-		$scope.isSearching     = true;
-		$scope.loadSearchData($scope.model, function(){
-			$scope.isUIFresh   = false;
-			$scope.isSearching = false;
-		}, function(){
-			$scope.isSearching = false;
-		});
-
-	}	
-
 	///////////
 	// Map Functions
 	///////////
@@ -349,6 +225,20 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status) {
 	}
 	
 	
+	$scope.$watch("state.drawingBounds", function() {
+		if (Search.state.drawingBounds) {
+			OpenLayersMap.boxControl.handler.stopDown = true;
+			OpenLayersMap.boxControl.handler.stopUp   = true;
+			OpenLayersMap.boxControl.activate();
+		} else {
+			OpenLayersMap.boxControl.handler.stopDown = false;
+			OpenLayersMap.boxControl.handler.stopUp   = false;
+			OpenLayersMap.boxControl.deactivate();
+		}
+	}); 
+
+	
+	
 	//Called at the bottom of this JS file
 	var init = function() {
 		OpenLayersMap.init();
@@ -356,5 +246,131 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status) {
 	}
 
 	init();
+	
+}]);
 
+
+GLRICatalogApp.controller('SearchCtrl',
+['$scope', '$http', '$filter', '$timeout', 'Pagination', 'ScienceBase', 'Status', 'Search',
+function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
+
+	$scope.state   = Search.state;
+	
+	$scope.SORT_OPTIONS = [
+		{key: "title", display: "Title"},
+		{key: "contactText", display: "Author / PI / Creator"}
+	];
+	
+	
+// asdf ScienceBase	
+	$scope.loadSearchData = function(model,success,error) {
+		
+		$http.get( ScienceBase.buildSearchUrl(model) )
+		.success(function(data) {
+			$scope.processRawScienceBaseResponse(data);
+			processRecords();
+			if (success) success();
+		}).error(function(data, status, headers, config) {
+			if (error) error();
+			alert("Unable to connect to ScienceBase.gov to find records.");
+		});
+	}
+	
+// asdf ScienceBase	
+	/**
+	 * For the main (non-nested child) records, read response metadata and add
+	 * extra properties to the records.
+	 * 
+	 * Side effects:
+	 * Results are saved as resultItems and the UI facets will be updated.
+	 * 
+	 * @param {type} unfilteredJsonData from ScienceBase
+	 */
+	$scope.processRawScienceBaseResponse = function(unfilteredJsonData) {
+		Search.results.search = unfilteredJsonData;
+		
+		if (unfilteredJsonData) {
+			ScienceBase.processProjectListResponse(unfilteredJsonData);
+			Search.results.items = unfilteredJsonData.items;
+			
+			Search.FACET_DEFS.forEach(function(category) {
+				var entries  = filterResults(Search.results.items, category)
+				$scope.currentFacets[category] = entries.length
+			})			
+		} else {
+			Search.results.items = ScienceBase.processProjectListResponse(null);
+		}
+	}
+	
+	
+	/**
+	 * Process records w/o stepping on any in-process UI updates.
+	 * @returns {undefined}
+	 */
+	var processRecords = function() {
+		$timeout(_processRecords, 1, true);
+	}
+	
+	
+	/**
+	 * Starting from resultItems:  Sort, fiter, reset current page and update paged records.
+	 */
+	var _processRecords = function() {
+		if ( ! Search.results.items ) {
+			Search.results.items = [];
+		}
+		
+		Search.results.items = $filter('orderBy')(Search.results.items, Search.state.orderProp);
+
+		pager.records      = filterResults(Search.results.items, Search.FACET_DEFS[Search.state.resourceFilter]);
+		$scope.filteredRecordCount = pager.records.length;
+		
+		pager.pageCurrent  = 0;
+		updatePageRecords();
+	}
+	
+	
+	
+	
+	var updatePageRecords = function() {
+		$timeout(pager.updatePageRecords, 1, true);
+	}
+	
+
+	$scope.$watch('state.resourceFilter', function(newValue, oldValue) {
+		if (newValue !== oldValue) {
+			processRecords();
+		}
+	});
+	
+	
+	$scope.sortChange = function() {
+		processRecords();
+	}
+	
+	
+	var filterResults = function(data, category) {
+		if ( data === null || category === null || category === 'Any') {
+			return data;
+		}
+		
+		var filtered = [];
+
+		data.forEach(function(item){
+			if (item.browseCategories && (item.browseCategories[0] === category)) {
+				filtered.push(item);
+			}
+		});
+
+		return filtered;
+	}
+	
+
+	$scope.isFilterEmpty = function() {
+		return ! Search.state.isFreshUI && Search.results.items.length > 0 && $scope.filteredRecordCount == 0
+	}
+	$scope.isSearchEmpty = function() {
+		return ! Search.state.isFreshUI && Search.results.items.length == 0 
+	}
+	
 }]);

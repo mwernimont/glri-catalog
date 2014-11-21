@@ -59,9 +59,7 @@ function($http, $location, status, FocusAreaManager, $rootScope, ScienceBase, Re
 	ctx.doNavRoot = function(nav) {
 		ctx.setNavRoot(nav);
 		
-		if (nav === 'Search') {
-			window.location.href='/glri-catalog';
-		} else if (nav === 'Browse') {
+		if (nav === 'Browse') {
 			FocusAreaManager.activate('all');
 		}
 		ctx.setPath(ctx.currentNav);

@@ -1,11 +1,11 @@
-<div id="searchResults">
+<div id="searchResults" ng-controller="SearchCtrl">
 	<pagerui></pagerui>
 
 	<div class="row">
 		<div class="col-xs-12">
 			<!--Body content-->
 			
-			<div class="well well-sm clearfix" ng-if="isUIFresh">
+			<div class="well well-sm clearfix" ng-if="state.isFreshUI">
 				<strong style="color:#036;font-size:16px">Welcome to the Great Lakes RESTORATION Initiative Science Explorer!</strong>
 				<br>
 				<i style="color:#036">Discover USGS Science in the Great Lakes</i>
@@ -27,15 +27,15 @@
 				
 				<p class="gap-lg">
 					<a href="http://www.usgs.gov/" target="_blank" class="pull-left">
-						<img style="height: 49px; width: 134px;" src="${pageScope.rootPath}style/image/usgsblack.png" alt="USGS Logo - Science for a changing world"/>
+						<img style="height: 49px; width: 134px;" src="style/image/usgsblack.png" alt="USGS Logo - Science for a changing world"/>
 					</a>
 					<a href="http://cida.usgs.gov/glri/" target="_blank" class="pull-right">
-						<img style="height: 49px; width: 158px;" src="${pageScope.rootPath}style/image/darkblue/glri_logo.svg" alt="GLRI Logo - Great Lakes Restoration Initiative"/>
+						<img style="height: 49px; width: 158px;" src="style/image/darkblue/glri_logo.svg" alt="GLRI Logo - Great Lakes Restoration Initiative"/>
 					</a>
 				</p>
 			</div>
 
-			<div ng-if=" ! isUIFresh && resultItems.length > 0 && filteredRecordCount == 0" id="records-blocked-by-filter" class="panel panel-warning no-records">
+			<div ng-if="isFilterEmpty()" id="records-blocked-by-filter" class="panel panel-warning no-records">
 				<div class="panel-heading"><h3>Records hidden by filter</h3></div>
 				<div class="panel-body">
 					There <em>are</em> results from your query, but they are blocked by the <i>Resource Type</i> filter.
@@ -43,7 +43,7 @@
 				</div>
 			</div>
 			
-			<div ng-if=" ! isUIFresh && resultItems.length == 0" id="no-records-found" class="panel panel-warning no-records">
+			<div ng-if="isSearchEmpty()" id="no-records-found" class="panel panel-warning no-records">
 				<div class="panel-heading"><h3>No Records Found</h3></div>
 				<div class="panel-body">
 					None of the records in the system match the criteria you were looking for.
@@ -51,7 +51,7 @@
 			</div>
 
 			
-			<glri-loading state="isSearching"></glri-loading>
+			<glri-loading state="state.isSearching"></glri-loading>
 			
 			
 		</div>

@@ -1,4 +1,4 @@
-<form id="sb-query-form" class="form-horizontal" action="ScienceBaseService">
+<form id="sb-query-form" class="form-horizontal" action="ScienceBaseService" ng-controller="SearchNavCtrl">
 	<div class="row map">
 		<div class="col-xs-12">
 			<div id="map" class="boundingMap"></div>
@@ -7,8 +7,8 @@
 	<div class="row">
 		<div class="col-xs-12 map-contols">
 			<div class="btn-group" tooltip-placement="right" tooltip="Drag on the map to either: move the map, or, draw a bounding box to limit search results to the boxed area.">
-				<button type="button" class="btn btn-primary btn-sm" ng-model="userState.drawingBounds" btn-radio="false">Drag Map</button>
-				<button type="button" class="btn btn-primary btn-sm" ng-model="userState.drawingBounds" btn-radio="true">Draw Bounds</button>
+				<button type="button" class="btn btn-primary btn-sm" ng-model="state.drawingBounds" btn-radio="false">Drag Map</button>
+				<button type="button" class="btn btn-primary btn-sm" ng-model="state.drawingBounds" btn-radio="true">Draw Bounds</button>
 			</div>
 		</div>
 	</div>
@@ -75,8 +75,8 @@
 	<div class="form-group">
 		<div id="resource_input" class="btn-group-vertical" style="width:100%" tooltip-placement="right" tooltip="Narrow the results to a resource type such as &QUOT;Data&QUOT; for datasets or &QUOT;Project&QUOT; for a USGS GLRI study. A Project may have associated Data and/or Publications.">
 			<label class="control-label">Resource Type</label>
-			<button type="button" class="btn btn-default val-{{name}}" ng-repeat="category in FACET_DEFS" ng-model="userState.resourceFilter" btn-radio="$index">
-				<img ng-src="${pageScope.rootPath}style/image/darkblue/{{category | lowercase}}.svg" ng-if="$index !== 0" class="pull-left"/>
+			<button type="button" class="btn btn-default val-{{name}}" ng-repeat="category in FACET_DEFS" ng-model="state.resourceFilter" btn-radio="$index">
+				<img ng-src="style/image/darkblue/{{category | lowercase}}.svg" ng-if="$index !== 0" class="pull-left"/>
 				<div class="noImgPadding" ng-if="$index === 0"></div>
 				<span class="badge pull-right" ng-if="$index !== 0" ng-bind="currentFacets[category]"></span>
 				<span class="value" ng-bind-html="category"></span>
@@ -87,13 +87,13 @@
 		<div id="sb-query-form-footer-controls" class="col-xs-12">
 			<input type="hidden" id="format_input" name="format" value="json">
 			<button type="reset" class="btn btn-primary pull-left" id="sb-query-clear" ng-click="clearForm($event)">Clear Form</button>
-			<button type="submit" class="btn btn-primary pull-right" id="sb-query-submit" ng-click="doRemoteLoad($event)">Search</button>
+			<button type="submit" prevent-default class="btn btn-primary pull-right" id="sb-query-submit" ng-click="doRemoteLoad($event)">Search</button>
 		</div>
 	</div>
 	<div class="row">
 		<div class="col-xs-12">	
 			<a href="https://www.sciencebase.gov/catalog/items?community=Great+Lakes+Restoration+Initiative" target="_blank" title="ScienceBase, a repository of projects, data and metadata">
-				<img width="206" src="${pageScope.rootPath}style/image/darkblue/sciencebase.png" alt="Science Base attribution icon" />
+				<img width="206" src="style/image/darkblue/sciencebase.png" alt="Science Base attribution icon" />
 			</a>
 		</div>
 	</div>

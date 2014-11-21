@@ -8,10 +8,10 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" /> <%-- Bootstrap mobile scaling directive --%>
 
-		<link href="${pageScope.rootPath}favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<link href="${pageScope.rootPath}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 		
-		<jsp:include page="${pageScope.rootPath}templates/USGSHead.jsp">
-			<jsp:param name="relPath" value="${pageScope.rootPath}" />
+		<jsp:include page="${pageScope.rootPath}/template/USGSHead.jsp">
+			<jsp:param name="relPath" value="${pageScope.rootPath}/" />
 			<jsp:param name="shortName" value="${project.name}" />
 			<jsp:param name="title" value="Great Lakes Restoration Initiative (GLRI) Home" />
 			<jsp:param name="description" value="The GLRI home page with infomation about all GLRI projects." />
@@ -78,7 +78,7 @@
 						<jsp:param name="header-class" value="" />
 						<jsp:param name="site-title" value="Great Lakes Restoration Initiative (GLRI)" />
 					</jsp:include>
-					<img class="glyphicon glyphicon-menu visible-xs" src="../images/xicon_mobile_nav_menu.svg" ng-click="toggleNav()">
+					<img class="glyphicon glyphicon-menu visible-xs" src="images/xicon_mobile_nav_menu.svg" ng-click="toggleNav()">
 				</div>
 			</div>
 			
@@ -94,7 +94,7 @@
 
 	<div id="navBrowse" class="btn-group navBrowse">
 		<a ng-repeat="navName in nav.navNames" class="btn btn-primary btn-horizontal" 
-			preventDefault href="javascript:void(0)" ng-click="nav.doNavRoot(navName)" 
+			prevent-default href="javascript:void(0)" ng-click="nav.doNavRoot(navName)" 
 			ng-class="nav.navShow(navName) ?'active' :'' " ng-bind="navName"></a>
 	</div>
 	<hr/>
@@ -132,7 +132,7 @@
 
 		<div ng-if="nav.contentShow('BeachHealth')" >
 		<div>
-			<img src="../style/image/darkblue/glri_logo.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
+			<img src="style/image/darkblue/glri_logo.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
 			<div class="largetitle">GLRI Beach Health Webinar Feb11 2014</div>
 		</div>
 		<center>
@@ -156,7 +156,7 @@
 			<div id="footerContainer" class="row">
 				<div class="col-xs-12">
 					<jsp:include page="${pageScope.rootPath}/templates/footer.jsp">
-						<jsp:param name="relPath" value="${pageScope.rootPath}" />
+						<jsp:param name="relPath" value="${pageScope.rootPath}/" />
 						<jsp:param name="header-class" value="" />
 						<jsp:param name="site-url" value="" />
 						<jsp:param name="contact-info" value="<a href=\"mailto:glri_help@usgs.gov\">glri_help@usgs.gov</a>" />

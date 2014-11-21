@@ -24,7 +24,7 @@ function($http, Status, FocusAreaManager, $rootScope){
 
 	
 	
-	ctx.fetchData = function(resouces, success) {
+	ctx.fetchData = function(resource, success) {
 		$http.get( ctx.buildUrl(resource) )
 		.success(function(data, status, headers, config) {
 			success(data);

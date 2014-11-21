@@ -35,7 +35,7 @@ function() {
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: '/glri-catalog/project-record.html',
+		templateUrl: 'templates/project-record.html',
 		
 		controller : function($scope) {
 			

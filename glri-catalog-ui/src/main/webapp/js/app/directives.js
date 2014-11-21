@@ -5,6 +5,8 @@ GLRICatalogApp.directive('preventDefault', function() {
 	return function(scope, element, attrs) {
 		$(element).click(function(event) {
 			event.preventDefault();
+			event.stopPropagation();
+			console.log('preventDefault')
 		});
 	}
 })
@@ -154,5 +156,43 @@ GLRICatalogApp.directive("glriLoading",['$parse', function($parse){
 	}	
 }]);
 
+
+GLRICatalogApp.directive("glriNavSearch",['$parse', function($parse){
+	return {
+		restrict   : 'E', //AEC
+		replace    : true,
+		transclude : true,
+		scope      : true, // sub-scope
+		templateUrl: 'templates/navSearch.html',
+		
+		link : function($scope, $el, $attrs) {
+//			$scope.isLoading = $parse($attrs.state)() === 'loading'
+//
+//			$scope.$watch($attrs.state, function(foo) {
+//				$scope.isLoading = (foo === 'loading')
+//			})
+		}
+	}	
+}]);
+
+
+
+GLRICatalogApp.directive("glriSearch",['$parse', function($parse){
+	return {
+		restrict   : 'E', //AEC
+		replace    : true,
+		transclude : true,
+		scope      : true, // sub-scope
+		templateUrl: 'templates/contentSearch.html',
+		
+		link : function($scope, $el, $attrs) {
+//			$scope.isLoading = $parse($attrs.state)() === 'loading'
+//
+//			$scope.$watch($attrs.state, function(foo) {
+//				$scope.isLoading = (foo === 'loading')
+//			})
+		}
+	}	
+}]);
 
 }) ();
