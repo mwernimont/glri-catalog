@@ -35,8 +35,8 @@ GLRICatalogApp.directive("glriProjectDetail",[function(){
 
 
 GLRICatalogApp.directive("glriFocusArea",
-['$http', 'Status', 'RecordManager', 'ScienceBase', 'Nav',
-function($http, Status, RecordManager, ScienceBase, Nav) {
+['$http', 'Status', 'RecordManager', 'ScienceBase', 'Nav', 'FocusAreaManager',
+function($http, Status, RecordManager, ScienceBase, Nav, FocusAreaManager) {
 	
 	return {
 		restrict   : 'E', //AEC
@@ -49,6 +49,11 @@ function($http, Status, RecordManager, ScienceBase, Nav) {
 			
 			$scope.baseQueryUrl  = Status.CONST.BASE_QUERY_URL;
 			$scope.status        = Status;
+			
+			
+			$scope.currentFocusArea = function() {
+				return FocusAreaManager.currentFocusArea;
+			}
 
 			
 			$scope.showDetail = function() {

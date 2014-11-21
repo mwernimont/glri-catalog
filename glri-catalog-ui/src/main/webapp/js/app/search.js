@@ -21,6 +21,8 @@ function($http, $filter, $timeout, pager, ScienceBase, Status) {
 		isSearching    : false
 	};
 
+	ctx.filteredRecordCount = 0;
+	
 	ctx.FACET_DEFS = [
  		"Any",
  		"Data",
@@ -33,6 +35,51 @@ function($http, $filter, $timeout, pager, ScienceBase, Status) {
 	ctx.setSearching  = function(value) {
 		ctx.state.isFreshUI   = false;
 		ctx.state.isSearching = value;	//true if we are waiting for results from the main (non-child) query.
+	}
+
+	
+	/**
+	 * Starting from resultItems:  Sort, filter, reset current page and update paged records.
+	 */
+	var processRecords = function() {
+		if ( ! ctx.results.items ) {
+			ctx.results.items = [];
+		}
+		
+		ctx.results.items = $filter('orderBy')(ctx.results.items, ctx.state.orderProp);
+
+		pager.records = ctx.filterResults(ctx.results.items, ctx.FACET_DEFS[ctx.state.resourceFilter]);
+		ctx.filteredRecordCount = pager.records.length;
+		
+		pager.pageCurrent = 0;
+		ctx.updatePageRecords();
+	}
+
+	
+	ctx.processRecords = function() {
+		$timeout(processRecords, 1, true);
+	}
+	
+	
+	ctx.updatePageRecords = function() {
+		$timeout(pager.updatePageRecords, 1, true);
+	}
+
+	
+	ctx.filterResults = function(data, category) {
+		if ( data === null || category === null || category === 'Any') {
+			return data;
+		}
+		
+		var filtered = [];
+
+		data.forEach(function(item){
+			if (item.browseCategories && (item.browseCategories[0] === category)) {
+				filtered.push(item);
+			}
+		});
+
+		return filtered;
 	}
 	
 }]);
@@ -67,6 +114,48 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 	};
 	
 
+	// asdf ScienceBase	
+	/**
+	 * For the main (non-nested child) records, read response metadata and add
+	 * extra properties to the records.
+	 * 
+	 * Side effects:
+	 * Results are saved as resultItems and the UI facets will be updated.
+	 * 
+	 * @param {type} unfilteredJsonData from ScienceBase
+	 */
+	$scope.processRawScienceBaseResponse = function(unfilteredJsonData) {
+		Search.results.search = unfilteredJsonData;
+		
+		if (unfilteredJsonData) {
+			ScienceBase.processProjectListResponse(unfilteredJsonData);
+			Search.results.items = unfilteredJsonData.items;
+			
+			Search.FACET_DEFS.forEach(function(category) {
+				var entries  = Search.filterResults(Search.results.items, category)
+				$scope.currentFacets[category] = entries.length
+			})			
+		} else {
+			Search.results.items = ScienceBase.processProjectListResponse(null);
+		}
+	}
+	
+	
+	// asdf ScienceBase	
+	$scope.loadSearchData = function(model,success,error) {
+		
+		$http.get( ScienceBase.buildSearchUrl(model) )
+		.success(function(data) {
+			$scope.processRawScienceBaseResponse(data);
+			Search.processRecords();
+			if (success) success();
+		}).error(function(data, status, headers, config) {
+			if (error) error();
+			alert("Unable to connect to ScienceBase.gov to find records.");
+		});
+	}
+	
+	
 	$scope.doRemoteLoad = function(event) {
 		Search.setSearching(true);
 		$scope.loadSearchData($scope.model, function(){
@@ -262,78 +351,12 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 	];
 	
 	
-// asdf ScienceBase	
-	$scope.loadSearchData = function(model,success,error) {
-		
-		$http.get( ScienceBase.buildSearchUrl(model) )
-		.success(function(data) {
-			$scope.processRawScienceBaseResponse(data);
-			processRecords();
-			if (success) success();
-		}).error(function(data, status, headers, config) {
-			if (error) error();
-			alert("Unable to connect to ScienceBase.gov to find records.");
-		});
-	}
-	
-// asdf ScienceBase	
-	/**
-	 * For the main (non-nested child) records, read response metadata and add
-	 * extra properties to the records.
-	 * 
-	 * Side effects:
-	 * Results are saved as resultItems and the UI facets will be updated.
-	 * 
-	 * @param {type} unfilteredJsonData from ScienceBase
-	 */
-	$scope.processRawScienceBaseResponse = function(unfilteredJsonData) {
-		Search.results.search = unfilteredJsonData;
-		
-		if (unfilteredJsonData) {
-			ScienceBase.processProjectListResponse(unfilteredJsonData);
-			Search.results.items = unfilteredJsonData.items;
-			
-			Search.FACET_DEFS.forEach(function(category) {
-				var entries  = filterResults(Search.results.items, category)
-				$scope.currentFacets[category] = entries.length
-			})			
-		} else {
-			Search.results.items = ScienceBase.processProjectListResponse(null);
-		}
-	}
-	
-	
 	/**
 	 * Process records w/o stepping on any in-process UI updates.
 	 * @returns {undefined}
 	 */
 	var processRecords = function() {
-		$timeout(_processRecords, 1, true);
-	}
-	
-	
-	/**
-	 * Starting from resultItems:  Sort, fiter, reset current page and update paged records.
-	 */
-	var _processRecords = function() {
-		if ( ! Search.results.items ) {
-			Search.results.items = [];
-		}
-		
-		Search.results.items = $filter('orderBy')(Search.results.items, Search.state.orderProp);
-
-		pager.records      = filterResults(Search.results.items, Search.FACET_DEFS[Search.state.resourceFilter]);
-		$scope.filteredRecordCount = pager.records.length;
-		
-		pager.pageCurrent  = 0;
-		updatePageRecords();
-	}
-	
-	
-	
-	
-	var updatePageRecords = function() {
-		$timeout(pager.updatePageRecords, 1, true);
+		Search.processRecords();
 	}
 	
 
@@ -347,27 +370,10 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 	$scope.sortChange = function() {
 		processRecords();
 	}
-	
-	
-	var filterResults = function(data, category) {
-		if ( data === null || category === null || category === 'Any') {
-			return data;
-		}
 		
-		var filtered = [];
-
-		data.forEach(function(item){
-			if (item.browseCategories && (item.browseCategories[0] === category)) {
-				filtered.push(item);
-			}
-		});
-
-		return filtered;
-	}
-	
 
 	$scope.isFilterEmpty = function() {
-		return ! Search.state.isFreshUI && Search.results.items.length > 0 && $scope.filteredRecordCount == 0
+		return ! Search.state.isFreshUI && Search.results.items.length > 0 && Search.filteredRecordCount == 0
 	}
 	$scope.isSearchEmpty = function() {
 		return ! Search.state.isFreshUI && Search.results.items.length == 0 

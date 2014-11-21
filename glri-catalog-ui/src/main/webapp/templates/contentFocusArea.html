@@ -16,12 +16,12 @@
 		<br>
 		
 		<div>
-			<p ng-show="status.currentFocusArea.infosheet">
+			<p ng-show="currentFocusArea().infosheet">
 				More information about the GLRI 
-				<a class="focusPdf" href="{{status.currentFocusArea.infosheet}}" target="_blank">{{status.currentFocusArea.name}} (pdf)</a>
+				<a class="focusPdf" href="{{currentFocusArea().infosheet}}" target="_blank">{{currentFocusArea().name}} (pdf)</a>
 			</p>
 			
-			<h1 class="focusAreaTitle">{{status.currentFocusArea.name}} Projects</h1>
+			<h1 class="focusAreaTitle">{{currentFocusArea().name}} Projects</h1>
 			<p class="focusAreaTitle">Click on a project for more details</p>
 		</div>
 	
