@@ -1,0 +1,60 @@
+<div id="searchResults">
+	<pagerui></pagerui>
+
+	<div class="row">
+		<div class="col-xs-12">
+			<!--Body content-->
+			
+			<div class="well well-sm clearfix" ng-if="isUIFresh">
+				<strong style="color:#036;font-size:16px">Welcome to the Great Lakes RESTORATION Initiative Science Explorer!</strong>
+				<br>
+				<i style="color:#036">Discover USGS Science in the Great Lakes</i>
+				<br>
+				<br>
+				<p>The Great Lakes Restoration Initiative (GLRI) is a wide-ranging, coordinated effort between many organizations and individuals to help the Great Lakes recover economically and ecologically. Driven by cross-disciplinary integrative science and conducted in collaboration with partners, U.S. Geological Survey (USGS) researchers are working to provide resource managers with the information and decision-making tools they need to help restore the Great Lakes.
+				</p>
+
+				<strong>What is the GLRI Science Explorer?</strong>
+				<br>
+				<p>The GLRI Science Explorer is a search tool that allows you to seek out and discover the valuable research USGS scientists are conducting in the Great Lakes region.
+				</p>
+
+				<strong>How does it work?</strong>
+				<ul>
+					<li>With the search tool you can find information about current and past science projects. Each project record provides details about a study (e.g. study start date, description/abstract, principle investigator and location).</li>
+					<li>For each project you can learn about associated information products, data sets and publications, that resulted from the projects.</li>
+				</ul>
+				
+				<p class="gap-lg">
+					<a href="http://www.usgs.gov/" target="_blank" class="pull-left">
+						<img style="height: 49px; width: 134px;" src="${pageScope.rootPath}style/image/usgsblack.png" alt="USGS Logo - Science for a changing world"/>
+					</a>
+					<a href="http://cida.usgs.gov/glri/" target="_blank" class="pull-right">
+						<img style="height: 49px; width: 158px;" src="${pageScope.rootPath}style/image/darkblue/glri_logo.svg" alt="GLRI Logo - Great Lakes Restoration Initiative"/>
+					</a>
+				</p>
+			</div>
+
+			<div ng-if=" ! isUIFresh && resultItems.length > 0 && filteredRecordCount == 0" id="records-blocked-by-filter" class="panel panel-warning no-records">
+				<div class="panel-heading"><h3>Records hidden by filter</h3></div>
+				<div class="panel-body">
+					There <em>are</em> results from your query, but they are blocked by the <i>Resource Type</i> filter.
+					The little black ovals (<span class="badge">0</span>) indicate how many records were found for each resource type.
+				</div>
+			</div>
+			
+			<div ng-if=" ! isUIFresh && resultItems.length == 0" id="no-records-found" class="panel panel-warning no-records">
+				<div class="panel-heading"><h3>No Records Found</h3></div>
+				<div class="panel-body">
+					None of the records in the system match the criteria you were looking for.
+				</div>
+			</div>
+
+			
+			<glri-loading state="isSearching"></glri-loading>
+			
+			
+		</div>
+	</div>	
+	
+</div>			

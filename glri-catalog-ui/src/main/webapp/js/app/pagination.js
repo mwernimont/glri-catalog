@@ -125,7 +125,7 @@ function(pager, ScienceBase) {
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: '/glri-catalog/pager.html',
+		templateUrl: 'templates/pager.html',
 		
 		controller : function($scope) {
 			
@@ -166,7 +166,7 @@ function(pager) {
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: '/glri-catalog/pager-controls.html',
+		templateUrl: 'templates/pager-controls.html',
 		
 		controller : function($scope) {
 			

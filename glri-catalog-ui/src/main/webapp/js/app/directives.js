@@ -16,7 +16,7 @@ GLRICatalogApp.directive("glriHome",[function(){
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: '/glri-catalog/browse/templates/contentHome.html',
+		templateUrl: 'templates/contentHome.html',
 	}	
 }])
 
@@ -27,7 +27,7 @@ GLRICatalogApp.directive("glriProjectDetail",[function(){
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: '/glri-catalog/browse/templates/contentProjectDetail.html',
+		templateUrl: 'templates/contentProjectDetail.html',
 	}	
 }])
 
@@ -40,7 +40,7 @@ function($http, Status, RecordManager, ScienceBase, Nav) {
 		restrict   : 'E', //AEC
 		replace    : true,
 		transclude : true,
-		templateUrl: '/glri-catalog/browse/templates/contentFocusArea.html',
+		templateUrl: 'templates/contentFocusArea.html',
 		scope      : {}, //isolated scope
 		
 		controller : function($scope) {
@@ -83,7 +83,7 @@ function(status) {
 		replace    : true,
 		transclude : true,
 		scope      : true, // sub-scope
-		templateUrl: '/glri-catalog/browse/templates/contentPublications.html',
+		templateUrl: 'templates/contentPublications.html',
 		
 		link : function($scope, $el, $attrs) {
 			$scope.publications  = status.allPublications
@@ -98,7 +98,7 @@ GLRICatalogApp.directive("glriAsianCarp",[function(){
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: '/glri-catalog/browse/templates/contentAsianCarp.html',
+		templateUrl: 'templates/contentAsianCarp.html',
 	}		
 }]);
 
@@ -109,7 +109,7 @@ GLRICatalogApp.directive("glriInvasive",[function(){
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: '/glri-catalog/browse/templates/contentInvasive.html',
+		templateUrl: 'templates/contentInvasive.html',
 	}		
 }]);
 
@@ -120,7 +120,7 @@ GLRICatalogApp.directive("glriProjectLists",[function(){
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: '/glri-catalog/browse/templates/contentProjectLists.html',
+		templateUrl: 'templates/contentProjectLists.html',
 	}		
 }]);
 
@@ -131,7 +131,7 @@ GLRICatalogApp.directive("glriNavHome",[function(){
 		replace    : true,
 		transclude : true,
 		scope      : true,
-		templateUrl: '/glri-catalog/browse/templates/navHome.html',
+		templateUrl: 'templates/navHome.html',
 	}	
 }]);
 
@@ -142,7 +142,7 @@ GLRICatalogApp.directive("glriLoading",['$parse', function($parse){
 		replace    : true,
 		transclude : true,
 		scope      : true, // sub-scope
-		templateUrl: '/glri-catalog/browse/templates/glriLoading.html',
+		templateUrl: 'templates/glriLoading.html',
 		
 		link : function($scope, $el, $attrs) {
 			$scope.isLoading = $parse($attrs.state)() === 'loading'
