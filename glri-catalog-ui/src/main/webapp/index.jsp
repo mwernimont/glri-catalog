@@ -107,12 +107,13 @@
 				ng-click="focusAreaClick(focusArea)"></button>
 	</div>
 	
+	<glri-nav-search ng-if="nav.navShow('Search')"></glri-nav-search>
+	
 	<a href="https://www.sciencebase.gov/catalog/items?community=Great+Lakes+Restoration+Initiative"
 		 target="_blank" title="ScienceBase, a repository of projects, data and metadata">
 		<img class="powered-img" src="style/image/darkblue/sciencebase.png" alt="Science Base attribution icon">
 	</a>
 	
-	<glri-nav-search ng-if="nav.navShow('Search')"></glri-nav-search>
 
 </div><!-- nav -->
 

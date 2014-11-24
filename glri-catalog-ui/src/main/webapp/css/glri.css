@@ -16,6 +16,16 @@
 	width:100%;
 	max-width: 175px;
 }
+.form-control,
+.btn-group-vertical > .btn, .btn-group-vertical > .btn-group, .btn-group-vertical > .btn-group > .btn
+{
+	width:96% !important;
+	margin-left:2% !important;
+}
+.form-horizontal .control-label {
+	margin-left:2% !important;
+}
+
 
 .center {
 	margin:0 auto;
