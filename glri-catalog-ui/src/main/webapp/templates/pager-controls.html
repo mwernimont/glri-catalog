@@ -1,0 +1,45 @@
+<div class="row">
+	<div class="col-xs-12">
+		<div class="well well-sm clearfix result-header" ng-if="pager.records.length > 0">
+			<div class="row">
+				<div class="col-xs-6 record-display-status">
+					<h4>{{pager.records.length}} results, showing {{pager.pageCurrentFirstRecordIndex() + 1}} - {{pager.pageCurrentLastRecordIndex() + 1}}</h4>
+				</div>
+				<div class="col-xs-6 sort-options form-horizontal">
+					<div class="form-group">
+						<label class="control-label col-xs-4">Sort by:&nbsp;</label>
+						<div class="col-xs-8">
+						
+
+							<select class="form-control" ng-model="userState.orderProp" ng-change="sortChange()" data-width="auto">
+								<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}" ng-bind-html="sortOption.display"></option>
+							</select>
+							
+							
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-xs-6 col-sm-12 col-md-6 page-nav">
+					<p>
+						<a href="" class="previous" ng-class="pager.pageHasPrevious()?'has-previous':'has-no-previous'" ng-click="pager.gotoPreviousPage()">&lt; Previous</a>
+						<span class="selectable-list" ng-class="($index == pager.pageCurrent)?'selected':''" ng-repeat="page in pager.pageList">
+							<span class="item current page-number" ng-if="$index === pager.pageCurrent" >{{$index + 1}}</span>
+							<a href="" class="item non-current selectable-list page-number" ng-if="$index != pager.pageCurrent" ng-click="pager.gotoPage($index)">{{$index + 1}}</a>
+						</span>
+						<a href="" class="next" ng-class="pager.pageHasNext()?'has-next':'has-no-next'" ng-click="pager.gotoNextPage()">Next &gt;</a>
+					</p>
+				</div>
+				<div class="col-xs-6 col-sm-12 col-md-6 page-nav-settings text-right">
+					<span class="selectable-list">
+						<span>Show</span>
+						<a href="" class="item" ng-repeat="ps in pager.pageRecordsPerPageOptions" ng-class="(pager.pageSize==ps)?'current':'non-current'" 
+						ng-click="pager.setPageSize(ps)" ng-bind="ps"></a>
+						<span>results per page</span>
+					</span>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

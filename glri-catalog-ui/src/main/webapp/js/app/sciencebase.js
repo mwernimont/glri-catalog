@@ -8,29 +8,49 @@ function($http, Status, FocusAreaManager, $rootScope){
 	var ctx = this;
 	
 	
-	ctx.loadProjectLists = function() {
+	//These are the Google Analytics custom metrics for each search param.
+	//To log search usage, each search should register that a search was done
+	//and what type of search it was (actual search values are not tracked).
+	//location is split into either loc_type or name based on the value.
+	ctx.modelAnalytics = {
+		search: 1,
+		text_query: 2,
+		loc_type: 3,
+		loc_name: 4,
+		focus: 5,
+		spatial: 6,
+		template: 7
+	};
 
-		$http.get(ctx.buildDataUrl()).success(function(data, status, headers, config) {
+	
+	
+	ctx.fetchData = function(resource, success) {
+		$http.get( ctx.buildUrl(resource) )
+		.success(function(data, status, headers, config) {
+			success(data);
+		})
+		.error(function(data, status, headers, config) {
+			alert("Unable to connect to ScienceBase.gov to find " +errorText+ ".");
+		});
+	}
+	
+	
+	ctx.loadProjectLists = function() {
+		ctx.fetchData("Project", function(data){
 			ctx.processProjectListResponse(data);
 			Status.projectsLoadStatus = 'done';
-		}).error(function(data, status, headers, config) {
-			alert("Unable to connect to ScienceBase.gov to find records.");
 		});
-		
-		$http.get(ctx.buildPubUrl()).success(function(data, status, headers, config) {
+		ctx.fetchData("Publication", function(data){
 			ctx.processPublicationResponse(data, Status.allPublications);
 			Status.publicationsLoadStatus = 'done';
-		}).error(function(data, status, headers, config) {
-			alert("Unable to connect to ScienceBase.gov to find publications.");
 		});
-
 	}
 	
 	
 	ctx.processPublicationResponse = function(unfilteredJsonData, collection) {
 
-		if (angular.isDefined(unfilteredJsonData) 
-		 && angular.isDefined(unfilteredJsonData.items) ) {
+		if (isDefined(unfilteredJsonData) 
+		 && isDefined(unfilteredJsonData.items) ) {
 			
 			var items = unfilteredJsonData.items;
 
@@ -64,8 +84,8 @@ function($http, Status, FocusAreaManager, $rootScope){
 	
 	ctx.processProjectListResponse = function(unfilteredJsonData) {
 		
-		if (angular.isDefined(unfilteredJsonData) 
-		 && angular.isDefined(unfilteredJsonData.items) ) {
+		if (isDefined(unfilteredJsonData) 
+		 && isDefined(unfilteredJsonData.items) ) {
 			
 			var items = unfilteredJsonData.items;
 
@@ -87,60 +107,88 @@ function($http, Status, FocusAreaManager, $rootScope){
 		}
 		
 		$rootScope.$broadcast('do-scopeApply');
+		return unfilteredJsonData.items;
 	}	
+	
 	
 	ctx.processItem = function(item) {
 
-		item.url  = item.link.url;
-		item.mainLink    = ctx.findLink(item.webLinks, ["home", "html", "index page"], true);
-		item.browseImage = ctx.findBrowseImage(item);
-//		item.dateCreated = ctx.findDate(item.dates, "dateCreated")
-
-		//Have we loaded child records yet?  (hint: no)
-		item.childRecordState = "loading";
-		item.publications = 'loading' // default to loading until we have the publications
-
-		ctx.processContacts(item, true)
+		//The system type is set of special items like 'folder's, which we don't want in the results
+		var sysTypes = item.systemTypes ?item.systemTypes :[];
+		var sysType  = sysTypes[0] ?sysTypes[0].toLowerCase() :'standard';
 		
-		//Add template info
-		item.templates = [];
-		
-		var tags = item.tags;
-		if (tags) {
-			for (var j = 0; j < tags.length; j++) {
-				var tag = tags[j];
-				if (Status.CONST.TEMPLATE_SCHEME == tag.scheme) {
-					item.templates.push(tag.name.replace('Template ', ''));
-				}
-			}
+		//Resource type / browserCategory has its own faceted search
+		item.resource = "unknown";
+		if (item.browseCategories && item.browseCategories[0]) {
+			item.resource = item.browseCategories[0].toLowerCase();
 		}
 		
+		//don't include folders unless they are projects
+		if (sysType != 'folder' || (sysType == 'folder' && item.resource == 'project')) {
+		
+			item.url         = item.link.url; // TODO should this find proper link?
+			item.mainLink    = ctx.findLink(item.webLinks, ["home", "html", "index page"], true);
+			item.browseImage = ctx.findBrowseImage(item);
+		//		item.dateCreated = ctx.findDate(item.dates, "dateCreated")
+		
+			//Simplify the systemTypes
+			item.systemType  = sysType;
+			
+			//Have we loaded child records yet?  (hint: no)
+			item.childRecordState = "notloaded";
+			item.publications     = 'loading'; // default to loading until we have the publications
+		
+			ctx.processContacts(item, true)
+			
+			// Add template info
+			item.templates = [];
+			
+			var tags = item.tags;
+			if (tags) {
+				for (var j = 0; j < tags.length; j++) {
+					var tag = tags[j];
+					if (Status.CONST.TEMPLATE_SCHEME == tag.scheme) {
+						item.templates.push(tag.name.replace('Template ', ''));
+					}
+				}
+			}
+		}		
 		return item;
 	}
 
 	
-	ctx.processContacts = function(item, includeHTML) {
-		//build contactText
+	//build contactText
+	ctx.processContacts = function(item, includeHTML, max) {
 		var contacts = item.contacts;
 		var contactText = "";	//combined contact text
 		var contactHtml = "";	//combined contact text
+		if (max === null) {
+			max = contacts.length;
+		}
 		
 		if (contacts) {
 			var sep = "";
 			for (var j = 0; j < contacts.length; j++) {
-				var contact = contacts[j];
-				var type = contact.type;
-				if (type == 'Principle Investigator') {
-					type = "PI";
+				if (j < max) {
+					var contact = contacts[j];
+					var type    = contact.type!==null ?contact.type :"??";
+					if (type === 'Principle Investigator') {
+						type    = "PI";
+					}
+					var name    = contact.name
+					var mailto  = contact.name
+					if ( isDefined(contact.email) ) {
+						mailto  = '<a href="mailto:'+contact.email+'">' +contact.name+ '</a>'
+					}
+					contactText += sep + name   + (type!=null ?" (" + type + ") " :"");
+					contactHtml += sep + mailto + (type!=null ?" (" + type + ") " :"");
+					sep = ", ";
+					
+				} else if (j === max) {
+					contactText+= "and others.  "
+				} else {
+					break;
 				}
-				var name   = contact.name
-				var mailto = contact.name
-				if ( angular.isDefined(contact.email) ) {
-					mailto = '<a href="mailto:'+contact.email+'">' +contact.name+ '</a>'
-				}
-				contactText += sep + name + (type!=null ?" (" + type + ") " :"");
-				contactHtml += sep + mailto + (type!=null ?" (" + type + ") " :"");
-				sep = ", ";
 			}
 		}
 
@@ -235,22 +283,23 @@ function($http, Status, FocusAreaManager, $rootScope){
 	
 
 	ctx.loadChildItems = function(parentRecord) {
-
-		if (parentRecord.publications !== 'loading') {
-			return
-		}
+// asdf used by browse
+//		if (parentRecord.publications !== 'loading') {
+//			return
+//		}
 
 		if (parentRecord.childRecordState == "closed") {
+			//already loaded
 			parentRecord.childRecordState = "complete";			//already loaded
-
 		} else {
 			parentRecord.childRecordState = "loading";
+			
 			var url = Status.CONST.BASE_QUERY_URL + "folder=" + parentRecord.id;
 			url += "&fields=" + encodeURI("url,title,contacts,summary,dateCreated,facets")
 
 
 			$http.get(url).success(function(data) {
-				ctx.processPublicationResponse(data, parentRecord.publications=[]);
+				ctx.processPublicationResponse(data, parentRecord.childItems=[]);
 				//var childItems = processPub(data.items);
 				//childItems = $filter('orderBy')(childItems, $scope.userState.orderProp);
 
@@ -258,9 +307,7 @@ function($http, Status, FocusAreaManager, $rootScope){
 
 				parentRecord.childRecordState = "complete";
 
-				if (parentRecord.publications.length===0) {
-					parentRecord.publications = undefined
-				}
+				parentRecord.publications = (parentRecord.childItems.length===0) ?undefined :parentRecord.childItems;
 
 			}).error(function(data, status, headers, config) {
 				parentRecord.childRecordState = "failed";
@@ -286,18 +333,47 @@ function($http, Status, FocusAreaManager, $rootScope){
 	}
 
 	
-	ctx.buildDataUrl = function() {
+	ctx.buildUrl = function(resource) {
+		var url = Status.CONST.BASE_QUERY_URL+ "resource="+encodeURI(resource+"&")
+			+"fields=" +encodeURI("url,summary,tags,title,contacts,hasChildren,webLinks,purpose,body,dateCreated,parentId,facets");
+		return url;
+	}
+	ctx.buildSearchUrl = function(model) {
 		var url = Status.CONST.BASE_QUERY_URL;
-		url += "resource=" + encodeURI("Project&");
-		url += "fields=" + encodeURI("tags,title,contacts,hasChildren,webLinks,purpose,body,dateCreated,parentId");
+		
+		//Add a general entry for the search happening
+		var gaMetrics = {metric1:1};
+		
+		var sep=""; // the first entry gets no separator (see below)
+		$.each(model, function(key, value) {
+			if (value === '' || value === 'Any') {
+				return;
+			}
+				
+			var actualKey = key;	//for some param we use different keys based on the value
+			
+			if (key === "location") {
+				if (value.indexOf(":") > -1) {
+					//this is a location name like "Lake:Lake Michigan'
+					actualKey = "loc_name";
+				} else {
+					//this is a location type like "Lake"
+					actualKey = "loc_type";
+				}
+			}
+			
+			if (ctx.modelAnalytics[actualKey]) {
+				gaMetrics['metric' + ctx.modelAnalytics[actualKey]] = 1;
+			}
+			url += sep+ encodeURI(actualKey) +"="+ encodeURI(value);
+			sep = "&"; // each additional will get this separator
+		});
+
+		//Reports to Google Analytics that a search was done on which set of
+		//fields, but doesn't include what the search values were.
+		ga('send', 'event', 'action', 'search', gaMetrics);
 		
 		return url;
-	};
-	ctx.buildPubUrl = function() {
-		var url = Status.CONST.BASE_QUERY_URL;
-		url += "resource=" + encodeURI("Publication&");
-		url += "fields=" + encodeURI("url,title,contacts,summary,dateCreated,facets")
-		return url;
-	};
+	}
 
 }])

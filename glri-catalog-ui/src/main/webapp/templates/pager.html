@@ -1,0 +1,18 @@
+<div>
+	<pagerui-controls></pagerui-controls>
+	
+	<div class="row">
+		<div class="col-xs-12">
+			<!--Body content-->
+			
+			<ul id="glri-records" class="result-records">
+				<li ng-repeat="record in pager.pageRecords" ng-class="record.resource">
+					<project-record record="record"></project-record>
+				</li>
+			</ul>
+
+		</div>
+	</div>
+	
+	<pagerui-controls></pagerui-controls>
+</div>

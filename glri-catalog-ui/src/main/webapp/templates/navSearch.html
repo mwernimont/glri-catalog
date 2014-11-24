@@ -1,0 +1,93 @@
+<form id="sb-query-form" class="form-horizontal" action="ScienceBaseService" ng-controller="SearchNavCtrl">
+	<div class="row map">
+		<div class="col-xs-12">
+			<div id="map" class="boundingMap"></div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 map-contols">
+			<div class="btn-group" tooltip-placement="right" tooltip="Drag on the map to either: move the map, or, draw a bounding box to limit search results to the boxed area.">
+				<button type="button" class="btn btn-primary btn-sm" ng-model="state.drawingBounds" btn-radio="false">Drag Map</button>
+				<button type="button" class="btn btn-primary btn-sm" ng-model="state.drawingBounds" btn-radio="true">Draw Bounds</button>
+			</div>
+		</div>
+	</div>
+	<div class="form-group">										
+		<div>
+			<input placeholder="Text Search" type="text" class="form-control" id="text_query" name="text_query" ng-model="model.text_query" tooltip-placement="right" tooltip="Search on all text fields, &QUOT;water soil&QUOT; would find only records that contain BOTH terms.">
+		</div>
+	</div> 
+	<div class="form-group">
+		<div>
+			<select class="form-control" ng-model="model.location" name="location" tooltip-placement="right" tooltip="Limit results to a specific water feature, or a type of one.">
+				<option value="" disabled selected>Water Feature</option>
+				<option value="">Any Water Feature</option>
+				<optgroup label="Lakes">
+					<option class="any-option" value="Lake">~Any of the Lakes~</option>
+					<option value="Lake:Lake Michigan">Lake Michigan</option>
+					<option value="Lake:Lake Erie">Lake Erie</option>
+					<option value="Lake:Lake Huron">Lake Huron</option>
+					<option value="Lake:Lake Superior">Lake Superior</option>
+					<option value="Lake:Lake Ontario">Lake Ontario</option>
+					<option value="Lake:Lake St. Clair">Lake St. Clair</option>
+				</optgroup>
+				<optgroup label="Watersheds">
+					<option class="any-option" value="Watershed">~Any of the Watersheds~</option>
+					<option value="Watershed:Lake Michigan Basin">Lake Michigan Basin</option>
+					<option value="Watershed:Lake Erie Basin">Lake Erie Basin</option>
+					<option value="Watershed:Lake Huron Basin">Lake Huron Basin</option>
+					<option value="Watershed:Lake Superior Basin">Lake Superior Basin</option>
+					<option value="Watershed:Lake Ontario Basin">Lake Ontario Basin</option>
+					<option value="Watershed:Lake St. Clair Basin">Lake St. Clair Basin</option>
+				</optgroup>
+				<optgroup label="Channels">
+					<option class="any-option" value="Channel">~Any of the Channels~</option>
+					<option value="Channel:St. Mary's Channel">St. Mary's Channel</option>
+					<option value="Channel:St. Lawrence Channel">St. Lawrence Channel</option>
+					<option value="Channel:Detroit Channel">Detroit Channel</option>
+					<option value="Channel:Niagara Channel">Niagara Channel</option>
+					<option value="Channel:St. Clair/Detroit River System">St. Clair/Detroit River Sys</option>
+				</optgroup>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<div>
+			<select class="form-control" name="focus" id="focus_input" title="Any" ng-model="model.focus" tooltip-placement="right" tooltip="Limit results to a GLRI funding area/category.">
+				<option value="" disabled selected>Focus Area</option>
+				<option value="">Any Focus Area</option>
+				<option value="Toxic Substances">Toxic Substances</option>
+				<option value="Invasive Species">Invasive Species</option>
+				<option value="Nearshore Health">Nearshore Health</option>
+				<option value="Habitat %26 Wildlife">Habitat &amp; Wildlife</option>
+				<option value="Accountability">Accountability</option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<div>
+			<select class="form-control" name="template" id="template_input" title="Any" ng-model="model.template" tooltip-placement="right" tooltip="Limit results to a GLRI funding template. Projects are associated with one or more templates.">
+				<option value="" disabled selected>Template</option>
+				<option ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="{{entry.key}}" ng-bind-html="entry.display"></option>
+			</select>
+		</div>
+	</div>
+	<div class="form-group">
+		<div id="resource_input" class="btn-group-vertical" style="width:100%" tooltip-placement="right" tooltip="Narrow the results to a resource type such as &QUOT;Data&QUOT; for datasets or &QUOT;Project&QUOT; for a USGS GLRI study. A Project may have associated Data and/or Publications.">
+			<label class="control-label">Resource Type</label>
+			<button type="button" class="btn btn-default val-{{name}}" ng-repeat="category in FACET_DEFS" ng-model="state.resourceFilter" btn-radio="$index">
+				<img ng-src="style/image/darkblue/{{category | lowercase}}.svg" ng-if="$index !== 0" class="pull-left"/>
+				<div class="noImgPadding" ng-if="$index === 0"></div>
+				<span class="badge pull-right" ng-if="$index !== 0" ng-bind="currentFacets[category]"></span>
+				<span class="value" ng-bind-html="category"></span>
+			</button>
+		</div>
+	</div>
+	<div class="row">
+		<div id="sb-query-form-footer-controls" class="col-xs-12">
+			<input type="hidden" id="format_input" name="format" value="json">
+			<button type="reset" class="btn btn-primary pull-left" id="sb-query-clear" ng-click="clearForm($event)">Clear Form</button>
+			<button type="submit" prevent-default class="btn btn-primary pull-right" id="sb-query-submit" ng-click="doRemoteLoad($event)">Search</button>
+		</div>
+	</div>
+</form>

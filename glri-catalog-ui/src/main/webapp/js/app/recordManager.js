@@ -1,6 +1,6 @@
 'use strict';
 
-GLRICatalogApp.service('ProjectManager', 
+GLRICatalogApp.service('RecordManager', 
 ['Status', 'ScienceBase',
 function(Status, ScienceBase) {
 	
@@ -12,8 +12,8 @@ function(Status, ScienceBase) {
 		ScienceBase.loadChildItems(projectItem)
 		
 		if ( window.location.href.indexOf('locahost')===-1 ) {
-			if ( angular.isDefined(projectItem) 
-			  && angular.isDefined(projectItem.title) ) {
+			if ( isDefined(projectItem) 
+			  && isDefined(projectItem.title) ) {
 				ga('send', 'screenview', {
 					'screenName': projectItem.id +":"+ projectItem.title
 				});
@@ -23,4 +23,22 @@ function(Status, ScienceBase) {
 		}
 	}
 	
-}])
+}]);
+
+
+
+GLRICatalogApp.directive('projectRecord',
+[
+function() {
+	return {
+		restrict   : 'E', //AEC
+		replace    : true,
+		transclude : true,
+		scope      : true,
+		templateUrl: 'templates/project-record.html',
+		
+		controller : function($scope) {
+			
+		}
+	}	
+}]);
