@@ -25,7 +25,12 @@
 .form-horizontal .control-label {
 	margin-left:2% !important;
 }
-
+.text-search {
+	display: inline-block; 
+	width: 100%;
+	margin-left: 0px !important;
+	margin-bottom: 5px;
+}
 
 .center {
 	margin:0 auto;
