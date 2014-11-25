@@ -162,11 +162,11 @@ function($http, Status, FocusAreaManager, $rootScope){
 		var contacts = item.contacts;
 		var contactText = "";	//combined contact text
 		var contactHtml = "";	//combined contact text
-		if (max === null) {
-			max = contacts.length;
-		}
 		
-		if (contacts) {
+		if ( isDefined(contacts) ) {
+			if ( ! isDefined(max) ) {
+				max = contacts.length;
+			}
 			var sep = "";
 			for (var j = 0; j < contacts.length; j++) {
 				if (j < max) {
