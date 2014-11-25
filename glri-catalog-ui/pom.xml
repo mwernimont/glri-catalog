@@ -170,6 +170,148 @@
 							</webResources>
 						</configuration>
 					</plugin>
+
+<!-- unpack the webjars -->
+			      <plugin>
+			        <groupId>org.apache.maven.plugins</groupId>
+			        <artifactId>maven-dependency-plugin</artifactId>
+			        <version>2.9</version>
+			        <executions>
+			          <execution>
+			            <id>unpack-dependencies</id>
+			            <phase>generate-resources</phase>
+			            <goals>
+			              <goal>unpack</goal>
+			            </goals>
+			            <configuration>
+	                        <artifactItems>
+	                            <artifactItem>
+									<groupId>org.webjars</groupId>
+									<artifactId>jquery</artifactId>
+									<version>2.1.0-2</version>
+	                                <type>jar</type>
+	                                <overWrite>true</overWrite>
+	                                <outputDirectory>target</outputDirectory>
+	                                <includes>**/*</includes>
+	                            </artifactItem>
+								<artifactItem>
+									<groupId>org.webjars</groupId>
+									<artifactId>bootstrap</artifactId>
+									<version>3.1.1</version>
+	                                <type>jar</type>
+	                                <overWrite>true</overWrite>
+	                                <outputDirectory>target</outputDirectory>
+	                                <includes>**/*</includes>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.webjars</groupId>
+									<artifactId>angularjs</artifactId>
+									<version>1.2.16</version>
+	                                <type>jar</type>
+	                                <overWrite>true</overWrite>
+	                                <outputDirectory>target</outputDirectory>
+	                                <includes>**/*</includes>
+								</artifactItem>
+								<artifactItem>
+									<groupId>org.webjars</groupId>
+									<artifactId>angular-ui-bootstrap</artifactId>
+									<version>0.10.0-1</version>
+	                                <type>jar</type>
+	                                <overWrite>true</overWrite>
+	                                <outputDirectory>target</outputDirectory>
+	                                <includes>**/*</includes>
+								</artifactItem>
+								<artifactItem>
+								    <groupId>org.webjars</groupId>
+								    <artifactId>angular-sanitize</artifactId>
+								    <version>1.2.16</version>
+	                                <type>jar</type>
+	                                <overWrite>true</overWrite>
+	                                <outputDirectory>target</outputDirectory>
+	                                <includes>**/*</includes>
+								</artifactItem>		
+								<artifactItem>
+									<groupId>org.webjars</groupId>
+									<artifactId>angular-strap</artifactId>
+									<version>2.0.5</version>	
+	                                <type>jar</type>
+	                                <overWrite>true</overWrite>
+	                                <outputDirectory>target</outputDirectory>
+	                                <includes>**/*</includes>
+								</artifactItem>		
+	                        </artifactItems>
+			            </configuration>
+			          </execution>
+			        </executions>
+			      </plugin>	
+					
+<!-- js runtime env for tests -->			
+				    <plugin>
+				        <groupId>com.github.klieber</groupId>
+				        <artifactId>phantomjs-maven-plugin</artifactId>
+				        <version>0.4</version>
+				        <executions>
+				          <execution>
+				            <goals>
+				              <goal>install</goal>
+				            </goals>
+				          </execution>
+				        </executions>
+				        <configuration>
+				          <version>1.9.7</version>
+				        </configuration>
+				    </plugin>
+				
+
+					<!-- jasmine test engine -->               
+                    <plugin>
+                      <groupId>com.github.searls</groupId>
+                      <artifactId>jasmine-maven-plugin</artifactId>
+                      <version>1.3.1.5</version>
+                      <extensions>true</extensions>
+                      <executions>
+                          <execution>
+                              <goals>
+                                  <goal>test</goal>
+                              </goals>
+                          </execution>
+                      </executions>
+
+                      <configuration>
+                        <webDriverClassName>org.openqa.selenium.phantomjs.PhantomJSDriver</webDriverClassName>
+                        <webDriverCapabilities>
+                            <capability>
+                               <name>phantomjs.binary.path</name>
+                               <value>${phantomjs.binary}</value>
+                            </capability>
+                        </webDriverCapabilities>                   
+                        <preloadSources>
+                            <source>target/META-INF/resources/webjars/jquery/2.1.0/jquery.js</source>
+                            <source>target/META-INF/resources/webjars/angularjs/1.2.16/angular.js</source>
+                            <source>target/META-INF/resources/webjars/angular-sanitize/1.2.16/angular-sanitize.js</source>
+                            <source>target/META-INF/resources/webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js</source>
+
+                                <!-- testing libs - - >
+                                <source>src/test/js/lib/angular-mocks.1.2.17.js</source>
+                                <source>src/test/js/lib/jasmine-fixture.js</source>
+                                <source>src/test/js/lib/jquery.simulate.js</source>
+                                -->
+                        </preloadSources>
+						<sourceIncludes>
+							<include>src/main/webapp/js/app/main.js</include>
+							<include>src/main/webapp/js/app/focusAreaManager.js</include>
+							<include>src/main/webapp/js/app/sciencebase.js</include>
+							<include>src/main/webapp/js/app/controller.js</include>
+							<include>src/main/webapp/js/app/recordManager.js</include>
+							<include>src/main/webapp/js/app/pagination.js</include>
+							<include>src/main/webapp/js/app/search.js</include>
+							<include>src/main/webapp/js/app/directives.js</include>
+						</sourceIncludes>
+                        <jsTestSrcDir>src/test/js/specs</jsTestSrcDir>
+                        <jasmineTargetDir>target/jasmine</jasmineTargetDir>
+                      </configuration>
+                    </plugin>
+					
 				</plugins>
 			</build>
 
