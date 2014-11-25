@@ -11,7 +11,7 @@
 						<div class="col-xs-8">
 						
 
-							<select class="form-control" ng-model="userState.orderProp" ng-change="sortChange()" data-width="auto">
+							<select class="form-control" ng-model="state.orderProp" ng-change="sortChange()" data-width="auto">
 								<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}" ng-bind-html="sortOption.display"></option>
 							</select>
 							
