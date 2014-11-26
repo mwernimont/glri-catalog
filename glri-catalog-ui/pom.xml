@@ -89,7 +89,7 @@
 				* Seems to be a 'pure' implementation of angularJS/Bootstrap integration
 				* Documentation seems very minimal - they have examples only.
 			angular-strap: http://mgcrea.github.io/angular-strap
-				* Develped independently from the AJS team
+				* Developed independently from the AJS team
 				* They have better docs, including lists of options and params
 				* They provide more in-depth integration:  Where a-u-b only provides
 					a way to create a list of dropdown button, a-s includes config
@@ -286,27 +286,28 @@
                             </capability>
                         </webDriverCapabilities>                   
                         <preloadSources>
+                        	<!-- framework libs -->
                             <source>target/META-INF/resources/webjars/jquery/2.1.0/jquery.js</source>
                             <source>target/META-INF/resources/webjars/angularjs/1.2.16/angular.js</source>
                             <source>target/META-INF/resources/webjars/angular-sanitize/1.2.16/angular-sanitize.js</source>
                             <source>target/META-INF/resources/webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js</source>
 
-                                <!-- testing libs - - >
-                                <source>src/test/js/lib/angular-mocks.1.2.17.js</source>
-                                <source>src/test/js/lib/jasmine-fixture.js</source>
-                                <source>src/test/js/lib/jquery.simulate.js</source>
-                                -->
+                            <!-- testing libs -->
+                            <source>src/test/js/libs/angular-mocks.1.2.17.js</source>
+                            <source>src/test/js/libs/jasmine-fixture.js</source>
+                            <source>src/test/js/libs/jquery-simulate.js</source>
+                            
+                            <!-- app files under test -->
+							<source>src/main/webapp/js/app/main.js</source>
+							<source>src/main/webapp/js/app/focusAreaManager.js</source>
+							<source>src/main/webapp/js/app/sciencebase.js</source>
+							<source>src/main/webapp/js/app/controller.js</source>
+							<source>src/main/webapp/js/app/recordManager.js</source>
+							<source>src/main/webapp/js/app/pagination.js</source>
+							<source>src/main/webapp/js/app/search.js</source>
+							<source>src/main/webapp/js/app/directives.js</source>
                         </preloadSources>
-						<sourceIncludes>
-							<include>src/main/webapp/js/app/main.js</include>
-							<include>src/main/webapp/js/app/focusAreaManager.js</include>
-							<include>src/main/webapp/js/app/sciencebase.js</include>
-							<include>src/main/webapp/js/app/controller.js</include>
-							<include>src/main/webapp/js/app/recordManager.js</include>
-							<include>src/main/webapp/js/app/pagination.js</include>
-							<include>src/main/webapp/js/app/search.js</include>
-							<include>src/main/webapp/js/app/directives.js</include>
-						</sourceIncludes>
+                        
                         <jsTestSrcDir>src/test/js/specs</jsTestSrcDir>
                         <jasmineTargetDir>target/jasmine</jasmineTargetDir>
                       </configuration>

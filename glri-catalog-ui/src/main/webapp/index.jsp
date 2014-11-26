@@ -24,7 +24,7 @@
 		</jsp:include>
 
 		<script type="text/javascript" src="${pageScope.rootPath}/webjars/jquery/2.1.0/jquery.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}/webjars/angularjs/1.2.17/angular.js"></script>
+		<script type="text/javascript" src="${pageScope.rootPath}/webjars/angularjs/1.2.16/angular.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}/webjars/angular-sanitize/1.2.16/angular-sanitize.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}/webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}/webjars/openlayers/2.13.1/OpenLayers.js"></script>
