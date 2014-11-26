@@ -7,11 +7,11 @@
 				</div>
 				<div class="col-xs-6 sort-options form-horizontal">
 					<div class="form-group">
-						<label class="control-label col-xs-4">Sort by:&nbsp;</label>
+						<label class="control-label col-xs-4" style="margin-left: 0% ! important;">Sort by:&nbsp;</label>
 						<div class="col-xs-8">
 						
 
-							<select class="form-control" ng-model="userState.orderProp" ng-change="sortChange()" data-width="auto">
+							<select class="form-control" ng-model="state.orderProp" ng-change="sortChange()" data-width="auto">
 								<option ng-repeat="sortOption in SORT_OPTIONS" value="{{sortOption.key}}" ng-bind-html="sortOption.display"></option>
 							</select>
 							
