@@ -1,0 +1,3436 @@
+{
+    "total": 11,
+    "selflink": {
+        "rel": "self",
+        "url": "https://www.sciencebase.gov/catalog/items?max=1000&facets=browseCategory&format=json&filter=browseCategory%3DData&filter=ancestors%3D52e6a0a0e4b012954a1a238a&fields=url%2Csummary%2Ctags%2Ctitle%2Ccontacts%2ChasChildren%2CwebLinks%2Cpurpose%2Cbody%2CdateCreated%2CparentId%2Cfacets"
+    },
+    "items": [{
+        "link": {
+            "rel": "self",
+            "url": "https://www.sciencebase.gov/catalog/item/5331a4d5e4b01b900eb675a1"
+        },
+        "relatedItems": {
+            "link": {
+                "count": 0,
+                "url": "https://www.sciencebase.gov/catalog/itemLinks?itemId=5331a4d5e4b01b900eb675a1",
+                "rel": "related"
+            }
+        },
+        "id": "5331a4d5e4b01b900eb675a1",
+        "title": "Forecasting Potential Phragmites Coastal Invasion Corridors Study Area Extent",
+        "summary": "This study area consists of a 10-km inland buffer of the U. S. Great Lakes shoreline. Islands within the lakes were included in this invasive Phragmites mapping project where remotely sensed imagery scenes were available.",
+        "body": "This study area consists of a 10-km inland buffer of the U. S. Great Lakes shoreline. Islands within the lakes were included in this invasive Phragmites mapping project where remotely sensed imagery scenes were available.",
+        "purpose": "This shapefile represents the extent of a distribution mapping program for invasive Phragmites australis for the coastal region (shoreline to 10km inland) of the United States side of the Great Lakes and Lake Michigan. Mapping efforts used a combination of field work and algorithms to classify remotely sensed data in order to identify stands of invasive Phragmites that were larger than 0.2 ha (0.5 acre). Satellite-based radar imagery came from the ALOS PALSAR program. ",
+        "hasChildren": false,
+        "parentId": "53598193e4b0031b2f4a074a",
+        "contacts": [{
+            "name": "Kurt P Kowalski",
+            "oldPartyId": 5668,
+            "type": "Principal Investigator",
+            "contactType": "person",
+            "email": "kkowalski@usgs.gov",
+            "active": true,
+            "jobTitle": "Research Ecologist",
+            "firstName": "Kurt",
+            "middleName": "P",
+            "lastName": "Kowalski",
+            "organization": {
+                "displayText": "Great Lakes Science Center"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Rd",
+                    "country": "US",
+                    "city": "Ann Arbor"
+                },
+                "mailAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Road",
+                    "country": "USA",
+                    "city": "Ann Arbor"
+                },
+                "name": "Kurt P Kowalski/BRD/USGS/DOI - Primary Location",
+                "faxPhone": "7349948780",
+                "buildingCode": "BDA"
+            }
+        }, {
+            "name": "Great Lakes Science Center",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }, {
+            "name": "Michigan Tech Research Institute",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }, {
+            "name": "U.S. Fish and Wildlife Service",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }],
+        "webLinks": [{
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://cida.usgs.gov/glri/projects/accountability/Phragmites_invasion.html",
+            "title": "Project Home Page",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://cida.usgs.gov/glri/",
+            "title": "Great Lakes Restoration Initiative (GLRI)",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.glsc.usgs.gov",
+            "title": "Great Lakes Science Center ",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.fws.gov/glri",
+            "title": " U.S. Fish and Wildlife Service ",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.greatlakesrestoration.us",
+            "title": "Great Lakes Restoration website",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.glerl.noaa.gov/data/char/glshoreline.html",
+            "title": "NOAA - Great Lakes Shoreline Data",
+            "hidden": false
+        }, {
+            "type": "browseImage",
+            "typeLabel": "Browse Image",
+            "uri": "http://cida.usgs.gov/glri/documents/glri_thumbnails/study_area.png",
+            "hidden": false
+        }],
+        "tags": [{
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "shoreline"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "invasive wetland plants "
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "phragmites"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "PALSAR imagery "
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "Great Lakes Restoration Initiative"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "GLRI"
+        }, {
+            "type": "Place",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "Great Lakes"
+        }, {
+            "type": "Subject",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "invasive species"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Accountability"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Invasive Species"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 588"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 67"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 68"
+        }],
+        "facets": [{
+            "crs": "EPSG:102113, EPSG:3785",
+            "boundingBox": {
+                "maxY": 48.409925,
+                "maxX": -75.028221,
+                "minX": -92.550586,
+                "minY": 40.381472
+            },
+            "facetName": "OGC Web Service",
+            "serviceMapUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?",
+            "capabilitiesUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WMSServer?request=GetCapabilities&service=WMS",
+            "serviceFeatureInfoUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?",
+            "layers": "27",
+            "serviceVersion": "1.1.1",
+            "className": "OGCFacet",
+            "type": "WMS",
+            "serviceCapabilitiesUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?",
+            "serviceLegendUrl": ""
+        }]
+    }, {
+        "link": {
+            "rel": "self",
+            "url": "https://www.sciencebase.gov/catalog/item/53ed08bae4b02bf5a768186f"
+        },
+        "relatedItems": {
+            "link": {
+                "count": 0,
+                "url": "https://www.sciencebase.gov/catalog/itemLinks?itemId=53ed08bae4b02bf5a768186f",
+                "rel": "related"
+            }
+        },
+        "id": "53ed08bae4b02bf5a768186f",
+        "title": "Sites and Basin Shapefiles for GLRI Toxic Contaminant Loading Project",
+        "hasChildren": false,
+        "parentId": "53598192e4b0031b2f4a0728",
+        "contacts": [{
+            "name": "Michelle A Lutz",
+            "oldPartyId": 6346,
+            "type": "Contact",
+            "contactType": "person",
+            "email": "malutz@usgs.gov",
+            "active": true,
+            "jobTitle": "Physical Scientist",
+            "firstName": "Michelle A",
+            "lastName": "Lutz",
+            "organization": {
+                "displayText": "Wisconsin Water Science Center"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "53562-0000",
+                    "state": "WI",
+                    "line1": "8505 Research Way",
+                    "country": "US",
+                    "city": "Middleton"
+                },
+                "mailAddress": {
+                    "zip": "53562-3581",
+                    "state": "WI",
+                    "line1": "8505 Research Way",
+                    "country": "USA",
+                    "city": "Middleton"
+                },
+                "name": "Michelle A Lutz/WRD/USGS/DOI - Primary Location",
+                "faxPhone": "6088213817",
+                "buildingCode": "ARM",
+                "officePhone": "6088213816"
+            }
+        }],
+        "tags": [{
+            "type": "Label",
+            "name": "Great Lakes Restoration Initiative"
+        }, {
+            "type": "Label",
+            "name": "GLRI"
+        }, {
+            "type": "Place",
+            "name": "Great Lakes"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Toxic Substances"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 78"
+        }],
+        "facets": [{
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__85/d0/1a/85d01a96e27220dfb8793d9d4c48c43a6cbcf250",
+                "useForPreview": false,
+                "name": "GLRI_sites_DSsites.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:18:38.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__85%2Fd0%2F1a%2F85d01a96e27220dfb8793d9d4c48c43a6cbcf250",
+                "size": 1780
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__15/9a/80/159a806440f208065715dcefd74cd19643d5279d",
+                "useForPreview": false,
+                "name": "GLRI_sites_DSsites.dbf",
+                "contentType": "text/plain; charset=windows-1252",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:18:38.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__15%2F9a%2F80%2F159a806440f208065715dcefd74cd19643d5279d",
+                "size": 126238
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__ad/8b/51/ad8b51ba5bc48b1c1d6874e40aa42aac215d0164",
+                "useForPreview": false,
+                "name": "GLRI_sites_DSsites.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:18:38.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__ad%2F8b%2F51%2Fad8b51ba5bc48b1c1d6874e40aa42aac215d0164",
+                "size": 580
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__80/1c/39/801c39ea06d46a851feb965072cfc707332ca6cd",
+                "useForPreview": false,
+                "name": "GLRI_sites_DSsites.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:18:38.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__80%2F1c%2F39%2F801c39ea06d46a851feb965072cfc707332ca6cd",
+                "size": 152
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__26/1a/21/261a215dcb2b433b21ccef5bfe50d6ae7929a9a8",
+                "useForPreview": false,
+                "name": "GLRI_sites_DSsites.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:18:38.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__26%2F1a%2F21%2F261a215dcb2b433b21ccef5bfe50d6ae7929a9a8",
+                "size": 780
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__16/3d/89/163d89bc35bc386e561ee69143f0e8b3b450ac95",
+                "useForPreview": false,
+                "name": "GLRI_sites_DSsites.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:18:38.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__16%2F3d%2F89%2F163d89bc35bc386e561ee69143f0e8b3b450ac95",
+                "size": 180
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__7d/b9/af/7db9af2ef3607c2168bbd5ce2176c871a91f97e9",
+                "useForPreview": false,
+                "name": "GLRI_sites_DSsites.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:18:38.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__7d%2Fb9%2Faf%2F7db9af2ef3607c2168bbd5ce2176c871a91f97e9",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 48.012107649062145,
+                "maxX": -74.77888889000002,
+                "minX": -92.41880179999998,
+                "minY": 41.300885199064425
+            },
+            "facetName": "Shapefile",
+            "name": "GLRI_sites_DSsites",
+            "nativeCrs": "EPSG:4269",
+            "className": "ShapefileFacet",
+            "geometryType": "Point"
+        }, {
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__ed/57/61/ed576107bd52d1ac4d572cab8701be75c7d9998d",
+                "useForPreview": false,
+                "name": "GLRI_Basins_HUC12Linework_DSbasins.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:18:59.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__ed%2F57%2F61%2Fed576107bd52d1ac4d572cab8701be75c7d9998d",
+                "size": 9679892
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__ca/ce/9e/cace9e241ffb12647dfcbd04d50d1e46d6196787",
+                "useForPreview": false,
+                "name": "GLRI_Basins_HUC12Linework_DSbasins.dbf",
+                "contentType": "text/plain; charset=windows-1252",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:18:57.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__ca%2Fce%2F9e%2Fcace9e241ffb12647dfcbd04d50d1e46d6196787",
+                "size": 18854
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__69/07/37/690737f4afb7143e2972dd13a47ecd6847c1e936",
+                "useForPreview": false,
+                "name": "GLRI_Basins_HUC12Linework_DSbasins.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:18:57.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__69%2F07%2F37%2F690737f4afb7143e2972dd13a47ecd6847c1e936",
+                "size": 580
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__29/6c/ad/296cad015bd498ea3f5fa34d8f0e806709cd168a",
+                "useForPreview": false,
+                "name": "GLRI_Basins_HUC12Linework_DSbasins.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:18:57.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__29%2F6c%2Fad%2F296cad015bd498ea3f5fa34d8f0e806709cd168a",
+                "size": 167
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__68/87/62/688762d394f5df3786a5508571999a843a8be261",
+                "useForPreview": false,
+                "name": "GLRI_Basins_HUC12Linework_DSbasins.shp.xml",
+                "contentType": "application/fgdc+xml",
+                "originalMetadata": true,
+                "dateUploaded": "2014-08-14T19:18:57.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__68%2F87%2F62%2F688762d394f5df3786a5508571999a843a8be261",
+                "size": 9791
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__3e/5a/c7/3e5ac7a355ca4629bee4d54016fbe1fc8ebab05f",
+                "useForPreview": false,
+                "name": "GLRI_Basins_HUC12Linework_DSbasins.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:18:57.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__3e%2F5a%2Fc7%2F3e5ac7a355ca4629bee4d54016fbe1fc8ebab05f",
+                "size": 788
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__3f/21/8d/3f218da39f8362ceb59f3ac7ec72f30311a47623",
+                "useForPreview": false,
+                "name": "GLRI_Basins_HUC12Linework_DSbasins.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:18:57.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__3f%2F21%2F8d%2F3f218da39f8362ceb59f3ac7ec72f30311a47623",
+                "size": 196
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__78/14/b7/7814b750bb57b21cca0afb0988f33e1b3739a1ce",
+                "useForPreview": false,
+                "name": "GLRI_Basins_HUC12Linework_DSbasins.STAID.atx",
+                "contentType": "application/vnd.antix.game-component",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:19:43.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__78%2F14%2Fb7%2F7814b750bb57b21cca0afb0988f33e1b3739a1ce",
+                "size": 2048
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__d4/87/ab/d487ab437844eadc983a4d933b1bd942ffce7087",
+                "useForPreview": false,
+                "name": "GLRI_Basins_HUC12Linework_DSbasins.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-08-14T19:18:57.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/53ed08bae4b02bf5a768186f?f=__disk__d4%2F87%2Fab%2Fd487ab437844eadc983a4d933b1bd942ffce7087",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 48.28315216867946,
+                "maxX": -74.02832861434896,
+                "minX": -93.21386548208152,
+                "minY": 40.394680831201406
+            },
+            "facetName": "Shapefile",
+            "name": "GLRI_Basins_HUC12Linework_DSbasins",
+            "nativeCrs": "EPSG:4269",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }]
+    }, {
+        "link": {
+            "rel": "self",
+            "url": "https://www.sciencebase.gov/catalog/item/531e0780e4b04cb293ee78fc"
+        },
+        "relatedItems": {
+            "link": {
+                "count": 0,
+                "url": "https://www.sciencebase.gov/catalog/itemLinks?itemId=531e0780e4b04cb293ee78fc",
+                "rel": "related"
+            }
+        },
+        "id": "531e0780e4b04cb293ee78fc",
+        "title": "Phragmites Habitat Suitability",
+        "summary": "Habitat suitability was estimated for invasive Phragmites in the coastal Great Lakes region (shoreline to 10 km inland). �These estimates were based on current distribution patterns and environmental conditions. �Phragmites presence or absence was defined based on a distribution map produced by cooperative research between the GLSC and Michigan Technical Research Institute. �Environmental variables were processed in a Geographic Information System (GIS) and came from existing publicly available sources. �Variables include descriptors of soils, nutrients, topography, ecoregion, anthropogenic disturbance, and climate. �Environmental conditions and Phragmites presence/absence were sampled in a GIS at points established at systematic 100-m [...]",
+        "body": "Habitat suitability was estimated for invasive Phragmites in the coastal Great Lakes region (shoreline to 10 km inland). &nbsp;These estimates were based on current distribution patterns and environmental conditions. &nbsp;Phragmites presence or absence was defined based on a distribution map produced by cooperative research between the GLSC and Michigan Technical Research Institute. &nbsp;Environmental variables were processed in a Geographic Information System (GIS) and came from existing publicly available sources. &nbsp;Variables include descriptors of soils, nutrients, topography, ecoregion, anthropogenic disturbance, and climate. &nbsp;Environmental conditions and Phragmites presence/absence were sampled in a GIS at points established at systematic 100-m intervals across the study area.\n<br /> \n<br /> Habitat suitability was estimated for Phragmites at each systematic sample location. &nbsp;A correlative ecological niche model (boosted regression trees) was used to produce a continuous probabilistic index that ranged between zero and one. &nbsp;This index was rescaled in to six categories of relative habitat suitability by specifying a threshold for suitable/unsuitable conditions where the proportion of presence locations classified as suitable equated to the proportion of absence locations classified as unsuitable. After applying this threshold, the data ranges classified as suitable/unsuitable were split at equal increments to result in six categories of relative suitability.",
+        "purpose": "The habitat suitability map is intended to be used in conjunction with the accompanying Phragmites distribution map and corridor networks to provide resource managers and restoration practitioners with a robust means of assessing vulnerability to future invasion by Phragmites. These products may help to identify key areas for monitoring in support of early detection and rapid response, to prioritize control efforts across multiple areas, and/or to develop strategic restoration programs. ",
+        "hasChildren": false,
+        "parentId": "53598193e4b0031b2f4a074a",
+        "contacts": [{
+            "name": "Kurt P Kowalski",
+            "oldPartyId": 5668,
+            "type": "Principal Investigator",
+            "contactType": "person",
+            "email": "kkowalski@usgs.gov",
+            "active": true,
+            "jobTitle": "Research Ecologist",
+            "firstName": "Kurt",
+            "middleName": "P",
+            "lastName": "Kowalski",
+            "organization": {
+                "displayText": "Great Lakes Science Center"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Rd",
+                    "country": "US",
+                    "city": "Ann Arbor"
+                },
+                "mailAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Road",
+                    "country": "USA",
+                    "city": "Ann Arbor"
+                },
+                "name": "Kurt P Kowalski/BRD/USGS/DOI - Primary Location",
+                "faxPhone": "7349948780",
+                "buildingCode": "BDA",
+                "officePhone": "734-994-3331"
+            }
+        }, {
+            "name": "Great Lakes Science Center",
+            "oldPartyId": 17264,
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "location": "http://www.glsc.usgs.gov/",
+                "mailAddress": {}
+            }
+        }, {
+            "name": "Great Lakes Restoration",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "location": "http://www.greatlakesrestoration.us/",
+                "mailAddress": {}
+            }
+        }, {
+            "name": "USFWS Great Lakes Restoration Initiative",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "location": "http://www.fws.gov/glri/",
+                "mailAddress": {}
+            }
+        }, {
+            "name": "EPA Great Lakes Restoration Initiative ",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "location": "http://www.epa.gov/glnpo/glri/",
+                "mailAddress": {}
+            }
+        }, {
+            "name": "Michigan Tech Research Institute",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "location": "http://www.mtri.org/monitoring_phragmites.html",
+                "mailAddress": {}
+            }
+        }, {
+            "name": "Kurt Kowalski",
+            "type": "Point of Contact",
+            "personsOrganization": "United States Geological Survey (USGS) Great Lakes Science Center (GLSC)",
+            "email": "kkowalski@usgs.gov",
+            "jobTitle": "Research Ecologist",
+            "organization": {
+                "displayText": "United States Geological Survey (USGS) Great Lakes Science Center (GLSC)"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Rd",
+                    "country": "United States of America",
+                    "city": "Ann Arbor"
+                },
+                "mailAddress": {},
+                "officePhone": "734-994-3331"
+            }
+        }],
+        "webLinks": [{
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://cida.usgs.gov/glri/projects/accountability/Phragmites_invasion.html",
+            "title": "Project Home Page",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.mtri.org/monitoring_phragmites.html",
+            "title": "Michigan Tech Research Institute - Radar Detection and Monitoring of Invasive Phragmites in the Coastal Great Lakes",
+            "hidden": false
+        }, {
+            "type": "browseImage",
+            "typeLabel": "Browse Image",
+            "uri": "http://cida.usgs.gov/glri/documents/glri_thumbnails/habitat_suitability.png",
+            "title": "Image of Phragmites Habitat Suitability Map",
+            "hidden": false
+        }],
+        "tags": [{
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "coastal wetlands"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "Great Lakes Restoration Initiative"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "GLRI"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "forecasting"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "species distribution modeling"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "boosted regression trees"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "vulnerability assessment"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "Phragmites"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "invasive species corridors"
+        }, {
+            "type": "Subject",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "invasive species"
+        }, {
+            "type": "Place",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Location",
+            "name": "Great Lakes"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Accountability"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Invasive Species"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 588"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 67"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 68"
+        }],
+        "facets": [{
+            "facetName": "ArcGIS Map Package",
+            "name": "Phragmites Habitat Suitability Map",
+            "className": "MapPackageFacet"
+        }, {
+            "crs": "EPSG:102113, EPSG:3785",
+            "boundingBox": {
+                "maxY": 48.345291,
+                "maxX": -75.047623,
+                "minX": -92.551177,
+                "minY": 40.381562
+            },
+            "facetName": "OGC Web Service",
+            "serviceMapUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?",
+            "capabilitiesUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WMSServer?request=GetCapabilities&service=WMS",
+            "serviceFeatureInfoUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?",
+            "layers": "0",
+            "serviceVersion": "1.1.1",
+            "className": "OGCFacet",
+            "type": "WMS",
+            "serviceCapabilitiesUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?",
+            "serviceLegendUrl": ""
+        }]
+    }, {
+        "link": {
+            "rel": "self",
+            "url": "https://www.sciencebase.gov/catalog/item/54452623e4b0f888a81b7ceb"
+        },
+        "relatedItems": {
+            "link": {
+                "count": 0,
+                "url": "https://www.sciencebase.gov/catalog/itemLinks?itemId=54452623e4b0f888a81b7ceb",
+                "rel": "related"
+            }
+        },
+        "id": "54452623e4b0f888a81b7ceb",
+        "title": "Study Area Extents for Monthly water yields and flows from 1951-2012 for the United States part of the Great Lakes Basin estimated using AFINCH",
+        "hasChildren": false,
+        "parentId": "53598190e4b0031b2f4a070a",
+        "contacts": [{
+            "name": "David J Holtschlag",
+            "oldPartyId": 4677,
+            "type": "Data Owner",
+            "contactType": "person",
+            "email": "dholtschlag@usgs.gov",
+            "active": true,
+            "jobTitle": "Hydrologist",
+            "personalTitle": "Mr.",
+            "firstName": "David",
+            "middleName": "J",
+            "lastName": "Holtschlag",
+            "organization": {
+                "displayText": "Michigan Water Science Center"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48911",
+                    "state": "MI",
+                    "line1": "6520 MERCANTILE WAY #5",
+                    "city": "Lansing"
+                },
+                "building": "WRD MI DISTRICT OFFICE",
+                "mailAddress": {
+                    "zip": "48911",
+                    "state": "MI",
+                    "line1": "6520 Mercantile Way, Suite 5",
+                    "country": "USA",
+                    "city": "Lansing"
+                },
+                "name": "David J Holtschlag/WRD/USGS/DOI - Primary Location",
+                "faxPhone": "5178878937",
+                "buildingCode": "BDL",
+                "officePhone": "5178878910"
+            }
+        }, {
+            "name": "Howard W Reeves",
+            "oldPartyId": 8487,
+            "type": "Data Owner",
+            "contactType": "person",
+            "email": "hwreeves@usgs.gov",
+            "active": true,
+            "jobTitle": "Research Hydrologist",
+            "firstName": "Howard",
+            "middleName": "W",
+            "lastName": "Reeves",
+            "organization": {
+                "displayText": "Michigan Water Science Center"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48911",
+                    "state": "MI",
+                    "line1": "6520 MERCANTILE WAY #5",
+                    "city": "Lansing"
+                },
+                "building": "WRD MI DISTRICT OFFICE",
+                "mailAddress": {
+                    "zip": "48911",
+                    "state": "MI",
+                    "line1": "6520 Mercantile Way, Suite 5",
+                    "country": "USA",
+                    "city": "Lansing"
+                },
+                "name": "Howard W Reeves/WRD/USGS/DOI - Primary Location",
+                "faxPhone": "5178878937",
+                "buildingCode": "BDL",
+                "officePhone": "5178878914"
+            }
+        }, {
+            "name": "Christopher J. Hoard",
+            "oldPartyId": 4601,
+            "type": "Data Owner",
+            "contactType": "person",
+            "email": "cjhoard@usgs.gov",
+            "active": true,
+            "jobTitle": "Hydrologist",
+            "firstName": "Christopher",
+            "middleName": "J.",
+            "lastName": "Hoard",
+            "organization": {
+                "displayText": "Michigan Water Science Center"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48911",
+                    "state": "MI",
+                    "line1": "6520 MERCANTILE WAY #5",
+                    "city": "Lansing"
+                },
+                "building": "WRD MI DISTRICT OFFICE",
+                "mailAddress": {
+                    "zip": "48911",
+                    "state": "MI",
+                    "line1": "6520 Mercantile Way, Suite 5",
+                    "country": "USA",
+                    "city": "Lansing"
+                },
+                "name": "Christopher J. Hoard/WRD/USGS/DOI - Primary Location",
+                "faxPhone": "5178878937",
+                "buildingCode": "BDL",
+                "officePhone": "5178878949"
+            }
+        }, {
+            "name": "Lori M Fuller",
+            "oldPartyId": 3465,
+            "type": "Data Owner",
+            "contactType": "person",
+            "email": "lmfuller@usgs.gov",
+            "active": true,
+            "jobTitle": "Geographer",
+            "firstName": "Lori",
+            "middleName": "M",
+            "lastName": "Fuller",
+            "organization": {
+                "displayText": "Michigan Water Science Center"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48911",
+                    "state": "MI",
+                    "line1": "6520 MERCANTILE WAY #5",
+                    "city": "Lansing"
+                },
+                "building": "WRD MI DISTRICT OFFICE",
+                "mailAddress": {
+                    "zip": "48911",
+                    "state": "MI",
+                    "line1": "6520 Mercantile Way, Suite 5",
+                    "country": "USA",
+                    "city": "Lansing"
+                },
+                "name": "Lori M Fuller/WRD/USGS/DOI - Primary Location",
+                "faxPhone": "5178878937",
+                "buildingCode": "BDL",
+                "officePhone": "5178878911"
+            }
+        }, {
+            "name": "Carol L Luukkonen",
+            "oldPartyId": 6347,
+            "type": "Data Owner",
+            "contactType": "person",
+            "email": "clluukko@usgs.gov",
+            "active": true,
+            "jobTitle": "Hydrologist",
+            "firstName": "Carol",
+            "middleName": "L",
+            "lastName": "Luukkonen",
+            "organization": {
+                "displayText": "Michigan Water Science Center"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48911",
+                    "state": "MI",
+                    "line1": "6520 MERCANTILE WAY #5",
+                    "city": "Lansing"
+                },
+                "building": "WRD MI DISTRICT OFFICE",
+                "mailAddress": {
+                    "zip": "48911",
+                    "state": "MI",
+                    "line1": "6520 Mercantile Way, Suite 5",
+                    "country": "USA",
+                    "city": "Lansing"
+                },
+                "name": "Carol L Luukkonen/WRD/USGS/DOI - Primary Location",
+                "faxPhone": "5178878937",
+                "buildingCode": "BDL",
+                "officePhone": "5178878920"
+            }
+        }, {
+            "name": "Michigan Water Science Center",
+            "oldPartyId": 17280,
+            "type": "Lead Organization",
+            "contactType": "organization",
+            "description": "Michigan Water Science Center",
+            "active": true,
+            "aliases": ["MICHIGAN WATER SCI CTR"],
+            "fbmsCodes": ["GGEMNH0000"],
+            "logoUrl": "http://my.usgs.gov/static-cache/images/dataOwner/v1/logosMed/USGSLogo.gif",
+            "smallLogoUrl": "http://my.usgs.gov/static-cache/images/dataOwner/v1/logosSmall/USGSLogo.gif",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48911",
+                    "state": "MI",
+                    "line1": "6520 Mercantile Way",
+                    "country": "USA",
+                    "city": "Lansing"
+                },
+                "mailAddress": {
+                    "zip": "48911",
+                    "state": "MI",
+                    "line1": "6520 Mercantile Way",
+                    "country": "USA",
+                    "city": "Lansing"
+                },
+                "name": "6520 Mercantile Way [BDL]",
+                "buildingCode": "BDL"
+            }
+        }, {
+            "name": "James E McKenna Jr",
+            "oldPartyId": 6772,
+            "type": "Cooperator/Partner",
+            "contactType": "person",
+            "email": "jemckenna@usgs.gov",
+            "active": true,
+            "jobTitle": "ECOLOGIST",
+            "firstName": "James",
+            "middleName": "E",
+            "lastName": "McKenna Jr",
+            "organization": {
+                "displayText": "Tunison Laboratory of Aquatic Science, GLSC"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "13045",
+                    "state": "NY",
+                    "line1": "3075 Gracie Road",
+                    "city": "Cortland"
+                },
+                "building": "GLSC - TLAS - OFC",
+                "mailAddress": {
+                    "zip": "13045-9357",
+                    "state": "NY",
+                    "line1": "3075 Gracie Road",
+                    "country": "USA",
+                    "city": "Cortland"
+                },
+                "name": "James E Mckenna/BRD/USGS/DOI - Primary Location",
+                "faxPhone": "6077530259",
+                "buildingCode": "AHD",
+                "officePhone": "60775393917521"
+            }
+        }, {
+            "name": "Michael T Slattery",
+            "oldPartyId": 11697,
+            "type": "Cooperator/Partner",
+            "contactType": "person",
+            "email": "mslattery@usgs.gov",
+            "active": true,
+            "jobTitle": "Ecologist",
+            "firstName": "Michael",
+            "middleName": "T",
+            "lastName": "Slattery",
+            "organization": {
+                "displayText": "Tunison Laboratory of Aquatic Science, GLSC"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "13045",
+                    "state": "NY",
+                    "line1": "3075 Gracie Road",
+                    "city": "Cortland"
+                },
+                "building": "GLSC - TLAS - OFC",
+                "mailAddress": {
+                    "zip": "13045-9357",
+                    "state": "NY",
+                    "line1": "3075 Gracie Road",
+                    "country": "USA",
+                    "city": "Cortland"
+                },
+                "name": "Michael T Slattery/BRD/CONT/USGS/DOI - Primary Location",
+                "faxPhone": "6077530259",
+                "buildingCode": "AHD",
+                "officePhone": "6077539391"
+            }
+        }, {
+            "name": "Tunison Laboratory of Aquatic Science, GLSC",
+            "oldPartyId": 17267,
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "description": "Tunison Laboratory of Aquatic Science, GLSC",
+            "active": true,
+            "aliases": ["TUNISON LAB OF AQUATIC SC"],
+            "fbmsCodes": ["GGEMND0300"],
+            "logoUrl": "http://my.usgs.gov/static-cache/images/dataOwner/v1/logosMed/USGSLogo.gif",
+            "smallLogoUrl": "http://my.usgs.gov/static-cache/images/dataOwner/v1/logosSmall/USGSLogo.gif",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "13045",
+                    "state": "NY",
+                    "line1": "3075 Gracie Road",
+                    "country": "USA",
+                    "city": "Cortland"
+                },
+                "building": "Tunison Lab of Aquatic Science",
+                "mailAddress": {
+                    "zip": "13045-9357",
+                    "state": "NY",
+                    "line1": "3075 Gracie Road",
+                    "country": "USA",
+                    "city": "Cortland"
+                },
+                "name": "Tunison Fishery Research Lab - Tunison Lab of Aquatic Science [AHD]",
+                "buildingCode": "AHD"
+            }
+        }],
+        "tags": [{
+            "type": "Label",
+            "name": "AFINCH"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 81"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Accountability"
+        }, {
+            "type": "Place",
+            "name": "Great Lakes"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/SiGLProjectObjective",
+            "name": "GLRI"
+        }],
+        "facets": [{
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__8d/1f/7b/8d1f7b8a164cfb044167456550a46d09116c4e00",
+                "useForPreview": false,
+                "name": "Study_area_2.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:44:43.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__8d%2F1f%2F7b%2F8d1f7b8a164cfb044167456550a46d09116c4e00",
+                "size": 250732
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__1d/3c/55/1d3c55395b7ace320e7e21ed2a07fa7ae399d830",
+                "useForPreview": false,
+                "name": "Study_area_2.dbf",
+                "contentType": "application/octet-stream",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:44:43.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__1d%2F3c%2F55%2F1d3c55395b7ace320e7e21ed2a07fa7ae399d830",
+                "size": 822
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__28/5e/22/285e22e21faf4922b515c474cf428172638d113b",
+                "useForPreview": false,
+                "name": "Study_area_2.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:44:43.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__28%2F5e%2F22%2F285e22e21faf4922b515c474cf428172638d113b",
+                "size": 276
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__4c/3b/17/4c3b17d6c567420135346f90aa761e669de39d9d",
+                "useForPreview": false,
+                "name": "Study_area_2.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:44:43.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__4c%2F3b%2F17%2F4c3b17d6c567420135346f90aa761e669de39d9d",
+                "size": 469
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__dd/4b/1f/dd4b1fa46da88df5f3839abc8b632efeb547f7f9",
+                "useForPreview": false,
+                "name": "Study_area_2.shp.xml",
+                "contentType": "application/fgdc+xml",
+                "originalMetadata": true,
+                "dateUploaded": "2014-10-20T15:44:43.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__dd%2F4b%2F1f%2Fdd4b1fa46da88df5f3839abc8b632efeb547f7f9",
+                "size": 123264
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__5e/75/d8/5e75d8d60d01c731661a022a0647519aeb29f0e4",
+                "useForPreview": false,
+                "name": "Study_area_2.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:44:43.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__5e%2F75%2Fd8%2F5e75d8d60d01c731661a022a0647519aeb29f0e4",
+                "size": 332
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__bf/25/91/bf259176175341a656b6f134f9a7796d2cc0d9d9",
+                "useForPreview": false,
+                "name": "Study_area_2.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:44:43.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__bf%2F25%2F91%2Fbf259176175341a656b6f134f9a7796d2cc0d9d9",
+                "size": 132
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__dc/18/8b/dc188b57e8c75b9283430f21f73f5ba7e15f4bf0",
+                "useForPreview": false,
+                "name": "Study_area_2.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:44:43.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__dc%2F18%2F8b%2Fdc188b57e8c75b9283430f21f73f5ba7e15f4bf0",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 46.83652015060865,
+                "maxX": -83.81226703623877,
+                "minX": -89.877549684866,
+                "minY": 41.50372816793191
+            },
+            "facetName": "Shapefile",
+            "name": "Study_area_2",
+            "nativeCrs": "EPSG:5070",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }, {
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__d7/4a/09/d74a091eb615cc7b11376b6ca7c83567f2bde28f",
+                "useForPreview": false,
+                "name": "Study_area_1.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:44:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__d7%2F4a%2F09%2Fd74a091eb615cc7b11376b6ca7c83567f2bde28f",
+                "size": 99204
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__41/5d/c3/415dc3c74d76819ddb4332b5d1ed17c22f033ddd",
+                "useForPreview": false,
+                "name": "Study_area_1.dbf",
+                "contentType": "application/octet-stream",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:44:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__41%2F5d%2Fc3%2F415dc3c74d76819ddb4332b5d1ed17c22f033ddd",
+                "size": 154
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__ed/c1/ac/edc1aca9166e307af040b558cdf6a4456a67e6e8",
+                "useForPreview": false,
+                "name": "Study_area_1.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:44:56.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__ed%2Fc1%2Fac%2Fedc1aca9166e307af040b558cdf6a4456a67e6e8",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__31/89/dd/3189ddfd76076d2e4a9ac01e909c6cc9de9d0f58",
+                "useForPreview": false,
+                "name": "Study_area_1.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:44:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__31%2F89%2Fdd%2F3189ddfd76076d2e4a9ac01e909c6cc9de9d0f58",
+                "size": 469
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__d6/88/52/d68852fc224e1980785f9358c9943faace3da84c",
+                "useForPreview": false,
+                "name": "Study_area_1.shp.xml",
+                "contentType": "application/fgdc+xml",
+                "originalMetadata": true,
+                "dateUploaded": "2014-10-20T15:44:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__d6%2F88%2F52%2Fd68852fc224e1980785f9358c9943faace3da84c",
+                "size": 123943
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__53/77/ff/5377ff2603869d6a392b1586dc44077d01599224",
+                "useForPreview": false,
+                "name": "Study_area_1.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:44:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__53%2F77%2Fff%2F5377ff2603869d6a392b1586dc44077d01599224",
+                "size": 164
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__10/a6/74/10a6742496788df9c642a194853665a7f1f15de0",
+                "useForPreview": false,
+                "name": "Study_area_1.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:44:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__10%2Fa6%2F74%2F10a6742496788df9c642a194853665a7f1f15de0",
+                "size": 124
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__f3/9d/0f/f39d0fe14abdc21e8447ee9b6b783ef825f38a92",
+                "useForPreview": false,
+                "name": "Study_area_1.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:44:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__f3%2F9d%2F0f%2Ff39d0fe14abdc21e8447ee9b6b783ef825f38a92",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 48.20660928574128,
+                "maxX": -84.14928030888244,
+                "minX": -93.24112954999815,
+                "minY": 45.77117126675848
+            },
+            "facetName": "Shapefile",
+            "name": "Study_area_1",
+            "nativeCrs": "EPSG:5070",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }, {
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__04/8e/f0/048ef0c6c8573c2af94b0bd13866e0e6723698d6",
+                "useForPreview": false,
+                "name": "Study_area_3.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:19.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__04%2F8e%2Ff0%2F048ef0c6c8573c2af94b0bd13866e0e6723698d6",
+                "size": 120772
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__a8/e9/8c/a8e98c45da3d255890bbc6a7b8a3f95312a4da62",
+                "useForPreview": false,
+                "name": "Study_area_3.dbf",
+                "contentType": "application/octet-stream",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:19.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__a8%2Fe9%2F8c%2Fa8e98c45da3d255890bbc6a7b8a3f95312a4da62",
+                "size": 402
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__3f/32/a7/3f32a718b00cd3ac8663eca201c612b85ce1e3ef",
+                "useForPreview": false,
+                "name": "Study_area_3.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:19.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__3f%2F32%2Fa7%2F3f32a718b00cd3ac8663eca201c612b85ce1e3ef",
+                "size": 164
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__59/82/f6/5982f69b9abf598b0e900023817b5edb88db5494",
+                "useForPreview": false,
+                "name": "Study_area_3.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:19.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__59%2F82%2Ff6%2F5982f69b9abf598b0e900023817b5edb88db5494",
+                "size": 469
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__08/e9/48/08e948e0bb970b0ff41289437b98caf2eb9f37e3",
+                "useForPreview": false,
+                "name": "Study_area_3.shp.xml",
+                "contentType": "application/fgdc+xml",
+                "originalMetadata": true,
+                "dateUploaded": "2014-10-20T15:45:19.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__08%2Fe9%2F48%2F08e948e0bb970b0ff41289437b98caf2eb9f37e3",
+                "size": 123264
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__78/1b/69/781b692c4cb416c9aeddda337ee8232e4868d911",
+                "useForPreview": false,
+                "name": "Study_area_3.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:19.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__78%2F1b%2F69%2F781b692c4cb416c9aeddda337ee8232e4868d911",
+                "size": 220
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__67/6e/9d/676e9da5cb3108d47668a39e206d15873b9119be",
+                "useForPreview": false,
+                "name": "Study_area_3.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:19.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__67%2F6e%2F9d%2F676e9da5cb3108d47668a39e206d15873b9119be",
+                "size": 132
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__30/75/4d/30754d5b98afee825d809e59bf22fe7709ed6ea1",
+                "useForPreview": false,
+                "name": "Study_area_3.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:19.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__30%2F75%2F4d%2F30754d5b98afee825d809e59bf22fe7709ed6ea1",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 43.719514714173975,
+                "maxX": -83.77598808661611,
+                "minX": -87.64763354835999,
+                "minY": 41.11085758419359
+            },
+            "facetName": "Shapefile",
+            "name": "Study_area_3",
+            "nativeCrs": "EPSG:5070",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }, {
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__8d/56/21/8d5621026474fda94736a1789b6d065511f25661",
+                "useForPreview": false,
+                "name": "Study_area_4.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:33.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__8d%2F56%2F21%2F8d5621026474fda94736a1789b6d065511f25661",
+                "size": 144088
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__a9/70/ac/a970acea130b26088ab5ee4f423893dd9c9233d7",
+                "useForPreview": false,
+                "name": "Study_area_4.dbf",
+                "contentType": "application/octet-stream",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:33.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__a9%2F70%2Fac%2Fa970acea130b26088ab5ee4f423893dd9c9233d7",
+                "size": 462
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__d4/2d/06/d42d061fd0ab0aa4911e6962aecca024824e8097",
+                "useForPreview": false,
+                "name": "Study_area_4.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:33.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__d4%2F2d%2F06%2Fd42d061fd0ab0aa4911e6962aecca024824e8097",
+                "size": 180
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__b9/99/79/b999799e01f7fe0511c74094ed6e0724322c26dc",
+                "useForPreview": false,
+                "name": "Study_area_4.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:33.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__b9%2F99%2F79%2Fb999799e01f7fe0511c74094ed6e0724322c26dc",
+                "size": 469
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__5d/b7/5b/5db75b03a1d73b59197b12de86d857f16216d9f1",
+                "useForPreview": false,
+                "name": "Study_area_4.shp.xml",
+                "contentType": "application/fgdc+xml",
+                "originalMetadata": true,
+                "dateUploaded": "2014-10-20T15:45:33.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__5d%2Fb7%2F5b%2F5db75b03a1d73b59197b12de86d857f16216d9f1",
+                "size": 123264
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__5a/df/50/5adf50e7e526df5233395337a6ebf7ca3fb135d4",
+                "useForPreview": false,
+                "name": "Study_area_4.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:33.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__5a%2Fdf%2F50%2F5adf50e7e526df5233395337a6ebf7ca3fb135d4",
+                "size": 236
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__d5/20/37/d520376e9b555e56e3458cfcf362b9a2e2b0b40d",
+                "useForPreview": false,
+                "name": "Study_area_4.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:33.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__d5%2F20%2F37%2Fd520376e9b555e56e3458cfcf362b9a2e2b0b40d",
+                "size": 132
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__60/de/40/60de400fc3748c138b82278c426ceb0918c1c9ca",
+                "useForPreview": false,
+                "name": "Study_area_4.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:33.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__60%2Fde%2F40%2F60de400fc3748c138b82278c426ceb0918c1c9ca",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 45.9065071342267,
+                "maxX": -83.0819645871303,
+                "minX": -86.64921046167984,
+                "minY": 42.833939926197225
+            },
+            "facetName": "Shapefile",
+            "name": "Study_area_4",
+            "nativeCrs": "EPSG:5070",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }, {
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__78/6d/e5/786de56d24f7baef1831286922f18aec3f448f43",
+                "useForPreview": false,
+                "name": "Study_area_5.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:51.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__78%2F6d%2Fe5%2F786de56d24f7baef1831286922f18aec3f448f43",
+                "size": 76180
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__16/30/bf/1630bf9b2818d5fecbebce698d968e92da6796ac",
+                "useForPreview": false,
+                "name": "Study_area_5.dbf",
+                "contentType": "application/octet-stream",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:51.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__16%2F30%2Fbf%2F1630bf9b2818d5fecbebce698d968e92da6796ac",
+                "size": 154
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__4c/f5/64/4cf564b07a974f89ce7ca1bae6af350298f88016",
+                "useForPreview": false,
+                "name": "Study_area_5.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:51.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__4c%2Ff5%2F64%2F4cf564b07a974f89ce7ca1bae6af350298f88016",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__20/b6/aa/20b6aa9e3ba9a57c23fe1522fe3cadad787a36e3",
+                "useForPreview": false,
+                "name": "Study_area_5.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:51.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__20%2Fb6%2Faa%2F20b6aa9e3ba9a57c23fe1522fe3cadad787a36e3",
+                "size": 469
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__0d/a8/58/0da858451364ddccc3786a3a932b876709d716e1",
+                "useForPreview": false,
+                "name": "Study_area_5.shp.xml",
+                "contentType": "application/fgdc+xml",
+                "originalMetadata": true,
+                "dateUploaded": "2014-10-20T15:45:52.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__0d%2Fa8%2F58%2F0da858451364ddccc3786a3a932b876709d716e1",
+                "size": 122833
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__c9/ab/55/c9ab557853bb0adb3580f80ddedc346818c078f3",
+                "useForPreview": false,
+                "name": "Study_area_5.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:51.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__c9%2Fab%2F55%2Fc9ab557853bb0adb3580f80ddedc346818c078f3",
+                "size": 140
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__c0/8e/68/c08e68431658534099682b118fea3bf0388e6b2d",
+                "useForPreview": false,
+                "name": "Study_area_5.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:51.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__c0%2F8e%2F68%2Fc08e68431658534099682b118fea3bf0388e6b2d",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__b8/8f/ef/b88fef83bb9ad68088eb4f70b1e1f6658933a4be",
+                "useForPreview": false,
+                "name": "Study_area_5.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:45:51.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__b8%2F8f%2Fef%2Fb88fef83bb9ad68088eb4f70b1e1f6658933a4be",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 44.60264323330885,
+                "maxX": -82.14717414908405,
+                "minX": -85.56230225272022,
+                "minY": 41.97320630862317
+            },
+            "facetName": "Shapefile",
+            "name": "Study_area_5",
+            "nativeCrs": "EPSG:5070",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }, {
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__ee/ba/a3/eebaa3c738231cb322aa038b5a5c78084f997cc7",
+                "useForPreview": false,
+                "name": "Study_area_6.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:46:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__ee%2Fba%2Fa3%2Feebaa3c738231cb322aa038b5a5c78084f997cc7",
+                "size": 67328
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__d1/c1/14/d1c11424e971ffccfc3ba0fcc37d67b2196a14a3",
+                "useForPreview": false,
+                "name": "Study_area_6.dbf",
+                "contentType": "application/octet-stream",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:46:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__d1%2Fc1%2F14%2Fd1c11424e971ffccfc3ba0fcc37d67b2196a14a3",
+                "size": 154
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__e5/fc/6c/e5fc6ce3cf4a46dc6730df45d8c975361afffe29",
+                "useForPreview": false,
+                "name": "Study_area_6.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:46:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__e5%2Ffc%2F6c%2Fe5fc6ce3cf4a46dc6730df45d8c975361afffe29",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__29/fe/ec/29feec78f4f6d47a2dd8c3d8feda2fb428aa799a",
+                "useForPreview": false,
+                "name": "Study_area_6.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:46:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__29%2Ffe%2Fec%2F29feec78f4f6d47a2dd8c3d8feda2fb428aa799a",
+                "size": 469
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__7f/0c/0d/7f0c0d89df47508268a70dcea8159228dc3f2fd4",
+                "useForPreview": false,
+                "name": "Study_area_6.shp.xml",
+                "contentType": "application/fgdc+xml",
+                "originalMetadata": true,
+                "dateUploaded": "2014-10-20T15:46:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__7f%2F0c%2F0d%2F7f0c0d89df47508268a70dcea8159228dc3f2fd4",
+                "size": 122833
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__aa/f3/16/aaf31643f11c9ef9b3e3b4eaa68a171d03e6a074",
+                "useForPreview": false,
+                "name": "Study_area_6.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:46:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__aa%2Ff3%2F16%2Faaf31643f11c9ef9b3e3b4eaa68a171d03e6a074",
+                "size": 156
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__b9/15/b3/b915b38526b7c70ac3546058520eadad3544b114",
+                "useForPreview": false,
+                "name": "Study_area_6.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:46:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__b9%2F15%2Fb3%2Fb915b38526b7c70ac3546058520eadad3544b114",
+                "size": 124
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__a6/22/fa/a622fad0fa1570d38018698e4cb593f6ea21be43",
+                "useForPreview": false,
+                "name": "Study_area_6.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:46:08.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__a6%2F22%2Ffa%2Fa622fad0fa1570d38018698e4cb593f6ea21be43",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 42.38906021370387,
+                "maxX": -80.45476175636479,
+                "minX": -85.45508914625968,
+                "minY": 40.017010638168294
+            },
+            "facetName": "Shapefile",
+            "name": "Study_area_6",
+            "nativeCrs": "EPSG:5070",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }, {
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__67/6b/f2/676bf286af1236e93f30285bb53b3fccd63e54bb",
+                "useForPreview": false,
+                "name": "Study_area_7.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:46:22.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__67%2F6b%2Ff2%2F676bf286af1236e93f30285bb53b3fccd63e54bb",
+                "size": 168356
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__e0/a0/cc/e0a0ccab6be78ba991b23fb2950532d95bbb7c46",
+                "useForPreview": false,
+                "name": "Study_area_7.dbf",
+                "contentType": "application/octet-stream",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:46:21.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__e0%2Fa0%2Fcc%2Fe0a0ccab6be78ba991b23fb2950532d95bbb7c46",
+                "size": 178
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__2f/58/f0/2f58f0c11cf4410c1f220a3c09ef742631f286d5",
+                "useForPreview": false,
+                "name": "Study_area_7.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:46:22.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__2f%2F58%2Ff0%2F2f58f0c11cf4410c1f220a3c09ef742631f286d5",
+                "size": 132
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__22/21/88/222188302f4cff023823895038e76f6d82f2e061",
+                "useForPreview": false,
+                "name": "Study_area_7.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:46:21.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__22%2F21%2F88%2F222188302f4cff023823895038e76f6d82f2e061",
+                "size": 469
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__30/b9/18/30b9186e66520e61554fac692b4119e07897c753",
+                "useForPreview": false,
+                "name": "Study_area_7.shp.xml",
+                "contentType": "application/fgdc+xml",
+                "originalMetadata": true,
+                "dateUploaded": "2014-10-20T15:46:22.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__30%2Fb9%2F18%2F30b9186e66520e61554fac692b4119e07897c753",
+                "size": 122833
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__31/aa/7a/31aa7a9b5bf7bdbad7569cb395d1cd762086d2b6",
+                "useForPreview": false,
+                "name": "Study_area_7.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:46:21.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__31%2Faa%2F7a%2F31aa7a9b5bf7bdbad7569cb395d1cd762086d2b6",
+                "size": 188
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__4d/e3/8c/4de38c78352d6857bf39992516bc6a80b09dd24c",
+                "useForPreview": false,
+                "name": "Study_area_7.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:46:21.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__4d%2Fe3%2F8c%2F4de38c78352d6857bf39992516bc6a80b09dd24c",
+                "size": 132
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__fe/53/70/fe53703f67c3dbf0a7c14614b5c6b1c784effb7e",
+                "useForPreview": false,
+                "name": "Study_area_7.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-10-20T15:46:21.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/54452623e4b0f888a81b7ceb?f=__disk__fe%2F53%2F70%2Ffe53703f67c3dbf0a7c14614b5c6b1c784effb7e",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 46.26756554649256,
+                "maxX": -73.47370212097658,
+                "minX": -80.84086913986086,
+                "minY": 40.86419077962222
+            },
+            "facetName": "Shapefile",
+            "name": "Study_area_7",
+            "nativeCrs": "EPSG:5070",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }]
+    }, {
+        "link": {
+            "rel": "self",
+            "url": "https://www.sciencebase.gov/catalog/item/530e5ca0e4b0929320b22a70"
+        },
+        "relatedItems": {
+            "link": {
+                "count": 0,
+                "url": "https://www.sciencebase.gov/catalog/itemLinks?itemId=530e5ca0e4b0929320b22a70",
+                "rel": "related"
+            }
+        },
+        "id": "530e5ca0e4b0929320b22a70",
+        "title": "Inland Coastal Zone Corridor Network and Vulnerability to Invasive Phragmites",
+        "summary": "This network of inland streams, wetlands and water bodies is a composite of two layers from the National Hydrography Dataset Plus (NHD+ flow lines and water bodies), and all available wetlands from the National Wetlands Inventory (NWI) and Wisconsin Wetlands Inventory (WWI). In combination, these layers provide a network template of inland corridors for assessing relative vulnerability to future invasions of Phragmites.",
+        "body": "This network of inland streams, wetlands and water bodies is a composite of two layers from the National Hydrography Dataset Plus (NHD+ flow lines and water bodies), and all available wetlands from the National Wetlands Inventory (NWI) and Wisconsin Wetlands Inventory (WWI). In combination, these layers provide a network template of inland corridors for assessing relative vulnerability to future invasions of Phragmites.",
+        "purpose": "Line and polygon representations of streams, rivers, wetlands and water bodies were combined in order to produce a single gridded representation of a corridor network for potential future Phragmites invasions. This network was weighted by proximity to existing Phragmites (euclidian distance) in order to provide a relative vulnerability index that shows feature connectivity with existing Phragmites populations. This inland network is intended to be used in conjunction with simulated coastal corridors exposed by reduced lake levels, also weighted by proximity to existing Phragmites, and estimates of the relative habitat suitability in order to produce vulnerability assessments of future invasion likelihood. Combining the notions of habitat suitability and proximity-based vulnerability will provide land managers with a robust tool to maximize the benefits per unit cost of different control effort strategies and identify areas that are key for early detection monitoring and eradication efforts.",
+        "hasChildren": false,
+        "parentId": "53598193e4b0031b2f4a074a",
+        "contacts": [{
+            "name": "Kurt P Kowalski",
+            "oldPartyId": 5668,
+            "type": "Point of Contact",
+            "contactType": "person",
+            "email": "kkowalski@usgs.gov",
+            "active": true,
+            "jobTitle": "Research Ecologist",
+            "firstName": "Kurt",
+            "middleName": "P",
+            "lastName": "Kowalski",
+            "organization": {
+                "displayText": "Great Lakes Science Center"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Rd",
+                    "country": "US",
+                    "city": "Ann Arbor"
+                },
+                "mailAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Road",
+                    "country": "USA",
+                    "city": "Ann Arbor"
+                },
+                "name": "Kurt P Kowalski/BRD/USGS/DOI - Primary Location",
+                "faxPhone": "7349948780",
+                "buildingCode": "BDA"
+            }
+        }, {
+            "name": "National Hydrography Dataset",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }, {
+            "name": "U.S. Fish & Wildlife Service",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }, {
+            "name": "Wisconsin Department of Natural Resources",
+            "type": "Cooperator/Partner",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }],
+        "webLinks": [{
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://cida.usgs.gov/glri/projects/accountability/Phragmites_invasion.html",
+            "title": "Project Home Page",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://dnr.wi.gov/topic/wetlands/inventory.html",
+            "title": "WI Dept of Natural Resources - Wetlands Inventory",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.fws.gov/wetlands/",
+            "title": "U.S. Fish & Wildlife Service - National Wetlands Inventory",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://cida.usgs.gov/glri/",
+            "title": "Great Lakes Restoration Initiative (GLRI)",
+            "hidden": false
+        }, {
+            "type": "browseImage",
+            "typeLabel": "Browse Image",
+            "uri": "http://cida.usgs.gov/glri/documents/glri_thumbnails/inland_stream_wetland_network.png",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.horizon-systems.com/NHDPlus/NHDPlusV1_04.php",
+            "title": "Horizon System Corporation - National Hydrography Dataset",
+            "hidden": false
+        }],
+        "tags": [{
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "phragmites"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "wetlands ecology"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "inland corridor network"
+        }, {
+            "type": "Place",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Location",
+            "name": "Great Lakes"
+        }, {
+            "type": "Subject",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "Invasive Species"
+        }, {
+            "type": "Label",
+            "name": "Great Lakes Restoration Initiative"
+        }, {
+            "type": "Label",
+            "name": "GLRI"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Accountability"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Invasive Species"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 588"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 67"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 68"
+        }],
+        "facets": [{
+            "crs": "EPSG:102113, EPSG:3785",
+            "boundingBox": {
+                "maxY": 48.340052,
+                "maxX": -75.050078,
+                "minX": -92.550634,
+                "minY": 40.381365
+            },
+            "facetName": "OGC Web Service",
+            "serviceMapUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?",
+            "capabilitiesUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WMSServer?request=GetCapabilities&service=WMS",
+            "serviceFeatureInfoUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?",
+            "layers": "1",
+            "serviceVersion": "1.1.1",
+            "className": "OGCFacet",
+            "type": "WMS",
+            "serviceCapabilitiesUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?",
+            "serviceLegendUrl": ""
+        }]
+    }, {
+        "link": {
+            "rel": "self",
+            "url": "https://www.sciencebase.gov/catalog/item/53c6ea34e4b0001bd514787e"
+        },
+        "relatedItems": {
+            "link": {
+                "count": 0,
+                "url": "https://www.sciencebase.gov/catalog/itemLinks?itemId=53c6ea34e4b0001bd514787e",
+                "rel": "related"
+            }
+        },
+        "id": "53c6ea34e4b0001bd514787e",
+        "title": "Seasonal benthic prey fish densities in Lake Huron, offshore of Hammond Bay and Alpena, Michigan (2012)",
+        "summary": "Up to 12 different prey fish species were sampled with a 12-m bottom trawl during April, July, and September along two Lake Huron transects (Thunder Bay, Hammond Bay). At each transect in each month, two replicate 10-min tows were conducted at each of three depths (18, 46, 82 m) during the day and night. Once the fish were onboard in a given tow, they were sorted to species, weighed (in aggregate), and up to 50 individuals per species were measured to the nearest total length.",
+        "body": "Up to 12 different prey fish species were sampled with a 12-m bottom trawl during April, July, and September along two Lake Huron transects (Thunder Bay, Hammond Bay). At each transect in each month, two replicate 10-min tows were conducted at each of three depths (18, 46, 82 m) during the day and night. Once the fish were onboard in a given tow, they were sorted to species, weighed (in aggregate), and up to 50 individuals per species were measured to the nearest total length.",
+        "purpose": "These data are part of a larger study that seeks to determine whether invasive quagga mussels are limiting biomass and productivity of plankton and fish in offshore waters. ",
+        "hasChildren": false,
+        "parentId": "52e6a0a0e4b012954a1a238a",
+        "contacts": [{
+            "name": "David Bunnell",
+            "oldPartyId": 1349,
+            "type": "Principal Investigator",
+            "contactType": "person",
+            "email": "dbunnell@usgs.gov",
+            "active": true,
+            "jobTitle": "Research Fishery Biologist",
+            "firstName": "David",
+            "lastName": "Bunnell",
+            "organization": {
+                "displayText": "Great Lakes Science Center"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Rd",
+                    "city": "Ann Arbor"
+                },
+                "building": "GLSC - AA - R AND D BLDG",
+                "mailAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Road",
+                    "country": "USA",
+                    "city": "Ann Arbor"
+                },
+                "name": "David Bunnell/BRD/USGS/DOI - Primary Location",
+                "faxPhone": "7349948780",
+                "buildingCode": "BDA"
+            }
+        }],
+        "tags": [{
+            "type": "Place",
+            "name": "Great Lakes"
+        }, {
+            "type": "Place",
+            "name": "Lake Huron"
+        }, {
+            "type": "Place",
+            "name": "Hammond Bay"
+        }, {
+            "type": "Place",
+            "name": "Thunder Bay"
+        }, {
+            "type": "Label",
+            "name": "Great Lakes Restoration Initiative "
+        }, {
+            "type": "Label",
+            "name": "GLRI"
+        }, {
+            "type": "Label",
+            "name": "aquatic ecology"
+        }, {
+            "type": "Label",
+            "name": " fisheries science"
+        }, {
+            "type": "Label",
+            "name": "invasive species"
+        }, {
+            "type": "Label",
+            "name": "Lakebed"
+        }, {
+            "type": "Label",
+            "name": " \tCenozoic Era"
+        }]
+    }, {
+        "link": {
+            "rel": "self",
+            "url": "https://www.sciencebase.gov/catalog/item/5390761fe4b04eea98bf855a"
+        },
+        "relatedItems": {
+            "link": {
+                "count": 0,
+                "url": "https://www.sciencebase.gov/catalog/itemLinks?itemId=5390761fe4b04eea98bf855a",
+                "rel": "related"
+            }
+        },
+        "id": "5390761fe4b04eea98bf855a",
+        "title": "Developmental rate of embryos and larvae of bighead and silver carps",
+        "summary": "Description of Work USGS employees worked with Chinese scientists to acquire and translate existing Chinese science on development. Then, bighead and silver carps were spawned and the eggs and larvae reared in the laboratory, with close control on temperature and very close observation of the different developmental stages. Multiple spawning events of each species were necessary to understand variability in developmental rate. Preserved voucher specimens and microscope photography were taken of all developmental stages. � Relevance/Benefits These data were first used to model the spawning locations of Asian carps in the Missouri River. They were later used in the development of the more advanced� FluEgg model, which can be used to [...]",
+        "body": "<h4>Description of Work<\/h4> USGS employees worked with Chinese scientists to acquire and translate existing Chinese science on development. Then, bighead and silver carps were spawned and the eggs and larvae reared in the laboratory, with close control on temperature and very close observation of the different developmental stages. Multiple spawning events of each species were necessary to understand variability in developmental rate. Preserved voucher specimens and microscope photography were taken of all developmental stages.\n<br /> &nbsp; \n<h4>Relevance/Benefits<\/h4> These data were first used to model the spawning locations of Asian carps in the Missouri River. They were later used in the development of the more advanced&nbsp; \n<a href=\"http://cida.usgs.gov/glri/projects/invasive_species/asiancarp.illinois.edu\">FluEgg model<\/a>, which can be used to determine whether a river is at risk for reproduction by Asian carps. Various rivers have been modeled, with the determination that under some flow conditions much shorter rivers than previously believed would be adequate for Asian carp reproduction. The recent discovery that grass carp have successfully spawned in the Sandusky River in Ohio, a short tributary of Lake Erie, lends validity to these models.\n<br /> &nbsp; \n<h4>Key Findings<\/h4> A temperature model was developed that describes the relationship between developmental rate and temperature for each developmental stage.\n<br /> \n<br /> Presented&nbsp;at 142nd Annual Meeting of the American Fisheries Society in St. Paul, MN,&nbsp; \n<a href=\"https://afs.confex.com/afs/2012/webprogram/Paper10194.html\">Use of drift models to understand Asian carp spawning and early life history.<\/a>\n<br /> &nbsp;",
+        "purpose": "Developmental rate of the eggs and larvae is a key parameter to be incorporated in models that determine where Asian carps are capable of spawning, and also, when coupled with field collections of drifting eggs and larvae, can be used to determine spawning locations or where the larvae will leave the drift and move to nursery locations. These locations are required to inform control efforts based on spawning disruption or destruction of the carp in their nurseries. Previous published work had closely described the developmental stages, but had poor temperature control and thus was inadequate for this work. Also, because substantial genetic change has occurred since the introduction of Asian carps to North America, it was important that this work be done with North American fish for maximum reliability of the models.",
+        "hasChildren": true,
+        "parentId": "52e6a0a0e4b012954a1a238a",
+        "contacts": [{
+            "name": "Duane C Chapman",
+            "oldPartyId": 1712,
+            "type": "Principal Investigator",
+            "contactType": "person",
+            "email": "dchapman@usgs.gov",
+            "active": true,
+            "jobTitle": "Research Fish Biologist",
+            "personalTitle": "Mr.",
+            "firstName": "Duane",
+            "middleName": "C",
+            "lastName": "Chapman",
+            "organization": {
+                "displayText": "Columbia Environmental Research Center"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "65201",
+                    "state": "MO",
+                    "line1": "4200 New Haven Road",
+                    "country": "US",
+                    "city": "Columbia"
+                },
+                "building": "CERC - R1 RESEARCH BUILDING",
+                "mailAddress": {
+                    "zip": "65201",
+                    "state": "MO",
+                    "line1": "4200 New Haven Road",
+                    "country": "USA",
+                    "city": "Columbia"
+                },
+                "name": "Duane C Chapman/BRD/USGS/DOI - Primary Location",
+                "faxPhone": "5738761896",
+                "buildingCode": "KCO"
+            }
+        }, {
+            "name": "Sandra Morrison",
+            "oldPartyId": 7208,
+            "type": "Associate Project Chief",
+            "contactType": "person",
+            "email": "smorrison@usgs.gov",
+            "active": true,
+            "jobTitle": "Staff Scientist",
+            "firstName": "Sandra",
+            "lastName": "Morrison",
+            "organization": {
+                "displayText": "Office of the Midwest Regional Director"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Rd",
+                    "country": "US",
+                    "city": "Ann Arbor"
+                },
+                "mailAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Road",
+                    "country": "USA",
+                    "city": "Ann Arbor"
+                },
+                "name": "Sandra Morrison/BRD/USGS/DOI - Primary Location",
+                "buildingCode": "BDA"
+            }
+        }, {
+            "name": "Columbia Environmental Research Center",
+            "oldPartyId": 17335,
+            "type": "Lead Organization",
+            "contactType": "organization",
+            "active": true,
+            "aliases": ["COLUMBIA ENVIRONMENTAL RESEARC", "COLUMBIA ENVIRONMENTAL RES CTR", "CERC"],
+            "fbmsCodes": ["GGCSSB0000"],
+            "logoUrl": "http://my.usgs.gov/static-cache/images/dataOwner/v1/logosMed/USGSLogo.gif",
+            "smallLogoUrl": "http://my.usgs.gov/static-cache/images/dataOwner/v1/logosSmall/USGSLogo.gif",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "65201",
+                    "state": "MO",
+                    "line1": "4200 New Haven Road",
+                    "country": "USA",
+                    "city": "Columbia"
+                },
+                "building": "Building 1 - Main Lab Building",
+                "mailAddress": {
+                    "zip": "65201",
+                    "state": "MO",
+                    "line1": "4200 New Haven Road",
+                    "country": "USA",
+                    "city": "Columbia"
+                },
+                "name": "Columbia Environmental Research Center - Building 1 - Main Lab Building [KRG]",
+                "buildingCode": "KRG"
+            }
+        }],
+        "webLinks": [{
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://cida.usgs.gov/glri/#/Browse/fais/5390761fe4b04eea98bf855a",
+            "title": "Project Home Page",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.asiancarp.us/",
+            "title": "Related Resource",
+            "hidden": false
+        }, {
+            "type": "browseImage",
+            "typeLabel": "Browse Image",
+            "uri": "http://cida.usgs.gov/glri/projects/invasive_species/images/14-developmental-rate-embryos-and-larvae-bighead-and-silver-carps-14.jpg",
+            "hidden": false
+        }],
+        "tags": [{
+            "type": "Label",
+            "name": "Great Lakes Restoration Initiative"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/SiGLProjectObjective",
+            "name": "GLRI"
+        }, {
+            "type": "Label",
+            "name": "Asian Carp"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Invasive Species"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 66"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 673"
+        }],
+        "facets": [{
+            "startDate": "",
+            "facetName": "Project",
+            "objectives": "",
+            "summaryOfResults": "",
+            "className": "ProjectFacet",
+            "projectType": "Great Lakes Restoration Initiative",
+            "endDate": ""
+        }]
+    }, {
+        "link": {
+            "rel": "self",
+            "url": "https://www.sciencebase.gov/catalog/item/53308e8fe4b00b385d7627aa"
+        },
+        "relatedItems": {
+            "link": {
+                "count": 0,
+                "url": "https://www.sciencebase.gov/catalog/itemLinks?itemId=53308e8fe4b00b385d7627aa",
+                "rel": "related"
+            }
+        },
+        "id": "53308e8fe4b00b385d7627aa",
+        "title": "Lidar Topo-Bathymetry",
+        "summary": "These files were used to construct corridors estimating the extent of new coastal corridors exposed by reduced lake levels. They are included here to show the available horizontal extent of lidar-derived topo-bathymetric data and thus explicitly identify gaps and limitations of predicted corridor extents under various reduced lake level scenarios. In addition, these files provide users with a background layer that depicts the topographic variability of the submerged near-shore lake bed and terrestrial landscape.These files are 5m grid representations of the hydrographic and topographic data collected by the CHARTS system along the coasts of the U.S. sides of Lake Michigan, Lake Huron, Lake St. Clair, Lake Erie, and Lake Ontario as [...]",
+        "body": "<p>These files were used to construct corridors estimating the extent of new coastal corridors exposed by reduced lake levels. They are included here to show the available horizontal extent of lidar-derived topo-bathymetric data and thus explicitly identify gaps and limitations of predicted corridor extents under various reduced lake level scenarios. In addition, these files provide users with a background layer that depicts the topographic variability of the submerged near-shore lake bed and terrestrial landscape.These files are 5m grid representations of the hydrographic and topographic data collected by the CHARTS system along the coasts of the U.S. sides of Lake Michigan, Lake Huron, Lake St. Clair, Lake Erie, and Lake Ontario as part of the National Coastal Mapping Program. Similar data exist for portions of the Lake Superior coastal zone, but are not viewable on the interactive maps associated with this online resourse.<\/p> \n<p>The 5m grid representation of the data are based on the ASCII xyz files containing the hydrographic data and the topographic last return (TL) data. An example file name is &quot;2007_NCMP_MI_Huron_47_5mGrid.tif .&quot; The data file names are based on the year, project, area name, box number, and product type. Data were collected from 2006 to 2010, and for multiple dates along portions of the above listed lakes' coastal zones as well as their connecting channels. These data do not represent spatially complete contiguous coverages along the entire coast, and are limited where turbidity or aquatic vegetation prevented light penetration through the water column when flights were conducted.<\/p> \n<p>Where multiple date data were available, the year's data whose bathymetric coverage were most complete were used preferentially as the primary year, and the alternate year's data were used to fill any gaps imposed by turbidity or aquatic vegetation in the primary year. In these cases, the tiles file name reflects the two years' coincident data, with the first year listed in the file name representing the primary year selected.<\/p> \n<p>The data were collected and processed in geographic coordinates and ellipsoid heights. The positions are provided relative to NAD83 in decimal degrees of longitude and latitude. The heights were converted from ellipsoid to orthometric heights (NAVD88) using NGS' Geoid03 model file &quot;g2003u08.bin&quot; with the results in meters. Once converted to orthometric heights, the data were then converted to IGLD85 using the VDatum program from NOAA (National Oceanic and Atmospheric Administration).<\/p>",
+        "purpose": "These data were collected as a part of the National Coastal Mapping Program to depict the elevations above and below water in the Great Lakes coastal zone.",
+        "hasChildren": false,
+        "parentId": "53598193e4b0031b2f4a074a",
+        "contacts": [{
+            "name": "JALBTCX (Joint Airborne Lidar Bathymetry Technical Center of eXpertise)",
+            "type": "Data Owner",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }, {
+            "name": "Kurt Kowalski",
+            "type": "Principal Investigator",
+            "organizationsPerson": "Great Lakes Science Center ",
+            "personsOrganization": "United States Geological Survey (USGS) Great Lakes Science Center (GLSC)",
+            "email": "kkowalski@usgs.gov",
+            "jobTitle": "Research Ecologist",
+            "organization": {
+                "displayText": "United States Geological Survey (USGS) Great Lakes Science Center (GLSC)"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1491 Green Rd",
+                    "country": "U.S.",
+                    "city": "Ann Arbor"
+                },
+                "mailAddress": {},
+                "officePhone": "734-994-3331"
+            }
+        }, {
+            "name": "NOAA Coastal Services Center",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }, {
+            "name": "Great Lakes Science Center",
+            "type": "Cooperator/Partner",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }, {
+            "name": "U.S. Army Corps of Engineers",
+            "type": "Cooperator/Partner",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }],
+        "webLinks": [{
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://cida.usgs.gov/glri/projects/accountability/Phragmites_invasion.html",
+            "title": "Project Home Page",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.csc.noaa.gov/topobathy/",
+            "title": "NOAA Coastal Services Center ",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.glsc.usgs.gov/",
+            "title": "Great Lakes Science Center",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://shoals.sam.usace.army.mil/",
+            "title": "USACE JALBTCX ",
+            "hidden": false
+        }, {
+            "type": "browseImage",
+            "typeLabel": "Browse Image",
+            "uri": "http://cida.usgs.gov/glri/documents/glri_thumbnails/lidar_topo_bath.png",
+            "hidden": false
+        }],
+        "tags": [{
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "Topography "
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "Lidar"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "elevation"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "Bathymetry"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "Phragmites"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "coastal corridors"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "CHARTS"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": " Mobile District"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "SHOALS"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "NCMP "
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "JALBTCX"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "GLRI"
+        }, {
+            "type": "Place",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Location",
+            "name": "Great Lakes"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "Great Lakes Coastal Zones"
+        }, {
+            "type": "Subject",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "Invasive Species"
+        }, {
+            "type": "Subject",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "Great Lakes Restoration Initiative"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Accountability"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Invasive Species"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 588"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 67"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 68"
+        }],
+        "facets": [{
+            "crs": "EPSG:102113, EPSG:3785",
+            "boundingBox": {
+                "maxY": 45.564997,
+                "maxX": -76.099956,
+                "minX": -87.927038,
+                "minY": 41.373786
+            },
+            "facetName": "OGC Web Service",
+            "serviceMapUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites_lidar/MapServer/WmsServer?",
+            "capabilitiesUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites_lidar/MapServer/WMSServer?request=GetCapabilities&service=WMS",
+            "serviceFeatureInfoUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites_lidar/MapServer/WmsServer?",
+            "layers": "5, 9, 13, 17",
+            "serviceVersion": "1.1.1",
+            "className": "OGCFacet",
+            "type": "WMS",
+            "serviceCapabilitiesUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites_lidar/MapServer/WmsServer?",
+            "serviceLegendUrl": ""
+        }]
+    }, {
+        "link": {
+            "rel": "self",
+            "url": "https://www.sciencebase.gov/catalog/item/5330a885e4b00b385d76fa38"
+        },
+        "relatedItems": {
+            "link": {
+                "count": 0,
+                "url": "https://www.sciencebase.gov/catalog/itemLinks?itemId=5330a885e4b00b385d76fa38",
+                "rel": "related"
+            }
+        },
+        "id": "5330a885e4b00b385d76fa38",
+        "title": "Invasive Phragmites Stands",
+        "summary": "Maps of areas greater than 0.2 hectare (0.5 acre) dominated by invasive Phragmites australis were created for the coastal region (shoreline to 10 km inland) of the United States side the Great Lakes and connecting water ways. The maps were developed using unsupervised/supervised classification methods and ground truth data collected during 2010 and 2011 in conjunction with multi-season ALOS PALSAR imagery (for the remote sensing-based iterative classification process), as well as through the interpretation of aerial photography to reduce classification confusion. Overall classification accuracy compared to field data for mapping was approximately 86%.",
+        "body": "<span style=\"color:rgb(0, 0, 0); font-size:11px\">Maps of areas greater than 0.2 hectare (0.5 acre) dominated by invasive Phragmites australis were created for the coastal region (shoreline to 10 km inland) of the United States side the Great Lakes and connecting water ways. The maps were developed using unsupervised/supervised classification methods and ground truth data collected during 2010 and 2011 in conjunction with multi-season ALOS PALSAR imagery (for the remote sensing-based iterative classification process), as well as through the interpretation of aerial photography to reduce classification confusion. Overall classification accuracy compared to field data for mapping was approximately 86%.<\/span>",
+        "purpose": "Maps of invasive Phragmites australis' current distribution were created to provide land managers and the general public with a tool to prioritize control efforts. These maps formed the basis for a vulnerability assessment that incorporated proximity to existing Phragmites, habitat suitability, coastal corridors exposed during periods of reduced lake levels and the configuration of inland surface water networks and wetlands.",
+        "hasChildren": false,
+        "parentId": "53598193e4b0031b2f4a074a",
+        "contacts": [{
+            "name": "Kurt P Kowalski",
+            "oldPartyId": 5668,
+            "type": "Principal Investigator",
+            "contactType": "person",
+            "email": "kkowalski@usgs.gov",
+            "active": true,
+            "jobTitle": "Research Ecologist",
+            "firstName": "Kurt",
+            "middleName": "P",
+            "lastName": "Kowalski",
+            "organization": {
+                "displayText": "Great Lakes Science Center"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Rd",
+                    "country": "US",
+                    "city": "Ann Arbor"
+                },
+                "mailAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Road",
+                    "country": "USA",
+                    "city": "Ann Arbor"
+                },
+                "name": "Kurt P Kowalski/BRD/USGS/DOI - Primary Location",
+                "faxPhone": "7349948780",
+                "buildingCode": "BDA"
+            }
+        }, {
+            "name": "Laura Bourgeau-Chavez",
+            "type": "Author",
+            "contactType": "person",
+            "personsOrganization": "Michigan Technical Research Institute (MTRI)",
+            "email": "lchavez@mtu.edu",
+            "jobTitle": "Research Scientist",
+            "organization": {
+                "displayText": "Michigan Technical Research Institute (MTRI)"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "3600 Green Ct, Suite 100",
+                    "country": "U.S.",
+                    "city": "Ann Arbor"
+                },
+                "mailAddress": {},
+                "officePhone": "734-913-6840"
+            }
+        }, {
+            "name": "Michigan Tech Research Institute",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }, {
+            "name": "U.S. Geological Survey - Great Lakes Science Center",
+            "type": "Cooperator/Partner",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }],
+        "webLinks": [{
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://cida.usgs.gov/glri/projects/accountability/Phragmites_invasion.html",
+            "title": "Project Home Page",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.mtri.org/monitoring_phragmites.html",
+            "title": "Michigan Tech Research Intstitute (MTRI)",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://cida.usgs.gov/glri",
+            "title": "Great Lakes Restoration Initiative (GLRI)",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.greatlakesrestoration.us/",
+            "title": "Great Lakes Restoration Initiative [Project Overview]",
+            "hidden": false
+        }, {
+            "type": "browseImage",
+            "typeLabel": "Browse Image",
+            "uri": "http://cida.usgs.gov/glri/documents/glri_thumbnails/LE_final_mapping.png",
+            "hidden": false
+        }],
+        "tags": [{
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "GLRI"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "forecasting invasive phragmites corridor"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "Great Lakes Restoration Initiative"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "U.S. Great Lakes coastal zone"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "remote sensing"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "Phragmites australis"
+        }, {
+            "type": "Place",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Location",
+            "name": "Great Lakes"
+        }, {
+            "type": "Subject",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "invasive species"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Accountability"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Invasive Species"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 588"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 67"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 68"
+        }],
+        "facets": [{
+            "crs": "EPSG:102113, EPSG:3785",
+            "boundingBox": {
+                "maxY": 45.454628,
+                "maxX": -76.041339,
+                "minX": -88.48717,
+                "minY": 40.40767
+            },
+            "facetName": "OGC Web Service",
+            "serviceMapUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?",
+            "capabilitiesUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WMSServer?request=GetCapabilities&service=WMS",
+            "serviceFeatureInfoUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?",
+            "layers": "29",
+            "serviceVersion": "1.1.1",
+            "className": "OGCFacet",
+            "type": "WMS",
+            "serviceCapabilitiesUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?"
+        }]
+    }, {
+        "link": {
+            "rel": "self",
+            "url": "https://www.sciencebase.gov/catalog/item/530f8a0ee4b0e7e46bd300dd"
+        },
+        "relatedItems": {
+            "link": {
+                "count": 0,
+                "url": "https://www.sciencebase.gov/catalog/itemLinks?itemId=530f8a0ee4b0e7e46bd300dd",
+                "rel": "related"
+            }
+        },
+        "id": "530f8a0ee4b0e7e46bd300dd",
+        "title": "Great Lakes and Watersheds Shapefiles",
+        "summary": "The U.S. Geological Survey (USGS) GLRI effort is being coordinated and managed by the USGS Midwest Area in accordance with the USGS science strategy - one that is driven by cross-disciplinary integrative science and conducted in collaboration with partners to provide resource managers with the information and decision-making tools they need to help restore the Great Lakes.",
+        "body": "The U.S. Geological Survey (USGS) GLRI effort is being coordinated and managed by the USGS Midwest Area in accordance with the USGS science strategy - one that is driven by cross-disciplinary integrative science and conducted in collaboration with partners to provide resource managers with the information and decision-making tools they need to help restore the Great Lakes.",
+        "hasChildren": false,
+        "parentId": "52e6a0a0e4b012954a1a238a",
+        "contacts": [{
+            "name": "Norman G Grannemann",
+            "oldPartyId": 3856,
+            "type": "Point of Contact",
+            "contactType": "person",
+            "email": "nggranne@usgs.gov",
+            "active": true,
+            "jobTitle": "Hydrologist (Great Lakes  Coordinator)",
+            "personalTitle": "Mr.",
+            "firstName": "Norman",
+            "middleName": "G",
+            "lastName": "Grannemann",
+            "organization": {
+                "displayText": "Office of the Midwest Regional Director"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48911",
+                    "state": "MI",
+                    "line1": "6520 Mercantile Way, Suite 5",
+                    "country": "US",
+                    "city": "Lansing"
+                },
+                "mailAddress": {
+                    "zip": "48911",
+                    "state": "MI",
+                    "line1": "6520 Mercantile Way, Suite 5",
+                    "country": "USA",
+                    "city": "Lansing"
+                },
+                "name": "Norman G Grannemann/WRD/USGS/DOI - Primary Location",
+                "faxPhone": "5178878937",
+                "buildingCode": "BDL"
+            }
+        }],
+        "webLinks": [{
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://cida.usgs.gov/glri/",
+            "title": "Great Lakes Restoration Initiative (GLRI)",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://cida.usgs.gov/glri/glri-catalog",
+            "title": "GLRI Science Explorer",
+            "hidden": false
+        }],
+        "tags": [{
+            "type": "Place",
+            "name": "Great Lakes"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/NCCWSC/Keyword",
+            "name": "Great Lakes Restoration Initiative"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/SiGLProjectObjective",
+            "name": "GLRI"
+        }],
+        "facets": [{
+            "startDate": "2010",
+            "projectStatus": "In Progress",
+            "facetName": "Project",
+            "objectives": "",
+            "summaryOfResults": "",
+            "active": true,
+            "className": "ProjectFacet",
+            "projectType": "Great Lakes Restoration Initiative",
+            "endDate": ""
+        }, {
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__bd/3f/07/bd3f07d7174ad6490a82cc9db091b9da97463356",
+                "useForPreview": false,
+                "name": "greatlakes_subbasins.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:55:55.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__bd%2F3f%2F07%2Fbd3f07d7174ad6490a82cc9db091b9da97463356",
+                "size": 169148
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__82/5c/be/825cbe0a4518b7a92ffb7a2b88b3159c6e1ff353",
+                "useForPreview": false,
+                "name": "greatlakes_subbasins.dbf",
+                "contentType": "application/octet-stream",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:55:55.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__82%2F5c%2Fbe%2F825cbe0a4518b7a92ffb7a2b88b3159c6e1ff353",
+                "size": 121
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__6b/a4/39/6ba439fe33cae6786f55e6b811a57516418c0b59",
+                "useForPreview": false,
+                "name": "greatlakes_subbasins.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:55:55.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__6b%2Fa4%2F39%2F6ba439fe33cae6786f55e6b811a57516418c0b59",
+                "size": 140
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__f9/e4/9d/f9e49d0dbb8a1fe39da7ed96771c32eea6e516f1",
+                "useForPreview": false,
+                "name": "greatlakes_subbasins.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:55:55.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__f9%2Fe4%2F9d%2Ff9e49d0dbb8a1fe39da7ed96771c32eea6e516f1",
+                "size": 153
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__f6/14/6b/f6146b9b0539dd19ff19828c0e1970bf47933167",
+                "useForPreview": false,
+                "name": "greatlakes_subbasins.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:55:55.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__f6%2F14%2F6b%2Ff6146b9b0539dd19ff19828c0e1970bf47933167",
+                "size": 196
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__94/05/40/9405403466c33b9bfc4568d476abd6b5ff4a2209",
+                "useForPreview": false,
+                "name": "greatlakes_subbasins.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:55:55.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__94%2F05%2F40%2F9405403466c33b9bfc4568d476abd6b5ff4a2209",
+                "size": 132
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__53/76/ed/5376edb434782d92cef335da805d370ad7cdee95",
+                "useForPreview": false,
+                "name": "greatlakes_subbasins.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:55:55.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__53%2F76%2Fed%2F5376edb434782d92cef335da805d370ad7cdee95",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 50.77194690486979,
+                "maxX": -74.52088763189506,
+                "minX": -93.22319797777405,
+                "minY": 40.40994267322684
+            },
+            "facetName": "Shapefile",
+            "name": "greatlakes_subbasins",
+            "nativeCrs": "EPSG:4269",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }, {
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__95/91/d7/9591d74c1c2ec45bca1e5b4a186b015dd2843d05",
+                "useForPreview": false,
+                "name": "hydro_p_LakeErie.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:14.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__95%2F91%2Fd7%2F9591d74c1c2ec45bca1e5b4a186b015dd2843d05",
+                "size": 13520
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__16/b5/37/16b53722ffcb1ec4854430432d2daee431a691c8",
+                "useForPreview": false,
+                "name": "hydro_p_LakeErie.dbf",
+                "contentType": "application/octet-stream",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:14.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__16%2Fb5%2F37%2F16b53722ffcb1ec4854430432d2daee431a691c8",
+                "size": 836
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__ce/82/fb/ce82fbfac685dd2cab4f829b760037d7af91ba33",
+                "useForPreview": false,
+                "name": "hydro_p_LakeErie.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:14.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__ce%2F82%2Ffb%2Fce82fbfac685dd2cab4f829b760037d7af91ba33",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__06/99/48/0699481d24f29e7f06b75205f056e89848d8aaea",
+                "useForPreview": false,
+                "name": "hydro_p_LakeErie.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:14.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__06%2F99%2F48%2F0699481d24f29e7f06b75205f056e89848d8aaea",
+                "size": 153
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__62/00/2b/62002b71456a68b566ee3a29d8b7660caa0dab3d",
+                "useForPreview": false,
+                "name": "hydro_p_LakeErie.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:14.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__62%2F00%2F2b%2F62002b71456a68b566ee3a29d8b7660caa0dab3d",
+                "size": 140
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__bd/65/ac/bd65ac7f13fbf5be43ce86f3eca38c6288e84ec8",
+                "useForPreview": false,
+                "name": "hydro_p_LakeErie.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:14.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__bd%2F65%2Fac%2Fbd65ac7f13fbf5be43ce86f3eca38c6288e84ec8",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__d5/dc/7f/d5dc7fc92d4c91df488eb168b01ff1da09f016fc",
+                "useForPreview": false,
+                "name": "hydro_p_LakeErie.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:15.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__d5%2Fdc%2F7f%2Fd5dc7fc92d4c91df488eb168b01ff1da09f016fc",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 42.90406390869846,
+                "maxX": -78.8534448267758,
+                "minX": -83.47762956304837,
+                "minY": 41.38213063095709
+            },
+            "facetName": "Shapefile",
+            "name": "hydro_p_LakeErie",
+            "nativeCrs": "EPSG:4269",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }, {
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__48/38/2c/48382ca31aa1ac82141ac0efb63a496025e2d694",
+                "useForPreview": false,
+                "name": "hydro_p_LakeHuron.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:36.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__48%2F38%2F2c%2F48382ca31aa1ac82141ac0efb63a496025e2d694",
+                "size": 48604
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__18/bf/10/18bf104fadf79a9ef5ea08d4eacded78eec98b59",
+                "useForPreview": false,
+                "name": "hydro_p_LakeHuron.dbf",
+                "contentType": "application/octet-stream",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:35.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__18%2Fbf%2F10%2F18bf104fadf79a9ef5ea08d4eacded78eec98b59",
+                "size": 836
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__e5/ea/c1/e5eac162079e492707badb2304a3b043abe26578",
+                "useForPreview": false,
+                "name": "hydro_p_LakeHuron.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:35.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__e5%2Fea%2Fc1%2Fe5eac162079e492707badb2304a3b043abe26578",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__53/15/dc/5315dcd0d70a360652387e1c7f1447430d3d82f2",
+                "useForPreview": false,
+                "name": "hydro_p_LakeHuron.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:35.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__53%2F15%2Fdc%2F5315dcd0d70a360652387e1c7f1447430d3d82f2",
+                "size": 153
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__70/0c/91/700c919151fe8255a5e70c9533f91209b5cf8454",
+                "useForPreview": false,
+                "name": "hydro_p_LakeHuron.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:35.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__70%2F0c%2F91%2F700c919151fe8255a5e70c9533f91209b5cf8454",
+                "size": 140
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__8e/1f/e6/8e1fe692399fd7e86856d47b1547ea40396a1ffe",
+                "useForPreview": false,
+                "name": "hydro_p_LakeHuron.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:35.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__8e%2F1f%2Fe6%2F8e1fe692399fd7e86856d47b1547ea40396a1ffe",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__92/ab/f7/92abf72cd82bcdbcb6972cb3bbde4f08e8357449",
+                "useForPreview": false,
+                "name": "hydro_p_LakeHuron.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:35.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__92%2Fab%2Ff7%2F92abf72cd82bcdbcb6972cb3bbde4f08e8357449",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 46.3328118387443,
+                "maxX": -79.66802840384848,
+                "minX": -84.75246726987083,
+                "minY": 42.99566294212031
+            },
+            "facetName": "Shapefile",
+            "name": "hydro_p_LakeHuron",
+            "nativeCrs": "EPSG:4269",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }, {
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__82/81/91/828191a4ac7188f00c815920efc13d1e4b308142",
+                "useForPreview": false,
+                "name": "hydro_p_LakeMichigan.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:44.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__82%2F81%2F91%2F828191a4ac7188f00c815920efc13d1e4b308142",
+                "size": 23064
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__41/17/ca/4117ca49deeaf99055374e077417a280a9a14077",
+                "useForPreview": false,
+                "name": "hydro_p_LakeMichigan.dbf",
+                "contentType": "application/octet-stream",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:44.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__41%2F17%2Fca%2F4117ca49deeaf99055374e077417a280a9a14077",
+                "size": 547
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__48/be/21/48be21510e8b7c877c1c665c3ff3acc1154d1ffc",
+                "useForPreview": false,
+                "name": "hydro_p_LakeMichigan.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:44.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__48%2Fbe%2F21%2F48be21510e8b7c877c1c665c3ff3acc1154d1ffc",
+                "size": 108
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__8c/09/54/8c09547b2c759947a37559920f6e5f87a20f520e",
+                "useForPreview": false,
+                "name": "hydro_p_LakeMichigan.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:44.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__8c%2F09%2F54%2F8c09547b2c759947a37559920f6e5f87a20f520e",
+                "size": 153
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__80/5b/4a/805b4af10d106fac618b39ed696fe76eb03eac8d",
+                "useForPreview": false,
+                "name": "hydro_p_LakeMichigan.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:44.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__80%2F5b%2F4a%2F805b4af10d106fac618b39ed696fe76eb03eac8d",
+                "size": 132
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__21/3b/f2/213bf2f659dae45ff0182c04bf5b7d7b37c219ee",
+                "useForPreview": false,
+                "name": "hydro_p_LakeMichigan.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:44.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__21%2F3b%2Ff2%2F213bf2f659dae45ff0182c04bf5b7d7b37c219ee",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__2b/65/e7/2b65e70067e377ae13b61802babacde8ba8503a7",
+                "useForPreview": false,
+                "name": "hydro_p_LakeMichigan.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:44.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__2b%2F65%2Fe7%2F2b65e70067e377ae13b61802babacde8ba8503a7",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 46.10298800245932,
+                "maxX": -84.72838409669905,
+                "minX": -88.03384375792685,
+                "minY": 41.619761920446244
+            },
+            "facetName": "Shapefile",
+            "name": "hydro_p_LakeMichigan",
+            "nativeCrs": "EPSG:4269",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }, {
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__6f/ff/8a/6fff8a32ee0c5a3830aab87cc4848ed63d29edbb",
+                "useForPreview": false,
+                "name": "hydro_p_LakeOntario.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:54.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__6f%2Fff%2F8a%2F6fff8a32ee0c5a3830aab87cc4848ed63d29edbb",
+                "size": 15076
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__11/f2/cd/11f2cd24a4cc4a66075582c6cb633e0674d0dfa0",
+                "useForPreview": false,
+                "name": "hydro_p_LakeOntario.dbf",
+                "contentType": "application/octet-stream",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:54.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__11%2Ff2%2Fcd%2F11f2cd24a4cc4a66075582c6cb633e0674d0dfa0",
+                "size": 836
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__4d/d2/22/4dd22229c86f2378b039d950ef5b122aed6b8252",
+                "useForPreview": false,
+                "name": "hydro_p_LakeOntario.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:54.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__4d%2Fd2%2F22%2F4dd22229c86f2378b039d950ef5b122aed6b8252",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__7d/fe/9b/7dfe9b15aa2a7d55288d3bb2ef2cef8d9ab01180",
+                "useForPreview": false,
+                "name": "hydro_p_LakeOntario.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:54.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__7d%2Ffe%2F9b%2F7dfe9b15aa2a7d55288d3bb2ef2cef8d9ab01180",
+                "size": 153
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__de/fb/e2/defbe2511ff601e8a4d8b43b9d64aa12b64a2125",
+                "useForPreview": false,
+                "name": "hydro_p_LakeOntario.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:54.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__de%2Ffb%2Fe2%2Fdefbe2511ff601e8a4d8b43b9d64aa12b64a2125",
+                "size": 140
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__50/30/fa/5030fae6edfe2ffee64c1b63be6e511a2930171d",
+                "useForPreview": false,
+                "name": "hydro_p_LakeOntario.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:54.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__50%2F30%2Ffa%2F5030fae6edfe2ffee64c1b63be6e511a2930171d",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__15/f6/63/15f663427969f790cd83d7c0af1c7330a38ba077",
+                "useForPreview": false,
+                "name": "hydro_p_LakeOntario.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:57:54.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__15%2Ff6%2F63%2F15f663427969f790cd83d7c0af1c7330a38ba077",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 44.23281853961816,
+                "maxX": -76.05991342937091,
+                "minX": -79.78267741354615,
+                "minY": 43.18170515601646
+            },
+            "facetName": "Shapefile",
+            "name": "hydro_p_LakeOntario",
+            "nativeCrs": "EPSG:4269",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }, {
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__41/e5/ab/41e5aba7eb9c0ac4c6a5684c90953bc4d345cdaf",
+                "useForPreview": false,
+                "name": "hydro_p_LakeSuperior.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:58:10.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__41%2Fe5%2Fab%2F41e5aba7eb9c0ac4c6a5684c90953bc4d345cdaf",
+                "size": 40980
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__9e/ca/e5/9ecae5d9b92211f5c6decab28099b5be3477eb58",
+                "useForPreview": false,
+                "name": "hydro_p_LakeSuperior.dbf",
+                "contentType": "application/octet-stream",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:58:10.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__9e%2Fca%2Fe5%2F9ecae5d9b92211f5c6decab28099b5be3477eb58",
+                "size": 836
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__fe/a0/de/fea0de1ddba05d0098fdaf9fb1cd25120c39b191",
+                "useForPreview": false,
+                "name": "hydro_p_LakeSuperior.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:58:10.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__fe%2Fa0%2Fde%2Ffea0de1ddba05d0098fdaf9fb1cd25120c39b191",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__d9/44/e0/d944e09330c5c192c77b7db30ef492c81161e4d5",
+                "useForPreview": false,
+                "name": "hydro_p_LakeSuperior.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:58:10.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__d9%2F44%2Fe0%2Fd944e09330c5c192c77b7db30ef492c81161e4d5",
+                "size": 153
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__f7/c6/0b/f7c60b42ee7db54e2f2558deead63e3d17ed44ec",
+                "useForPreview": false,
+                "name": "hydro_p_LakeSuperior.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:58:10.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__f7%2Fc6%2F0b%2Ff7c60b42ee7db54e2f2558deead63e3d17ed44ec",
+                "size": 140
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__56/4f/4e/564f4e3649add9f19af88f1fd0ec3e2e784b8734",
+                "useForPreview": false,
+                "name": "hydro_p_LakeSuperior.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:58:10.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__56%2F4f%2F4e%2F564f4e3649add9f19af88f1fd0ec3e2e784b8734",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__14/6f/a3/146fa38f09931320f71a0253befc8ceb6aad6af6",
+                "useForPreview": false,
+                "name": "hydro_p_LakeSuperior.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:58:10.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__14%2F6f%2Fa3%2F146fa38f09931320f71a0253befc8ceb6aad6af6",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 48.999947191869495,
+                "maxX": -84.33279621207326,
+                "minX": -92.25080118212954,
+                "minY": 46.41255452823974
+            },
+            "facetName": "Shapefile",
+            "name": "hydro_p_LakeSuperior",
+            "nativeCrs": "EPSG:4269",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }, {
+            "files": [{
+                "processed": false,
+                "pathOnDisk": "__disk__75/08/74/750874256038cebd09a19a3821d2cb72e63d92e5",
+                "useForPreview": false,
+                "name": "hydro_p_LakeStClair.shp",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:58:28.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__75%2F08%2F74%2F750874256038cebd09a19a3821d2cb72e63d92e5",
+                "size": 2740
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__3a/e1/b0/3ae1b07e9aa808c358d2c7994ba47b551d33fe6d",
+                "useForPreview": false,
+                "name": "hydro_p_LakeStClair.dbf",
+                "contentType": "application/octet-stream",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:58:28.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__3a%2Fe1%2Fb0%2F3ae1b07e9aa808c358d2c7994ba47b551d33fe6d",
+                "size": 836
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__75/04/a1/7504a175393494ce811d79286fb1d0e516747bc6",
+                "useForPreview": false,
+                "name": "hydro_p_LakeStClair.shx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:58:28.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__75%2F04%2Fa1%2F7504a175393494ce811d79286fb1d0e516747bc6",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__2f/f7/1d/2ff71d001af73f021654e831d265050f3fed42ac",
+                "useForPreview": false,
+                "name": "hydro_p_LakeStClair.prj",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:58:28.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__2f%2Ff7%2F1d%2F2ff71d001af73f021654e831d265050f3fed42ac",
+                "size": 153
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__6f/9a/df/6f9adfbfab911c1b6a290da890ce9dd8ee235f83",
+                "useForPreview": false,
+                "name": "hydro_p_LakeStClair.sbn",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:58:28.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__6f%2F9a%2Fdf%2F6f9adfbfab911c1b6a290da890ce9dd8ee235f83",
+                "size": 140
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__c3/ec/27/c3ec27c149e3e379c5bb8ac6f1cc4f5f18d27de2",
+                "useForPreview": false,
+                "name": "hydro_p_LakeStClair.sbx",
+                "contentType": "x-gis/x-shapefile",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:58:28.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__c3%2Fec%2F27%2Fc3ec27c149e3e379c5bb8ac6f1cc4f5f18d27de2",
+                "size": 116
+            }, {
+                "processed": false,
+                "pathOnDisk": "__disk__87/e9/fa/87e9fa1a4384f6076bb576f25175170db5376b99",
+                "useForPreview": false,
+                "name": "hydro_p_LakeStClair.cpg",
+                "contentType": "text/plain; charset=ISO-8859-1",
+                "originalMetadata": false,
+                "dateUploaded": "2014-06-11T13:58:28.000Z",
+                "url": "https://www.sciencebase.gov/catalog/file/get/530f8a0ee4b0e7e46bd300dd?f=__disk__87%2Fe9%2Ffa%2F87e9fa1a4384f6076bb576f25175170db5376b99",
+                "size": 5
+            }],
+            "boundingBox": {
+                "maxY": 42.691148373143086,
+                "maxX": -82.40983154808089,
+                "minX": -82.95761362172462,
+                "minY": 42.30106803675401
+            },
+            "facetName": "Shapefile",
+            "name": "hydro_p_LakeStClair",
+            "nativeCrs": "EPSG:4269",
+            "className": "ShapefileFacet",
+            "geometryType": "MultiPolygon"
+        }]
+    }, {
+        "link": {
+            "rel": "self",
+            "url": "https://www.sciencebase.gov/catalog/item/5330984ee4b00b385d7675ef"
+        },
+        "relatedItems": {
+            "link": {
+                "count": 0,
+                "url": "https://www.sciencebase.gov/catalog/itemLinks?itemId=5330984ee4b00b385d7675ef",
+                "rel": "related"
+            }
+        },
+        "id": "5330984ee4b00b385d7675ef",
+        "title": "Coastal Corridors Vulnerable Under Reduced Lake Level Scenarios",
+        "summary": "These data represent coastal corridors exposed by lake levels reduced from mean 2009 water surface elevations. These elevations were established by values published by the United States Army Corps of Engineers (USACE), and based on a network of multiple gages within each lake. The corridors were derived from two data sources: 5-m resolution lidar-based topo-bathymetry produced by the USACE Joint Airborne Lidar-Based Technical Center of eXpertise (JALBTCX) and the National Oceanic and Atmospheric Administration (NOAA) Coastal Services Center, and bathymetric contour lines produced by the NOAA Great Lakes Environmental Research Laboratory (GLERL). The JALBTCX lidar-based topo-bathymetry were used to produce representations of 0.5-meter [...]",
+        "body": "These data represent coastal corridors exposed by lake levels reduced from mean 2009 water surface elevations. These elevations were established by values published by the United States Army Corps of Engineers (USACE), and based on a network of multiple gages within each lake. The corridors were derived from two data sources: 5-m resolution lidar-based topo-bathymetry produced by the USACE Joint Airborne Lidar-Based Technical Center of eXpertise (JALBTCX) and the National Oceanic and Atmospheric Administration (NOAA) Coastal Services Center, and bathymetric contour lines produced by the NOAA Great Lakes Environmental Research Laboratory (GLERL). The JALBTCX lidar-based topo-bathymetry were used to produce representations of 0.5-meter and 1.0-meter reductions in lake level with respect to the mean 2009 level, while the negative 1-meter GLERL bathymetric contour was used in conjunction with a GLERL shore line to provide a general approximation of the extent exposed by a 1-meter lake level reduction where lidar-based topo-bathymetry were unavailable.",
+        "purpose": "These data are complimentary to a Phragmites mapping program being conducted within the U.S. portion of the Great Lakes coastal zone. The corridors illustrate areas exposed by reduced lake levels and thus vulnerable to encroachment by an invasive haplotype of Phragmites australis (common reed). Maps of invasive Phragmites stands larger than 0.2 hectare (0.5 acre) were created for the U.S. side of the Great Lakes coastal zone using unsupervised and supervised classification algorithms applied to ALOS PALSAR satellite-based radar imagery and field work to train and validate these algorithms. These maps allowed the calculation of proximity to invasive Phragmites within coastal corridors in an attempt to depict relative vulnerability to Phragmites invasion. The corridors are intended to be used as planning tools by landowners, managers, and members of the general public with interests in the distribution and spread of invasive Phragmites australis within Great Lakes coastal wetlands. The reduced lake level corridors described here can be used in conjunction with an accompanying inland corridor network of streams, wetlands, and water bodies that is also weighted by proximity to Phragmites in order to depict likely invasion pathways under reduced lake level scenarios.",
+        "hasChildren": false,
+        "parentId": "53598193e4b0031b2f4a074a",
+        "contacts": [{
+            "name": "Kurt P Kowalski",
+            "oldPartyId": 5668,
+            "type": "Point of Contact",
+            "contactType": "person",
+            "email": "kkowalski@usgs.gov",
+            "active": true,
+            "jobTitle": "Research Ecologist",
+            "firstName": "Kurt",
+            "middleName": "P",
+            "lastName": "Kowalski",
+            "organization": {
+                "displayText": "Great Lakes Science Center"
+            },
+            "primaryLocation": {
+                "streetAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Rd",
+                    "country": "US",
+                    "city": "Ann Arbor"
+                },
+                "mailAddress": {
+                    "zip": "48105",
+                    "state": "MI",
+                    "line1": "1451 Green Road",
+                    "country": "USA",
+                    "city": "Ann Arbor"
+                },
+                "name": "Kurt P Kowalski/BRD/USGS/DOI - Primary Location",
+                "faxPhone": "7349948780",
+                "buildingCode": "BDA"
+            }
+        }, {
+            "name": "Great Lakes Science Center",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }, {
+            "name": "NOAA Great Lakes Environmental Research Laboratory",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }, {
+            "name": "NOAA Coastal Services Center",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }, {
+            "name": "Joint Airborne Lidar Bathymetry Technical Center of Expertise (JALBTCX)",
+            "type": "Cooperator/Partner",
+            "contactType": "organization",
+            "organization": {
+                "displayText": ""
+            },
+            "primaryLocation": {
+                "streetAddress": {},
+                "mailAddress": {}
+            }
+        }],
+        "webLinks": [{
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://cida.usgs.gov/glri/projects/accountability/Phragmites_invasion.html",
+            "title": "Project Home Page",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://shoals.sam.usace.army.mil/",
+            "title": " US Army Corps of Engineers - Joint Airborne Lidar Bathymetry Technical Center of Expertise (JALBTCX)",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.glerl.noaa.gov/",
+            "title": "NOAA Great Lakes Environmental Research Laboratory ",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.csc.noaa.gov/topobathy/",
+            "title": "NOAA Coastal Services Center: United States Interagency Elevation Inventory",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://cida.usgs.gov/glri/",
+            "title": "Great Lakes Restoration Initiative (GLRI)",
+            "hidden": false
+        }, {
+            "type": "browseImage",
+            "typeLabel": "Browse Image",
+            "uri": "http://cida.usgs.gov/glri/documents/glri_thumbnails/lidar_topo_bath.png",
+            "hidden": false
+        }, {
+            "type": "webLink",
+            "typeLabel": "Web Link",
+            "uri": "http://www.glsc.usgs.gov/",
+            "title": "Great Lakes Science Center ",
+            "hidden": false
+        }],
+        "tags": [{
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "JALBTCX lidar"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "GLERL bathymetry"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "Phragmites invasion corridors"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "GLRI"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Keyword",
+            "name": "Great Lakes Restoration Initiative"
+        }, {
+            "type": "Place",
+            "scheme": "https://www.sciencebase.gov/vocab/category/NCCWSC/Location",
+            "name": "Great Lakes"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Accountability"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+            "name": "Invasive Species"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 588"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 67"
+        }, {
+            "type": "Label",
+            "scheme": "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+            "name": "Template 68"
+        }],
+        "facets": [{
+            "crs": "EPSG:102113, EPSG:3785",
+            "boundingBox": {
+                "maxY": 48.038932,
+                "maxX": -75.288817,
+                "minX": -92.368678,
+                "minY": 40.491026
+            },
+            "facetName": "OGC Web Service",
+            "serviceMapUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?",
+            "capabilitiesUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WMSServer?request=GetCapabilities&service=WMS",
+            "serviceFeatureInfoUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?",
+            "layers": "4, 23, 25, 26",
+            "serviceVersion": "1.1.1",
+            "className": "OGCFacet",
+            "type": "WMS",
+            "serviceCapabilitiesUrl": "http://cida.usgs.gov/arcgis/services/GLRI68_Phragmites/MapServer/WmsServer?"
+        }]
+    }],
+    "searchFacets": [{
+        "name": "browseCategory",
+        "label": "Categories",
+        "entries": [{
+            "term": "Map",
+            "count": 7
+        }, {
+            "term": "Project",
+            "count": 2
+        }],
+        "total": 20,
+        "other": 11,
+        "missing": 0
+    }]
+}
