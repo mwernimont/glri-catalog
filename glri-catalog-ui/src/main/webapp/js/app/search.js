@@ -85,7 +85,7 @@ function($http, $filter, $timeout, pager, ScienceBase, Status) {
 }]);
 
 
-/* Controllers */
+/* Controller */
 
 
 GLRICatalogApp.controller('SearchNavCtrl',
@@ -191,27 +191,24 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 	var doTemplateVocabLoad = function() {
 		$http({method: 'GET', url: 'ScienceBaseVocabService?parentId=53da7288e4b0fae13b6deb73&format=json'})
 		.success(function(data, status, headers, config) {
-				
 			//remove the 'loading' message at index 1
 			$scope.transient.templateValues.splice(1, 1);
 			
 			for (var i = 0; i < data.list.length; i++) {
-				var o = new Object();
+				var o = {};
 				o.key = data.list[i].name;
 				o.display = o.key;
 				
 				//take all digits at the end, ignoring any trailing spaces.
 				o.sort = Number(o.key.match(/(\d*)\s*$/)[1]);
 				
-				
 				$scope.transient.templateValues.push(o);
 			}
 		})
 		.error(function(data, status, headers, config) {
-			//just put in a mesage in the picklist - no alert.
-			//
 			//remove the 'loading' message at index 1
 			$scope.transient.templateValues.splice(1, 1);
+			//just put in a message in the pick-list - no alert.
 			$scope.transient.templateValues.push({
 				key: "", display:"(!) Failed to load template list", sort: 0
 			});

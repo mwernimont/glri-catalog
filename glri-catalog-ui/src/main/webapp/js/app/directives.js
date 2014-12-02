@@ -6,7 +6,6 @@ GLRICatalogApp.directive('preventDefault', function() {
 		$(element).click(function(event) {
 			event.preventDefault();
 			event.stopPropagation();
-			//console.log('preventDefault')
 		});
 	}
 })

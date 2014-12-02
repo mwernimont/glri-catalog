@@ -1,0 +1,16 @@
+{
+    "total": 0,
+    "selflink": {
+        "rel": "self",
+        "url": "https://www.sciencebase.gov/catalog/items?max=1000&facets=browseCategory&format=json&filter=browseCategory=data&filter=ancestors=52e6a0a0e4b012954a1a238a&fields=url,summary,tags,title,contacts,hasChildren,webLinks,purpose,body,dateCreated,parentId,facets"
+    },
+    "items": [],
+    "searchFacets": [{
+        "name": "browseCategory",
+        "label": "Categories",
+        "entries": [],
+        "total": 0,
+        "other": 0,
+        "missing": 0
+    }]
+}

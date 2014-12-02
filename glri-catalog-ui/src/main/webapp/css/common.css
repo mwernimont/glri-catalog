@@ -11,13 +11,7 @@ You can customize some areas of the header ONLY by making the changes in the cus
 #usgs-header-panel a {
 	color: white !important;
 }
-#usgs-footer-panel a {
-	color: white !important;
-}
 #ccsa-area a {
-	color: white !important;
-}
-#footer a {
 	color: white !important;
 }
 
