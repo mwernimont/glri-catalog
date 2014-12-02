@@ -57,7 +57,7 @@ describe("simple content directives: ", function() {
 	var $scope, http, intialTemplateCacheSize, jsonCache
 	
 	// json files to pre-load
-	var jsonFiles = ['vocab'];
+	var jsonFiles = ['vocab','projects'];
 	
 	// simple default template for testing directive template injection
 	var defaultTmpl  = '<div ng-controller="testCtrl" attribute>elements</div>';
@@ -181,7 +181,7 @@ describe("simple content directives: ", function() {
 	
 
 	// ensure that the prevent-default directive prevents default and propagation
-	it(' - prevent-default directive - should call event.preventDefault() and event.stopPropogation() for click events' , inject(function() {
+	it(' - <div prevent-default> directive attribute - should call event.preventDefault() and event.stopPropogation() for click events' , inject(function() {
 		compileTemplate($scope, {template:'<button prevent-default>ButtonLabel</button>'}, function(el) {
 			var preventDefault  = spyOn(Event.prototype, "preventDefault")
 			var stopPropagation = spyOn(Event.prototype, "stopPropagation")
@@ -194,7 +194,7 @@ describe("simple content directives: ", function() {
 	}))
 
 
-	it(' - glri-nav-home directive - should inject template content' , inject(function() {
+	it(' - <glri-nav-home> directive - should inject template content' , inject(function() {
 		compileTemplate($scope, {elements:'<glri-nav-home></glri-nav-home>'}, function(el) {
 			var html = el.html()
 			expect( html.indexOf('id="navHome"') > 0 ).toBeTruthy()
@@ -202,15 +202,39 @@ describe("simple content directives: ", function() {
 	}))
 	
 	
-	it(' - glri-home contect directive - should inject template content' , inject(function() {
+	it(' - <glri-home> contect directive - should inject template content' , inject(function() {
 		compileTemplate($scope, {elements:'<glri-home></glri-home>'}, function(el) {
 			var html = el.html()
 			expect( html.indexOf('id="contentHome"') > 0 ).toBeTruthy()
 		})
 	}))
 
+		
+	it(' - <glri-search> contect directive - should inject template content' , inject(function() {
+		compileTemplate($scope, {elements:'<glri-search></glri-search>'}, function(el) {
+			var html = el.html()
+			expect( html.indexOf('id="searchResults"') > 0 ).toBeTruthy()
+		})
+	}))
+
 	
-	it(' - glri-nav-search directive - should inject template content' , inject(function() {
+	it(' - <glri-asian-carp> contect directive - should inject template content' , inject(function() {
+		compileTemplate($scope, {elements:'<glri-asian-carp></glri-asian-carp>'}, function(el) {
+			var html = el.html()
+			expect( html.indexOf('id="contentAsianCarp"') > 0 ).toBeTruthy()
+		})
+	}))
+
+	
+	it(' - <glri-search> contect directive - should inject template content' , inject(function() {
+		compileTemplate($scope, {elements:'<glri-invasive></glri-invasive>'}, function(el) {
+			var html = el.html()
+			expect( html.indexOf('id="contentInvasive"') > 0 ).toBeTruthy()
+		})
+	}))
+	
+	
+	it(' - <glri-nav-search> directive - should inject template content' , inject(function() {
 		
 		var vocab = angular.fromJson(jsonCache.vocab);
 		expect(vocab).toBeDefined()
@@ -235,26 +259,49 @@ describe("simple content directives: ", function() {
 	}))
 	
 	
-	it(' - glri-search contect directive - should inject template content' , inject(function() {
-		compileTemplate($scope, {elements:'<glri-search></glri-search>'}, function(el) {
+	it(' - <glri-project-detail> directive - should inject template content' , inject(function() {
+		
+		var projects = angular.fromJson(jsonCache.projects);
+		expect(projects).toBeDefined()
+		var project  = projects.items[0]
+		$scope.status = {currentItem : project}
+		project.contactHtml = "contactASDF"
+		project.url = "http://sbURL"
+				
+		compileTemplate($scope, {elements:'<glri-project-detail></glri-project-detail>'}, function(el) {
 			var html = el.html()
-			expect( html.indexOf('id="searchResults"') > 0 ).toBeTruthy()
+			expect( html.indexOf('id="contentBrowseDetail"') ).not.toBe(-1)
+			
+			// test that some of the content is rendered
+			expect( html.indexOf(project.title) ).not.toBe(-1)
+			expect( html.indexOf(project.purpose) ).not.toBe(-1)
+			expect( html.indexOf(project.contactHtml) ).not.toBe(-1)
+			expect( html.indexOf('href="'+project.url) ).not.toBe(-1)
+			
+			expect( html.indexOf(project.body) ).toBe(-1) // this is not found because of HTML encoding
 		})
 	}))
 
 	
-	it(' - glri-asian-carp contect directive - should inject template content' , inject(function() {
-		compileTemplate($scope, {elements:'<glri-asian-carp></glri-asian-carp>'}, function(el) {
+	it(' - <glri-loading> directive loading - should show injected template content' , inject(function() {
+		$scope.loadState = 'loading'
+				
+		compileTemplate($scope, {elements:'<glri-loading state="loadState"></glri-loading>'}, function(el) {
 			var html = el.html()
-			expect( html.indexOf('id="contentAsianCarp"') > 0 ).toBeTruthy()
+			
+			expect( html.indexOf("progress-bar") ).not.toBe(-1)
+			expect( html.indexOf("ng-hide") ).toBe(-1)
 		})
 	}))
 
 	
-	it(' - glri-search contect directive - should inject template content' , inject(function() {
-		compileTemplate($scope, {elements:'<glri-invasive></glri-invasive>'}, function(el) {
+	it(' - <glri-loading> directive loaded - should hide injected template content' , inject(function() {
+		$scope.loadState = 'done'
+				
+		compileTemplate($scope, {elements:'<glri-loading state="loadState"></glri-loading>'}, function(el) {
 			var html = el.html()
-			expect( html.indexOf('id="contentInvasive"') > 0 ).toBeTruthy()
+			expect( html.indexOf("progress-bar") ).not.toBe(-1)
+			expect( html.indexOf("ng-hide") ).not.toBe(-1)
 		})
 	}))
 
