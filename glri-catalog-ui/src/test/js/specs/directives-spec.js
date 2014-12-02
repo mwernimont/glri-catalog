@@ -320,7 +320,7 @@ describe("simple content directives: ", function() {
 	it(' - <glri-project-lists> contect directive - should inject template content' , inject(function(Status) {
 		compileTemplate($scope, {elements:'<glri-project-lists></glri-project-lists>'}, function(el) {
 			var html = el.html()
-			log(html)
+			//log(html)
 			expect( html.indexOf('id="projectLists"') > 0 ).toBeTruthy()
 		})
 	}))
@@ -343,7 +343,7 @@ describe("simple content directives: ", function() {
 				
 		compileTemplate($scope, {elements:'<glri-project-lists></glri-project-lists>'}, function(el) {
 			var html = el.html()
-			log(html)
+			//log(html)
 			expect( html.indexOf('id="projectLists"') > 0 ).toBeTruthy()
 			
 //			var count = (html.match(/_blank/g) || []).length;
