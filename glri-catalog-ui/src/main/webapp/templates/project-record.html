@@ -12,7 +12,7 @@
 		</div>
 		<div ng-if="record.hasChildren == true">
 			<a href="" ng-click="toggleChildItems(record)">Publications and Datasets&nbsp;
-				<span ng-if="record.childRecordState === 'notloaded'"><span class="glyphicon glyphicon-cloud"></span></span>
+				<span ng-if="record.childRecordState === 'notloaded'"><span class="glyphicon glyphicon-chevron-down"></span></span>
 				<span ng-if="record.childRecordState === 'loading'">  <span class="glyphicon glyphicon-repeat"></span></span>
 				<span ng-if="record.childRecordState === 'complete'"> <span class="glyphicon glyphicon-chevron-down"></span></span>
 				<span ng-if="record.childRecordState === 'failed'">   <span class="glyphicon glyphicon-warning-sign"></span></span>
