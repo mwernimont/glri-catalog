@@ -157,7 +157,7 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 	
 	
 	$scope.doRemoteLoad = function(event) {
-		Search.setSearching(true);
+		Search.setSearching('loading');
 		$scope.loadSearchData($scope.model, function(){
 			Search.setSearching(false);
 		}, function(){
@@ -370,10 +370,10 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 		
 
 	$scope.isFilterEmpty = function() {
-		return ! Search.state.isFreshUI && Search.results.items.length > 0 && Search.filteredRecordCount == 0
+		return ! Search.state.isSearching && ! Search.state.isFreshUI && Search.results.items.length > 0 && Search.filteredRecordCount == 0
 	}
 	$scope.isSearchEmpty = function() {
-		return ! Search.state.isFreshUI && Search.results.items.length == 0 
+		return ! Search.state.isSearching && ! Search.state.isFreshUI && Search.results.items.length == 0 
 	}
 	
 }]);
