@@ -295,7 +295,7 @@ function($http, Status, FocusAreaManager, $rootScope){
 			parentRecord.childRecordState = "loading";
 			
 			var url = Status.CONST.BASE_QUERY_URL + "folder=" + parentRecord.id;
-			url += "&fields=" + encodeURI("url,title,contacts,summary,dateCreated,facets")
+			//url += "&fields=" + encodeURI("url,title,contacts,summary,dateCreated,facets,weblinks,browseCategories")
 
 
 			$http.get(url).success(function(data) {
