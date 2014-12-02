@@ -57,7 +57,7 @@ describe("simple content directives: ", function() {
 	var $scope, http, intialTemplateCacheSize, jsonCache
 	
 	// json files to pre-load
-	var jsonFiles = ['vocab','projects'];
+	var jsonFiles = ['vocab','projects','publications'];
 	
 	// simple default template for testing directive template injection
 	var defaultTmpl  = '<div ng-controller="testCtrl" attribute>elements</div>';
@@ -210,29 +210,21 @@ describe("simple content directives: ", function() {
 	}))
 
 		
-	it(' - <glri-search> contect directive - should inject template content' , inject(function() {
-		compileTemplate($scope, {elements:'<glri-search></glri-search>'}, function(el) {
-			var html = el.html()
-			expect( html.indexOf('id="searchResults"') > 0 ).toBeTruthy()
-		})
-	}))
-
-	
 	it(' - <glri-asian-carp> contect directive - should inject template content' , inject(function() {
 		compileTemplate($scope, {elements:'<glri-asian-carp></glri-asian-carp>'}, function(el) {
 			var html = el.html()
 			expect( html.indexOf('id="contentAsianCarp"') > 0 ).toBeTruthy()
 		})
 	}))
-
 	
-	it(' - <glri-search> contect directive - should inject template content' , inject(function() {
+	
+	it(' - <glri-invasive> contect directive - should inject template content' , inject(function() {
 		compileTemplate($scope, {elements:'<glri-invasive></glri-invasive>'}, function(el) {
 			var html = el.html()
 			expect( html.indexOf('id="contentInvasive"') > 0 ).toBeTruthy()
 		})
 	}))
-	
+
 	
 	it(' - <glri-nav-search> directive - should inject template content' , inject(function() {
 		
@@ -306,4 +298,108 @@ describe("simple content directives: ", function() {
 	}))
 
 	
+	it(' - <glri-publications> contect directive - should inject template content' , inject(function(Status) {
+		
+		var pubs = angular.fromJson(jsonCache.publications);
+		expect(pubs).toBeDefined()
+		$scope.publications =  pubs.items
+		Status.allPublications = pubs.items
+		
+		compileTemplate($scope, {elements:'<glri-publications></glri-publications>'}, function(el) {
+			var html = el.html()
+			//log(html)
+			expect( html.indexOf('id="contentPublications"') > 0 ).toBeTruthy()
+			
+			var count = (html.match(/_blank/g) || []).length;
+			expect(count).toBe(pubs.items.length)
+		})
+	}))
+
+	
+	// TODO this might no longer have a link to show
+	it(' - <glri-project-lists> contect directive - should inject template content' , inject(function(Status) {
+		compileTemplate($scope, {elements:'<glri-project-lists></glri-project-lists>'}, function(el) {
+			var html = el.html()
+			log(html)
+			expect( html.indexOf('id="projectLists"') > 0 ).toBeTruthy()
+		})
+	}))
+	
+	
+	// TODO requires more tests
+	it(' - <glri-search> results contect directive - should inject template content' , inject(function() {
+		compileTemplate($scope, {elements:'<glri-search></glri-search>'}, function(el) {
+			var html = el.html()
+			expect( html.indexOf('id="searchResults"') > 0 ).toBeTruthy()
+		})
+	}))
+
+	
+	// TODO this could be used for focusarea tests
+	it(' - <glri-project-lists> contect directive - should inject template content' , inject(function(Status) {
+		
+		var projects = angular.fromJson(jsonCache.projects);
+		expect(projects).toBeDefined()
+				
+		compileTemplate($scope, {elements:'<glri-project-lists></glri-project-lists>'}, function(el) {
+			var html = el.html()
+			log(html)
+			expect( html.indexOf('id="projectLists"') > 0 ).toBeTruthy()
+			
+//			var count = (html.match(/_blank/g) || []).length;
+//			expect(count).toBe(pubs.items.length)
+		})
+	}))
+	
+	
 })
+
+
+/*
+	GLRICatalogApp.directive("glriFocusArea",
+	['$http', 'Status', 'RecordManager', 'ScienceBase', 'Nav', 'FocusAreaManager',
+	function($http, Status, RecordManager, ScienceBase, Nav, FocusAreaManager) {
+		
+		return {
+			restrict   : 'E', //AEC
+			replace    : true,
+			transclude : true,
+			templateUrl: 'templates/contentFocusArea.html',
+			scope      : {}, //isolated scope
+			
+			controller : function($scope) {
+				
+				$scope.baseQueryUrl  = Status.CONST.BASE_QUERY_URL;
+				$scope.status        = Status;
+				
+				
+				$scope.currentFocusArea = function() {
+					return FocusAreaManager.currentFocusArea;
+				}
+
+				
+				$scope.showDetail = function() {
+					return isDefined(Status.currentItem);
+				}
+				$scope.showList = function() {
+					return ! $scope.showDetail();
+				}
+				
+				
+				$scope.selectProject = function(projectItem) {
+					RecordManager.setProjectDetail(projectItem);
+					
+					// TODO this might not be necessary any longer with the addition of 'all' focus area
+					// Nav to browse should automatically be Browse/all
+					if ( Nav.isNav('Browse') ) {
+						Nav.setNavAdd('all')
+					}
+					
+					Nav.doNavAdd(projectItem.id)
+				}
+				
+			}
+		}
+	}]);
+*/
+
