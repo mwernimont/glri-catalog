@@ -114,7 +114,7 @@ describe("simple content directives: ", function() {
 	beforeEach(function () {
 		module("GLRICatalogApp")
 		
-		inject(function($rootScope,$httpBackend){
+		inject(function($rootScope,$http,$httpBackend){
 			$scope = $rootScope
 			http   = $httpBackend
 		})
@@ -128,8 +128,8 @@ describe("simple content directives: ", function() {
 			templates.forEach(function(template) {
 				var req    = new XMLHttpRequest()
 			    req.onload = function() {
-			        var templateSrc = this.responseText
-			    	$templateCache.put(templateUrl + template + ".html", templateSrc)
+			    	$templateCache.put(templateUrl + template + ".html", this.responseText)
+//			    	expect(this.responseText.indexOf('HTTP ERROR: 404') === -1).toBeTruthy()
 			    }
 			    // Note that the relative path may be different from your unit test HTML file.
 			    // Using `false` as the third parameter to open() makes the operation synchronous.
@@ -139,13 +139,15 @@ describe("simple content directives: ", function() {
 		})
 		
 		inject( function() {
-			var jsonPath  = 'test/resources';
+			var jsonPath  = 'src/test/resources/';
 			jsonCache     = {};
 			
 			jsonFiles.forEach(function(file) {
 				var req    = new XMLHttpRequest()
 			    req.onload = function() {
 			    	jsonCache[file] = this.responseText
+			    	
+//			    	expect(this.responseText.indexOf('HTTP ERROR: 404')).toBe(-1)
 			    }
 			    // Note that the relative path may be different from your unit test HTML file.
 			    // Using `false` as the third parameter to open() makes the operation synchronous.
@@ -164,8 +166,8 @@ describe("simple content directives: ", function() {
 		expect( $templateCache ).toBeDefined();
 		expect( intialTemplateCacheSize ).toBeDefined();
 		// final template count
-		expect( intialTemplateCacheSize !== $templateCache.info().size  ).toBeTruthy()
-		expect( intialTemplateCacheSize + templates.length === $templateCache.info().size  ).toBeTruthy()
+		expect( $templateCache.info().size ).not.toBe(intialTemplateCacheSize)
+		expect( $templateCache.info().size ).toBe(intialTemplateCacheSize + templates.length)
 	}))
 	
 	
@@ -210,12 +212,25 @@ describe("simple content directives: ", function() {
 	
 	it(' - glri-nav-search directive - should inject template content' , inject(function() {
 		
-		http.when('GET', 'ScienceBaseVocabService?parentId=53da7288e4b0fae13b6deb73&format=json')
-		.respond(jsonCache.vocab);
+		var vocab = angular.fromJson(jsonCache.vocab);
+		expect(vocab).toBeDefined()
 		
+		http.when('GET', 'ScienceBaseVocabService?parentId=53da7288e4b0fae13b6deb73&format=json')
+		.respond(vocab);
+				
 		compileTemplate($scope, {elements:'<glri-nav-search></glri-nav-search>'}, function(el) {
+			http.flush()
 			var html = el.html()
-			expect( html.indexOf('id="sb-query-form"') > 0 ).toBeTruthy()
+			expect( html.indexOf('id="sb-query-form"') ).not.toBe(-1)
+			
+			expect( html.indexOf("Failed to load template list") ).toBe(-1)
+
+			// test a term is in the HTML
+			expect( html.indexOf("Template 84") ).not.toBe(-1)
+			// test that all terms are in the HTML
+			vocab.list.forEach(function(term) {
+				expect( html.indexOf(term.name) ).not.toBe(-1)
+			})
 		})
 	}))
 	
