@@ -353,7 +353,7 @@ ul.result-records {
 
 ul.result-records li {
 	display: block; margin: 0 0 1em 0; padding: .4em; background-color: #fff;
-	
+	min-height: 100px;	
 	/* Drop shadow */
 	-moz-box-shadow: 2px 2px 5px #666;
 	-webkit-box-shadow: 2px 2px 5px #666;

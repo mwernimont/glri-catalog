@@ -20,7 +20,7 @@ public enum SystemSuppliedParameters implements ParameterProcessor {
 	FORMAT("format", "format", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE, "json"),
 	/** Determines which fields are included in the SB response */
 	FIELDS("fields", "fields", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE,
-			"title,summary,spatial,distributionLinks,browseCategories,contacts,webLinks,systemTypes,hasChildren"),
+			"url,facets,title,summary,spatial,distributionLinks,browseCategories,contacts,webLinks,systemTypes,hasChildren"),			
 	/** Max number of records to return */
 	MAX_RECORDS("max", "max", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE, "1000"),
 	/** browseCategory filter is a weird one.  Its format is: &filter=browseCategory=<CATEGORY> */
