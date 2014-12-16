@@ -12,7 +12,7 @@
 		
 		<jsp:include page="${pageScope.rootPath}/template/USGSHead.jsp">
 			<jsp:param name="relPath" value="${pageScope.rootPath}/" />
-			<jsp:param name="shortName" value="${project.name}" />
+			<jsp:param name="shortName" value="USGS Great Lakes Restoration Initiative (GLRI)" />
 			<jsp:param name="title" value="Great Lakes Restoration Initiative (GLRI) Home" />
 			<jsp:param name="description" value="The GLRI home page with infomation about all GLRI projects." />
 			<jsp:param name="author" value="Great Lakes Restoration Initiative (GLRI), GLRI" />
