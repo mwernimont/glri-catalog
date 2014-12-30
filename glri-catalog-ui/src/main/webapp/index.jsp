@@ -1,6 +1,7 @@
 <!doctype html>
 <html lang="en" ng-app="GLRICatalogApp">
 	<head>
+    <title>USGS Great Lakes Restoration Initiative (GLRI)</title>
 		<%
 			//Set a relative path to the root (useful when pages are not at the root)
 			pageContext.setAttribute("rootPath", ".");
