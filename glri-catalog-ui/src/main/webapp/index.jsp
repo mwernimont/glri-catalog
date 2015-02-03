@@ -161,7 +161,7 @@
 						<jsp:param name="relPath" value="${pageScope.rootPath}/" />
 						<jsp:param name="header-class" value="" />
 						<jsp:param name="site-url" value="" />
-						<jsp:param name="contact-info" value="<a href=\"mailto:glri_help@usgs.gov\">glri_help@usgs.gov</a>" />
+						<jsp:param name="contact-info" value="<a href=\"mailto:glri-database@usgs.gov\">GLRI Help</a>" />
 						<jsp:param name="revisedDate" value="${timestamp}" />
 						<jsp:param name="buildVersion" value="${project.version}" />
 					</jsp:include>
