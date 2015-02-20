@@ -8,7 +8,7 @@
 		%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" /> <%-- Bootstrap mobile scaling directive --%>
-        <meta http-equiv="X-UA-Compatible" content="chrome=IE8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
 		<link href="${pageScope.rootPath}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
 		
