@@ -30,7 +30,7 @@ function($http, Status, FocusAreaManager, $rootScope){
 			success(data);
 		})
 		.error(function(data, status, headers, config) {
-			alert("Unable to connect to ScienceBase.gov to find " +errorText+ ".");
+			alert("Unable to connect to ScienceBase.gov to find " +resource+ ".");
 		});
 	}
 	
