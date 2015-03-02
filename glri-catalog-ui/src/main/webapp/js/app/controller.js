@@ -48,11 +48,6 @@ function($scope, $http, $filter, Status, Nav, FocusAreaManager, ScienceBase) {
 		if (tabName==='Home') {
 			Status.currentItem = undefined;
 		}
-		if ( isDefined(tabName) ) {
-			ga('send', 'screenview', {
-				  'screenName': tabName
-			});
-		}
 	}	
 	
 	

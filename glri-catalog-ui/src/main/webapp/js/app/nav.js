@@ -73,6 +73,7 @@ function($http, $location, status, FocusAreaManager, $rootScope, ScienceBase, Re
 			sep="/";
 		}
 		$location.path(path);
+		ga('send', 'pageview', {'page': '/glri/#/'+path})
 	}
 	
 	ctx.doNav = function(init) {
