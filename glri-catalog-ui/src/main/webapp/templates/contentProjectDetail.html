@@ -31,6 +31,18 @@
 		</div>
 	</div>
 	
+	<div ng-if="status.currentItem.datasets">
+		<h4>Datasets</h4>
+		<div style="width:200px" ng-if="status.currentItem.datasets==='loading'">
+			<glri-loading state="status.currentItem.datasets"></glri-loading>
+		</div>
+		<div ng-if="status.currentItem.datasets && transient.currentItem.datasets!=='loading'">
+			<p ng-repeat="dataset in status.currentItem.datasets">
+				<a href="{{dataset.url}}" target="_blank" ng-bind-html="dataset.title"></a>
+			</p>
+		</div>
+	</div>	
+	
 	<h4>Contacts</h4>
 	<p class="point-of-contact" ng-bind-html="status.currentItem.contactHtml"></p>
 	

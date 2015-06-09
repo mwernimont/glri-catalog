@@ -45,7 +45,29 @@ function($http, Status, FocusAreaManager, $rootScope){
 			Status.publicationsLoadStatus = 'done';
 		});
 	}
+
+	ctx.processDatasetResponse = function(unfilteredJsonData, collection) {
+
+		if (isDefined(unfilteredJsonData) 
+		 && isDefined(unfilteredJsonData.items) ) {
+			
+			var items = unfilteredJsonData.items;
+
+			for (var i = 0; i < items.length; i++) {
+				var dataset = ctx.processDataset(items[i])
+				if (dataset.resource === "data") {
+					collection.push(dataset)
+				}
+			}
+		}
+		
+		$rootScope.$broadcast('do-scopeApply');
+	}
 	
+	ctx.processDataset = function(dataset) {
+		dataset = ctx.processItem(dataset);
+		return dataset
+	}
 	
 	ctx.processPublicationResponse = function(unfilteredJsonData, collection) {
 
@@ -56,7 +78,9 @@ function($http, Status, FocusAreaManager, $rootScope){
 
 			for (var i = 0; i < items.length; i++) {
 				var pub = ctx.processPublication(items[i])
-				collection.push(pub)
+				if (pub.resource === "publication") {
+					collection.push(pub)
+				}
 			}
 		}
 		
@@ -305,9 +329,12 @@ function($http, Status, FocusAreaManager, $rootScope){
 
 				//parentRecord.childItems = childItems;
 
-				parentRecord.childRecordState = "complete";
-
 				parentRecord.publications = (parentRecord.childItems.length===0) ?undefined :parentRecord.childItems;
+
+				ctx.processDatasetResponse(data, parentRecord.childItems=[]);
+				parentRecord.datasets = (parentRecord.childItems.length===0) ?undefined :parentRecord.childItems;
+
+				parentRecord.childRecordState = "complete";
 
 			}).error(function(data, status, headers, config) {
 				parentRecord.childRecordState = "failed";
