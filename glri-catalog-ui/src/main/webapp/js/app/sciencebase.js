@@ -151,7 +151,17 @@ function($http, Status, FocusAreaManager, $rootScope){
 		if (sysType != 'folder' || (sysType == 'folder' && item.resource == 'project')) {
 		
 			item.url         = item.link.url; // TODO should this find proper link?
-			item.mainLink    = ctx.findLink(item.webLinks, ["home", "html", "index page"], true);
+			
+			if (item.resource === 'project') {
+				for (var linkIdx = 0; linkIdx < item.webLinks.length; linkIdx++ ) {
+					if (item.webLinks[linkIdx].title === "Project Home Page") {
+						item.mainLink = {url: item.webLinks[linkIdx].uri, title: item.webLinks[linkIdx].title};
+					}
+				}
+			} else {
+				item.mainLink    = ctx.findLink(item.webLinks, ["home", "html", "index page"], true);
+			}
+			
 			item.browseImage = ctx.findBrowseImage(item);
 		//		item.dateCreated = ctx.findDate(item.dates, "dateCreated")
 		
@@ -177,6 +187,11 @@ function($http, Status, FocusAreaManager, $rootScope){
 				}
 			}
 		}		
+
+		if (item.summary) {
+			item.summary = item.summary.replace("Description of Work", "");
+		}		
+
 		return item;
 	}
 
@@ -252,7 +267,7 @@ function($http, Status, FocusAreaManager, $rootScope){
 	 * The current Pubs are pushed into ScienceBase w/ 'title' == 'html'
 	 * for an (approximate) home page.
 	 * 
-	 * The return value is an associative array where the title can be used for dispaly:
+	 * The return value is an associative array where the title can be used for display:
 	 * {url, title}
 	 * 
 	 * If no matching link is found, undefined is returned.
