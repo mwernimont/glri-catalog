@@ -77,10 +77,8 @@ function($http, Status, FocusAreaManager, $rootScope){
 			var items = unfilteredJsonData.items;
 
 			for (var i = 0; i < items.length; i++) {
-				var pub = ctx.processPublication(items[i])
-				if (pub.resource === "publication") {
-					collection.push(pub)
-				}
+				var pub = ctx.processPublication(items[i]);
+				collection.push(pub);
 			}
 		}
 		
