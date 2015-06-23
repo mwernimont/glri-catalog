@@ -100,6 +100,18 @@ function($http, Status, FocusAreaManager, $rootScope){
 		}
 		pub.citation = citation
 		
+		var year;
+		var created;
+		for (var d in pub.dates) {
+			var date = pub.dates[d];
+			if (date.type === "Publication") {
+				year = date.dateString;
+			} else if (date.type === "dateCreated") {
+				created = date.dateString;
+			}
+		}
+		pub.sortDate = year + "_" + created; 
+		
 		return pub
 	}
 	
@@ -375,7 +387,7 @@ function($http, Status, FocusAreaManager, $rootScope){
 	
 	ctx.buildUrl = function(resource) {
 		var url = Status.CONST.BASE_QUERY_URL+ "resource="+encodeURI(resource+"&")
-			+"fields=" +encodeURI("url,summary,tags,title,contacts,hasChildren,webLinks,purpose,body,dateCreated,parentId,facets");
+			+"fields=" +encodeURI("url,summary,tags,title,contacts,hasChildren,webLinks,purpose,body,dateCreated,parentId,facets,dates");
 		return url;
 	}
 	ctx.buildSearchUrl = function(model) {
