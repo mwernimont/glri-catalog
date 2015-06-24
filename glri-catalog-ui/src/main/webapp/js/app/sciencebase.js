@@ -196,13 +196,33 @@ function($http, Status, FocusAreaManager, $rootScope){
 					}
 				}
 			}
-		}		
-
-		if (item.summary) {
-			item.summary = item.summary.replace("Description of Work", "");
-		}		
+		}
+		
+		item.summary = ctx.cleanSummary(item.summary);
 
 		return item;
+	}
+	
+	/*
+	 * Strips header names, HTML tags, line breaks, and non-breaking spaces from the summary
+	 */
+	ctx.cleanSummary = function(summary) {
+
+		if (summary) {
+			summary = summary.replace("Description of Work", "");
+			summary = summary.replace("Key Findings", "");
+			summary = summary.replace("Relevance/Benefits", "");
+			summary = summary.replace("Products", "");
+			summary = summary.replace("Goals & Objectives", "");
+			summary = summary.replace("Approach", "");
+			summary = summary.replace("Key Outcomes", "");
+			summary = summary.replace("Schedule", "");
+			summary = summary.replace(/<.*?>/g, "");
+			summary = summary.replace(/\n/g, "");
+			summary = summary.replace(/&nbsp;/g, " ")
+		}		
+
+		return summary;
 	}
 
 	
