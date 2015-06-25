@@ -77,10 +77,8 @@ function($http, Status, FocusAreaManager, $rootScope){
 			var items = unfilteredJsonData.items;
 
 			for (var i = 0; i < items.length; i++) {
-				var pub = ctx.processPublication(items[i])
-				if (pub.resource === "publication") {
-					collection.push(pub)
-				}
+				var pub = ctx.processPublication(items[i]);
+				collection.push(pub);
 			}
 		}
 		
@@ -101,6 +99,18 @@ function($http, Status, FocusAreaManager, $rootScope){
 			}
 		}
 		pub.citation = citation
+		
+		var year;
+		var created;
+		for (var d in pub.dates) {
+			var date = pub.dates[d];
+			if (date.type === "Publication") {
+				year = date.dateString;
+			} else if (date.type === "dateCreated") {
+				created = date.dateString;
+			}
+		}
+		pub.sortDate = year + "_" + created; 
 		
 		return pub
 	}
@@ -186,13 +196,33 @@ function($http, Status, FocusAreaManager, $rootScope){
 					}
 				}
 			}
-		}		
-
-		if (item.summary) {
-			item.summary = item.summary.replace("Description of Work", "");
-		}		
+		}
+		
+		item.summary = ctx.cleanSummary(item.summary);
 
 		return item;
+	}
+	
+	/*
+	 * Strips header names, HTML tags, line breaks, and non-breaking spaces from the summary
+	 */
+	ctx.cleanSummary = function(summary) {
+
+		if (summary) {
+			summary = summary.replace("Description of Work", "");
+			summary = summary.replace("Key Findings", "");
+			summary = summary.replace("Relevance/Benefits", "");
+			summary = summary.replace("Products", "");
+			summary = summary.replace("Goals & Objectives", "");
+			summary = summary.replace("Approach", "");
+			summary = summary.replace("Key Outcomes", "");
+			summary = summary.replace("Schedule", "");
+			summary = summary.replace(/<.*?>/g, "");
+			summary = summary.replace(/\n/g, "");
+			summary = summary.replace(/&nbsp;/g, " ")
+		}		
+
+		return summary;
 	}
 
 	
@@ -377,7 +407,7 @@ function($http, Status, FocusAreaManager, $rootScope){
 	
 	ctx.buildUrl = function(resource) {
 		var url = Status.CONST.BASE_QUERY_URL+ "resource="+encodeURI(resource+"&")
-			+"fields=" +encodeURI("url,summary,tags,title,contacts,hasChildren,webLinks,purpose,body,dateCreated,parentId,facets");
+			+"fields=" +encodeURI("url,summary,tags,title,contacts,hasChildren,webLinks,purpose,body,dateCreated,parentId,facets,dates");
 		return url;
 	}
 	ctx.buildSearchUrl = function(model) {
