@@ -37,6 +37,13 @@ function($http, $filter, $timeout, pager, ScienceBase, Status) {
 		ctx.state.isSearching = value;	//true if we are waiting for results from the main (non-child) query.
 	}
 
+	var clearRecords = function() {
+		ctx.results.items = [];
+	}
+	
+	ctx.clearRecords = function() {
+		$timeout(clearRecords, 1, true);
+	}
 	
 	/**
 	 * Starting from resultItems:  Sort, filter, reset current page and update paged records.
@@ -177,9 +184,11 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 		$scope.model.spatial    = '';
 		Search.state.resourceFilter = 0;
 		Search.state.isFreshUI  = true;
-		
-		$scope.processRawScienceBaseResponse(null); // asdf ScienceBase	or RecordManager
-		processRecords();
+		Search.clearRecords();
+		Search.processRecords();
+		Search.FACET_DEFS.forEach(function(category) {
+			$scope.currentFacets[category] = 0;
+		})
 	}
 
 	
