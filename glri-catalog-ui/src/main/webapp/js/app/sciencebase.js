@@ -78,7 +78,9 @@ function($http, Status, FocusAreaManager, $rootScope){
 
 			for (var i = 0; i < items.length; i++) {
 				var pub = ctx.processPublication(items[i]);
-				collection.push(pub);
+				if (pub.resource === "publication") {
+					collection.push(pub)
+				}
 			}
 		}
 		
@@ -352,32 +354,20 @@ function($http, Status, FocusAreaManager, $rootScope){
 	
 
 	ctx.loadChildItems = function(parentRecord) {
-// asdf used by browse
-//		if (parentRecord.publications !== 'loading') {
-//			return
-//		}
-
 		if (parentRecord.childRecordState == "closed") {
-			//already loaded
-			parentRecord.childRecordState = "complete";			//already loaded
+			parentRecord.childRecordState = "complete";
 		} else {
 			parentRecord.childRecordState = "loading";
 			
 			var url = Status.CONST.BASE_QUERY_URL + "folder=" + parentRecord.id;
-			//url += "&fields=" + encodeURI("url,title,contacts,summary,dateCreated,facets,webLinks,browseCategories")
-
 
 			$http.get(url).success(function(data) {
 				ctx.processPublicationResponse(data, parentRecord.childItems=[]);
-				//var childItems = processPub(data.items);
-				//childItems = $filter('orderBy')(childItems, $scope.userState.orderProp);
 
-				//parentRecord.childItems = childItems;
-
-				parentRecord.publications = (parentRecord.childItems.length===0) ?undefined :parentRecord.childItems;
+				parentRecord.publications = (parentRecord.childItems.length===0) ? undefined : parentRecord.childItems.slice();
 
 				ctx.processDatasetResponse(data, parentRecord.childItems=[]);
-				parentRecord.datasets = (parentRecord.childItems.length===0) ?undefined :parentRecord.childItems;
+				parentRecord.datasets = (parentRecord.childItems.length===0) ? undefined : parentRecord.childItems.slice();
 
 				parentRecord.childRecordState = "complete";
 
