@@ -155,8 +155,14 @@ function($http, Status, FocusAreaManager, $rootScope){
 		
 		//Resource type / browserCategory has its own faceted search
 		item.resource = "unknown";
-		if (item.browseCategories && item.browseCategories[0]) {
-			item.resource = item.browseCategories[0].toLowerCase();
+		if (item.browseCategories) {
+			if (item.browseCategories.indexOf('Project')) {
+				item.resource = 'project';
+			} else if (item.browseCategories.indexOf('Data')) {
+				item.resource = 'data';
+			} else if (item.browseCategories.indexOf('Publication')) {
+				item.resource = 'publication';
+			}
 		}
 		
 		//don't include folders unless they are projects
