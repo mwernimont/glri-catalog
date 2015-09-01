@@ -158,10 +158,10 @@ function($http, Status, FocusAreaManager, $rootScope){
 		if (item.browseCategories) {
 			if (item.browseCategories.indexOf('Project')) {
 				item.resource = 'project';
-			} else if (item.browseCategories.indexOf('Data')) {
-				item.resource = 'data';
 			} else if (item.browseCategories.indexOf('Publication')) {
 				item.resource = 'publication';
+			} else if (item.browseCategories.indexOf('Data')) {
+				item.resource = 'data';
 			}
 		}
 		
