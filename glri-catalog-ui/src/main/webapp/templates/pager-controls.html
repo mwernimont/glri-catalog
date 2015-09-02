@@ -1,6 +1,6 @@
 <div class="row">
 	<div class="col-xs-12">
-		<div class="well well-sm clearfix result-header" ng-if="pager.records.length > 0">
+		<div class="well well-sm clearfix result-header hidden-xs hidden-sm" ng-if="pager.records.length > pager.pageRecordsPerPageOptions[0]">
 			<div class="row">
 				<div class="col-xs-6 record-display-status">
 					<h4>{{pager.records.length}} results, showing {{pager.pageCurrentFirstRecordIndex() + 1}} - {{pager.pageCurrentLastRecordIndex() + 1}}</h4>
