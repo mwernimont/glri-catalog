@@ -156,11 +156,11 @@ function($http, Status, FocusAreaManager, $rootScope){
 		//Resource type / browserCategory has its own faceted search
 		item.resource = "unknown";
 		if (item.browseCategories) {
-			if (item.browseCategories.indexOf('Project')) {
+			if (item.browseCategories.indexOf('Project') > -1) {
 				item.resource = 'project';
-			} else if (item.browseCategories.indexOf('Publication')) {
+			} else if (item.browseCategories.indexOf('Publication') > -1) {
 				item.resource = 'publication';
-			} else if (item.browseCategories.indexOf('Data')) {
+			} else if (item.browseCategories.indexOf('Data') > -1) {
 				item.resource = 'data';
 			}
 		}
@@ -171,10 +171,14 @@ function($http, Status, FocusAreaManager, $rootScope){
 			item.url         = item.link.url; // TODO should this find proper link?
 			
 			if (item.resource === 'project') {
-				for (var linkIdx = 0; linkIdx < item.webLinks.length; linkIdx++ ) {
-					if (item.webLinks[linkIdx].title === "Project Home Page") {
-						item.mainLink = {url: item.webLinks[linkIdx].uri, title: item.webLinks[linkIdx].title};
+				if (item.webLinks) {
+					for (var linkIdx = 0; linkIdx < item.webLinks.length; linkIdx++ ) {
+						if (item.webLinks[linkIdx].title === "Project Home Page") {
+							item.mainLink = {url: item.webLinks[linkIdx].uri, title: item.webLinks[linkIdx].title};
+						}
 					}
+				} else {
+					console.warn("WARNING, webLinks not defined for item: " + item.id);
 				}
 			} else {
 				item.mainLink    = ctx.findLink(item.webLinks, ["home", "html", "index page"], true);
