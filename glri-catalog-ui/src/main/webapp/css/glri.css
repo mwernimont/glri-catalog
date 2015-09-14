@@ -11,6 +11,20 @@
 	margin-left:15px !important;
 	list-style:disc !important;
 }
+#container{
+    padding:0px;
+    width:100% !important;
+}
+
+#banner-area{
+    display:none;
+}
+
+
+#headlineWrapper,
+#controls{
+    display:none;
+}
 
 ul.simple-list {
 	color: #333;
@@ -191,7 +205,7 @@ body div.container * { font-family: Verdana, Arial, Helvetica, sans-serif, 'Glyp
 
 #site-title { background-color: #036; }
 #site-title img { height: 3em; margin-right: 1em; }
-#site-title h1 { font-size: 1.2em; padding: 0; margin: .3em 0 .1em .5em; }
+#site-title h1 { font-size: .9em; padding: 0; margin: .1em 0 .1em .5em; }
 #site-title h4 { font-size: .9em; font-style: italic; padding: 0; margin: 0 1em; }
 
 .gap {margin-top: 1em;}
@@ -416,7 +430,10 @@ ul.result-records .related-links {
   padding-right: .4em; padding-left: .4em;
 }
 
-.row { margin-right: -.4em; margin-left: -.4em; }
+.row { 
+      margin-right: 0; 
+      margin-left: 0; 
+}
 
 .form-horizontal .form-group { margin: .5em -.4em .5em -.4em; }
 option.any-option { font-weight: bold; }
@@ -477,13 +494,15 @@ ul.list-tick {
 	margin-left: 300px;
 }
 
-.navHomeEntry {
-	height: 140px;
+.menu-navPane{
+    width:100% !important;
 }
 
-.navHomeEntry a {
-	float: right;
+.navHomeEntry {
+	min-height: 140px;
+        clear:both;
 }
+
 .navHomeEntry a::before {
 	content:"> ";
 }
@@ -498,6 +517,11 @@ ul.list-tick {
 .navHomeEntry .descr {
 	font-size:10px;
 }
+
+.navHomeEntry a{
+    float:none;
+}
+
 
 
 
@@ -545,12 +569,33 @@ ul.list-tick {
 	min-width:145px;
 }
 
+#gov-buttons{
+    display:none;
+}
+
 @media (min-width: 768px) {
 	.record-load-progress { 
 		left: 65%; 
 		top: .5em; 
 		font-size: 30em; 
 	}
+        
+        #banner-area{
+            display:block;
+        }
+        
+        #site-title h1{
+            font-size:1.2em;
+        }
+        
+        #gov-buttons{
+            display:block;
+        }
+        
+        .navHomeEntry a {
+            float: right;
+        }
+        
 }
 @media (max-width: 767px) {
 	.glri_content .btn-vertical {
@@ -585,6 +630,13 @@ ul.list-tick {
 		top: -100px;
 	}
 }
+
+@media (min-width:992px){
+     #headlineWrapper,
+     #controls{
+            display:block;
+        }
+}
 @media (min-width: 992px) and (max-width: 1199px) {
 	.glri_content .btn-vertical {
 		font-size: 16px;
@@ -593,7 +645,7 @@ ul.list-tick {
 		font-size: 250% !important;
 	}
 	.navHomeEntry .descr {
-		float: right;
+		float: left;
 		width: 113px;
 	}
 }
@@ -607,6 +659,10 @@ ul.list-tick {
 	.content2col .border {
 		height:700px;
 	}
+        
+        #container{
+            width:1024px !important;
+        }
 }
 
 .menu-navPane {
@@ -622,9 +678,10 @@ ul.list-tick {
 
 .glyphicon-menu {
 	float: right;
-	position: relative;
-	top: -23px;
-	width: 30px;
+	position: absolute;
+	top: 8px;
+        right:10px;
+	width: 18px;
 	padding-right: 3px;
 	cursor:pointer;
 }
