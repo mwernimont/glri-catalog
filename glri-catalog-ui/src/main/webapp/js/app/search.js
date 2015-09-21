@@ -81,7 +81,7 @@ function($http, $filter, $timeout, pager, ScienceBase, Status) {
 		var filtered = [];
 
 		data.forEach(function(item){
-			if (item.browseCategories && (item.browseCategories[0] === category)) {
+			if (item.browseCategories && (item.resource.toLowerCase() === category.toLowerCase())) {
 				filtered.push(item);
 			}
 		});
