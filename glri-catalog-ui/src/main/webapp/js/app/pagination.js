@@ -18,7 +18,6 @@ function(){
 	ctx.pageList    = [];	//array of numbers, 0 to pageCount - 1.  Used by ng-repeat
 	ctx.pageRecords = [];
 	
-	
 	ctx.gotoNextPage = function() {
 		if (ctx.pageHasNext()) {
 			ctx.pageCurrent++;
@@ -90,26 +89,33 @@ function(){
 	 * Update the paged records
 	 */
 	ctx.updatePageRecords = function() {
-		var startRecordIdx = ctx.pageCurrent * ctx.pageSize;
-		var endRecordIdx   = startRecordIdx  + ctx.pageSize;
-		 endRecordIdx = (endRecordIdx > ctx.records.length) ?ctx.records.length :endRecordIdx;
 		
-		var newPgRecs = [];
-		var destIdx   = 0;
-		for (var srcIdx = startRecordIdx; srcIdx < endRecordIdx; srcIdx++) {
-			newPgRecs[destIdx] = ctx.records[srcIdx];
-			destIdx++;
-		}
-				
-		ctx.pageRecords     = newPgRecs;
-		ctx.pageCount       = ctx.calcPageCount();
-				
-		if (ctx.pageList.length != ctx.pageCount) {
-			var newPageList = new Array();
-			for (var i = 0; i < ctx.pageCount; i++) {
-				newPageList[i] = i;
+		if ($(".device-xs").is(":visible")) {
+			ctx.sizeText = "VS";
+			ctx.pageRecords = ctx.records;
+		} else {
+			ctx.sizeText = "NOT-VS";
+			var startRecordIdx = ctx.pageCurrent * ctx.pageSize;
+			var endRecordIdx   = startRecordIdx  + ctx.pageSize;
+			 endRecordIdx = (endRecordIdx > ctx.records.length) ?ctx.records.length :endRecordIdx;
+			
+			var newPgRecs = [];
+			var destIdx   = 0;
+			for (var srcIdx = startRecordIdx; srcIdx < endRecordIdx; srcIdx++) {
+				newPgRecs[destIdx] = ctx.records[srcIdx];
+				destIdx++;
 			}
-			ctx.pageList = newPageList;
+					
+			ctx.pageRecords     = newPgRecs;
+			ctx.pageCount       = ctx.calcPageCount();
+					
+			if (ctx.pageList.length != ctx.pageCount) {
+				var newPageList = new Array();
+				for (var i = 0; i < ctx.pageCount; i++) {
+					newPageList[i] = i;
+				}
+				ctx.pageList = newPageList;
+			}
 		}
 	}
 	
