@@ -90,11 +90,9 @@ function(){
 	 */
 	ctx.updatePageRecords = function() {
 		
-		if ($(".device-xs").is(":visible")) {
-			ctx.sizeText = "VS";
+		if ($(".device-xs").is(":visible") || $(".device-sm").is(":visible")) {
 			ctx.pageRecords = ctx.records;
 		} else {
-			ctx.sizeText = "NOT-VS";
 			var startRecordIdx = ctx.pageCurrent * ctx.pageSize;
 			var endRecordIdx   = startRecordIdx  + ctx.pageSize;
 			 endRecordIdx = (endRecordIdx > ctx.records.length) ?ctx.records.length :endRecordIdx;
