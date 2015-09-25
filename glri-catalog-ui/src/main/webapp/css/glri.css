@@ -381,7 +381,7 @@ ul.result-records li {
 }
 .resource-icon img { width: 50px; height: 50px; margin: 0; }
 
-.browse-image { width: 500px; float: right; margin-left: 1em; margin-bottom: 1em; }
+.browse-image { width: 100%; float: right; margin-left: 1em; margin-bottom: 1em; }
 
 ul.result-records .related-links {
 	display: block; float: right; width: 17em; padding: .2em; margin: 1em 0 .5em 1em;
@@ -594,6 +594,10 @@ ul.list-tick {
         
         .navHomeEntry a {
             float: right;
+        }
+        
+        .browse-image{
+            width:500px;
         }
         
 }
