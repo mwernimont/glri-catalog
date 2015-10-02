@@ -1,9 +1,8 @@
 package gov.usgs.cida.glri.sb.ui.vocab;
 
-import gov.usgs.cida.glri.sb.ui.itemquery.*;
-import gov.usgs.cida.glri.sb.ui.ParameterProcessor;
-import static gov.usgs.cida.glri.sb.ui.ParamType.INCLUDE_IF_PRESENT;
 import org.apache.commons.lang3.StringUtils;
+
+import gov.usgs.cida.glri.sb.ui.ParameterProcessor;
 
 /**
  * Simple pass-through conversion of parameters

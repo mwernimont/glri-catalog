@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -24,6 +23,8 @@ import javax.servlet.http.HttpServletResponse;
  * @author eeverman
  */
 public class ScienceBaseService extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Processes requests for both HTTP

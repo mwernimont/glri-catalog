@@ -1,7 +1,6 @@
 package gov.usgs.cida.glri.sb.ui;
 
 import gov.usgs.cida.config.DynamicReadOnlyProperties;
-import java.util.Map.Entry;
 
 /**
  * Mildly ugly singleton configuration point that reads its configuration from

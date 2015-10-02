@@ -34,7 +34,7 @@ public class ScienceBaseVocabQuery {
 		CloseableHttpClient httpclient = HttpClients.createDefault();
 		URIBuilder uriBuild = new URIBuilder();
 		uriBuild.setScheme("https");
-		uriBuild.setHost(AppConfig.get(AppConfig.SCIENCEBASE_VOCAB_HOST));
+		uriBuild.setHost(AppConfig.get(SCIENCEBASE_VOCAB_HOST));
 		uriBuild.setPath("/vocab/categories");
 		appendUserParams(requestParams, uriBuild);
 		appendSystemParams(requestParams, uriBuild);

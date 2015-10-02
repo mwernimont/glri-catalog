@@ -1,7 +1,6 @@
 package gov.usgs.cida.glri.sb.ui.itemquery;
 
 import gov.usgs.cida.glri.sb.ui.ParameterProcessor;
-import static gov.usgs.cida.glri.sb.ui.ParamType.INCLUDE_IF_PRESENT;
 import org.apache.commons.lang3.StringUtils;
 
 /**

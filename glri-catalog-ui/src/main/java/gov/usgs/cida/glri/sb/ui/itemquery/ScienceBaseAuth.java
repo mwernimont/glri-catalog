@@ -31,8 +31,9 @@ public class ScienceBaseAuth {
 	
 	
 	/**
-	 * 
-	 * @param requestParams
+	 * Connects to my.usgs.gov to obtain a token for sciencebase.gov CRUD actions.
+	 * @param username
+	 * @param password
 	 * @return JOSSO SESSION ID on authentication or empty string
 	 * @throws IOException only if there is an issue connecting to the authentication service.
 	 */
