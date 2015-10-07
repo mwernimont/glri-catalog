@@ -22,20 +22,22 @@ jQuery.fn.select2Buttons = function(options) {
       if (optGroup.attr('label')){
         buttonsHtml.append('<strong>' + optGroup.attr('label') + '</strong>');
       }
+      var indexDelta = 0;
       var ulHtml =  $('<ul class="select-buttons">');
       optGroup.children('option').each(function(){
         var liHtml = $('<li></li>');
         if ($(this).html() === '') {
             liHtml = '';
+            indexDelta = 1;
         } else if ($(this).attr('disabled') || select.attr('disabled')){
           liHtml.addClass('disabled');
           liHtml.append('<span>' + $(this).html() + '</span>');
         }else{
-          liHtml.append('<a href="#" data-select-index="' + selectIndex + '">' + $(this).html() + '</a>');
+          liHtml.append('<a href="#" data-select-index="' + (selectIndex-indexDelta) + '">' + $(this).html() + '</a>');
         }
 
         // Mark current selection as "picked"
-        if((!options || !options.noDefault) && select.attr("selectedIndex") == selectIndex){
+        if((!options || !options.noDefault) && select.attr("selectedIndex") == selectIndex-indexDelta){
           liHtml.children('a, span').addClass('picked');
         }
         ulHtml.append(liHtml);
