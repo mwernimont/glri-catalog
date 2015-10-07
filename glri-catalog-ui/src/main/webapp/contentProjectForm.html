@@ -35,15 +35,18 @@
 	<script src="//www.youtube.com/iframe_api"></script>
 	<script async="" src="http://s.ytimg.com/yts/jsbin/www-widgetapi-vflRC6hVw/www-widgetapi.js" id="www-widgetapi-script" type="text/javascript"></script>
 
-	<script type="text/javascript" src="./webjars/jquery/2.1.0/jquery.js"></script>
-	<script type="text/javascript" src="./webjars/angularjs/1.2.16/angular.js"></script>
-	<script type="text/javascript" src="./webjars/angular-sanitize/1.2.16/angular-sanitize.js"></script>
-	<script type="text/javascript" src="./webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
+	<script type="text/javascript" src="./webjars/jquery/${jquery.version}/jquery.js"></script>
+	<script type="text/javascript" src="./webjars/angularjs/${angular.version}/angular.js"></script>
+	<script type="text/javascript" src="./webjars/angular-sanitize/${angular.sanitize.version}/angular-sanitize.js"></script>
+	<script type="text/javascript" src="./webjars/angular-ui-bootstrap/${angular.bootstrap.version}/ui-bootstrap-tpls.js"></script>
+	<script type="text/javascript" src="./webjars/select2/${select2.path.version}/js/select2.min.js"></script>
+	<script type="text/javascript" src="./webjars/bootstrap-datepicker/${bootstrap.datepicker.version}/js/bootstrap-datepicker.min.js"></script>
 
-
-	<!-- Twitter Bootstrap & theme-->
-	<link rel="stylesheet" type="text/css" href="./webjars/bootstrap/3.1.1/css/bootstrap.css">
+	<!-- Twitter, Bootstrap, & themes -->
+	<link rel="stylesheet" type="text/css" href="./webjars/bootstrap/${bootstrap.version}/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="./style/themes/theme1.css">
+	<link rel="stylesheet" type="text/css" href="./webjars/select2/${select2.path.version}/css/select2.min.css" >
+	<link rel="stylesheet" type="text/css" href="./webjars/bootstrap-datepicker/${bootstrap.datepicker.version}/css/bootstrap-datepicker.min.css">
 
 	<!-- legacy css -->
 	<link type="text/css" rel="stylesheet" href="./css/dynamic.css">
@@ -57,15 +60,9 @@
 	<link rel="stylesheet" type="text/css" href="./css/glri.css">
 	
 	<link href="./webjars/openlayers/2.13.1/theme/default/style.css" type="text/css" rel="stylesheet">
-
-	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" type="text/css" rel="stylesheet">
-
-	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+	
 	<script type="text/javascript" src="js/select2buttons.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/select2Buttons.css">
-	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
-	<link rel="stylesheet" type="text/css" href="css/datepicker.css">
-
 
 
 	<style>
@@ -101,6 +98,13 @@
 			font-family: Verdana,Arial,Helvetica,sans-serif,"Glyphicons Halflings" !important;
 			font-size: 12px;
 		}
+		
+		.form-date {
+		    font-weight: bold;
+		    color: darkblue;
+		    font-size: inherit;
+		    min-width: 100px;
+    	}
 		
 		.select2-container--default .select2-selection--multiple .select2-selection__choice {
 		    background-color: #036;
@@ -223,7 +227,7 @@
 	
 	<h4 class="form-title">Project Title</h4>
 	<div class="form-spacing">
-		<textarea class="form-control form-title" size="80" type="text" ng-model="newProject.title"></textarea>
+		<textarea class="form-control form-title" placeholder="Enter the project title as it should appear on ScienceBase" ng-model="newProject.title"></textarea>
 	</div>
 
 	<h4 class="">Image URL</h4>
@@ -233,12 +237,12 @@
 	
 	<h4 class="">Principal Investigator</h4>
 	<div class="form-spacing">
-		<textarea class="form-control form-field" size="80" type="text" ng-model="newProject.principal"></textarea>
+		<textarea class="form-control form-field" ng-model="newProject.principal"></textarea>
 	</div>
 	
 	<h4 class="">Associate Project Chief</h4>
 	<div class="form-spacing">
-		<textarea class="form-control form-field" size="80" type="text" ng-model="newProject.chief"></textarea>
+		<textarea class="form-control form-field" ng-model="newProject.chief"></textarea>
 	</div>
 	
 	<h4 class="">Project Duration</h4>
@@ -255,13 +259,13 @@
 	<div style="width:50% !important;float:left;">
 		<h4 class="">Agreement Start Date</h4>
 		<div class="form-spacing">
-			<input class="form-control form-field" style="width:50% !important;" type="text" ng-model="newProject.startDate">
+			<input class="form-control form-field form-date" style="width:150px !important;" type="text" ng-model="newProject.startDate">
 		</div>
 	</div>
 	<div style="width:50% !important;float:right;">
 		<h4 class="">Agreement End Date</h4>
 		<div class="form-spacing">
-			<input class="form-control form-field" style="width:50% !important;" type="text" ng-model="newProject.endDate">
+			<input class="form-control form-field form-date" style="width:150px !important;" type="text" ng-model="newProject.endDate">
 		</div>
 	</div>
 	<div style="clear:both;"></div>
@@ -300,36 +304,32 @@
 	
 	<h4>Background/Problem</h4> 
 	<div class="background form-spacing">
-		<textarea class="form-control form-field" rows="10" cols="80"  ng-model="newProject.purpose"></textarea>
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.purpose"></textarea>
 	</div>
 
 	<h4>Objectives</h4> 
 	<div class="background form-spacing">
-		<textarea class="form-control form-field" rows="10" cols="80"  ng-model="newProject.objectives"></textarea>
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.objectives"></textarea>
 	</div>
 	
 	<h4>Description of Work</h4> 
 	<div class="form-spacing">
-		<textarea class="form-control form-field" rows="10" cols="80"  ng-model="newProject.work"></textarea>
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.work"></textarea>
 	</div>
 	
 	<h4>Relevance and Impact</h4> 
 	<div class="form-spacing">
-		<textarea class="form-control form-field" rows="10" cols="80"  ng-model="newProject.impact"></textarea>
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.impact"></textarea>
 	</div>
 	
 	<h4>Planned Product</h4> 
 	<div class="form-spacing">
-		<textarea class="form-control form-field" rows="10" cols="80"  ng-model="newProject.product"></textarea>
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.product"></textarea>
 	</div>
 	
 	<h4>GLRI Keyword(s)</h4>	 
-	<div class="form-spacing" style="margin-left: 17px;">
-		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="keywords" 
-			multiple="multiple" ng-model="newProject.keywords"
-		 	tooltip-placement="right" tooltip="Select applicable GLRI keywords. Projects are associated with one or more keywords.">
-			<option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="52" ng-model="entry.display">Template 52</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="66" ng-model="entry.display">Template 66</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="67" ng-model="entry.display">Template 67</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="68" ng-model="entry.display">Template 68</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="70" ng-model="entry.display">Template 70</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="71" ng-model="entry.display">Template 71</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="72" ng-model="entry.display">Template 72</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="73" ng-model="entry.display">Template 73</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="74" ng-model="entry.display">Template 74</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="75" ng-model="entry.display">Template 75</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="76" ng-model="entry.display">Template 76</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="77" ng-model="entry.display">Template 77</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="78" ng-model="entry.display">Template 78</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="79" ng-model="entry.display">Template 79</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="80" ng-model="entry.display">Template 80</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="81" ng-model="entry.display">Template 81</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="82" ng-model="entry.display">Template 82</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="84" ng-model="entry.display">Template 84</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="134" ng-model="entry.display">Template 134</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="137" ng-model="entry.display">Template 137</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="146" ng-model="entry.display">Template 146</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="147" ng-model="entry.display">Template 147</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="164" ng-model="entry.display">Template 164</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="183" ng-model="entry.display">Template 183</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="330" ng-model="entry.display">Template 330</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="332" ng-model="entry.display">Template 332</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="366" ng-model="entry.display">Template 366</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="367" ng-model="entry.display">Template 367</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="368" ng-model="entry.display">Template 368</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="382" ng-model="entry.display">Template 382</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="384" ng-model="entry.display">Template 384</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="588" ng-model="entry.display">Template 588</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="673" ng-model="entry.display">Template 673</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' -->
-		</select>
+	<div class="form-spacing">
+		<textarea class="form-control form-field" rows="10"  placeholder="Enter a comma separated list of keywords or phrases." ng-model="newProject.keywords"></textarea>
 	</div>
 	
 	<h4>SiGL Keyword(s)</h4>	 
@@ -368,12 +368,12 @@
 		
 	<h4>External Organization Contacts</h4>  
 	<div class="point-of-contact form-spacing">
-		<textarea class="form-control form-field" rows="10" cols="40"  ng-model="newProject.organizations"></textarea>
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.organizations"></textarea>
 	</div>
 	
 	<h4>Points of Contact</h4>  
 	<div class="point-of-contact form-spacing">
-		<textarea class="form-control form-field" rows="10" cols="40"  ng-model="newProject.contacts"></textarea>
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.contacts"></textarea>
 	</div>
 	
 	<p class="form-spacing">
@@ -445,7 +445,6 @@
 </body>
 <script>
 
-
 $(document).ready(function() {
 	  $('.datepickers').datepicker({
 		    todayBtn      : true,
@@ -464,7 +463,6 @@ $(document).ready(function() {
 	  $("#focus_area").select2Buttons({noDefault: true});
 	  
 	  $("#templates").select2({placeholder: "Select funding templates",});
-	  $("#keywords").select2({placeholder: "Select keywords",});
 	  $("#sigl").select2({placeholder: "Select SiGL keywords",});
 	  $("#water").select2({placeholder: "Select Water Bodies",});
 });
