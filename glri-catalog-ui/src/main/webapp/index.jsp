@@ -40,6 +40,7 @@
 		<script type="text/javascript" src="${pageScope.rootPath}/js/app/pagination.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}/js/app/search.js"></script>
 		<script type="text/javascript" src="${pageScope.rootPath}/js/app/directives.js"></script>
+		
 		<script type="text/javascript" src="${pageScope.rootPath}/js/app/cida-analytics.js"></script>
 		<script type="application/javascript" src="http://www.usgs.gov/scripts/analytics/usgs-analytics.js"></script>
 

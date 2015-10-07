@@ -11,8 +11,8 @@ var log = function(msg) {
 
 //TODO why do I have to place this here rather than adding it to the module ?
 //TODO why is this necessary to get proper angular.$compile ?
-var testCtrl = function($scope) {}
-
+GLRICatalogApp.controller('testCtrl', function($scope) {})
+		
 // simple placeholder NO-OP function
 var NOOP = function(){}
 

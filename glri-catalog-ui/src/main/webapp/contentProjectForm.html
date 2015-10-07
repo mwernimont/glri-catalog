@@ -1,0 +1,502 @@
+<html ng-app="GLRINewProjectApp">
+<head>
+
+	<style type="text/css">
+		@charset "UTF-8";
+		[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}
+		ng\:form{display:block;}
+		.ng-animate-block-transitions{transition:0s all!important;-webkit-transition:0s all!important;}
+	</style>
+ 	<title>USGS Great Lakes Restoration Initiative (GLRI)</title>
+		
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+
+	<link href="./favicon.ico" rel="shortcut icon" type="image/x-icon">
+		
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>USGS Great Lakes Restoration Initiative (GLRI)</title>
+	<meta name="description" content="The GLRI home page with infomation about all GLRI projects.">
+	<meta name="title"     content="Great Lakes Restoration Initiative (GLRI) Home">
+	<meta name="author"    content="Great Lakes Restoration Initiative (GLRI), GLRI">
+	<meta name="keywords"  content="Great Lakes Restoration Initiative, GLRI, ScienceBase">
+	<meta name="publisher" content="">
+	<meta name="country"   content="USA">
+	<meta name="language"  content="EN">
+	<meta name="revised"   content="2015-08-27 10:44">
+	<meta name="review"    content="">
+	<meta name="expires"   content="Never">
+	
+	<link type="text/css" rel="stylesheet" href="./template/css/usgs_common.css">
+	<link type="text/css" rel="stylesheet" href="./template/css/usgs_style_main.css">
+	<link type="text/css" rel="stylesheet" href="./css/custom.css">
+	
+	<script src="//www.youtube.com/iframe_api"></script>
+	<script async="" src="http://s.ytimg.com/yts/jsbin/www-widgetapi-vflRC6hVw/www-widgetapi.js" id="www-widgetapi-script" type="text/javascript"></script>
+
+	<script type="text/javascript" src="./webjars/jquery/2.1.0/jquery.js"></script>
+	<script type="text/javascript" src="./webjars/angularjs/1.2.16/angular.js"></script>
+	<script type="text/javascript" src="./webjars/angular-sanitize/1.2.16/angular-sanitize.js"></script>
+	<script type="text/javascript" src="./webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
+
+
+	<!-- Twitter Bootstrap & theme-->
+	<link rel="stylesheet" type="text/css" href="./webjars/bootstrap/3.1.1/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="./style/themes/theme1.css">
+
+	<!-- legacy css -->
+	<link type="text/css" rel="stylesheet" href="./css/dynamic.css">
+	<link type="text/css" rel="stylesheet" href="./css/style.css">
+	<link type="text/css" rel="stylesheet" href="./css/layout.css">
+	<link type="text/css" rel="stylesheet" href="./css/common.css">
+	<link type="text/css" rel="stylesheet" href="./css/dropdown2.css">
+	<link type="text/css" rel="stylesheet" href="./css/theme.css">
+
+	<!-- Application custom -->
+	<link rel="stylesheet" type="text/css" href="./css/glri.css">
+	
+	<link href="./webjars/openlayers/2.13.1/theme/default/style.css" type="text/css" rel="stylesheet">
+
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" type="text/css" rel="stylesheet">
+
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.min.js"></script>
+	<script type="text/javascript" src="js/select2buttons.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/select2Buttons.css">
+	<script type="text/javascript" src="js/bootstrap-datepicker.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/datepicker.css">
+
+
+
+	<style>
+		h4 {
+			clear:both;
+		}
+	
+		.form-spacing {
+			margin-bottom: 20px;
+		}
+		
+		.form-spacing .btn-primary {
+		    width: auto;
+		    padding: 4px;
+		    min-width:80px;
+		}
+		.form-spacing .btn-primary:hover {
+			background: #036;
+			border-color: #036;
+			color: #FFF;    
+			text-decoration: none;
+			box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(0, 75, 150, 0.6) !important;
+		}		
+		
+		.form-title {
+			color: #036 !important;
+			font-weight: bold;
+			font-size: 1.6em !important;
+			height:auto;
+		}
+		
+		.form-field {
+			font-family: Verdana,Arial,Helvetica,sans-serif,"Glyphicons Halflings" !important;
+			font-size: 12px;
+		}
+		
+		.select2-container--default .select2-selection--multiple .select2-selection__choice {
+		    background-color: #036;
+		    border: 1px solid #036;
+		    border-radius: 4px;
+		    cursor: default;
+		    float: left;
+		    margin-right: 5px;
+		    margin-top: 5px;
+		    padding: 0px 5px;
+		    font-weight: bold;
+		    color: #fff;
+		    height:20px;
+		}
+		.select2-container--default .select2-selection--multiple .select2-selection__choice__remove:hover {
+		    color: #FFF;
+		}
+		
+		.form-control:focus,
+		.select2-container--open .selection .select2-selection,
+		.select2-container--focus .selection .select2-selection {
+		    border-color: #66AFE9 !important;
+		    outline: 0px none !important;
+		    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6) !important;
+		}
+		
+		.select2-dropdown {
+		    background-color: #FFF;
+		    border: 1px solid #66AFE9;
+		    box-shadow: 0px 1px 1px rgba(0, 0, 0, 0.075) inset, 0px 0px 8px rgba(102, 175, 233, 0.6) !important;
+		    border-radius: 4px;
+		    box-sizing: border-box;
+		    display: block;
+		    position: absolute;
+		    left: -100000px;
+		    width: 100%;
+		    z-index: 1051;
+		}
+		
+		.imageContent {
+			float:left;
+			margin-top:50px;
+			display:none;
+		}
+		
+		#imageTarget {
+			margin-left:17px;
+			border:1px solid;
+			min-width:100px;
+			min-height:100px;
+			padding:1px;
+		}
+		
+		
+	</style>
+	
+</head>
+<body ng-controller="NewProjectCtrl">
+<div class="row">
+				<div class="col-xs-12">
+					<div id="usgs-header-panel" class="">
+    <div id="header">
+        <div id="banner-area">
+            <h1>U.S. Geological Survey</h1>
+            <!-- Not actually visible unless printed -->
+            <div id="usgs-header-logo">
+                <a onmousedown="_sendEvent('Outbound','www.usgs.gov','/',0);_sendEvent('Outbound','www.usgs.gov','/',0);" href="http://www.usgs.gov" title="Link to the US Geological Survey main web page">
+                    <img alt="USGS Logo - science for a changing world" title="U.S. Geological Survey Home Page" src="./template/images/usgs_logo.jpg">
+                </a>
+            </div>
+            <ul id="ccsa-area">
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/',0);_sendEvent('Outbound','www.usgs.gov','/',0);" href="http://www.usgs.gov/" title="Link to main USGS page">USGS Home</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/ask/index.html',0);_sendEvent('Outbound','www.usgs.gov','/ask/index.html',0);" href="http://www.usgs.gov/ask/index.html" title="Link to main USGS contact page">Contact USGS</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','search.usgs.gov','/',0);_sendEvent('Outbound','search.usgs.gov','/',0);" href="http://search.usgs.gov/" title="Link to main USGS search (not publications search)">Search USGS</a></li>
+            </ul>
+        </div><!-- End content -->
+		<div id="site-title" class="clearfix">
+			<h1>Great Lakes Restoration Initiative (GLRI)</h1>
+			
+		</div>
+        
+    </div><!-- /header -->
+</div><!--/header panel-->
+					<img class="glyphicon glyphicon-menu visible-xs" src="images/xicon_mobile_nav_menu.svg" ng-click="toggleNav()">
+				</div>
+			</div>
+
+
+<div id="contentBrowseDetail" class="clearfix glri_content" style="max-width:800px;margin-left:50px;float:left;">
+		
+	<h4 class="">Data Management Plan</h4>
+	<div class="form-spacing" style="margin-left: 10px;">
+		I will create a data management plan within the first year of the project, and will ensure that metadata for all data 
+		sets is created in a timely manner. (Note: this is required for all GLRI funded projects. The USGS has information on
+		 <a href="http://www.usgs.gov/datamanagement/plan/dmplans.php" target="_blank">data managements plans</a>.)
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="dmPlan" ng-model="newProject.dmPlan"
+			tooltip-placement="right" tooltip="Data Management Plan">
+			<option value="agree">I Agree</option>
+			<option value="disagree">I Disagree</option>
+		</select>
+	</div>
+
+	<h4 class="">Project Status</h4>
+	<div class="form-spacing" style="margin-left: 10px;">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="project_status" ng-model="newProject.status"
+			tooltip-placement="right" tooltip="Focus area">
+			<option value="Completed">Completed</option>
+			<option value="In Progress">In Progress</option>
+		</select>
+	</div>
+
+	<h4 class="">Type of Entry</h4>
+	<div class="form-spacing" style="margin-left: 10px;">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="entry_type" ng-model="newProject.entryType"
+			tooltip-placement="right" tooltip="Focus area">
+			<option value="new">New Project</option>
+			<option value="update">Project Update</option>
+		</select>
+	</div>
+	
+	<h4 class="form-title">Project Title</h4>
+	<div class="form-spacing">
+		<textarea class="form-control form-title" size="80" type="text" ng-model="newProject.title"></textarea>
+	</div>
+
+	<h4 class="">Image URL</h4>
+	<div class="form-spacing">
+		<input class="form-control form-field"  type="text" ng-model="newProject.image">
+	</div>
+	
+	<h4 class="">Principal Investigator</h4>
+	<div class="form-spacing">
+		<textarea class="form-control form-field" size="80" type="text" ng-model="newProject.principal"></textarea>
+	</div>
+	
+	<h4 class="">Associate Project Chief</h4>
+	<div class="form-spacing">
+		<textarea class="form-control form-field" size="80" type="text" ng-model="newProject.chief"></textarea>
+	</div>
+	
+	<h4 class="">Project Duration</h4>
+	<div class="form-spacing" style="margin-left: 10px;">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="duration" 
+			tooltip-placement="right" tooltip="Focus area" ng-model="newProject.duration">
+			<option value="single">Single effort (1 year or less)</option>
+			<option value="short">Short term (2 to 5 years)</option>
+			<option value="long">Long term (greater than 5 years)</option>
+		</select>
+	</div>
+
+<div class="datepickers input-daterange">
+	<div style="width:50% !important;float:left;">
+		<h4 class="">Agreement Start Date</h4>
+		<div class="form-spacing">
+			<input class="form-control form-field" style="width:50% !important;" type="text" ng-model="newProject.startDate">
+		</div>
+	</div>
+	<div style="width:50% !important;float:right;">
+		<h4 class="">Agreement End Date</h4>
+		<div class="form-spacing">
+			<input class="form-control form-field" style="width:50% !important;" type="text" ng-model="newProject.endDate">
+		</div>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+	
+	<h4>Focus Area</h4>
+	<div class="form-spacing" style="margin-left: 17px;">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="focus_area"
+			tooltip-placement="right" tooltip="Focus area" ng-model="newProject.focusArea">
+			<option value="Toxic-Substances">Toxic Substances</option>
+			<option value="Invasive-Species">Invasive Species</option>
+			<option value="Nearshore-Health">Nearshore Health</option>
+			<option value=">Habitat-Wildlife">Habitat & Wildlife</option>
+			<option value="Accountability">Accountability</option>
+		</select>
+	</div>
+	
+	<h4>Template(s)</h4>	 
+	<div class="form-spacing" style="margin-left: 17px;">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="templates" 
+			multiple="multiple" ng-model="newProject.templates"
+		 	tooltip-placement="right" tooltip="Select applicable GLRI funding templates. Projects are associated with one or more templates.">
+			<option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="52" ng-model="entry.display">Template 52</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="66" ng-model="entry.display">Template 66</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="67" ng-model="entry.display">Template 67</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="68" ng-model="entry.display">Template 68</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="70" ng-model="entry.display">Template 70</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="71" ng-model="entry.display">Template 71</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="72" ng-model="entry.display">Template 72</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="73" ng-model="entry.display">Template 73</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="74" ng-model="entry.display">Template 74</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="75" ng-model="entry.display">Template 75</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="76" ng-model="entry.display">Template 76</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="77" ng-model="entry.display">Template 77</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="78" ng-model="entry.display">Template 78</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="79" ng-model="entry.display">Template 79</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="80" ng-model="entry.display">Template 80</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="81" ng-model="entry.display">Template 81</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="82" ng-model="entry.display">Template 82</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="84" ng-model="entry.display">Template 84</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="134" ng-model="entry.display">Template 134</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="137" ng-model="entry.display">Template 137</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="146" ng-model="entry.display">Template 146</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="147" ng-model="entry.display">Template 147</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="164" ng-model="entry.display">Template 164</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="183" ng-model="entry.display">Template 183</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="330" ng-model="entry.display">Template 330</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="332" ng-model="entry.display">Template 332</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="366" ng-model="entry.display">Template 366</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="367" ng-model="entry.display">Template 367</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="368" ng-model="entry.display">Template 368</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="382" ng-model="entry.display">Template 382</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="384" ng-model="entry.display">Template 384</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="588" ng-model="entry.display">Template 588</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="673" ng-model="entry.display">Template 673</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' -->
+		</select>
+	</div>
+
+	<h4 class="">Spatial Location</h4>
+	<div class="form-spacing" style="margin-left: 10px;">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="spatial" ng-model="newProject.spatial"
+			tooltip-placement="right" tooltip="Focus area">
+			<option value="Has Spatial">Has Spatial</option>
+			<option value="No Spatial">No Spatial</option>
+		</select>
+	</div>
+	
+	<h4>Background/Problem</h4> 
+	<div class="background form-spacing">
+		<textarea class="form-control form-field" rows="10" cols="80"  ng-model="newProject.purpose"></textarea>
+	</div>
+
+	<h4>Objectives</h4> 
+	<div class="background form-spacing">
+		<textarea class="form-control form-field" rows="10" cols="80"  ng-model="newProject.objectives"></textarea>
+	</div>
+	
+	<h4>Description of Work</h4> 
+	<div class="form-spacing">
+		<textarea class="form-control form-field" rows="10" cols="80"  ng-model="newProject.work"></textarea>
+	</div>
+	
+	<h4>Relevance and Impact</h4> 
+	<div class="form-spacing">
+		<textarea class="form-control form-field" rows="10" cols="80"  ng-model="newProject.impact"></textarea>
+	</div>
+	
+	<h4>Planned Product</h4> 
+	<div class="form-spacing">
+		<textarea class="form-control form-field" rows="10" cols="80"  ng-model="newProject.product"></textarea>
+	</div>
+	
+	<h4>GLRI Keyword(s)</h4>	 
+	<div class="form-spacing" style="margin-left: 17px;">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="keywords" 
+			multiple="multiple" ng-model="newProject.keywords"
+		 	tooltip-placement="right" tooltip="Select applicable GLRI keywords. Projects are associated with one or more keywords.">
+			<option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="52" ng-model="entry.display">Template 52</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="66" ng-model="entry.display">Template 66</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="67" ng-model="entry.display">Template 67</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="68" ng-model="entry.display">Template 68</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="70" ng-model="entry.display">Template 70</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="71" ng-model="entry.display">Template 71</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="72" ng-model="entry.display">Template 72</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="73" ng-model="entry.display">Template 73</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="74" ng-model="entry.display">Template 74</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="75" ng-model="entry.display">Template 75</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="76" ng-model="entry.display">Template 76</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="77" ng-model="entry.display">Template 77</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="78" ng-model="entry.display">Template 78</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="79" ng-model="entry.display">Template 79</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="80" ng-model="entry.display">Template 80</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="81" ng-model="entry.display">Template 81</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="82" ng-model="entry.display">Template 82</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="84" ng-model="entry.display">Template 84</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="134" ng-model="entry.display">Template 134</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="137" ng-model="entry.display">Template 137</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="146" ng-model="entry.display">Template 146</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="147" ng-model="entry.display">Template 147</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="164" ng-model="entry.display">Template 164</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="183" ng-model="entry.display">Template 183</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="330" ng-model="entry.display">Template 330</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="332" ng-model="entry.display">Template 332</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="366" ng-model="entry.display">Template 366</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="367" ng-model="entry.display">Template 367</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="368" ng-model="entry.display">Template 368</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="382" ng-model="entry.display">Template 382</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="384" ng-model="entry.display">Template 384</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="588" ng-model="entry.display">Template 588</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="673" ng-model="entry.display">Template 673</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' -->
+		</select>
+	</div>
+	
+	<h4>SiGL Keyword(s)</h4>	 
+	<div class="form-spacing" style="margin-left: 17px;">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="sigl" 
+			multiple="multiple" ng-model="newProject.SiGL"
+		 	tooltip-placement="right" tooltip="Select applicable GLRI keywords. Projects are associated with one or more keywords.">
+			<option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="52" ng-model="entry.display">Template 52</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="66" ng-model="entry.display">Template 66</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="67" ng-model="entry.display">Template 67</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="68" ng-model="entry.display">Template 68</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="70" ng-model="entry.display">Template 70</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="71" ng-model="entry.display">Template 71</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="72" ng-model="entry.display">Template 72</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="73" ng-model="entry.display">Template 73</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="74" ng-model="entry.display">Template 74</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="75" ng-model="entry.display">Template 75</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="76" ng-model="entry.display">Template 76</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="77" ng-model="entry.display">Template 77</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="78" ng-model="entry.display">Template 78</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="79" ng-model="entry.display">Template 79</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="80" ng-model="entry.display">Template 80</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="81" ng-model="entry.display">Template 81</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="82" ng-model="entry.display">Template 82</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="84" ng-model="entry.display">Template 84</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="134" ng-model="entry.display">Template 134</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="137" ng-model="entry.display">Template 137</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="146" ng-model="entry.display">Template 146</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="147" ng-model="entry.display">Template 147</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="164" ng-model="entry.display">Template 164</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="183" ng-model="entry.display">Template 183</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="330" ng-model="entry.display">Template 330</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="332" ng-model="entry.display">Template 332</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="366" ng-model="entry.display">Template 366</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="367" ng-model="entry.display">Template 367</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="368" ng-model="entry.display">Template 368</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="382" ng-model="entry.display">Template 382</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="384" ng-model="entry.display">Template 384</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="588" ng-model="entry.display">Template 588</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' --><option class="ng-scope ng-modeling" ng-repeat="entry in transient.templateValues | orderBy:'sort'" value="673" ng-model="entry.display">Template 673</option><!-- end ngRepeat: entry in transient.templateValues | orderBy:'sort' -->
+		</select>
+	</div>
+	
+	<h4>Water Feature(s)</h4>	 
+	<div class="form-spacing" style="margin-left: 17px;">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="water" 
+			multiple="multiple" ng-model="newProject.water"
+		 	tooltip-placement="right" tooltip="Select applicable GLRI water bodies. Projects are associated with one or more water features.">
+			<option class="ng-scope ng-modeling">Lake Michigan</option>
+			<option class="ng-scope ng-modeling">Lake Erie</option>
+			<option class="ng-scope ng-modeling">Lake Huron</option>
+			<option class="ng-scope ng-modeling">Lake Superior</option>
+			<option class="ng-scope ng-modeling">Lake Ontario</option>
+			<option class="ng-scope ng-modeling">Lake St Clair</option>
+			<option class="ng-scope ng-modeling">Lake Michigan Basin</option>
+			<option class="ng-scope ng-modeling">Lake Erie Basin</option>
+			<option class="ng-scope ng-modeling">Lake Huron Basin</option>
+			<option class="ng-scope ng-modeling">Lake Superior Basin</option>
+			<option class="ng-scope ng-modeling">Lake Ontario Basin</option>
+			<option class="ng-scope ng-modeling">Lake St Clair Basin</option>
+			<option class="ng-scope ng-modeling">St Mary's Channel</option>
+			<option class="ng-scope ng-modeling">St Lawrence Channel</option>
+			<option class="ng-scope ng-modeling">Detroit Channel</option>
+			<option class="ng-scope ng-modeling">Niagara Channel</option>
+			<option class="ng-scope ng-modeling">St Clair/Detroit River System</option>
+		</select>
+	</div>
+		
+	<h4>External Organization Contacts</h4>  
+	<div class="point-of-contact form-spacing">
+		<textarea class="form-control form-field" rows="10" cols="40"  ng-model="newProject.organizations"></textarea>
+	</div>
+	
+	<h4>Points of Contact</h4>  
+	<div class="point-of-contact form-spacing">
+		<textarea class="form-control form-field" rows="10" cols="40"  ng-model="newProject.contacts"></textarea>
+	</div>
+	
+	<p class="form-spacing">
+		<button id="discard" class="btn btn-primary pull-left">Discard</button>
+		<button id="save" class="btn btn-primary pull-right" ng-click="save()">Save</button>	
+	</p>	
+	
+</div>
+
+
+<div id="contentBrowseDetail" class="clearfix glri_content imageContent">
+	<h4>Project Image</h4>
+	<img id="imageTarget" href=""></img>
+</div>
+
+
+<div class="col-xs-12">
+					<div id="usgs-footer-panel" class="">
+    <div id="footer" style="width: 100%; margin-right: -1em;">
+        <div id="usgs-policy-links">
+            <h4 class="access-help">USGS Policy Information Links</h4>
+            <ul class="hnav">
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/accessibility.html',0);_sendEvent('Outbound','www.usgs.gov','/accessibility.html',0);" href="http://www.usgs.gov/accessibility.html" title="USGS web accessibility policy">Accessibility</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/foia/',0);_sendEvent('Outbound','www.usgs.gov','/foia/',0);" href="http://www.usgs.gov/foia/" title="USGS Freedom of Information Act information">FOIA</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/privacy.html',0);_sendEvent('Outbound','www.usgs.gov','/privacy.html',0);" href="http://www.usgs.gov/privacy.html" title="USGS privacy policies">Privacy</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/policies_notices.html',0);_sendEvent('Outbound','www.usgs.gov','/policies_notices.html',0);" href="http://www.usgs.gov/policies_notices.html" title="USGS web policies and notices">Policies and Notices</a></li>
+            </ul>
+        </div><!-- end usgs-policy-links -->
+        <div class="content">
+            <div id="page-info">
+                <p id="footer-doi-links">
+                    <span class="vcard">
+                        <a onmousedown="_sendEvent('Outbound','www.doi.gov','/',0);_sendEvent('Outbound','www.doi.gov','/',0);" class="url fn org" href="http://www.doi.gov/" title="Link to the main DOI web site">U.S. Department of the Interior</a>
+                        <span class="adr">
+                            <span class="street-address">1849 C Street, N.W.</span><br>
+                            <span class="locality">Washington</span>, <span class="region">DC</span>
+                            <span class="postal-code">20240</span>
+                        </span>
+                        <span class="tel">202-208-3100</span>
+                    </span><!-- vcard --> | 
+                    <span class="vcard">
+                        <a onmousedown="_sendEvent('Outbound','www.usgs.gov','/',0);_sendEvent('Outbound','www.usgs.gov','/',0);" class="url fn org" href="http://www.usgs.gov" title="Link to the main USGS web site">U.S. Geological Survey</a>
+                        <span class="adr">
+                            <span class="post-office-box">Box 25286</span><br>
+                            <span class="locality">Denver</span>, <span class="region">CO</span>
+                            <span class="postal-code">8022</span>
+                        </span>
+                    </span><!-- vcard -->
+                </p>
+                <p id="footer-url-info">URL: <script type="text/javascript">document.write(document.location.href);</script>http://cida.usgs.gov/glri/#/Search</p>
+                <p id="footer-contact-info">Page Contact Information: <a onmousedown="_sendEvent('Outbound MailTo','glri-database@usgs.gov','',0);_sendEvent('Outbound MailTo','glri-database@usgs.gov','',0);" href="mailto:glri-database@usgs.gov">GLRI Help</a></p>
+                <p id="footer-page-modified-info">Page Last modified: 2015-08-27 10:44 (version 0.5.12)</p>
+            </div><!-- /page-info -->
+            <div id="gov-buttons">
+                <a onmousedown="_sendEvent('Outbound','www.firstgov.gov','/',0);_sendEvent('Outbound','www.firstgov.gov','/',0);" title="link to the official US Government web portal" href="http://firstgov.gov/">
+                    <img src="./template/images/footer_graphic_firstGov.jpg" alt="FirstGov button">
+                </a>
+                <a onmousedown="_sendEvent('Outbound','www.takepride.gov','/',0);_sendEvent('Outbound','www.takepride.gov','/',0);" title="Link to Take Pride in America, a volunteer organization that helps to keep America's public lands beautiful." href="http://www.takepride.gov/">
+                    <img src="./template/images/footer_graphic_takePride.jpg" alt="Take Pride in America button">
+                </a>
+            </div><!-- /gov-buttons -->
+        </div><!-- /content -->
+    </div><!-- /footer -->
+</div><!-- /footer panel -->
+
+
+				</div>
+
+</body>
+<script>
+
+
+$(document).ready(function() {
+	  $('.datepickers').datepicker({
+		    todayBtn      : true,
+		    autoclose     : true,
+		    todayHighlight: true,
+		    startView     : 'year',
+		    format        : "mm-dd-yyyy",
+	  });
+	
+	  $("#dmPlan").select2Buttons({noDefault: true});
+	  $("#project_status").select2Buttons({noDefault: true});
+	  $("#duration").select2Buttons({noDefault: true});
+	  $("#entry_type").select2Buttons({noDefault: true});
+	  $("#spatial").select2Buttons({noDefault: true});
+
+	  $("#focus_area").select2Buttons({noDefault: true});
+	  
+	  $("#templates").select2({placeholder: "Select funding templates",});
+	  $("#keywords").select2({placeholder: "Select keywords",});
+	  $("#sigl").select2({placeholder: "Select SiGL keywords",});
+	  $("#water").select2({placeholder: "Select Water Bodies",});
+});
+
+var GLRINewProjectApp = angular.module('GLRINewProjectApp', []);
+
+GLRINewProjectApp.value('LOOKUPS', {
+	Water_Features: "https://www.sciencebase.gov/vocab/53d178fde4b0536257c34170?/termsformat=json",
+	Focus_Areaa: "https://www.sciencebase.gov/vocab/53ab40fee4b0282c77bc73c7/terms?format=json",
+	Templates: "https://www.sciencebase.gov/vocab/53da7288e4b0fae13b6deb73/terms?format=json",
+	SiGL_Keywords: "https://www.sciencebase.gov/vocab/53b43ce9e4b03f6519cab96c/terms?format=json",
+});
+
+
+GLRINewProjectApp.controller('NewProjectCtrl',
+['$scope', '$http', '$filter', 'LOOKUPS', 
+function($scope, $http, $filter, LOOKUPS) {
+	$scope.newProject = {};
+	$scope.save = function() {
+		console.log($scope.newProject);
+	}
+}]);
+
+
+</script>
+
+</html>
+
+
+
+<!-- 
+
+
+ -->
+
