@@ -22,22 +22,29 @@ jQuery.fn.select2Buttons = function(options) {
       if (optGroup.attr('label')){
         buttonsHtml.append('<strong>' + optGroup.attr('label') + '</strong>');
       }
+
+      // there is an incompatibility with angluar where ng adds a default empty value that this tool cannot handle
       var indexDelta = 0;
+
       var ulHtml =  $('<ul class="select-buttons">');
       optGroup.children('option').each(function(){
         var liHtml = $('<li></li>');
+        
+        // there is an incompatibility with angluar where ng adds a default empty value that this tool cannot handle
         if ($(this).html() === '') {
-            liHtml = '';
-            indexDelta = 1;
+          liHtml = '';
+          indexDelta = 1;
         } else if ($(this).attr('disabled') || select.attr('disabled')){
           liHtml.addClass('disabled');
           liHtml.append('<span>' + $(this).html() + '</span>');
-        }else{
+        } else {
+          // there is an incompatibility with angluar where ng adds a default empty value that this tool cannot handle
           liHtml.append('<a href="#" data-select-index="' + (selectIndex-indexDelta) + '">' + $(this).html() + '</a>');
         }
 
         // Mark current selection as "picked"
-        if((!options || !options.noDefault) && select.attr("selectedIndex") == selectIndex-indexDelta){
+        // there is an incompatibility with angluar where ng adds a default empty value that this tool cannot handle
+        if ((!options || !options.noDefault) && select.attr("selectedIndex") == selectIndex-indexDelta){
           liHtml.children('a, span').addClass('picked');
         }
         ulHtml.append(liHtml);
@@ -50,7 +57,7 @@ jQuery.fn.select2Buttons = function(options) {
     var optGroups = select.children('optgroup');
     if (optGroups.length == 0) {
       addOptGroup(select);
-    }else{
+    } else {
       optGroups.each(function(){
         addOptGroup($(this));
       });
@@ -63,6 +70,11 @@ jQuery.fn.select2Buttons = function(options) {
 
       buttonsHtml.find('a, span').removeClass('picked');
       $(this).addClass('picked');
+      $(select.find('option')[$(this).attr('data-select-index')]).attr('selected', 'selected');
+      select.trigger('change');
+      
+      // there is an incompatibility with angular where ng requires this repeat call for the initial selection
+      // this could be DRYer and it could also only fire on initial selection
       $(select.find('option')[$(this).attr('data-select-index')]).attr('selected', 'selected');
       select.trigger('change');
     });
