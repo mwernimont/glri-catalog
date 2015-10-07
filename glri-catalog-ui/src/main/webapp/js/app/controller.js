@@ -2,8 +2,8 @@
 
 
 GLRICatalogApp.controller('CatalogCtrl',
-['$scope', '$http', '$filter', 'Status', 'Nav', 'FocusAreaManager', 'ScienceBase',
-function($scope, $http, $filter, Status, Nav, FocusAreaManager, ScienceBase) {
+['$scope', 'Status', 'Nav', 'FocusAreaManager', 'ScienceBase',
+function($scope, Status, Nav, FocusAreaManager, ScienceBase) {
 
 	$scope.nav            = Nav;
 	$scope.status         = Status;

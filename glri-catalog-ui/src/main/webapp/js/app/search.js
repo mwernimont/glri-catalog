@@ -3,8 +3,8 @@
 
 // the mediator between search nav and content
 GLRICatalogApp.service('Search',
-['$http', '$filter', '$timeout', 'Pagination', 'ScienceBase', 'Status',
-function($http, $filter, $timeout, pager, ScienceBase, Status) {
+['$filter', '$timeout', 'Pagination',
+function($filter, $timeout, pager) {
 	
 	var ctx = this;
 	
@@ -96,8 +96,8 @@ function($http, $filter, $timeout, pager, ScienceBase, Status) {
 
 
 GLRICatalogApp.controller('SearchNavCtrl',
-['$scope', '$http', '$filter', '$timeout', 'Pagination', 'ScienceBase', 'Status', 'Search',
-function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
+['$scope', '$http', 'ScienceBase', 'Search',
+function($scope, $http, ScienceBase, Search) {
 	
 	$scope.state         = Search.state;
 	$scope.FACET_DEFS    = Search.FACET_DEFS;
@@ -121,7 +121,7 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 	};
 	
 
-	// asdf ScienceBase	
+	// TODO move to ScienceBase	mod?
 	/**
 	 * For the main (non-nested child) records, read response metadata and add
 	 * extra properties to the records.
@@ -148,7 +148,7 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 	}
 	
 	
-	// asdf ScienceBase	
+	// TODO move to ScienceBase	mod?
 	$scope.loadSearchData = function(model,success,error) {
 		
 		$http.get( ScienceBase.buildSearchUrl(model) )
@@ -192,7 +192,7 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 	}
 
 	
-	// asdf ScienceBase	
+	// TODO move to ScienceBase	mod?
 	/**
 	 * Loads the template picklist from the vocab service.
 	 * @returns void
@@ -346,8 +346,8 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 
 
 GLRICatalogApp.controller('SearchCtrl',
-['$scope', '$http', '$filter', '$timeout', 'Pagination', 'ScienceBase', 'Status', 'Search',
-function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
+['$scope', 'Search',
+function($scope, Search) {
 
 	$scope.state   = Search.state;
 	
