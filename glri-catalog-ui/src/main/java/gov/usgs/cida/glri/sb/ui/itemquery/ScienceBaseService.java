@@ -4,8 +4,6 @@
  */
 package gov.usgs.cida.glri.sb.ui.itemquery;
 
-import com.google.common.io.CharStreams;
-import gov.usgs.cida.glri.sb.ui.AppConfig;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -13,10 +11,15 @@ import java.io.PrintWriter;
 import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import com.google.common.io.CharStreams;
+
+import gov.usgs.cida.glri.sb.ui.AppConfig;
 
 /**
  *
@@ -39,12 +42,10 @@ public class ScienceBaseService extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		
-		
-		
 		PrintWriter out = response.getWriter();
 		
-		if ("true".equalsIgnoreCase(AppConfig.get(AppConfig.SCIENCEBASE_GLRI_LOCAL_DEV_MODE))) {
+		String devMode = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_LOCAL_DEV_MODE);
+		if ( "true".equalsIgnoreCase(devMode) ) {
 			//just return our static json file - we are running in dev mode and
 			//probably can't reach the sb server anyways.
 
