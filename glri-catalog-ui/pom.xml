@@ -21,8 +21,9 @@
 		<json.simple.version>1.1.1</json.simple.version>
 		<commonslang.version>3.1</commonslang.version>
 		<guava.version>16.0</guava.version>
-		<dynamicProperties.version>1.0.1</dynamicProperties.version>
 		<openlayers.version>2.13.1</openlayers.version>
+		<dynamicProperties.version>1.0.1</dynamicProperties.version>
+		<logback.version>1.0.1</logback.version>
 	
 		<jquery.version>2.1.4</jquery.version>
 		<bootstrap.version>3.3.4</bootstrap.version>
@@ -33,6 +34,7 @@
 		<bootstrap.datepicker.version>1.4.0</bootstrap.datepicker.version>
 		<select2.version>4.0.0-2</select2.version>
 		<select2.path.version>4.0.0</select2.path.version>
+		<angular.select.version>0.12.1</angular.select.version>
 	</properties>
 
     <dependencies>
@@ -72,6 +74,12 @@
 		  <groupId>gov.usgs.cida</groupId>
 		  <artifactId>dynamicProperties</artifactId>
 		  <version>${dynamicProperties.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-classic</artifactId>
+		    <version>${logback.version}</version>
+		    <scope>runtime</scope>
 		</dependency>
 		
 		<!-- JavaScript Dependencies -->
@@ -150,7 +158,11 @@
 		    <artifactId>select2</artifactId>
 		    <version>${select2.version}</version>
 		</dependency>
-		
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>angular-ui-select</artifactId>
+		    <version>${angular.select.version}</version>
+		</dependency>
     </dependencies>
 
 	<profiles>
@@ -290,6 +302,15 @@
 								    <groupId>org.webjars</groupId>
 								    <artifactId>select2</artifactId>
 								    <version>${select2.version}</version>
+	                                <type>jar</type>
+	                                <overWrite>true</overWrite>
+	                                <outputDirectory>target</outputDirectory>
+	                                <includes>**/*</includes>
+								</artifactItem>
+								<artifactItem>
+								    <groupId>org.webjars</groupId>
+								    <artifactId>angular-ui-select</artifactId>
+								    <version>${angular.select.version}</version>
 	                                <type>jar</type>
 	                                <overWrite>true</overWrite>
 	                                <outputDirectory>target</outputDirectory>

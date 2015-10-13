@@ -36,7 +36,40 @@ h4 {
     color: darkblue;
     font-size: inherit;
     min-width: 100px;
-  	}
+ }
+
+.imageContent {
+	float:left;
+	margin-top:50px;
+	display:none;
+}
+
+#imageTarget {
+	margin-left:17px;
+	border:1px solid;
+	min-width:100px;
+	min-height:100px;
+	padding:1px;
+}
+
+.ui-select-search,
+.ui-select-match-item span,
+.ui-select-choices-row a span
+{
+	font-size: 15px;
+	font-weight: bold;
+	color: #036;
+}
+
+.ui-select-choices-group .active a span {
+	color: white;
+}
+
+
+
+/*
+These were devised for native select2
+*/
 
 .select2-container--default .select2-selection--multiple .select2-selection__choice {
     background-color: #036;
@@ -76,16 +109,3 @@ h4 {
     z-index: 1051;
 }
 
-.imageContent {
-	float:left;
-	margin-top:50px;
-	display:none;
-}
-
-#imageTarget {
-	margin-left:17px;
-	border:1px solid;
-	min-width:100px;
-	min-height:100px;
-	padding:1px;
-}

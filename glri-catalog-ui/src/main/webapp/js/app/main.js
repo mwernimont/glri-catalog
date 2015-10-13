@@ -7,7 +7,7 @@ function isDefined(obj) {
 }
 
 
-var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap','ngSanitize']);
+var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap','ngSanitize', 'ui.select']);
 
 
 GLRICatalogApp.value('Status', {
