@@ -4,8 +4,35 @@
 GLRICatalogApp.service('ScienceBase', 
 ['$http', 'Status', 'FocusAreaManager', '$rootScope',
 function($http, Status, FocusAreaManager, $rootScope){
-	
+
 	var ctx = this;
+	ctx.vocabs =  {
+//		Water_Features: "https://www.sciencebase.gov/vocab/53d178fde4b0536257c34170?/termsformat=json",
+//		Focus_Areaa: "https://www.sciencebase.gov/vocab/53ab40fee4b0282c77bc73c7/terms?format=json",
+//		Templates: "https://www.sciencebase.gov/vocab/53da7288e4b0fae13b6deb73/terms?format=json",
+//		SiGL_Keywords: "https://www.sciencebase.gov/vocab/53b43ce9e4b03f6519cab96c/terms?format=json",
+		
+		water_features: "53d178fde4b0536257c34170",
+		focus_areaa   : "53ab40fee4b0282c77bc73c7",
+		templates     : "53da7288e4b0fae13b6deb73",
+		SiGL_keywords : "53b43ce9e4b03f6519cab96c",
+	}
+	
+	
+	//Called at the bottom of this JS file
+	var init = function() {
+
+		for (var vocab in ctx.vocabs) {
+			//The array of funding templates to choose from.  Init as "Any", but async load from vocab server.
+			Status[vocab] =  [ 
+				{key: "xxx", display:"...loading list...", sort: 0},
+			];
+		}
+		
+		for (var vocab in ctx.vocabs) {
+			ctx.doVocabLoad(vocab);
+		}
+	}
 	
 	
 	//These are the Google Analytics custom metrics for each search param.
@@ -21,6 +48,8 @@ function($http, Status, FocusAreaManager, $rootScope){
 		spatial: 6,
 		template: 7
 	};
+
+	
 
 	
 	
@@ -448,4 +477,41 @@ function($http, Status, FocusAreaManager, $rootScope){
 		return url;
 	}
 
+
+	
+	//remove the 'loading' message at index 1
+	var removeLoading = function(array,index) {
+		array.splice(index, 1);
+	}
+	
+	ctx.doVocabLoad = function(vocab) {
+		
+		$http({method: 'GET', url: 'ScienceBaseVocabService?format=json&parentId='+ctx.vocabs[vocab]})
+		.success(function(data, status, headers, config) {
+			removeLoading(Status[vocab],0);
+
+			for (var i = 0; i < data.list.length; i++) {
+				var o = {};
+				o.key = data.list[i].name;
+				o.display = o.key;
+				
+				//take all digits at the end, ignoring any trailing spaces.
+				o.sort = Number(o.key.match(/(\d*)\s*$/)[1]);
+				
+				Status[vocab].push(o);
+			}
+		})
+		.error(function(data, status, headers, config) {
+			removeLoading(Status[vocab],0);
+			//just put in a message in the pick-list - no alert.
+			Status[vocab].push({
+				key: "", display:"(!) Failed to load list", sort: 0
+			});
+		});
+	}	
+
+	
+	init();
+	
+	
 }])

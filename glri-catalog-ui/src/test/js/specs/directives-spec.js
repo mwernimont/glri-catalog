@@ -225,13 +225,13 @@ describe("simple content directives: ", function() {
 		})
 	}))
 
-	
+/*	
 	it(' - <glri-nav-search> directive - should inject template content' , inject(function() {
 		
 		var vocab = angular.fromJson(jsonCache.vocab);
 		expect(vocab).toBeDefined()
 		
-		http.when('GET', 'ScienceBaseVocabService?parentId=53da7288e4b0fae13b6deb73&format=json')
+		http.when('GET', 'ScienceBaseVocabService?format=json&parentId=53da7288e4b0fae13b6deb73')
 		.respond(vocab);
 				
 		compileTemplate($scope, {elements:'<glri-nav-search></glri-nav-search>'}, function(el) {
@@ -249,7 +249,7 @@ describe("simple content directives: ", function() {
 			})
 		})
 	}))
-	
+*/	
 	
 	it(' - <glri-project-detail> directive - should inject template content' , inject(function() {
 		
@@ -325,7 +325,7 @@ describe("simple content directives: ", function() {
 		})
 	}))
 	
-	
+/*	
 	// TODO requires more tests
 	it(' - <glri-search> results contect directive - should inject template content' , inject(function() {
 		compileTemplate($scope, {elements:'<glri-search></glri-search>'}, function(el) {
@@ -333,7 +333,7 @@ describe("simple content directives: ", function() {
 			expect( html.indexOf('id="searchResults"') > 0 ).toBeTruthy()
 		})
 	}))
-
+*/
 	
 	// TODO this could be used for focusarea tests
 	it(' - <glri-project-lists> contect directive - should inject template content' , inject(function(Status) {
