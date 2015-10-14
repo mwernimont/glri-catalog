@@ -7,7 +7,7 @@ function($http, Status, FocusAreaManager, $rootScope){
 
 	var ctx = this;
 	ctx.vocabs =  {
-//		Water_Features: "https://www.sciencebase.gov/vocab/53d178fde4b0536257c34170?/termsformat=json",
+//		Water_Features: "https://www.sciencebase.gov/vocab/53d178fde4b0536257c34170/terms?format=json",
 //		Focus_Areaa: "https://www.sciencebase.gov/vocab/53ab40fee4b0282c77bc73c7/terms?format=json",
 //		Templates: "https://www.sciencebase.gov/vocab/53da7288e4b0fae13b6deb73/terms?format=json",
 //		SiGL_Keywords: "https://www.sciencebase.gov/vocab/53b43ce9e4b03f6519cab96c/terms?format=json",
