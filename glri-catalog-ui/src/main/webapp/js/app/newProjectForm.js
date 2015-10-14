@@ -303,5 +303,4 @@ var buildNewProject = function(data) {
     '}'	
 	
 	return newProject
-	
 }
