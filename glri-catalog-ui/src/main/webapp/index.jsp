@@ -2,18 +2,14 @@
 <html lang="en" ng-app="GLRICatalogApp">
 	<head>
  	<title>USGS Great Lakes Restoration Initiative (GLRI)</title>
-		<%
-			//Set a relative path to the root (useful when pages are not at the root)
-			pageContext.setAttribute("rootPath", ".");
-		%>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" /> <%-- Bootstrap mobile scaling directive --%>
         <meta http-equiv="X-UA-Compatible" content="IE=11">
 
-		<link href="${pageScope.rootPath}/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+		<link href="./favicon.ico" rel="shortcut icon" type="image/x-icon" />
 		
-		<jsp:include page="${pageScope.rootPath}/template/USGSHead.jsp">
-			<jsp:param name="relPath" value="${pageScope.rootPath}/" />
+		<jsp:include page="./template/USGSHead.jsp">
+			<jsp:param name="relPath" value="./" />
 			<jsp:param name="shortName" value="USGS Great Lakes Restoration Initiative (GLRI)" />
 			<jsp:param name="title" value="Great Lakes Restoration Initiative (GLRI) Home" />
 			<jsp:param name="description" value="The GLRI home page with infomation about all GLRI projects." />
@@ -25,47 +21,49 @@
 			<jsp:param name="expires" value="Never" />
 		</jsp:include>
 
-		<script type="text/javascript" src="${pageScope.rootPath}/webjars/jquery/2.1.0/jquery.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}/webjars/angularjs/1.2.16/angular.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}/webjars/angular-sanitize/1.2.16/angular-sanitize.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}/webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}/webjars/openlayers/2.13.1/OpenLayers.js"></script>
 
-		<script type="text/javascript" src="${pageScope.rootPath}/js/app/main.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}/js/app/focusAreaManager.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}/js/app/sciencebase.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}/js/app/nav.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}/js/app/controller.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}/js/app/recordManager.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}/js/app/pagination.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}/js/app/search.js"></script>
-		<script type="text/javascript" src="${pageScope.rootPath}/js/app/directives.js"></script>
+		<script type="text/javascript" src="./webjars/jquery/${jquery.version}/jquery.js"></script>
+		<script type="text/javascript" src="./webjars/angularjs/${angular.version}/angular.js"></script>
+		<script type="text/javascript" src="./webjars/angular-sanitize/${angular.sanitize.version}/angular-sanitize.js"></script>
+		<script type="text/javascript" src="./webjars/angular-ui-bootstrap/${angular.bootstrap.version}/ui-bootstrap-tpls.js"></script>
+		<script type="text/javascript" src="./webjars/angular-ui-select/${angular.select.version}/select.min.js"></script>
+		<script type="text/javascript" src="./webjars/openlayers/2.13.1/OpenLayers.js"></script>
+
+		<script type="text/javascript" src="./js/app/main.js"></script>
+		<script type="text/javascript" src="./js/app/focusAreaManager.js"></script>
+		<script type="text/javascript" src="./js/app/sciencebase.js"></script>
+		<script type="text/javascript" src="./js/app/nav.js"></script>
+		<script type="text/javascript" src="./js/app/controller.js"></script>
+		<script type="text/javascript" src="./js/app/recordManager.js"></script>
+		<script type="text/javascript" src="./js/app/pagination.js"></script>
+		<script type="text/javascript" src="./js/app/search.js"></script>
+		<script type="text/javascript" src="./js/app/directives.js"></script>
 		
-		<script type="text/javascript" src="${pageScope.rootPath}/js/app/cida-analytics.js"></script>
+		<script type="text/javascript" src="./js/app/cida-analytics.js"></script>
 		<script type="application/javascript" src="http://www.usgs.gov/scripts/analytics/usgs-analytics.js"></script>
 
 		<!-- Twitter Bootstrap & theme-->
-		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}/webjars/bootstrap/3.1.1/css/bootstrap.css"/>
-		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}/style/themes/theme1.css"/>
+		<link rel="stylesheet" type="text/css" href="./webjars/bootstrap/${bootstrap.version}/css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="./style/themes/theme1.css">
 
 		<!-- legacy css -->
-		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}/css/dynamic.css">
-		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}/css/style.css"></link>
-		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}/css/layout.css"></link>
-		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}/css/common.css"></link>
-		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}/css/dropdown2.css"></link>
-		<link type="text/css" rel="stylesheet" href="${pageScope.rootPath}/css/theme.css"></link>
+		<link type="text/css" rel="stylesheet" href="./css/dynamic.css">
+		<link type="text/css" rel="stylesheet" href="./css/style.css"></link>
+		<link type="text/css" rel="stylesheet" href="./css/layout.css"></link>
+		<link type="text/css" rel="stylesheet" href="./css/common.css"></link>
+		<link type="text/css" rel="stylesheet" href="./css/dropdown2.css"></link>
+		<link type="text/css" rel="stylesheet" href="./css/theme.css"></link>
 
 		<!-- Application custom -->
-		<link rel="stylesheet" type="text/css" href="${pageScope.rootPath}/css/glri.css" />
+		<link rel="stylesheet" type="text/css" href="./css/glri.css" />
 		
 	</head>
 	<body  ng-controller="CatalogCtrl">
 		<div id="container" class="container">
 			<div class="row">
 				<div class="col-xs-12">
-					<jsp:include page="${pageScope.rootPath}/templates/header.jsp">
-						<jsp:param name="relPath" value="${pageScope.rootPath}/" />
+					<jsp:include page="./templates/header.jsp">
+						<jsp:param name="relPath" value="./" />
 						<jsp:param name="header-class" value="" />
 						<jsp:param name="site-title" value="Great Lakes Restoration Initiative (GLRI)" />
 					</jsp:include>
@@ -147,8 +145,8 @@
 			
 			<div id="footerContainer" class="row">
 				<div class="col-xs-12">
-					<jsp:include page="${pageScope.rootPath}/templates/footer.jsp">
-						<jsp:param name="relPath" value="${pageScope.rootPath}/" />
+					<jsp:include page="./templates/footer.jsp">
+						<jsp:param name="relPath" value="./" />
 						<jsp:param name="header-class" value="" />
 						<jsp:param name="site-url" value="" />
 						<jsp:param name="contact-info" value="<a href=\"mailto:glri-database@usgs.gov\">GLRI Help</a>" />
