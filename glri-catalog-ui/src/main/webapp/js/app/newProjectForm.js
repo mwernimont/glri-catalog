@@ -12,12 +12,6 @@ $(document).ready(function() {
 	  $("#duration").select2Buttons({noDefault: true});
 	  $("#entry_type").select2Buttons({noDefault: true});
 	  $("#spatial").select2Buttons({noDefault: true});
-		
-/**	  
-	  $("#templates").select2({placeholder: "Select funding templates",});
-	  $("#sigl").select2({placeholder: "Select SiGL keywords",});
-	  $("#water").select2({placeholder: "Select Water Bodies",});
-*/
 });
 
 
@@ -69,8 +63,57 @@ var concatIfExists = function(label, additional) {
 }
 
 
-var concatContacts = function(contacts) {
-/*
+var parseContact = function(contact) {
+	var name  = ""
+	var email = contact.match(/\S+@\S+/);
+	if (email && email[0]) {
+		name  = contact.replace(email[0],'').trim();
+	}
+	if ( name!==undefined && name.length>1 &&
+			email!==undefined && email[0]!==undefined && email[0].length>=5 ) {
+		return {name:name, email:email[0]}
+	}
+	return undefined
+}
+
+
+var splitComma = function(text) {
+	return text.split(/\s*,\s*/);
+}
+
+
+var CONTACT_PRINCIPAL = "Principal Investigator"
+var CONTACT_CHIEF     = "Associate Project Chief"
+var CONTACT_ORG       = "Cooperator/Partner"
+var CONTACT_TEAM      = "Contact"
+
+var createContact = function(type, contact) {
+	var contact = parseContact(contact)
+	
+	if (contact === undefined) {
+		return ""
+	}
+	
+	contact.active = true
+	contact.type = type
+	contact.contactType= "person"
+	if (CONTACT_ORG === type) {
+		contact.contactType= "organization"
+	}
+	
+	return angular.toJson(contact)
+}
+
+var concatContacts = function(type, contacts) {
+	var contacts = splitComma(contacts)
+	
+	var jsonContacts = ""
+	for (var c=0; c<contacts.length; c++) {
+		jsonContacts += createContact(type, contacts[s])
+	}
+	return jsonContacts + ","
+}
+/* sample contact details
 		      {
 		         "name": "Kurt P Kowalski",
 		         "oldPartyId": 5668,
@@ -199,7 +242,6 @@ var concatContacts = function(contacts) {
 		         }
 		      }
  */	
-}
 
 var VOCAB_FOCUS    = "category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea"
 var VOCAB_KEYWORD  = "GLRI/keyword"
@@ -218,7 +260,7 @@ var createTag = function(scheme, name) {
 	return tag;
 }
 var concatTagsComma = function(scheme, tags) {
-	tags = tags.split(',')
+	tags = splitComma(tags)
 	
 	var commaTags = ""
 	for (var tag=0; tag<tags.length; tag++) {
@@ -243,7 +285,10 @@ var buildNewProject = function(data) {
 	body += concatIfExists("<h4>Relevance &amp; Impact<\/h4> ", data.impact);
 	body += concatIfExists("<h4>Planned Products<\/h4> ", data.product);
 	
-	var contacts  = concatContacts(data.contacts);
+	var principal = concatContacts(CONTACT_PRINCIPAL,data.principal);
+	var chief     = concatContacts(CONTACT_CHIEF,data.chief);
+	var orgs      = concatContacts(CONTACT_ORG,data.organizations);
+	var contacts  = concatContacts(CONTACT_TEAM,data.contacts);
 	
 	var focus     = concatTagsComma(VOCAB_FOCUS,data.focusArea);
 	var keywords  = concatTagsComma(VOCAB_KEYWORD,data.keywords);
@@ -262,7 +307,7 @@ var buildNewProject = function(data) {
 	'	   "body": "' +body+ '",'+
 	'	   "purpose": "' +data.purpose+ '",'+
 	'	   "parentId": "52e6a0a0e4b012954a1a238a",'+
-	'	   "contacts": [' + contacts + '],'+
+	'	   "contacts": [' + principal + chief + orgs + contacts + '],'+
 	'	   "browseCategories": ["Project"],'+
 	'	   "tags": [' + focus+ keywords + sigl + water + templates + spatial + entryType + duration +
 	'	      {'+
