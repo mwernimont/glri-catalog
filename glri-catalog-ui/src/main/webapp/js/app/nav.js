@@ -2,7 +2,7 @@
 
 GLRICatalogApp.service('Nav', 
 ['$http', '$location', 'Status', 'FocusAreaManager', '$rootScope', 'ScienceBase', 'RecordManager',
-function($http, $location, status, FocusAreaManager, $rootScope, ScienceBase, RecordManager) {
+function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, RecordManager) {
 	
 	var ctx = this;
 	window.Nav = ctx;
@@ -52,7 +52,7 @@ function($http, $location, status, FocusAreaManager, $rootScope, ScienceBase, Re
 	
 	ctx.setNavRoot = function(nav) {
 		FocusAreaManager.currentFocusArea = FocusAreaManager.areasByType['all'];
-		status.currentItem = undefined;
+		Status.currentItem = undefined;
 		ctx.currentNav = [nav];
 	}
 	
@@ -80,7 +80,7 @@ function($http, $location, status, FocusAreaManager, $rootScope, ScienceBase, Re
 		
 		  try {
 		
-			status.isCaptureHistory = false;		
+			Status.isCaptureHistory = false;
 		
 			if ($location.path() && $location.path().length>2) {
 				var parts = location.hash.split(/\/+/);
@@ -137,7 +137,7 @@ function($http, $location, status, FocusAreaManager, $rootScope, ScienceBase, Re
 				ctx.doNavRoot(ctx.navNames[0]);
 			}
 		  } finally {
-		  	status.isCaptureHistory = true;
+			Status.isCaptureHistory = true;
 		  }
 		}
 	

@@ -1,0 +1,338 @@
+<html ng-app="GLRICatalogApp">
+<head>
+
+	<style type="text/css">
+		@charset "UTF-8";
+		[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}
+		ng\:form{display:block;}
+		.ng-animate-block-transitions{transition:0s all!important;-webkit-transition:0s all!important;}
+	</style>
+ 	<title>USGS Great Lakes Restoration Initiative (GLRI)</title>
+		
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+
+	<link href="./favicon.ico" rel="shortcut icon" type="image/x-icon">
+		
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>USGS Great Lakes Restoration Initiative (GLRI)</title>
+	<meta name="description" content="The GLRI home page with infomation about all GLRI projects.">
+	<meta name="title"     content="Great Lakes Restoration Initiative (GLRI) Home">
+	<meta name="author"    content="Great Lakes Restoration Initiative (GLRI), GLRI">
+	<meta name="keywords"  content="Great Lakes Restoration Initiative, GLRI, ScienceBase">
+	<meta name="publisher" content="">
+	<meta name="country"   content="USA">
+	<meta name="language"  content="EN">
+	<meta name="revised"   content="2015-08-27 10:44">
+	<meta name="review"    content="">
+	<meta name="expires"   content="Never">
+	
+	<link type="text/css" rel="stylesheet" href="./template/css/usgs_common.css">
+	<link type="text/css" rel="stylesheet" href="./template/css/usgs_style_main.css">
+	<link type="text/css" rel="stylesheet" href="./css/custom.css">
+	
+	<script src="//www.youtube.com/iframe_api"></script>
+	<script async="" src="http://s.ytimg.com/yts/jsbin/www-widgetapi-vflRC6hVw/www-widgetapi.js" id="www-widgetapi-script" type="text/javascript"></script>
+
+	<script type="text/javascript" src="./webjars/jquery/${jquery.version}/jquery.js"></script>
+	<script type="text/javascript" src="./webjars/angularjs/${angular.version}/angular.js"></script>
+	<script type="text/javascript" src="./webjars/angular-sanitize/${angular.sanitize.version}/angular-sanitize.js"></script>
+	<script type="text/javascript" src="./webjars/angular-ui-bootstrap/${angular.bootstrap.version}/ui-bootstrap-tpls.js"></script>
+	<script type="text/javascript" src="./webjars/angular-ui-select/${angular.select.version}/select.min.js"></script>
+	<script type="text/javascript" src="./webjars/bootstrap-datepicker/${bootstrap.datepicker.version}/js/bootstrap-datepicker.min.js"></script>
+
+	<!-- Twitter, Bootstrap, & themes -->
+	<link rel="stylesheet" type="text/css" href="./webjars/bootstrap/${bootstrap.version}/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="./style/themes/theme1.css">
+	<link rel="stylesheet" type="text/css" href="./webjars/angular-ui-select/${angular.select.version}/select.min.css" >
+	<link rel="stylesheet" type="text/css" href="./webjars/bootstrap-datepicker/${bootstrap.datepicker.version}/css/bootstrap-datepicker.min.css">
+
+	<!-- legacy css -->
+	<link type="text/css" rel="stylesheet" href="./css/dynamic.css">
+	<link type="text/css" rel="stylesheet" href="./css/style.css">
+	<link type="text/css" rel="stylesheet" href="./css/layout.css">
+	<link type="text/css" rel="stylesheet" href="./css/common.css">
+	<link type="text/css" rel="stylesheet" href="./css/dropdown2.css">
+	<link type="text/css" rel="stylesheet" href="./css/theme.css">
+
+	<!-- Application custom -->
+	<link rel="stylesheet" type="text/css" href="./css/glri.css">
+	
+	<link href="./webjars/openlayers/2.13.1/theme/default/style.css" type="text/css" rel="stylesheet">
+	
+	<script type="text/javascript" src="js/select2buttons.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/select2Buttons.css">
+
+	<link rel="stylesheet" type="text/css" href="css/newProjectForm.css">
+	
+</head>
+<body ng-controller="NewProjectCtrl">
+<div class="row">
+				<div class="col-xs-12">
+					<div id="usgs-header-panel" class="">
+    <div id="header">
+        <div id="banner-area">
+            <h1>U.S. Geological Survey</h1>
+            <!-- Not actually visible unless printed -->
+            <div id="usgs-header-logo">
+                <a onmousedown="_sendEvent('Outbound','www.usgs.gov','/',0);_sendEvent('Outbound','www.usgs.gov','/',0);" href="http://www.usgs.gov" title="Link to the US Geological Survey main web page">
+                    <img alt="USGS Logo - science for a changing world" title="U.S. Geological Survey Home Page" src="./template/images/usgs_logo.jpg">
+                </a>
+            </div>
+            <ul id="ccsa-area">
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/',0);_sendEvent('Outbound','www.usgs.gov','/',0);" href="http://www.usgs.gov/" title="Link to main USGS page">USGS Home</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/ask/index.html',0);_sendEvent('Outbound','www.usgs.gov','/ask/index.html',0);" href="http://www.usgs.gov/ask/index.html" title="Link to main USGS contact page">Contact USGS</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','search.usgs.gov','/',0);_sendEvent('Outbound','search.usgs.gov','/',0);" href="http://search.usgs.gov/" title="Link to main USGS search (not publications search)">Search USGS</a></li>
+            </ul>
+        </div><!-- End content -->
+		<div id="site-title" class="clearfix">
+			<h1>Great Lakes Restoration Initiative (GLRI)</h1>
+			
+		</div>
+        
+    </div><!-- /header -->
+</div><!--/header panel-->
+					<img class="glyphicon glyphicon-menu visible-xs" src="images/xicon_mobile_nav_menu.svg" ng-click="toggleNav()">
+				</div>
+			</div>
+
+
+<div id="contentBrowseDetail" class="clearfix glri_content" style="max-width:800px;margin-left:50px;float:left;">
+		
+	<h4 class="">Data Management Plan</h4>
+	<div class="form-spacing" style="margin-left: 10px;">
+		I will create a data management plan within the first year of the project, and will ensure that metadata for all data 
+		sets is created in a timely manner. (Note: this is required for all GLRI funded projects. The USGS has information on
+		 <a href="http://www.usgs.gov/datamanagement/plan/dmplans.php" target="_blank">data managements plans</a>.)
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="dmPlan" ng-model="newProject.dmPlan"
+			tooltip-placement="right" tooltip="Data Management Plan">
+			<option value="agree">I Agree</option>
+			<option value="disagree">I Disagree</option>
+		</select>
+	</div>
+
+	<h4 class="">Project Status</h4>
+	<div class="form-spacing" style="margin-left: 10px;">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="project_status" ng-model="newProject.status"
+			tooltip-placement="right" tooltip="Status">
+			<option value="Completed">Completed</option>
+			<option value="In Progress">In Progress</option>
+		</select>
+	</div>
+
+	<h4 class="">Type of Entry</h4>
+	<div class="form-spacing" style="margin-left: 10px;">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="entry_type" ng-model="newProject.entryType"
+			tooltip-placement="right" tooltip="Entry Type">
+			<option>New Project</option>
+			<option>Project Update</option>
+		</select>
+	</div>
+	
+	<h4 class="form-title">Project Title</h4>
+	<div class="form-spacing">
+		<textarea class="form-control form-title" placeholder="Enter the project title as it should appear on ScienceBase" ng-model="newProject.title"></textarea>
+	</div>
+
+	<h4 class="">Image URL</h4>
+	<div class="form-spacing">
+		<input class="form-control form-field"  type="text" ng-model="newProject.image">
+	</div>
+	
+	<h4 class="">Principal Investigator</h4>
+	<div class="form-spacing">
+		<textarea class="form-control form-field" ng-model="newProject.principal"></textarea>
+	</div>
+	
+	<h4 class="">Associate Project Chief</h4>
+	<div class="form-spacing">
+		<textarea class="form-control form-field" ng-model="newProject.chief"></textarea>
+	</div>
+	
+	<h4 class="">Project Duration</h4>
+	<div class="form-spacing" style="margin-left: 10px;">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="duration" 
+			tooltip-placement="right" tooltip="Project Duration" ng-model="newProject.duration">
+			<option>Single effort (1 year or less)</option>
+			<option>Short term (2 to 5 years)</option>
+			<option>Long term (greater than 5 years)</option>
+		</select>
+	</div>
+
+<div class="datepickers input-daterange">
+	<div style="width:50% !important;float:left;">
+		<h4 class="">Agreement Start Date</h4>
+		<div class="form-spacing">
+			<input class="form-control form-field form-date" style="width:150px !important;" type="text" ng-model="newProject.startDate">
+		</div>
+	</div>
+	<div style="width:50% !important;float:right;">
+		<h4 class="">Agreement End Date</h4>
+		<div class="form-spacing">
+			<input class="form-control form-field form-date" style="width:150px !important;" type="text" ng-model="newProject.endDate">
+		</div>
+	</div>
+	<div style="clear:both;"></div>
+</div>
+
+	
+	<h4>Focus Area</h4>
+	<div class="form-spacing" style="margin-left: 17px;">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="focus_area"
+			tooltip-placement="right" tooltip="Focus area" ng-model="newProject.focusArea">
+		</select>
+	</div>
+	
+	<h4>Template(s)</h4>	 
+	<div class="form-spacing">
+		<ui-select multiple ng-model="newProject.templates"  style="width:100%">
+		    <ui-select-match placeholder="Select templates...">{{$item.display}}</ui-select-match>
+		    <ui-select-choices repeat="template in transient.templates | orderBy:'sort'">
+		      {{template.display}}
+		    </ui-select-choices>
+		</ui-select>
+	</div>
+
+	<h4 class="">Spatial Location</h4>
+	<div class="form-spacing" style="margin-left: 10px;">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="spatial" ng-model="newProject.spatial"
+			tooltip-placement="right" tooltip="Focus area">
+			<option value="Has Spatial">Has Spatial</option>
+			<option value="No Spatial">No Spatial</option>
+		</select>
+	</div>
+	
+	<h4>Background/Problem</h4> 
+	<div class="background form-spacing">
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.purpose"></textarea>
+	</div>
+
+	<h4>Objectives</h4> 
+	<div class="background form-spacing">
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.objectives"></textarea>
+	</div>
+	
+	<h4>Description of Work</h4> 
+	<div class="form-spacing">
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.work"></textarea>
+	</div>
+	
+	<h4>Relevance and Impact</h4> 
+	<div class="form-spacing">
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.impact"></textarea>
+	</div>
+	
+	<h4>Planned Product</h4> 
+	<div class="form-spacing">
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.product"></textarea>
+	</div>
+	
+	<h4>GLRI Keyword(s)</h4>	 
+	<div class="form-spacing">
+		<textarea class="form-control form-field" rows="10"  placeholder="Enter a comma separated list of keywords or phrases." ng-model="newProject.keywords"></textarea>
+	</div>
+	
+	<h4>SiGL Keyword(s)</h4>	 
+	<div class="form-spacing" style="margin-left: 17px;">
+		<ui-select multiple ng-model="newProject.SiGL"  style="width:100%">
+		    <ui-select-match placeholder="Select SiGL Keywords...">{{$item.display}}</ui-select-match>
+		    <ui-select-choices repeat="SiGL in transient.SiGL_keywords | orderBy:'sort'">
+		      {{SiGL.display}}
+		    </ui-select-choices>
+		</ui-select>
+	</div>
+	
+	<h4>Water Feature(s)</h4>	 
+	<div class="form-spacing" style="margin-left: 17px;">
+		<ui-select multiple ng-model="newProject.water"  style="width:100%">
+		    <ui-select-match placeholder="Select Water Features...">{{$item.display}}</ui-select-match>
+		    <ui-select-choices repeat="water in transient.water_features | orderBy:'sort'">
+		      {{water.display}}
+		    </ui-select-choices>
+		</ui-select>
+	</div>
+		
+	<h4>External Organization Contacts</h4>  
+	<div class="point-of-contact form-spacing">
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.organizations"></textarea>
+	</div>
+	
+	<h4>Points of Contact</h4>  
+	<div class="point-of-contact form-spacing">
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.contacts"></textarea>
+	</div>
+	
+	<p class="form-spacing">
+		<button id="discard" class="btn btn-primary pull-left">Discard</button>
+		<button id="save" class="btn btn-primary pull-right" ng-click="save()">Save</button>	
+	</p>	
+	
+</div>
+
+
+<div id="contentBrowseDetail" class="clearfix glri_content imageContent">
+	<h4>Project Image</h4>
+	<img id="imageTarget" href=""></img>
+</div>
+
+
+<div class="col-xs-12">
+					<div id="usgs-footer-panel" class="">
+    <div id="footer" style="width: 100%; margin-right: -1em;">
+        <div id="usgs-policy-links">
+            <h4 class="access-help">USGS Policy Information Links</h4>
+            <ul class="hnav">
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/accessibility.html',0);_sendEvent('Outbound','www.usgs.gov','/accessibility.html',0);" href="http://www.usgs.gov/accessibility.html" title="USGS web accessibility policy">Accessibility</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/foia/',0);_sendEvent('Outbound','www.usgs.gov','/foia/',0);" href="http://www.usgs.gov/foia/" title="USGS Freedom of Information Act information">FOIA</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/privacy.html',0);_sendEvent('Outbound','www.usgs.gov','/privacy.html',0);" href="http://www.usgs.gov/privacy.html" title="USGS privacy policies">Privacy</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/policies_notices.html',0);_sendEvent('Outbound','www.usgs.gov','/policies_notices.html',0);" href="http://www.usgs.gov/policies_notices.html" title="USGS web policies and notices">Policies and Notices</a></li>
+            </ul>
+        </div><!-- end usgs-policy-links -->
+        <div class="content">
+            <div id="page-info">
+                <p id="footer-doi-links">
+                    <span class="vcard">
+                        <a onmousedown="_sendEvent('Outbound','www.doi.gov','/',0);_sendEvent('Outbound','www.doi.gov','/',0);" class="url fn org" href="http://www.doi.gov/" title="Link to the main DOI web site">U.S. Department of the Interior</a>
+                        <span class="adr">
+                            <span class="street-address">1849 C Street, N.W.</span><br>
+                            <span class="locality">Washington</span>, <span class="region">DC</span>
+                            <span class="postal-code">20240</span>
+                        </span>
+                        <span class="tel">202-208-3100</span>
+                    </span><!-- vcard --> | 
+                    <span class="vcard">
+                        <a onmousedown="_sendEvent('Outbound','www.usgs.gov','/',0);_sendEvent('Outbound','www.usgs.gov','/',0);" class="url fn org" href="http://www.usgs.gov" title="Link to the main USGS web site">U.S. Geological Survey</a>
+                        <span class="adr">
+                            <span class="post-office-box">Box 25286</span><br>
+                            <span class="locality">Denver</span>, <span class="region">CO</span>
+                            <span class="postal-code">8022</span>
+                        </span>
+                    </span><!-- vcard -->
+                </p>
+                <p id="footer-url-info">URL: <script type="text/javascript">document.write(document.location.href);</script>http://cida.usgs.gov/glri/#/Search</p>
+                <p id="footer-contact-info">Page Contact Information: <a onmousedown="_sendEvent('Outbound MailTo','glri-database@usgs.gov','',0);_sendEvent('Outbound MailTo','glri-database@usgs.gov','',0);" href="mailto:glri-database@usgs.gov">GLRI Help</a></p>
+                <p id="footer-page-modified-info">Page Last modified: 2015-08-27 10:44 (version 0.5.12)</p>
+            </div><!-- /page-info -->
+            <div id="gov-buttons">
+                <a onmousedown="_sendEvent('Outbound','www.firstgov.gov','/',0);_sendEvent('Outbound','www.firstgov.gov','/',0);" title="link to the official US Government web portal" href="http://firstgov.gov/">
+                    <img src="./template/images/footer_graphic_firstGov.jpg" alt="FirstGov button">
+                </a>
+                <a onmousedown="_sendEvent('Outbound','www.takepride.gov','/',0);_sendEvent('Outbound','www.takepride.gov','/',0);" title="Link to Take Pride in America, a volunteer organization that helps to keep America's public lands beautiful." href="http://www.takepride.gov/">
+                    <img src="./template/images/footer_graphic_takePride.jpg" alt="Take Pride in America button">
+                </a>
+            </div><!-- /gov-buttons -->
+        </div><!-- /content -->
+    </div><!-- /footer -->
+</div><!-- /footer panel -->
+
+
+				</div>
+
+</body>
+<script type="text/javascript" src="./js/app/main.js"></script>
+<script type="text/javascript" src="./js/app/focusAreaManager.js"></script>
+<script type="text/javascript" src="./js/app/sciencebase.js"></script>
+<script type="text/javascript" src="./js/app/newProjectForm.js"></script>
+
+</html>

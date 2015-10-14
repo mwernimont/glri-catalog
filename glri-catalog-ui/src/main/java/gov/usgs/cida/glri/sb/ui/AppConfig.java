@@ -1,7 +1,6 @@
 package gov.usgs.cida.glri.sb.ui;
 
 import gov.usgs.cida.config.DynamicReadOnlyProperties;
-import java.util.Map.Entry;
 
 /**
  * Mildly ugly singleton configuration point that reads its configuration from
@@ -36,10 +35,8 @@ public class AppConfig {
 
 		try {
 			
-			DynamicReadOnlyProperties drp = new DynamicReadOnlyProperties();
-			drp.addJNDIContexts(DynamicReadOnlyProperties.DEFAULT_JNDI_CONTEXTS);
-			props = drp;
-			
+			props = new DynamicReadOnlyProperties();
+			props.addJNDIContexts(new String[]{"java:/comp/env"});
 			
 			//Set the beta server as the default value for the ScienceBase Host
 			//Should this be removed??
@@ -47,7 +44,6 @@ public class AppConfig {
 			if (host == null) {
 				props.put(SCIENCEBASE_HOST, "beta.sciencebase.gov");
 			}
-			
 			
 			//Supply the default community id if not specified
 			String commId = props.get(SCIENCEBASE_GLRI_COMMUNITY_ID);
@@ -61,7 +57,6 @@ public class AppConfig {
 				props.put(SCIENCEBASE_VOCAB_HOST, props.get(SCIENCEBASE_HOST));
 			}
 			
-
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 			throw new RuntimeException();
@@ -84,10 +79,14 @@ public class AppConfig {
 	
 	
 	public static String get(String key) {
+		System.out.print("looking up -> ");
+		System.out.println(key);
 		return get(key, null);
 	}
 	
 	public static String get(String key, String valueIfNull) {
+		System.out.print("looking up -> ");
+		System.out.println(key);
 		AppConfig inst = AppConfig.instance();
 		Object val = inst.props.getProperty(key, null);
 		

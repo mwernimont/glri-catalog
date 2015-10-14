@@ -1,7 +1,6 @@
 package gov.usgs.cida.glri.sb.ui.itemquery;
 
 import gov.usgs.cida.glri.sb.ui.AppConfig;
-import gov.usgs.cida.glri.sb.ui.GLRIUtil;
 import gov.usgs.cida.glri.sb.ui.itemquery.ScienceBaseQuery;
 import static gov.usgs.cida.glri.sb.ui.itemquery.UserSpecifiedParameters.GLRI_SCHEMA;
 import java.util.HashMap;
