@@ -12,8 +12,7 @@ $(document).ready(function() {
 	  $("#duration").select2Buttons({noDefault: true});
 	  $("#entry_type").select2Buttons({noDefault: true});
 	  $("#spatial").select2Buttons({noDefault: true});
-	  $("#focus_area").select2Buttons({noDefault: true});
-
+		
 /**	  
 	  $("#templates").select2({placeholder: "Select funding templates",});
 	  $("#sigl").select2({placeholder: "Select SiGL keywords",});
@@ -32,4 +31,20 @@ function($scope, $http, Status, ScienceBase) {
 	$scope.save = function() {
 		console.log($scope.newProject);
 	}
+	
+	var select2focusArea = function(){
+		if ( Status.focus_areas.length > 1 ) {
+			var options = "";
+			for (f in Status.focus_areas) { // value=" + focus.display + "
+				options += "<option>"+Status.focus_areas[f].display+"</option>"
+			}
+			$("#focus_area").html(options);
+			$("#focus_area").select2Buttons({noDefault: true});
+		} else {
+			setTimeout(select2focusArea,100);
+		}
+	}
+	setTimeout(select2focusArea,100)
+	
+	
 }]);

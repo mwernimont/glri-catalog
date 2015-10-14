@@ -13,7 +13,7 @@ function($http, Status, FocusAreaManager, $rootScope){
 //		SiGL_Keywords: "https://www.sciencebase.gov/vocab/53b43ce9e4b03f6519cab96c/terms?format=json",
 		
 		water_features: "53d178fde4b0536257c34170",
-		focus_areaa   : "53ab40fee4b0282c77bc73c7",
+		focus_areas   : "53ab40fee4b0282c77bc73c7",
 		templates     : "53da7288e4b0fae13b6deb73",
 		SiGL_keywords : "53b43ce9e4b03f6519cab96c",
 	}

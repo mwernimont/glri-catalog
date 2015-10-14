@@ -45,8 +45,7 @@
 	<!-- Twitter, Bootstrap, & themes -->
 	<link rel="stylesheet" type="text/css" href="./webjars/bootstrap/${bootstrap.version}/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="./style/themes/theme1.css">
-	<link rel="stylesheet" type="text/css" href="./webjars/angular-ui-select/${angular.select.version}/select2.min.css" >
-	<link rel="stylesheet" type="text/css" href="./webjars/select2/${select2.path.version}/css/select.min.css" >
+	<link rel="stylesheet" type="text/css" href="./webjars/angular-ui-select/${angular.select.version}/select.min.css" >
 	<link rel="stylesheet" type="text/css" href="./webjars/bootstrap-datepicker/${bootstrap.datepicker.version}/css/bootstrap-datepicker.min.css">
 
 	<!-- legacy css -->
@@ -116,7 +115,7 @@
 	<h4 class="">Project Status</h4>
 	<div class="form-spacing" style="margin-left: 10px;">
 		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="project_status" ng-model="newProject.status"
-			tooltip-placement="right" tooltip="Focus area">
+			tooltip-placement="right" tooltip="Status">
 			<option value="Completed">Completed</option>
 			<option value="In Progress">In Progress</option>
 		</select>
@@ -125,7 +124,7 @@
 	<h4 class="">Type of Entry</h4>
 	<div class="form-spacing" style="margin-left: 10px;">
 		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="entry_type" ng-model="newProject.entryType"
-			tooltip-placement="right" tooltip="Focus area">
+			tooltip-placement="right" tooltip="Entry Type">
 			<option value="new">New Project</option>
 			<option value="update">Project Update</option>
 		</select>
@@ -154,7 +153,7 @@
 	<h4 class="">Project Duration</h4>
 	<div class="form-spacing" style="margin-left: 10px;">
 		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="duration" 
-			tooltip-placement="right" tooltip="Focus area" ng-model="newProject.duration">
+			tooltip-placement="right" tooltip="Project Duration" ng-model="newProject.duration">
 			<option value="single">Single effort (1 year or less)</option>
 			<option value="short">Short term (2 to 5 years)</option>
 			<option value="long">Long term (greater than 5 years)</option>
@@ -182,11 +181,6 @@
 	<div class="form-spacing" style="margin-left: 17px;">
 		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="focus_area"
 			tooltip-placement="right" tooltip="Focus area" ng-model="newProject.focusArea">
-			<option value="Toxic-Substances">Toxic Substances</option>
-			<option value="Invasive-Species">Invasive Species</option>
-			<option value="Nearshore-Health">Nearshore Health</option>
-			<option value=">Habitat-Wildlife">Habitat & Wildlife</option>
-			<option value="Accountability">Accountability</option>
 		</select>
 	</div>
 	
