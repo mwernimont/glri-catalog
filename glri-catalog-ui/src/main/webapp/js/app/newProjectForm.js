@@ -241,16 +241,19 @@ var buildNewProject = function(data) {
 	body += concatIfExists("<h4>Description of Work<\/h4> ", data.work);
 	body += concatIfExists("<h4>Goals &amp; Objectives<\/h4> ", data.objectives);
 	body += concatIfExists("<h4>Relevance &amp; Impact<\/h4> ", data.impact);
-	body += concatIfExists("<h4>Products<\/h4> ", data.product);
+	body += concatIfExists("<h4>Planned Products<\/h4> ", data.product);
 	
 	var contacts  = concatContacts(data.contacts);
 	
 	var focus     = concatTagsComma(VOCAB_FOCUS,data.focusArea);
 	var keywords  = concatTagsComma(VOCAB_KEYWORD,data.keywords);
+	var spatial   = concatTagsComma(VOCAB_KEYWORD,data.spatial);
+	var entryType = concatTagsComma(VOCAB_KEYWORD,data.entryType);
+	var duration  = concatTagsComma(VOCAB_KEYWORD,data.duration);
 	
 	var sigl      = concatTagsSelect(VOCAB_SIGL,data.SiGL);
-	var water     = concatTagsSelect(VOCAB_TEMPLATE,data.water);
-	var templates = concatTagsSelect(VOCAB_WATER,data.templates);
+	var water     = concatTagsSelect(VOCAB_WATER,data.water);
+	var templates = concatTagsSelect(VOCAB_TEMPLATE,data.templates);
 
 	var newProject =
 	'{'+
@@ -261,7 +264,7 @@ var buildNewProject = function(data) {
 	'	   "parentId": "52e6a0a0e4b012954a1a238a",'+
 	'	   "contacts": [' + contacts + '],'+
 	'	   "browseCategories": ["Project"],'+
-	'	   "tags": [' + focus+ keywords + sigl + water + templates + ''+
+	'	   "tags": [' + focus+ keywords + sigl + water + templates + spatial + entryType + duration +
 	'	      {'+
 	'	         "name": "Great Lakes Restoration Initiative"'+
 	'	      }'+
@@ -288,44 +291,17 @@ var buildNewProject = function(data) {
 	'	   ],'+
 	'	   "previewImage": {'+
 	'	      "thumbnail": {'+
-	'	         "uri": "'+data.url+'",'+
+	'	         "uri": "'+data.image+'",'+
 	'	         "title": "Thumbnail"'+
 	'	      },'+
 	'	      "small": {'+
-	'		     "uri": "'+data.url+'",'+
+	'		     "uri": "'+data.image+'",'+
 	'	         "title": "Thumbnail"'+
 	'	      },'+
 	'	      "from": "webLinks"'+
 	'	   },'+
     '}'	
-			/*			
-			   "spatial": {
-			      "representationalPoint": [
-			         -84.15536,
-			         45.19104
-			      ],
-			      "representationalPointIsDerived": true,
-			      "boundingBox": {
-			         "minX": -92.2508,
-			         "maxX": -76.05991,
-			         "minY": 41.38213,
-			         "maxY": 48.999947
-			      }
-			   },
-			   "extents": [
-			      3007980,
-			      3007983,
-			      3007984,
-			      3007979,
-			      3007978,
-			      3007982,
-			      3007981,
-			      3007974,
-			      3007975,
-			      3007976,
-			      3007977
-			   ],
-	*/
+	
 	return newProject
 	
 }
