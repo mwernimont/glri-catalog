@@ -64,8 +64,13 @@ h4 {
 .ui-select-choices-group .active a span {
 	color: white;
 }
-
-
+.ui-select-choices-group .active {
+	background-color: #036;
+}
+.ui-select-match-close {
+	float:left;
+	margin: 5px 5px 5px -5px;
+}
 
 /*
 These were devised for native select2
