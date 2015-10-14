@@ -28,7 +28,6 @@ function($scope, $http, Status, ScienceBase) {
 	$scope.newProject = {};
 	
 	$scope.transient= Status;
-//	  $scope.transient = {templates: [{key:'1',display:'foo', sort:'2'},{key:'2',display:'bar',sort:'0'}] };
 	
 	$scope.save = function() {
 		console.log($scope.newProject);

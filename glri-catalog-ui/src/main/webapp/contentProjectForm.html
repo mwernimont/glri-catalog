@@ -241,10 +241,12 @@
 	
 	<h4>SiGL Keyword(s)</h4>	 
 	<div class="form-spacing" style="margin-left: 17px;">
-		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="sigl" 
-			multiple="multiple" ng-model="newProject.SiGL"
-		 	tooltip-placement="right" tooltip="Select applicable GLRI keywords. Projects are associated with one or more keywords.">
-		</select>
+		<ui-select multiple ng-model="newProject.SiGL"  style="width:100%">
+		    <ui-select-match placeholder="Select SiGL Keywords...">{{$item.display}}</ui-select-match>
+		    <ui-select-choices repeat="SiGL in transient.SiGL_keywords | orderBy:'sort'">
+		      {{SiGL.display}}
+		    </ui-select-choices>
+		</ui-select>
 	</div>
 	
 	<h4>Water Feature(s)</h4>	 
