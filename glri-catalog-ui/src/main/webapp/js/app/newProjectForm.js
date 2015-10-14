@@ -30,6 +30,10 @@ function($scope, $http, Status, ScienceBase) {
 	
 	$scope.save = function() {
 		console.log($scope.newProject);
+
+		var newProject = buildNewProject($scope.newProject);
+		
+		console.log(newProject);
 	}
 	
 	var select2focusArea = function(){
@@ -45,6 +49,274 @@ function($scope, $http, Status, ScienceBase) {
 		}
 	}
 	setTimeout(select2focusArea,100)
-	
-	
 }]);
+
+
+var concatIfExists = function(label, additional) {
+	if (additional && additional.length>1) {
+		return label + additional;
+	}
+	return "";
+}
+
+
+var concatContacts = function(contacts) {
+/*
+		      {
+		         "name": "Kurt P Kowalski",
+		         "oldPartyId": 5668,
+		         "type": "Principal Investigator",
+		         "contactType": "person",
+		         "email": "kkowalski@usgs.gov",
+		         "active": true,
+		         "jobTitle": "Research Ecologist",
+		         "firstName": "Kurt",
+		         "middleName": "P",
+		         "lastName": "Kowalski",
+		         "organization": {
+		            "displayText": "Great Lakes Science Center"
+		         },
+		         "primaryLocation": {
+		            "name": "Kurt P Kowalski/BRD/USGS/DOI - Primary Location",
+		            "buildingCode": "BDA",
+		            "faxPhone": "7349948780",
+		            "streetAddress": {
+		               "line1": "1451 Green Rd",
+		               "city": "Ann Arbor",
+		               "state": "MI",
+		               "zip": "48105",
+		               "country": "US"
+		            },
+		            "mailAddress": {
+		               "line1": "1451 Green Road",
+		               "city": "Ann Arbor",
+		               "state": "MI",
+		               "zip": "48105",
+		               "country": "USA"
+		            }
+		         }
+		      },
+		      {
+		         "name": "Russell M Strach",
+		         "oldPartyId": 15119,
+		         "type": "Associate Project Chief",
+		         "contactType": "person",
+		         "email": "rstrach@usgs.gov",
+		         "active": true,
+		         "jobTitle": "Center Director",
+		         "firstName": "Russell",
+		         "middleName": "M",
+		         "lastName": "Strach",
+		         "organization": {
+		            "displayText": "Great Lakes Science Center"
+		         },
+		         "primaryLocation": {
+		            "name": "Russell M Strach/BRD/USGS/DOI - Primary Location",
+		            "buildingCode": "BDA",
+		            "faxPhone": "7342147201",
+		            "streetAddress": {
+		               "line1": "1451 Green Rd",
+		               "city": "Ann Arbor",
+		               "state": "MI",
+		               "zip": "48105",
+		               "country": "US"
+		            },
+		            "mailAddress": {
+		               "line1": "1451 Green Road",
+		               "city": "Ann Arbor",
+		               "state": "MI",
+		               "zip": "48105",
+		               "country": "USA"
+		            }
+		         }
+		      },
+		      {
+		         "name": "Great Lakes Science Center",
+		         "oldPartyId": 17264,
+		         "type": "Lead Organization",
+		         "contactType": "organization",
+		         "active": true,
+		         "aliases": [
+		            "GREAT LAKES SCIENCE CENTER",
+		            "GREAT LAKES SCI CTR"
+		         ],
+		         "fbmsCodes": [
+		            "GGEMND0000"
+		         ],
+		         "logoUrl": "http://my.usgs.gov/static-cache/images/dataOwner/v1/logosMed/USGSLogo.gif",
+		         "smallLogoUrl": "http://my.usgs.gov/static-cache/images/dataOwner/v1/logosSmall/USGSLogo.gif",
+		         "organization": {},
+		         "primaryLocation": {
+		            "name": "Great Lakes Science Center [BDA]",
+		            "buildingCode": "BDA",
+		            "streetAddress": {
+		               "line1": "1451 Green Rd",
+		               "city": "Ann Arbor",
+		               "state": "MI",
+		               "zip": "48105",
+		               "country": "USA"
+		            },
+		            "mailAddress": {
+		               "line1": "1451 Green Road",
+		               "city": "Ann Arbor",
+		               "state": "MI",
+		               "zip": "48105",
+		               "country": "USA"
+		            }
+		         }
+		      },
+		      {
+		         "name": "Michigan Tech Research Institute",
+		         "type": "Cooperator/Partner",
+		         "contactType": "organization",
+		         "organization": {},
+		         "primaryLocation": {
+		            "streetAddress": {},
+		            "mailAddress": {}
+		         }
+		      },
+		      {
+		         "name": "U.S. Fish and Wildlife Service",
+		         "oldPartyId": 18274,
+		         "type": "Cooperator/Partner",
+		         "contactType": "organization",
+		         "active": true,
+		         "logoUrl": "http://www.fws.gov/home/graphics/logo2005.gif",
+		         "organization": {},
+		         "primaryLocation": {
+		            "name": "U.S. Fish and Wildlife Service - Location",
+		            "streetAddress": {},
+		            "mailAddress": {}
+		         }
+		      }
+ */	
+}
+
+var VOCAB_FOCUS    = "category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea"
+var VOCAB_KEYWORD  = "GLRI/keyword"
+var VOCAB_SIGL     = "category/Great%20Lakes%20Restoration%20Initiative/SiGLProjectObjective"
+var VOCAB_TEMPLATE = "category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates"
+var VOCAB_WATER    = "category/Great%20Lakes%20Restoration%20Initiative/GLRIWaterFeature"
+
+	
+var createTag = function(scheme, name) {
+	var tag =
+		'{'+
+		'    "type": "Label",'+
+		'    "scheme": "https://www.sciencebase.gov/vocab/'+scheme+'",'+
+		'    "name": "'+name+'"'+
+		'},'
+	return tag;
+}
+var concatTagsComma = function(scheme, tags) {
+	tags = tags.split(',')
+	
+	var commaTags = ""
+	for (var tag=0; tag<tags.length; tag++) {
+		commaTags += createTag(scheme, tags[tag].trim())
+	}
+	return commaTags
+}
+var concatTagsSelect = function(scheme, tags) {
+	var selectTags = ""
+	for (var tag=0; tag<tags.length; tag++) {
+		selectTags += createTag(scheme, tags[tag].display)
+	}
+	return selectTags
+}
+
+
+var buildNewProject = function(data) {
+	
+	var body = "";
+	body += concatIfExists("<h4>Description of Work<\/h4> ", data.work);
+	body += concatIfExists("<h4>Goals &amp; Objectives<\/h4> ", data.objectives);
+	body += concatIfExists("<h4>Relevance &amp; Impact<\/h4> ", data.impact);
+	body += concatIfExists("<h4>Products<\/h4> ", data.product);
+	
+	var contacts  = concatContacts(data.contacts);
+	
+	var focus     = concatTagsComma(VOCAB_FOCUS,data.focusArea);
+	var keywords  = concatTagsComma(VOCAB_KEYWORD,data.keywords);
+	
+	var sigl      = concatTagsSelect(VOCAB_SIGL,data.SiGL);
+	var water     = concatTagsSelect(VOCAB_TEMPLATE,data.water);
+	var templates = concatTagsSelect(VOCAB_WATER,data.templates);
+
+	var newProject =
+	'{'+
+	'	   "title": "' +data.title+ '",'+
+	'	   "summary": "",'+
+	'	   "body": "' +body+ '",'+
+	'	   "purpose": "' +data.purpose+ '",'+
+	'	   "parentId": "52e6a0a0e4b012954a1a238a",'+
+	'	   "contacts": [' + contacts + '],'+
+	'	   "browseCategories": ["Project"],'+
+	'	   "tags": [' + focus+ keywords + sigl + water + templates + ''+
+	'	      {'+
+	'	         "name": "Great Lakes Restoration Initiative"'+
+	'	      }'+
+	'	   ],'+
+	'	   "dates": ['+
+	'	      {'+
+	'	         "type": "Start",'+
+	'	         "dateString": "'+data.startDate+'",'+
+	'	         "label": "Project Start Date"'+
+	'	      },'+
+	'	      {'+
+	'	         "type": "End",'+
+	'	         "dateString": "'+data.endDate+'",'+
+	'	         "label": "Project End Date"'+
+	'	      }'+
+	'	   ],'+
+	'	   "facets": ['+
+	'	      {'+
+	'	         "projectStatus": "'+data.status+'",'+
+	'	         "projectProducts": [],'+
+	'	         "parts": [],'+
+	'	         "className": "gov.sciencebase.catalog.item.facet.ProjectFacet"'+
+	'	      }'+
+	'	   ],'+
+	'	   "previewImage": {'+
+	'	      "thumbnail": {'+
+	'	         "uri": "'+data.url+'",'+
+	'	         "title": "Thumbnail"'+
+	'	      },'+
+	'	      "small": {'+
+	'		     "uri": "'+data.url+'",'+
+	'	         "title": "Thumbnail"'+
+	'	      },'+
+	'	      "from": "webLinks"'+
+	'	   },'+
+    '}'	
+			/*			
+			   "spatial": {
+			      "representationalPoint": [
+			         -84.15536,
+			         45.19104
+			      ],
+			      "representationalPointIsDerived": true,
+			      "boundingBox": {
+			         "minX": -92.2508,
+			         "maxX": -76.05991,
+			         "minY": 41.38213,
+			         "maxY": 48.999947
+			      }
+			   },
+			   "extents": [
+			      3007980,
+			      3007983,
+			      3007984,
+			      3007979,
+			      3007978,
+			      3007982,
+			      3007981,
+			      3007974,
+			      3007975,
+			      3007976,
+			      3007977
+			   ],
+	*/
+	return newProject
+	
+}
