@@ -5,6 +5,8 @@ import gov.usgs.cida.glri.sb.ui.AppConfig;
 import static gov.usgs.cida.glri.sb.ui.AppConfig.SCIENCEBASE_VOCAB_HOST;
 import gov.usgs.cida.glri.sb.ui.Format;
 import gov.usgs.cida.glri.sb.ui.GLRIUtil;
+
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +26,10 @@ import org.apache.http.util.EntityUtils;
 public class ScienceBaseVocabQuery {
 	
 	public static final String DEFAULT_ENCODING = "UTF-8";
+	public static final String SCIENCE_BASE_RESOURCE = "/gov/sciencebase/terms/";
+	public static final String PARENT_ID_PARAM = "parentId";
+	public static final String JSON = ".json";
+	
 	
 	
 	private Format format = Format.UNKNOWN;
@@ -42,22 +48,27 @@ public class ScienceBaseVocabQuery {
 		HttpGet httpGet = new HttpGet(uriBuild.build());
 		//System.out.println(httpGet.getURI());
 		httpGet.addHeader("Accept", "application/json,application/xml,text/html");
-		CloseableHttpResponse response1 = httpclient.execute(httpGet);
+		CloseableHttpResponse response = httpclient.execute(httpGet);
 
+		HttpEntity entity = null;
+		String stringFromStream = "";
 		try {
-			//System.out.println(response1.getStatusLine());
-			HttpEntity entity = response1.getEntity();
-			
+			entity = response.getEntity();
 			String encoding = GLRIUtil.findEncoding(entity, DEFAULT_ENCODING);
-			String stringFromStream = CharStreams.toString(new InputStreamReader(entity.getContent(), encoding));
-			
-			EntityUtils.consume(entity);
-			
-			return stringFromStream;
+			stringFromStream = CharStreams.toString(new InputStreamReader(entity.getContent(), encoding));
+		} catch (Exception e) {
+			System.out.println("A-" + e.getMessage());
+			try (InputStream data = getClass().getResourceAsStream(SCIENCE_BASE_RESOURCE + requestParams.get(PARENT_ID_PARAM)[0] + JSON)) {
+				stringFromStream = CharStreams.toString(new InputStreamReader(data));
+			} catch (Exception ee) {
+				throw e; // if we cannot find the local file then throw the original exception
+			}
 		} finally {
-			response1.close();
+			// close the resources quietly
+			try{EntityUtils.consume(entity);}catch(Exception e){/*quiet*/};
+			try{response.close();}catch(Exception e){/*quiet*/};
 		}
-
+		return stringFromStream;
 	}
 	
 	public Format getRequestedFormat() {
