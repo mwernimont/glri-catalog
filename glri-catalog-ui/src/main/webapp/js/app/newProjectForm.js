@@ -28,12 +28,21 @@ function($scope, $http, Status, ScienceBase) {
 	
 	$scope.transient= Status;
 	
+	$scope.discard = function() {
+		$scope.newProject = {};
+	}
+	
 	$scope.save = function() {
 		console.log($scope.newProject);
 
-		var newProject = buildNewProject($scope.newProject);
-		
-		console.log(newProject);
+		if ("agree" !== $scope.newProject.dmPlan) {
+			alert("You must agree to the Data Managment Plan in order to submit a new GLRI Project.");
+		} else {
+			
+			var newProject = buildNewProject($scope.newProject);
+			
+			console.log(newProject);
+		}
 	}
 	
 	var select2focusArea = function(){
