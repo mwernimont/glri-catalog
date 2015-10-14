@@ -369,6 +369,7 @@
                             <source>target/META-INF/resources/webjars/angularjs/${angular.version}/angular.js</source>
                             <source>target/META-INF/resources/webjars/angular-sanitize/${angular.sanitize.version}/angular-sanitize.js</source>
                             <source>target/META-INF/resources/webjars/angular-ui-bootstrap/${angular.bootstrap.version}/ui-bootstrap-tpls.js</source>
+                            <source>target/META-INF/resources/webjars/angular-ui-select/${angular.select.version}/select.min.js</source>
 
                             <!-- testing libs -->
                             <source>target/META-INF/resources/webjars/angularjs/${angular.version}/angular-mocks.js</source>
