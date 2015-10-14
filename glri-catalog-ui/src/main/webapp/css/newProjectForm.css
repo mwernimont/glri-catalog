@@ -64,8 +64,8 @@ h4 {
 .ui-select-choices-group .active a span {
 	color: white;
 }
-.ui-select-choices-group .active {
-	background-color: #036;
+.ui-select-choices-group .active a {
+	background-color: #036 !important;
 }
 .ui-select-match-close {
 	float:left;
