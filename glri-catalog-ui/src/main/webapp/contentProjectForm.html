@@ -251,27 +251,12 @@
 	
 	<h4>Water Feature(s)</h4>	 
 	<div class="form-spacing" style="margin-left: 17px;">
-		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="water" 
-			multiple="multiple" ng-model="newProject.water"
-		 	tooltip-placement="right" tooltip="Select applicable GLRI water bodies. Projects are associated with one or more water features.">
-			<option class="ng-scope ng-modeling">Lake Michigan</option>
-			<option class="ng-scope ng-modeling">Lake Erie</option>
-			<option class="ng-scope ng-modeling">Lake Huron</option>
-			<option class="ng-scope ng-modeling">Lake Superior</option>
-			<option class="ng-scope ng-modeling">Lake Ontario</option>
-			<option class="ng-scope ng-modeling">Lake St Clair</option>
-			<option class="ng-scope ng-modeling">Lake Michigan Basin</option>
-			<option class="ng-scope ng-modeling">Lake Erie Basin</option>
-			<option class="ng-scope ng-modeling">Lake Huron Basin</option>
-			<option class="ng-scope ng-modeling">Lake Superior Basin</option>
-			<option class="ng-scope ng-modeling">Lake Ontario Basin</option>
-			<option class="ng-scope ng-modeling">Lake St Clair Basin</option>
-			<option class="ng-scope ng-modeling">St Mary's Channel</option>
-			<option class="ng-scope ng-modeling">St Lawrence Channel</option>
-			<option class="ng-scope ng-modeling">Detroit Channel</option>
-			<option class="ng-scope ng-modeling">Niagara Channel</option>
-			<option class="ng-scope ng-modeling">St Clair/Detroit River System</option>
-		</select>
+		<ui-select multiple ng-model="newProject.water"  style="width:100%">
+		    <ui-select-match placeholder="Select Water Features...">{{$item.display}}</ui-select-match>
+		    <ui-select-choices repeat="water in transient.water_features | orderBy:'sort'">
+		      {{water.display}}
+		    </ui-select-choices>
+		</ui-select>
 	</div>
 		
 	<h4>External Organization Contacts</h4>  
