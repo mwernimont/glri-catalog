@@ -57,7 +57,6 @@ public class ScienceBaseVocabQuery {
 			String encoding = GLRIUtil.findEncoding(entity, DEFAULT_ENCODING);
 			stringFromStream = CharStreams.toString(new InputStreamReader(entity.getContent(), encoding));
 		} catch (Exception e) {
-			System.out.println("A-" + e.getMessage());
 			try (InputStream data = getClass().getResourceAsStream(SCIENCE_BASE_RESOURCE + requestParams.get(PARENT_ID_PARAM)[0] + JSON)) {
 				stringFromStream = CharStreams.toString(new InputStreamReader(data));
 			} catch (Exception ee) {
