@@ -19,10 +19,31 @@ GLRICatalogApp.controller('NewProjectCtrl',
 ['$scope', '$http', 'Status', 'ScienceBase',
 function($scope, $http, Status, ScienceBase) {
 	$scope.contactPattern = /^[\w\s]+ [\w\d\.]+@[\w\d]+\.\w+$/;
-	$scope.transient = {};
 	$scope.newProject = {};
+	$scope.login = {message:"",username:"",password:""}
 	
 	$scope.transient= Status;
+	
+	var failed = function() {
+		$scope.login.token   = undefined;
+		$scope.login.message = "Login failed, please varify your email and password.";
+	}
+	
+	$scope.authenticate = function() {
+		$scope.login.message = "Authenticating...";
+		
+		$http.post('login',{},{params: {username:$scope.login.username, password:$scope.login.password}})
+		.then(
+			function(resp) {
+				if (resp.data.length < 10) {
+					failed();
+				} else {
+					$scope.login.token = resp.data
+				}
+			},
+			failed
+		);
+	}
 	
 	$scope.discard = function() {
 		$scope.newProject = {};

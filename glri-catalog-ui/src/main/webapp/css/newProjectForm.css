@@ -72,6 +72,23 @@ h4 {
 	margin: 5px 5px 5px -5px;
 }
 
+div.error {
+	height:16px;
+	color:darkred;
+}
+.hidden {
+	visibility:hidden;
+}
+.show {
+	visibility:visible !important;
+}
+
+
+
+
+
+
+
 /*
 These were devised for native select2
 */
