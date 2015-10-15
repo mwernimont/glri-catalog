@@ -25,8 +25,16 @@ function($scope, $http, Status, ScienceBase) {
 	$scope.transient= Status;
 	
 	var failed = function() {
+		$.cookie("JOSSO_TOKEN", null);
 		$scope.login.token   = undefined;
 		$scope.login.message = "Login failed, please varify your email and password.";
+	}
+	
+	var success = function(token) {
+		$scope.login.token = token
+		var date = new Date();
+		date.setTime(date.getTime() + (20 * 60 * 1000));
+		$.cookie("JOSSO_TOKEN", token, { expires: date });
 	}
 	
 	$scope.authenticate = function() {
@@ -35,10 +43,10 @@ function($scope, $http, Status, ScienceBase) {
 		$http.post('login',{},{params: {username:$scope.login.username, password:$scope.login.password}})
 		.then(
 			function(resp) {
-				if (resp.data.length < 10) {
+				if (resp.data.length < 32) {
 					failed();
 				} else {
-					$scope.login.token = resp.data
+					success(resp.data)
 				}
 			},
 			failed
@@ -75,6 +83,13 @@ function($scope, $http, Status, ScienceBase) {
 		}
 	}
 	setTimeout(select2focusArea,100)
+	
+	
+	var token = $.cookie("JOSSO_TOKEN")
+	if (token !== undefined && token.length==32) {
+		$scope.login.token = token
+	}
+	
 }]);
 
 

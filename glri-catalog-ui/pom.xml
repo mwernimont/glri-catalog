@@ -26,6 +26,7 @@
 		<logback.version>1.0.1</logback.version>
 	
 		<jquery.version>2.1.4</jquery.version>
+		<jquery.cookie.version>1.4.1-1</jquery.cookie.version>
 		<bootstrap.version>3.3.4</bootstrap.version>
 		<angular.version>1.4.7</angular.version>
 		<angular.bootstrap.version>0.13.4</angular.bootstrap.version>
@@ -87,6 +88,11 @@
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
 			<version>${jquery.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>jquery-cookie</artifactId>
+		    <version>${jquery.cookie.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
@@ -244,6 +250,15 @@
 	                                <outputDirectory>target</outputDirectory>
 	                                <includes>**/*</includes>
 	                            </artifactItem>
+	                            <artifactItem>
+								    <groupId>org.webjars</groupId>
+								    <artifactId>jquery-cookie</artifactId>
+								    <version>${jquery.cookie.version}</version>
+	                                <type>jar</type>
+	                                <overWrite>true</overWrite>
+	                                <outputDirectory>target</outputDirectory>
+	                                <includes>**/*</includes>
+	                            </artifactItem>
 								<artifactItem>
 									<groupId>org.webjars</groupId>
 									<artifactId>bootstrap</artifactId>
@@ -366,6 +381,7 @@
                         <preloadSources>
                         	<!-- framework libs -->
                             <source>target/META-INF/resources/webjars/jquery/${jquery.version}/jquery.js</source>
+                            <source>target/META-INF/resources/webjars/jquery-cookie/${jquery.cookie.version}/jquery.cookie.js</source>
                             <source>target/META-INF/resources/webjars/angularjs/${angular.version}/angular.js</source>
                             <source>target/META-INF/resources/webjars/angular-sanitize/${angular.sanitize.version}/angular-sanitize.js</source>
                             <source>target/META-INF/resources/webjars/angular-ui-bootstrap/${angular.bootstrap.version}/ui-bootstrap-tpls.js</source>
