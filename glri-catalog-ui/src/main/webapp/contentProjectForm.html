@@ -99,8 +99,12 @@
 				</div>
 			</div>
 
+<a id="gotoNewProject" class="hidden" href="Browse/all/{{transient.newProjectId}}"></a>
+
 <div id="contentBrowseDetail" class="clearfix glri_content" style="max-width:800px;margin-left:50px;float:left;">
-  <form id="login" name="loginForm" ng-submit="authenticate()" ng-if="login.token === undefined">
+
+<div ng-if="login.token === undefined" class="loginBlock">
+  <form id="login" name="loginForm" ng-submit="authenticate()" class="login">
 	<h4 class="">Please log in before creating a new project entry.</h4>
 	<div class="form-spacing error" ng-bind-html="login.message"></div>
 	<h4 class="">USGS eMail Address</h4>
@@ -119,8 +123,9 @@
 	</p>	
 	
   </form>
+</div>
 
-  <form id="newProjectForm" name="newProjectForm" ng-submit="save()" ng-if="login.token !== undefined" style="visiblity:hidden" ng-class="{'show' : login.token !== undefined}">		
+  <form id="newProjectForm" name="newProjectForm" ng-submit="save()" >		
 
 	<h4 class="">Data Management Plan</h4>
 	<div class="form-spacing" style="margin-left: 10px;">
@@ -285,7 +290,7 @@
 	
 	<p class="form-spacing">
 		<button id="discard" class="btn btn-primary pull-left" ng-click="discard()">Discard</button>
-		<button id="save" type="submit" class="btn btn-primary pull-right">Save</button>	
+		<button id="save" type="submit" class="btn btn-primary pull-right" >Save</button>	
 	</p>	
 	
   </form>
