@@ -56,6 +56,11 @@ function($scope, $http, Status, ScienceBase) {
 	$scope.discard = function() {
 		$scope.newProject = {};
 	}
+
+	
+	var saveFailed = function(resp) {
+		alert("There was a problem saving the project -> " + resp.data);
+	}
 	
 	$scope.save = function() {
 		console.log($scope.newProject);
@@ -63,10 +68,30 @@ function($scope, $http, Status, ScienceBase) {
 		if ("agree" !== $scope.newProject.dmPlan) {
 			alert("You must agree to the Data Managment Plan in order to submit a new GLRI Project.");
 		} else {
-			
 			var newProject = buildNewProject($scope.newProject);
 			
 			console.log(newProject);
+			checkToken();
+			if ($scope.login.token === undefined) {
+				return;
+			}
+/*			
+			$http.post('saveProject', newProject, {params:{auth:$scope.login.token}})
+			.then(
+				function(resp) {
+					console.log(resp.data)
+					if (resp.data === undefined) {
+						saveFailed({data:"no response"})
+					} else if (resp.data.indexOf("Missing")) {
+						saveFailed(resp)
+					} else {
+						$scope.transient.newProjectId = resp.data
+						setTimeout(function(){$('#gotoNewProject').click()},500)
+					}
+				},
+				saveFailed
+			)
+*/
 		}
 	}
 	
@@ -84,12 +109,16 @@ function($scope, $http, Status, ScienceBase) {
 	}
 	setTimeout(select2focusArea,100)
 	
-	
-	var token = $.cookie("JOSSO_TOKEN")
-	if (token !== undefined && token.length==32) {
-		$scope.login.token = token
+	var checkToken = function() {
+		var token = $.cookie("JOSSO_TOKEN")
+		if (token !== undefined && token.length==32) {
+			$scope.login.token = token
+		} else {
+			$scope.login.token = undefined
+		}
 	}
 	
+	checkToken();
 }]);
 
 
@@ -147,7 +176,7 @@ var concatContacts = function(type, contacts) {
 	
 	var jsonContacts = ""
 	for (var c=0; c<contacts.length; c++) {
-		jsonContacts += createContact(type, contacts[s])
+		jsonContacts += createContact(type, contacts[c])
 	}
 	return jsonContacts + ","
 }

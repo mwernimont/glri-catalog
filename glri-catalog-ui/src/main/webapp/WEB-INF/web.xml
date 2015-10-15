@@ -8,6 +8,15 @@
         <servlet-name>ScienceBaseAuthService</servlet-name>
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ScienceBaseProjectService</servlet-name>
+        <servlet-class>gov.usgs.cida.glri.sb.ui.itemquery.ScienceBaseProjectService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ScienceBaseProjectService</servlet-name>
+        <url-pattern>/saveProject</url-pattern>
+    </servlet-mapping>
 	
     <servlet>
         <servlet-name>ScienceBaseService</servlet-name>

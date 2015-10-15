@@ -83,7 +83,25 @@ div.error {
 	visibility:visible !important;
 }
 
-
+.login {
+    width: 450px;
+    background-color: white;
+    border: 3px solid #036;
+    border-radius: 20px;
+    padding: 20px;
+    position: relative;
+    left: 200;
+    top: 100px;
+}
+.loginBlock {
+    height: 3000px;
+    width: 100%;
+    background-color: rgba(0,0,0,0.2);
+    position: absolute;
+    left: 0px;
+    z-index: 999;
+    margin-top: -13px;
+ }
 
 
 
