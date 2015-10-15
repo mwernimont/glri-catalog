@@ -18,6 +18,8 @@ $(document).ready(function() {
 GLRICatalogApp.controller('NewProjectCtrl', 
 ['$scope', '$http', 'Status', 'ScienceBase',
 function($scope, $http, Status, ScienceBase) {
+	$scope.contactPattern = /^[\w\s]+ [\w\d\.]+@[\w\d]+\.\w+$/;
+	$scope.transient = {};
 	$scope.newProject = {};
 	
 	$scope.transient= Status;
