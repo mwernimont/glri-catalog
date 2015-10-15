@@ -99,9 +99,25 @@
 
 
 <div id="contentBrowseDetail" class="clearfix glri_content" style="max-width:800px;margin-left:50px;float:left;">
+  <form id="login" name="login" ng-submit="login()" ng-if="transient.token === undefined">
+	<h4 class="">Username</h4>
+	<div class="form-spacing">
+		<input type="text" class="form-control form-field" ng-model="login.user" required"
+		placeholder="email@usgs.gov">
+	</div>
+	<h4 class="">Password</h4>
+	<div class="form-spacing">
+		<input type="password" class="form-control form-field" ng-model="login.password" required">
+	</div>
+	<p class="form-spacing">
+		<a id="home" href="." style="display:nonew;" class="btn btn-primary pull-left">Cancel</a>
+		&nbsp;
+		<button id="login" type="submit" class="btn btn-primary pull-right">Login</button>
+	</p>	
+	
+  </form>
 
-
-  <form id="newProjectForm" name="newProjectForm" ng-submit="save()" >		
+  <form id="newProjectForm" name="newProjectForm" ng-submit="save()" ng-if="transient.token !== undefined">		
 
 	<h4 class="">Data Management Plan</h4>
 	<div class="form-spacing" style="margin-left: 10px;">
