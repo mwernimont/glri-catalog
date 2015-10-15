@@ -37,6 +37,9 @@ h4 {
     font-size: inherit;
     min-width: 100px;
  }
+ .form-optional {
+ 	background-color:#E5F5FF;
+ }
 
 .imageContent {
 	float:left;
