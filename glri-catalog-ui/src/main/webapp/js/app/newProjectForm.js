@@ -18,9 +18,40 @@ $(document).ready(function() {
 GLRICatalogApp.controller('NewProjectCtrl', 
 ['$scope', '$http', 'Status', 'ScienceBase',
 function($scope, $http, Status, ScienceBase) {
+	$scope.contactPattern = /^[\w\s]+ [\w\d\.]+@[\w\d]+\.\w+$/;
 	$scope.newProject = {};
+	$scope.login = {message:"",username:"",password:""}
 	
 	$scope.transient= Status;
+	
+	var failed = function() {
+		$.cookie("JOSSO_TOKEN", null);
+		$scope.login.token   = undefined;
+		$scope.login.message = "Login failed, please varify your email and password.";
+	}
+	
+	var success = function(token) {
+		$scope.login.token = token
+		var date = new Date();
+		date.setTime(date.getTime() + (20 * 60 * 1000));
+		$.cookie("JOSSO_TOKEN", token, { expires: date });
+	}
+	
+	$scope.authenticate = function() {
+		$scope.login.message = "Authenticating...";
+		
+		$http.post('login',{},{params: {username:$scope.login.username, password:$scope.login.password}})
+		.then(
+			function(resp) {
+				if (resp.data.length < 32) {
+					failed();
+				} else {
+					success(resp.data)
+				}
+			},
+			failed
+		);
+	}
 	
 	$scope.discard = function() {
 		$scope.newProject = {};
@@ -52,6 +83,13 @@ function($scope, $http, Status, ScienceBase) {
 		}
 	}
 	setTimeout(select2focusArea,100)
+	
+	
+	var token = $.cookie("JOSSO_TOKEN")
+	if (token !== undefined && token.length==32) {
+		$scope.login.token = token
+	}
+	
 }]);
 
 

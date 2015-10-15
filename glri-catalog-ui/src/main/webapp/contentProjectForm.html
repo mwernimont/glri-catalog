@@ -36,6 +36,8 @@
 	<script async="" src="http://s.ytimg.com/yts/jsbin/www-widgetapi-vflRC6hVw/www-widgetapi.js" id="www-widgetapi-script" type="text/javascript"></script>
 
 	<script type="text/javascript" src="./webjars/jquery/${jquery.version}/jquery.js"></script>
+	<script type="text/javascript" src="./webjars/jquery-cookie/${jquery.cookie.version}/jquery.cookie.js"></script>
+	
 	<script type="text/javascript" src="./webjars/angularjs/${angular.version}/angular.js"></script>
 	<script type="text/javascript" src="./webjars/angular-sanitize/${angular.sanitize.version}/angular-sanitize.js"></script>
 	<script type="text/javascript" src="./webjars/angular-ui-bootstrap/${angular.bootstrap.version}/ui-bootstrap-tpls.js"></script>
@@ -97,15 +99,35 @@
 				</div>
 			</div>
 
-
 <div id="contentBrowseDetail" class="clearfix glri_content" style="max-width:800px;margin-left:50px;float:left;">
-		
+  <form id="login" name="loginForm" ng-submit="authenticate()" ng-if="login.token === undefined">
+	<h4 class="">Please log in before creating a new project entry.</h4>
+	<div class="form-spacing error" ng-bind-html="login.message"></div>
+	<h4 class="">USGS eMail Address</h4>
+	<div class="form-spacing">
+		<input type="text" class="form-control form-field" ng-model="login.username" required
+		placeholder="email@usgs.gov">
+	</div>
+	<h4 class="">AD Password</h4>
+	<div class="form-spacing">
+		<input type="password" class="form-control form-field" ng-model="login.password" required>
+	</div>
+	<p class="form-spacing">
+		<a id="home" href="." style="display:nonew;" class="btn btn-primary pull-left">Cancel</a>
+		&nbsp;
+		<button id="login" type="submit" class="btn btn-primary pull-right">Login</button>
+	</p>	
+	
+  </form>
+
+  <form id="newProjectForm" name="newProjectForm" ng-submit="save()" ng-if="login.token !== undefined" style="visiblity:hidden" ng-class="{'show' : login.token !== undefined}">		
+
 	<h4 class="">Data Management Plan</h4>
 	<div class="form-spacing" style="margin-left: 10px;">
 		I will create a data management plan within the first year of the project, and will ensure that metadata for all data 
 		sets is created in a timely manner. (Note: this is required for all GLRI funded projects. The USGS has information on
 		 <a href="http://www.usgs.gov/datamanagement/plan/dmplans.php" target="_blank">data managements plans</a>.)
-		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="dmPlan" ng-model="newProject.dmPlan">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="dmPlan" ng-model="newProject.dmPlan"  required>
 			<option value="agree">I Agree</option>
 			<option value="disagree">I Disagree</option>
 		</select>
@@ -113,25 +135,25 @@
 
 	<h4 class="form-title">Project Title</h4>
 	<div class="form-spacing">
-		<textarea class="form-control form-title" placeholder="Enter the project title as it should appear on ScienceBase" ng-model="newProject.title"></textarea>
+		<textarea class="form-control form-title" placeholder="Enter the project title as it should appear on ScienceBase" ng-model="newProject.title" required></textarea>
 	</div>
 
 	<h4 class="">Image URL</h4>
 	<div class="form-spacing">
-		<input class="form-control form-field"  type="text" ng-model="newProject.image">
+		<input class="form-control form-field"  type="text" ng-model="newProject.image"  required>
 	</div>
 	
 	<div class="datepickers input-daterange">
 		<div style="width:50% !important;float:left;">
 			<h4 class="">Agreement Start Date</h4>
 			<div class="form-spacing">
-				<input class="form-control form-field form-date" style="width:150px !important;" type="text" ng-model="newProject.startDate">
+				<input class="form-control form-field form-date" style="width:150px !important;" type="text" ng-model="newProject.startDate"  required>
 			</div>
 		</div>
 		<div style="width:50% !important;float:right;">
 			<h4 class="">Agreement End Date</h4>
 			<div class="form-spacing">
-				<input class="form-control form-field form-date" style="width:150px !important;" type="text" ng-model="newProject.endDate">
+				<input class="form-control form-field form-date" style="width:150px !important;" type="text" ng-model="newProject.endDate" required>
 			</div>
 		</div>
 		<div style="clear:both;"></div>
@@ -139,7 +161,7 @@
 
 	<h4 class="">Project Duration</h4>
 	<div class="form-spacing" style="margin-left: 10px;">
-		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="duration" ng-model="newProject.duration">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="duration" ng-model="newProject.duration" required>
 			<option>Single effort (1 year or less)</option>
 			<option>Short term (2 to 5 years)</option>
 			<option>Long term (greater than 5 years)</option>
@@ -148,13 +170,13 @@
 	
 	<h4>Focus Area</h4>
 	<div class="form-spacing" style="margin-left: 10px;">
-		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="focus_area" ng-model="newProject.focusArea">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="focus_area" ng-model="newProject.focusArea" required>
 		</select>
 	</div>
 	
 	<h4 class="">Project Status</h4>
 	<div class="form-spacing" style="margin-left: 10px;">
-		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="project_status" ng-model="newProject.status">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="project_status" ng-model="newProject.status" required>
 			<option value="Completed">Completed</option>
 			<option value="In Progress">In Progress</option>
 		</select>
@@ -162,7 +184,7 @@
 
 	<h4 class="">Entry Type</h4>
 	<div class="form-spacing" style="margin-left: 10px;">
-		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="entry_type" ng-model="newProject.entryType">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="entry_type" ng-model="newProject.entryType" required>
 			<option>New Project</option>
 			<option>Project Update</option>
 		</select>
@@ -170,7 +192,7 @@
 	
 	<h4 class="">Spatial Location</h4>
 	<div class="form-spacing" style="margin-left: 10px;">
-		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="spatial" ng-model="newProject.spatial">
+		<select class="select2 form-control ng-scope ng-pristine ng-valid" id="spatial" ng-model="newProject.spatial" required>
 			<option value="Has Spatial">Has Spatial</option>
 			<option value="No Spatial">No Spatial</option>
 		</select>
@@ -178,32 +200,32 @@
 	
 	<h4>Background/Problem</h4> 
 	<div class="background form-spacing">
-		<textarea class="form-control form-field" rows="10"  ng-model="newProject.purpose"></textarea>
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.purpose" required></textarea>
 	</div>
 
 	<h4>Objectives</h4> 
 	<div class="background form-spacing">
-		<textarea class="form-control form-field" rows="10"  ng-model="newProject.objectives"></textarea>
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.objectives" required></textarea>
 	</div>
 	
 	<h4>Description of Work</h4> 
 	<div class="form-spacing">
-		<textarea class="form-control form-field" rows="10"  ng-model="newProject.work"></textarea>
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.work" required></textarea>
 	</div>
 	
 	<h4>Relevance and Impact</h4> 
 	<div class="form-spacing">
-		<textarea class="form-control form-field" rows="10"  ng-model="newProject.impact"></textarea>
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.impact" required></textarea>
 	</div>
 	
 	<h4>Planned Product</h4> 
 	<div class="form-spacing">
-		<textarea class="form-control form-field" rows="10"  ng-model="newProject.product"></textarea>
+		<textarea class="form-control form-field" rows="10"  ng-model="newProject.product" required></textarea>
 	</div>
 	
 	<h4>Template(s)</h4>	 
 	<div class="form-spacing">
-		<ui-select multiple ng-model="newProject.templates"  style="width:100%">
+		<ui-select multiple ng-model="newProject.templates"  style="width:100%" required>
 		    <ui-select-match placeholder="Select funding templates...">{{$item.display}}</ui-select-match>
 		    <ui-select-choices repeat="template in transient.templates | orderBy:'sort'">
 		      {{template.display}}
@@ -213,7 +235,7 @@
 
 	<h4>SiGL Keyword(s)</h4>	 
 	<div class="form-spacing">
-		<ui-select multiple ng-model="newProject.SiGL"  style="width:100%">
+		<ui-select multiple ng-model="newProject.SiGL"  style="width:100%" required>
 		    <ui-select-match placeholder="Select SiGL Keywords...">{{$item.display}}</ui-select-match>
 		    <ui-select-choices repeat="SiGL in transient.SiGL_keywords | orderBy:'sort'">
 		      {{SiGL.display}}
@@ -223,7 +245,7 @@
 	
 	<h4>Water Feature(s)</h4>	 
 	<div class="form-spacing">
-		<ui-select multiple ng-model="newProject.water"  style="width:100%">
+		<ui-select multiple ng-model="newProject.water"  style="width:100%" required>
 		    <ui-select-match placeholder="Select Water Features...">{{$item.display}}</ui-select-match>
 		    <ui-select-choices repeat="water in transient.water_features | orderBy:'sort'">
 		      {{water.display}}
@@ -233,39 +255,40 @@
 	
 	<h4>GLRI Keyword(s)</h4>	 
 	<div class="form-spacing">
-		<textarea class="form-control form-field" rows="5" ng-model="newProject.keywords"
+		<textarea class="form-control form-field" rows="5" ng-model="newProject.keywords"  required
 		placeholder="Enter a comma separated list of keywords or phrases; as in: &#10;forecasting, wetlands ecology, coastal" ></textarea>
 	</div>
 	
 	<h4 class="">Principal Investigator</h4>
 	<div class="form-spacing">
-		<input type="text" class="form-control form-field" ng-model="newProject.principal"
+		<input type="text" class="form-control form-field" ng-model="newProject.principal" required
 		placeholder="Enter a single name and email adress; as in: Jane Doe jdoe@usgs.gov">
 	</div>
 	
 	<h4 class="">Associate Project Chief</h4>
 	<div class="form-spacing">
-		<input type="text" class="form-control form-field" ng-model="newProject.chief"
+		<input type="text" class="form-control form-field" ng-model="newProject.chief" required
 		placeholder="Enter a single name and email adress; as in: Jane Doe jdoe@usgs.gov">
 	</div>
 	
 	<h4>External Organization Contacts</h4>  
 	<div class="point-of-contact form-spacing">
-		<textarea class="form-control form-field" rows="5"  ng-model="newProject.organizations"
+		<textarea class="form-control form-field" rows="5"  ng-model="newProject.organizations" required
 		placeholder="Enter a comma separated list of organization names and email adresses; as in: &#10;Helpful Org contact@helpful.org, Money Foundation info@foundation.org" ></textarea>
 	</div>
 	
 	<h4>Points of Contact</h4>  
 	<div class="point-of-contact form-spacing">
-		<textarea class="form-control form-field" rows="5"  ng-model="newProject.contacts"
+		<textarea class="form-control form-field" rows="5"  ng-model="newProject.contacts" required
 		placeholder="Enter a comma separated list of full names and email adresses; as in: &#10;Jane Doe jdoe@usgs.gov, James Brown jbrown@usgs.gov" ></textarea>
 	</div>
 	
 	<p class="form-spacing">
 		<button id="discard" class="btn btn-primary pull-left" ng-click="discard()">Discard</button>
-		<button id="save" class="btn btn-primary pull-right" ng-click="save()">Save</button>	
+		<button id="save" type="submit" class="btn btn-primary pull-right">Save</button>	
 	</p>	
 	
+  </form>
 </div>
 
 
