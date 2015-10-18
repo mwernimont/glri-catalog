@@ -24,7 +24,7 @@ function($scope, $http, Status, ScienceBase) {
 	
 	$scope.transient= Status;
 	
-	var authFailed = function() {
+	var authFailed = window.authFailed = function() {
 		$.cookie("JOSSO_TOKEN", null);
 		$scope.login.token   = undefined;
 		$scope.login.message = "Login failed, please varify your email and password.";
@@ -75,14 +75,12 @@ function($scope, $http, Status, ScienceBase) {
 	}
 	
 	
-	var displayRequiredMsg = function(loc) {
-		
-		$(".form-required-msg").css('top',loc+5).delay(500).fadeIn(500);
-		
-		setTimeout(function() {$(".form-required-msg").fadeOut(500);}, 3000);
+	var displayMsg = function(clas,loc) {
+		$("."+clas).css('top',loc+5).delay(500).fadeIn(500);
+		setTimeout(function() {$("."+clas).fadeOut(500);}, 5000);
 	}
 	
-	var checkRequiredFields = window.check= function() {
+	var checkRequiredFields = function() {
 		var requiredFields = $('.form-required');
 		
 		for (var f=0; f<requiredFields.length; f++) {
@@ -93,11 +91,12 @@ function($scope, $http, Status, ScienceBase) {
 				var value = $scope[model[0]][model[1]]
 				if (value === undefined || value.length === 0) {
 					var loc = scrollTo(field);
-					displayRequiredMsg(loc);
+					displayMsg("form-msg-required", loc);
 					return false;
 				}
 			}
 		}
+		return true;
 	}
 	
 	
@@ -105,17 +104,22 @@ function($scope, $http, Status, ScienceBase) {
 		console.log($scope.newProject);
 
 		if ("agree" !== $scope.newProject.dmPlan) {
-			alert("You must agree to the Data Managment Plan in order to submit a new GLRI Project.");
+			var loc = scrollTo($("#dmPlan"));
+			displayMsg("form-msg-agree", loc);
 		} else {
+			if ( ! checkRequiredFields() ) {
+				return;
+			}
+				
 			var newProject = buildNewProject($scope.newProject);
 			
 			console.log(newProject);
 			checkToken();
 			if ($scope.login.token === undefined) {
+				var loc = scrollTo($('#newProjectForm'));
 				return;
 			}
 			
-/*			
 			$http.post('saveProject', newProject, {params:{auth:$scope.login.token}})
 			.then(
 				function(resp) {
@@ -131,7 +135,6 @@ function($scope, $http, Status, ScienceBase) {
 				},
 				saveFailed
 			)
-*/
 		}
 	}
 	
