@@ -24,13 +24,13 @@ function($scope, $http, Status, ScienceBase) {
 	
 	$scope.transient= Status;
 	
-	var failed = function() {
+	var authFailed = function() {
 		$.cookie("JOSSO_TOKEN", null);
 		$scope.login.token   = undefined;
 		$scope.login.message = "Login failed, please varify your email and password.";
 	}
 	
-	var success = function(token) {
+	var authSuccess = function(token) {
 		$scope.login.token = token
 		var date = new Date();
 		date.setTime(date.getTime() + (20 * 60 * 1000));
@@ -44,12 +44,12 @@ function($scope, $http, Status, ScienceBase) {
 		.then(
 			function(resp) {
 				if (resp.data.length < 32) {
-					failed();
+					authFailed();
 				} else {
-					success(resp.data)
+					authSuccess(resp.data)
 				}
 			},
-			failed
+			authFailed
 		);
 	}
 	
@@ -61,6 +61,45 @@ function($scope, $http, Status, ScienceBase) {
 	var saveFailed = function(resp) {
 		alert("There was a problem saving the project -> " + resp.data);
 	}
+	
+	var scrollTo = function(el) {
+		var container  = $('body')
+	    var scrollToIt = $(el);
+		var scrollTop = {
+		    scrollTop: scrollToIt.parent().parent().offset().top-5
+		}
+		
+		container.animate(scrollTop);
+		
+		return scrollTop.scrollTop
+	}
+	
+	
+	var displayRequiredMsg = function(loc) {
+		
+		$(".form-required-msg").css('top',loc+5).delay(500).fadeIn(500);
+		
+		setTimeout(function() {$(".form-required-msg").fadeOut(500);}, 3000);
+	}
+	
+	var checkRequiredFields = window.check= function() {
+		var requiredFields = $('.form-required');
+		
+		for (var f=0; f<requiredFields.length; f++) {
+			var field = requiredFields[f]
+			var modelBinding = $(field).attr('ng-model')
+			if (modelBinding !== undefined) {
+				var model = modelBinding.split('.')
+				var value = $scope[model[0]][model[1]]
+				if (value === undefined || value.length === 0) {
+					var loc = scrollTo(field);
+					displayRequiredMsg(loc);
+					return false;
+				}
+			}
+		}
+	}
+	
 	
 	$scope.save = function() {
 		console.log($scope.newProject);
@@ -75,6 +114,7 @@ function($scope, $http, Status, ScienceBase) {
 			if ($scope.login.token === undefined) {
 				return;
 			}
+			
 /*			
 			$http.post('saveProject', newProject, {params:{auth:$scope.login.token}})
 			.then(
