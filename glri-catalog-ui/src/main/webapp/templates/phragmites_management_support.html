@@ -1,69 +1,106 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
-<html>
+<html ng-app="GLRICatalogApp">
 <head>
-<title>USGS Great Lakes Restoration Initiative (GLRI) - Adaptive Management - Phragmites</title>
-<meta name="keywords" content="USGS, adaptive management, Phragmites">
 
+	<style type="text/css">
+		@charset "UTF-8";
+		[ng\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide{display:none !important;}
+		ng\:form{display:block;}
+		.ng-animate-block-transitions{transition:0s all!important;-webkit-transition:0s all!important;}
+	</style>
+ 	<title>USGS Great Lakes Restoration Initiative (GLRI)</title>
+		
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1"> 
+    <meta http-equiv="X-UA-Compatible" content="IE=11">
+
+	<link href="./favicon.ico" rel="shortcut icon" type="image/x-icon">
+		
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>USGS Great Lakes Restoration Initiative (GLRI)</title>
+	<meta name="description" content="The GLRI home page with infomation about all GLRI projects.">
+	<meta name="title"     content="USGS Great Lakes Restoration Initiative (GLRI) - Adaptive Management - Phragmites">
+	<meta name="author"    content="Great Lakes Restoration Initiative (GLRI), GLRI">
+	<meta name="keywords"  content="USGS, adaptive management, Phragmites">
+	<meta name="publisher" content="">
+	<meta name="country"   content="USA">
+	<meta name="language"  content="EN">
+	<meta name="revised"   content="2015-08-27 10:44">
+	<meta name="review"    content="">
+	<meta name="expires"   content="Never">
+	
+	<link type="text/css" rel="stylesheet" href="./template/css/usgs_common.css">
+	<link type="text/css" rel="stylesheet" href="./template/css/usgs_style_main.css">
+	<link type="text/css" rel="stylesheet" href="./css/custom.css">
+	
+	<script src="//www.youtube.com/iframe_api"></script>
+	<script async="" src="http://s.ytimg.com/yts/jsbin/www-widgetapi-vflRC6hVw/www-widgetapi.js" id="www-widgetapi-script" type="text/javascript"></script>
+
+	<script type="text/javascript" src="./webjars/jquery/2.1.4/jquery.js"></script>
+	<script type="text/javascript" src="./webjars/jquery-cookie/1.4.1-1/jquery.cookie.js"></script>
+	
+	<script type="text/javascript" src="./webjars/angularjs/1.4.7/angular.js"></script>
+	<script type="text/javascript" src="./webjars/angular-sanitize/1.3.11/angular-sanitize.js"></script>
+	<script type="text/javascript" src="./webjars/angular-ui-bootstrap/0.13.4/ui-bootstrap-tpls.js"></script>
+	<script type="text/javascript" src="./webjars/angular-ui-select/0.12.1/select.min.js"></script>
+	<script type="text/javascript" src="./webjars/bootstrap-datepicker/1.4.0/js/bootstrap-datepicker.min.js"></script>
+
+	<!-- Twitter, Bootstrap, & themes -->
+	<link rel="stylesheet" type="text/css" href="./webjars/bootstrap/3.3.4/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="./style/themes/theme1.css">
+	<link rel="stylesheet" type="text/css" href="./webjars/angular-ui-select/0.12.1/select.min.css" >
+	<link rel="stylesheet" type="text/css" href="./webjars/bootstrap-datepicker/1.4.0/css/bootstrap-datepicker.min.css">
+
+	<!-- legacy css -->
+	<link type="text/css" rel="stylesheet" href="./css/dynamic.css">
+	<link type="text/css" rel="stylesheet" href="./css/style.css">
+	<link type="text/css" rel="stylesheet" href="./css/layout.css">
+	<link type="text/css" rel="stylesheet" href="./css/common.css">
+	<link type="text/css" rel="stylesheet" href="./css/dropdown2.css">
+	<link type="text/css" rel="stylesheet" href="./css/theme.css">
 <link href="../css/phragmites/style.css" rel="stylesheet" type="text/css" />
-
 <link href="../css/phragmites/common.css" rel="stylesheet" type="text/css" />
 <link href="../css/phragmites/custom.css" rel="stylesheet" type="text/css" />
 
+	<!-- Application custom -->
+	<link rel="stylesheet" type="text/css" href="./css/glri.css">
+	
+	<link href="./webjars/openlayers/2.13.1/theme/default/style.css" type="text/css" rel="stylesheet">
+	
+	<script type="text/javascript" src="js/select2buttons.js"></script>
+	<link rel="stylesheet" type="text/css" href="css/select2Buttons.css">
 
-
- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
-
-
-<!-- include jQuery UI  From Google Code-->
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1/jquery-ui.min.js"></script>
-
-
-
-<script type="text/javascript">    
-	var isIE6 = false;    
-
-</script>  
-<!--[if IE 6]>
-	<script type="text/javascript">    
-    	var isIE6 = true;    
-    </script>  
-<![endif]-->
-
-<style type="text/css">
-#wrapper {
-  margin-left: 27px;
-  margin-right: 27px;
-}
-#cleared {
-  clear: both;
-}
-
-
-</style>
-
-
+	<link rel="stylesheet" type="text/css" href="css/newProjectForm.css">
+	
 </head>
+<body ng-controller="NewProjectCtrl">
+<div class="row">
+				<div class="col-xs-12">
+					<div id="usgs-header-panel" class="">
+    <div id="header">
+        <div id="banner-area">
+            <h1>U.S. Geological Survey</h1>
+            <!-- Not actually visible unless printed -->
+            <div id="usgs-header-logo">
+                <a onmousedown="_sendEvent('Outbound','www.usgs.gov','/',0);_sendEvent('Outbound','www.usgs.gov','/',0);" href="http://www.usgs.gov" title="Link to the US Geological Survey main web page">
+                    <img alt="USGS Logo - science for a changing world" title="U.S. Geological Survey Home Page" src="./template/images/usgs_logo.jpg">
+                </a>
+            </div>
+            <ul id="ccsa-area">
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/',0);_sendEvent('Outbound','www.usgs.gov','/',0);" href="http://www.usgs.gov/" title="Link to main USGS page">
+				USGS Home</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/ask/index.html',0);_sendEvent('Outbound','www.usgs.gov','/ask/index.html',0);" href="http://www.usgs.gov/ask/index.html" title="Link to main USGS contact page">
+				Contact USGS</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','search.usgs.gov','/',0);_sendEvent('Outbound','search.usgs.gov','/',0);" href="http://search.usgs.gov/" title="Link to main USGS search (not publications search)">
+				Search USGS</a></li>
+            </ul>
+        </div><!-- End content -->
+		<div id="site-title" class="clearfix">
+			<h1>Great Lakes Restoration Initiative (GLRI)</h1>
 			
-<!-- BEGIN USGS Header Template -->
-<div class="bannerColorBand">
-	<div class="banner">
-		<div class="identifier"><a href="http://www.usgs.gov/" title="U.S. Geological Survey Home Page">
-			<img src="../images/header_graphic_usgsIdentifier_white.jpg" alt="U.S. Geological Survey - science for a changing world" width="178" height="72" style="border: none;" /></a></div>
-		<img src="../images/header_graphic_spacer.gif" height="72" width="1" alt="spacer" style="position: absolute;" />
-		<div class="ccsaBox">
-			<img src="../images/header_graphic_spacer.gif" height="72" width="1" alt="spacer" style="float: left;" />
-			<div class="ccsa">
-			  <br /><a href="http://www.usgs.gov/">USGS Home</a><br />
-			  <a href="http://www.usgs.gov/ask/index.html">Contact USGS</a><br />
-			  <a href="http://www.usgs.gov/search">Search USGS</a><br />
-			</div>
 		</div>
-	</div>
-</div>
-<div class="siteTitle">
-	<p id="pTitle">Great Lakes Restoration Initiative (GLRI)</p>
-</div>
-<!-- END USGS Header Template -->
+        
+    </div><!-- /header -->
+</div><!--/header panel-->
 
 <body>
 
@@ -75,7 +112,8 @@
 
 <p><span class="tiny2" style="float:left;">
 Prepared by Kurt Kowalski, U.S. Geological Survey</span><br>
-<span class="tiny2" style="float:left;">(Released July 2015) (<a href="#">PDF Version</a>)</span>
+<span class="tiny2" style="float:left;">(Released July 2015) (<a href="#">PDF 
+Version</a>)</span>
 </p></br>
 
 <table width="1100px;">
@@ -93,12 +131,12 @@ Great Lakes Basin. Here we highlight significant accomplishments to date:
 
 <ul class="list-tick" style="margin-left:63px;">
 <li><b>Great Lakes <i>Phragmites</i> Collaborative</b>: <u>The Great Lakes 
-<i>Phragmites</i> Collaborative</u> (GLPC) was formed in 2012 to engage stakeholders 
-and maximize the collective impact of efforts to control <i>Phragmites</i> by 
-coordinating people, information, and action through facilitated meetings, an 
-extensive web site, webinars, blogs, and other forms of social media. The 
-collaborative has played an integral role in initiating and organizing many other projects 
-(more details).<br>
+<i>Phragmites</i> Collaborative</u> (GLPC) was formed in 2012 to engage 
+stakeholders and maximize the collective impact of efforts to control <i>
+Phragmites</i> by coordinating people, information, and action through 
+facilitated meetings, an extensive web site, webinars, blogs, and other forms of 
+social media. The collaborative has played an integral role in initiating and 
+organizing many other projects (more details).<br>
 &nbsp;</li>
 <li><b>Adaptive Management</b>: The GLPC will continue to play a significant 
 role in development and implementation of the recently initiated basin-wide 
@@ -147,8 +185,8 @@ in professional journals (more details).<br>
 <div class="strong2">The Great Lakes Phragmites Collaborative<br></div>
 <img border="0" src="../images/phragmites/page2_infographic_72.png" style="float: right; padding: 9px; border:1px solid #F0F0F0;margin-bottom:18px;margin:9px;" width="297" height="544">
 <p>
-The Great Lakes <i>Phragmites</i> Collaborative (GLPC) is an initiative led 
-by a core team supported by staff from USGS – Great Lakes Science Center and the 
+The Great Lakes <i>Phragmites</i> Collaborative (GLPC) is an initiative led by a 
+core team supported by staff from USGS â€“ Great Lakes Science Center and the 
 Great Lakes Commission (GLC), with oversight and input from an international 
 Advisory Committee. The goal of the GLPC is to form regional partnerships to 
 promote more coordinated, efficient, and strategic approaches to Phragmites 
@@ -159,8 +197,9 @@ that facilitate access to information, encourage technology transfer, and build
 connections between habitat managers, governmental agencies, and private 
 landowners.</p>
 <p>
-<img border="0" src="../images/phragmites/page2_picture.png" width="362" height="310" style="float: left; padding: 9px; border:1px solid #F0F0F0;margin-bottom:18px;margin:9px;margin-right:30px;">The organization and involvement from the Advisory Committee has helped to 
-organize many of the most recent Phragmites research and management developments 
+<img border="0" src="../images/phragmites/page2_picture.png" width="362" height="310" style="float: left; padding: 9px; border:1px solid #F0F0F0;margin-bottom:18px;margin:9px;margin-right:30px;">The 
+organization and involvement from the Advisory Committee has helped to organize 
+many of the most recent Phragmites research and management developments 
 including:</p>
 
 <ul class="list-tick" >
@@ -185,16 +224,16 @@ map large stands of invasive <i>Phragmites</i>. This effort produced the first
 U.S. coastal Great Lakes distribution map of <i>Phragmites australis</i>, which 
 identified 24,643 ha of large (&gt; 0.2 ha), dense stands of invasive <i>Phragmites</i>.</p>
 <p>
-<img border="0" src="../images/phragmites/pubs_image_phrag_mapping.png" style="float: right; margin: 9px" width="297" height="374">Using the basin-scale distribution map, environmental data (e.g., soils, 
-nutrients, disturbance, climate, topography), and climate predictions, we 
-performed analyses of current and predicted suitable coastal habitat using 
-boosted regression trees. We also investigated differential influences of 
-environmental variables in the upper lakes (Lakes Superior, Michigan, and Huron) 
-and lower lakes (Lakes St. Clair, Erie, and Ontario). The results of this study, 
-combined with a publicly available online GLRI <i>Phragmites</i> Decision 
-Support Tool (DST), enable resource managers and restoration practitioners to 
-target and prioritize <i>Phragmites</i> control efforts in the Great Lakes 
-coastal zone.<img border="0" src="../images/phragmites/lake%20erie.png" width="524" height="311" style="float: left; padding: 9px; border:1px solid #F0F0F0;margin:9px;margin-bottom:18px;"></p>
+<img border="0" src="../images/phragmites/pubs_image_phrag_mapping.png" style="float: right; margin: 9px" width="297" height="374">Using 
+the basin-scale distribution map, environmental data (e.g., soils, nutrients, 
+disturbance, climate, topography), and climate predictions, we performed 
+analyses of current and predicted suitable coastal habitat using boosted 
+regression trees. We also investigated differential influences of environmental 
+variables in the upper lakes (Lakes Superior, Michigan, and Huron) and lower 
+lakes (Lakes St. Clair, Erie, and Ontario). The results of this study, combined 
+with a publicly available online GLRI <i>Phragmites</i> Decision Support Tool 
+(DST), enable resource managers and restoration practitioners to target and 
+prioritize <i>Phragmites</i> control efforts in the Great Lakes coastal zone.<img border="0" src="../images/phragmites/lake%20erie.png" width="524" height="311" style="float: left; padding: 9px; border:1px solid #F0F0F0;margin:9px;margin-bottom:18px;"></p>
 </td>
 </tr>
 
@@ -218,7 +257,7 @@ produce energy for the plant.
 <p>We sequenced the transcriptome (all of the RNA codes that make proteins in 
 the plant) of <i>Phragmites australis</i> to create a genetic road-map that will 
 guide future targets for knockdown of gene expression via constructed vectors.</p>
-<p>Competition experiments will be carried out between 'silenced' plants and 
+<p>Competition experiments will be carried out between &#39;silenced&#39; plants and 
 non-silenced plants. Field trials will begin once a reduction in competitive 
 abilities are documented.</p>
 
@@ -242,9 +281,10 @@ paper is being used as a guide for new projects in this field and will maintain
 the collective focus on the ultimate goal of a <i>Phragmites</i> management 
 approach based on microbial symbiosis.<img border="0" src="../images/phragmites/pubs_image2.jpg" width="297" height="476" style="float: right; padding: 9px; border:1px solid #F0F0F0;margin:9px;margin-bottom:18px;"></p>
 
-<p>As a direct result of assembling this group, USGS has formed new relationships 
-with other research labs and is contributing directly to collaborative research 
-efforts exploring the role of bacterial and fungal endophytes in invasive <i>
+<p>As a direct result of assembling this group, USGS has formed new 
+relationships with other research labs and is contributing directly to 
+collaborative research efforts exploring the role of bacterial and fungal 
+endophytes in invasive <i>
 Phragmites</i>.
 </p>
 
@@ -266,7 +306,8 @@ microbial-based <i>Phragmites</i> management opportunities.</p>
 
 <tr>
 <td style="padding-top:18px;margin-top:18px;border-top-style: solid; border-top-width: 1px; border-top-color:#F0F0F0;">
-<div class="strong2"><p>Putting it all together: <i>Phragmites</i> Adaptive Management Framework</p></div>
+<div class="strong2"><p>Putting it all together: <i>Phragmites</i> Adaptive 
+	Management Framework</p></div>
 
 &nbsp;<p>Facilitated by the Great Lakes <i>Phragmites</i> Collaborative, we are 
 spear-heading an integrated effort to develop a regional adaptive management 
@@ -313,8 +354,10 @@ and advances in technologies.</p>
 		<td style="border-bottom-style: solid; border-bottom-width: 1px">&nbsp;</td>
 	</tr>
 	<tr>
-		<td style="border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px">&nbsp;</td>
-		<td style="border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px">&nbsp;</td>
+		<td style="border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px">
+		&nbsp;</td>
+		<td style="border-top-style: solid; border-top-width: 1px; border-bottom-style: solid; border-bottom-width: 1px">
+		&nbsp;</td>
 	</tr>
 	<tr>
 		<td style="border-top-style: solid; border-top-width: 1px">&nbsp;</td>
@@ -342,22 +385,55 @@ and advances in technologies.</p>
   
 
 
-<!-- BEGIN USGS Footer Template -->
-<p class="footerBar" style="clear: both;margin-bottom:5px;">
-	<a href="http://www.usgs.gov/accessibility.html" title="Accessibility Policy (Section 508). ">Accessibility</a>
-	<a href="http://www.usgs.gov/foia/" title="Freedom of Information Act. ">FOIA</a>
-	<a href="http://www.usgs.gov/privacy.html" title="Privacy policies of the U.S. Geological Survey. ">Privacy</a>
-	<a href="http://www.usgs.gov/policies_notices.html" title="Policies and notices that govern information posted on USGS Web sites. ">Policies and Notices</a></p>
 
-<p class="footerText" style="padding-bottom:30px;">
-	<a href="http://www.takepride.gov/"><img src="http://www.usgs.gov/images/footer_graphic_takePride.jpg" alt="Take Pride in America home page." width="60" height="58" style="border: none;  float: right;padding-bottom:10px;" title="Take Pride in America home page."  /></a>
-	<a href="http://www.usa.gov/"><img src="http://www.usgs.gov/images/footer_graphic_usagov.jpg" alt="USA dot Gov: The U.S. Government's Official Web Portal" style="border: none; float: right; " title="USA.Gov: The U.S. Government's Official Web Portal" /></a>
-	<a href="http://www.doi.gov">U.S. Department of the Interior</a> | <a href="http://www.usgs.gov">U.S. Geological Survey</a><br />
-	Page Contact Information: <a href="mailto:gs-w-ohclb_webmaster@usgs.gov">Webmaster</a><br />
-	Page Last Modified:<!--#echo var="LAST_MODIFIED"--><br />
-</p>
-<hr />
-<!-- END USGS Footer Template -->
+<div class="col-xs-12">
+					<div id="usgs-footer-panel" class="">
+    <div id="footer" style="width: 100%; margin-right: -1em;">
+        <div id="usgs-policy-links">
+            <h4 class="access-help">USGS Policy Information Links</h4>
+            <ul class="hnav">
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/accessibility.html',0);_sendEvent('Outbound','www.usgs.gov','/accessibility.html',0);" href="http://www.usgs.gov/accessibility.html" title="USGS web accessibility policy">Accessibility</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/foia/',0);_sendEvent('Outbound','www.usgs.gov','/foia/',0);" href="http://www.usgs.gov/foia/" title="USGS Freedom of Information Act information">FOIA</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/privacy.html',0);_sendEvent('Outbound','www.usgs.gov','/privacy.html',0);" href="http://www.usgs.gov/privacy.html" title="USGS privacy policies">Privacy</a></li>
+                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/policies_notices.html',0);_sendEvent('Outbound','www.usgs.gov','/policies_notices.html',0);" href="http://www.usgs.gov/policies_notices.html" title="USGS web policies and notices">Policies and Notices</a></li>
+            </ul>
+        </div><!-- end usgs-policy-links -->
+        <div class="content">
+            <div id="page-info">
+                <p id="footer-doi-links">
+                    <span class="vcard">
+                        <a onmousedown="_sendEvent('Outbound','www.doi.gov','/',0);_sendEvent('Outbound','www.doi.gov','/',0);" class="url fn org" href="http://www.doi.gov/" title="Link to the main DOI web site">U.S. Department of the Interior</a>
+                        <span class="adr">
+                            <span class="street-address">1849 C Street, N.W.</span><br>
+                            <span class="locality">Washington</span>, <span class="region">DC</span>
+                            <span class="postal-code">20240</span>
+                        </span>
+                        <span class="tel">202-208-3100</span>
+                    </span><!-- vcard --> | 
+                    <span class="vcard">
+                        <a onmousedown="_sendEvent('Outbound','www.usgs.gov','/',0);_sendEvent('Outbound','www.usgs.gov','/',0);" class="url fn org" href="http://www.usgs.gov" title="Link to the main USGS web site">U.S. Geological Survey</a>
+                        <span class="adr">
+                            <span class="post-office-box">Box 25286</span><br>
+                            <span class="locality">Denver</span>, <span class="region">CO</span>
+                            <span class="postal-code">8022</span>
+                        </span>
+                    </span><!-- vcard -->
+                </p>
+                <p id="footer-url-info">URL: <script type="text/javascript">document.write(document.location.href);</script>http://cida-test.er.usgs.gov/glri/#/Search</p>
+                <p id="footer-contact-info">Page Contact Information: <a onmousedown="_sendEvent('Outbound MailTo','glri-database@usgs.gov','',0);_sendEvent('Outbound MailTo','glri-database@usgs.gov','',0);" href="mailto:glri-database@usgs.gov">GLRI Help</a></p>
+                <p id="footer-page-modified-info">Page Last modified: 2015-08-27 10:44 (version 0.5.12)</p>
+            </div><!-- /page-info -->
+            <div id="gov-buttons">
+                <a onmousedown="_sendEvent('Outbound','www.firstgov.gov','/',0);_sendEvent('Outbound','www.firstgov.gov','/',0);" title="link to the official US Government web portal" href="http://firstgov.gov/">
+                    <img src="./template/images/footer_graphic_firstGov.jpg" alt="FirstGov button">
+                </a>
+                <a onmousedown="_sendEvent('Outbound','www.takepride.gov','/',0);_sendEvent('Outbound','www.takepride.gov','/',0);" title="Link to Take Pride in America, a volunteer organization that helps to keep America's public lands beautiful." href="http://www.takepride.gov/">
+                    <img src="./template/images/footer_graphic_takePride.jpg" alt="Take Pride in America button">
+                </a>
+            </div><!-- /gov-buttons -->
+        </div><!-- /content -->
+    </div><!-- /footer -->
+</div><!-- /footer panel -->
 
 
 
