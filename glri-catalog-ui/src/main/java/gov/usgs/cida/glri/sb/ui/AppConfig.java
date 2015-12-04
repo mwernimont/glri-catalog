@@ -16,9 +16,14 @@ public class AppConfig {
 	/** Key prefix appended infront of all key names */
 	public static final String KEY_BASE_PREFIX = "gov.usgs.cida.glri.sb.ui.";
 	
+	
+	public static final String SCIENCEBASE_AUTH = KEY_BASE_PREFIX + "SCIENCEBASE_AUTH";
 	public static final String SCIENCEBASE_HOST = KEY_BASE_PREFIX + "SCIENCEBASE_HOST";
 	public static final String SCIENCEBASE_VOCAB_HOST = KEY_BASE_PREFIX + "SCIENCEBASE_VOCAB_HOST";
-	public static final String SCIENCEBASE_GLRI_COMMUNITY_ID = KEY_BASE_PREFIX + "SCIENCEBASE_GLRI_COMMUNITY_ID";
+	public static final String SCIENCEBASE_GLRI_COMMUNITY_ID  = KEY_BASE_PREFIX + "SCIENCEBASE_GLRI_COMMUNITY_ID";
+
+	public static final String SCIENCEBASE_GLRI_COMMUNITY_USR = KEY_BASE_PREFIX + "SCIENCEBASE_GLRI_COMMUNITY_USR";
+	public static final String SCIENCEBASE_GLRI_COMMUNITY_PWD = KEY_BASE_PREFIX + "SCIENCEBASE_GLRI_COMMUNITY_PWD";
 	
 	/**
 	 * If set to true, the application uses a local json file for all responses, rather than
@@ -27,6 +32,8 @@ public class AppConfig {
 	 * VPN.  No filtering is done - the same file is returned each time.
 	 */
 	public static final String SCIENCEBASE_GLRI_LOCAL_DEV_MODE = KEY_BASE_PREFIX + "SCIENCEBASE_GLRI_LOCAL_DEV_MODE";
+
+
 	
 	private static AppConfig appConfig;
 	private DynamicReadOnlyProperties props;
@@ -79,21 +86,20 @@ public class AppConfig {
 	
 	
 	public static String get(String key) {
-		System.out.print("looking up -> ");
-		System.out.println(key);
 		return get(key, null);
 	}
 	
 	public static String get(String key, String valueIfNull) {
-		System.out.print("looking up -> ");
-		System.out.println(key);
 		AppConfig inst = AppConfig.instance();
 		Object val = inst.props.getProperty(key, null);
+		String str = null;
 		
 		if (val != null) {
-			return val.toString();
-		} else {
-			return null;
+			str = val.toString();
 		}
+
+		System.out.println("looking up -> "+ key +"="+ str);
+
+		return str;
 	}
 }

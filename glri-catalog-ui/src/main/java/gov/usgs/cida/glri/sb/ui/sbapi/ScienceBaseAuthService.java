@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.usgs.cida.glri.sb.ui.itemquery;
+package gov.usgs.cida.glri.sb.ui.sbapi;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -14,21 +14,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.common.io.CharStreams;
-
-import gov.usgs.cida.glri.sb.ui.AppConfig;
-
 /**
  *
  * @author duselman
  */
-public class ScienceBaseProjectService extends HttpServlet {
+public class ScienceBaseAuthService extends HttpServlet {
 
-	private static final Logger log = Logger.getLogger(ScienceBaseProjectService.class.getName());
+	private static final Logger log = Logger.getLogger(ScienceBaseAuthService.class.getName());
 	
 	private static final long serialVersionUID = 1L;
 
-	private static final String AUTH = "auth";
+	private static final String USERNAME = "username";
+	private static final String PASSWORD = "password";
 	
 	/**
 	 * Processes authentication requests for HTTP
@@ -43,38 +40,21 @@ public class ScienceBaseProjectService extends HttpServlet {
 			throws ServletException, IOException {
 		
 		try {
-			String token = request.getParameter(AUTH);
-			if (token == null || token.length()<32) {
-				throw new RuntimeException("Missing Auth Key");
+			ScienceBaseRestClient auth = new ScienceBaseRestClient();
+			String username = request.getParameter(USERNAME);
+			log.info("authenticating user: " + username);
+			String authJSON = auth.login(username, request.getParameter(PASSWORD));
+			if (authJSON == null || authJSON.length()<32) {
+				throw new RuntimeException("Auth Failed");
 			}
 			
-			String newProjectJson = CharStreams.toString( request.getReader() );
-			if (newProjectJson == null || newProjectJson.length()<32) {
-				throw new RuntimeException("Missing Project Data");
-			}
-			log.finest("submitting new project: " + newProjectJson);
-
-			ScienceBaseNewProject project = new ScienceBaseNewProject();
-			String projectId = project.post(AppConfig.instance(), token, newProjectJson);
-			if (projectId == null || projectId.length()<32) {
-				throw new RuntimeException("Missing Project ID");
-			}
-			
+//			response.setContentType("application/json; charset=UTF-8"); // TODO could return a JSON jossoId pair
 			response.setContentType("text/plain; charset=UTF-8");
 			PrintWriter out = response.getWriter();
-			out.write(projectId);
-		} catch (RuntimeException ex) {
-			log.log(Level.WARNING, null, ex);
-			PrintWriter out = response.getWriter();
-			out.write(ex.getMessage());
-		} catch (IOException ex) {
-			log.log(Level.SEVERE, null, ex);
-			PrintWriter out = response.getWriter();
-			out.write("Error contacting ScienceBase.gov");
+			out.write(authJSON);
 		} catch (Exception ex) {
 			log.log(Level.SEVERE, null, ex);
-			PrintWriter out = response.getWriter();
-			out.write("Error");
+			response.sendError(403);
 		}
 	}
 
