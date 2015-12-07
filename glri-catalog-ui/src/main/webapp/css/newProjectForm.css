@@ -105,19 +105,29 @@ div.error {
     z-index: 999;
     margin-top: -13px;
  }
-.form-required-msg {
-	color: darkred;
-    background-color: pink;
-    border: 3px solid darkred;
+.form-msg {
     border-radius: 20px;
+    display:none;
     font-weight: bold;
     padding: 10px;
     position:absolute;
     left:300px;
     z-index: 499;
 }
+.form-msg-required {
+    color: darkred;
+    background-color: pink;
+    border: 3px solid darkred;
+}
+.form-msg-agree {
+    color: darkgreen;
+    background-color: lightgreen;
+    border: 3px solid darkgreen;
+}
 
-
+.ui-select-multiple.ui-select-bootstrap {
+    height: 36px !important;
+}
 
 
 /*

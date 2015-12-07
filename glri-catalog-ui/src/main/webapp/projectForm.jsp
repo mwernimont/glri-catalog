@@ -70,34 +70,20 @@
 	
 </head>
 <body ng-controller="NewProjectCtrl">
+
 <div class="row">
-				<div class="col-xs-12">
-					<div id="usgs-header-panel" class="">
-    <div id="header">
-        <div id="banner-area">
-            <h1>U.S. Geological Survey</h1>
-            <!-- Not actually visible unless printed -->
-            <div id="usgs-header-logo">
-                <a onmousedown="_sendEvent('Outbound','www.usgs.gov','/',0);_sendEvent('Outbound','www.usgs.gov','/',0);" href="http://www.usgs.gov" title="Link to the US Geological Survey main web page">
-                    <img alt="USGS Logo - science for a changing world" title="U.S. Geological Survey Home Page" src="./template/images/usgs_logo.jpg">
-                </a>
-            </div>
-            <ul id="ccsa-area">
-                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/',0);_sendEvent('Outbound','www.usgs.gov','/',0);" href="http://www.usgs.gov/" title="Link to main USGS page">USGS Home</a></li>
-                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/ask/index.html',0);_sendEvent('Outbound','www.usgs.gov','/ask/index.html',0);" href="http://www.usgs.gov/ask/index.html" title="Link to main USGS contact page">Contact USGS</a></li>
-                <li><a onmousedown="_sendEvent('Outbound','search.usgs.gov','/',0);_sendEvent('Outbound','search.usgs.gov','/',0);" href="http://search.usgs.gov/" title="Link to main USGS search (not publications search)">Search USGS</a></li>
-            </ul>
-        </div><!-- End content -->
-		<div id="site-title" class="clearfix">
-			<h1>Great Lakes Restoration Initiative (GLRI)</h1>
+	<div class="col-xs-12">
+		<jsp:include page="./templates/header.jsp">
+			<jsp:param name="relPath" value="./" />
+			<jsp:param name="header-class" value="" />
+			<jsp:param name="site-title" value="Great Lakes Restoration Initiative (GLRI)" />
+		</jsp:include>
+		<img class="glyphicon glyphicon-menu visible-xs" src="images/xicon_mobile_nav_menu.svg" ng-click="toggleNav()">
+	</div>
+</div>
 			
-		</div>
-        
-    </div><!-- /header -->
-</div><!--/header panel-->
-					<img class="glyphicon glyphicon-menu visible-xs" src="images/xicon_mobile_nav_menu.svg" ng-click="toggleNav()">
-				</div>
-			</div>
+			
+<div class="row">
 
 <a id="gotoNewProject" class="hidden" href="Browse/all/{{transient.newProjectId}}"></a>
 
@@ -127,7 +113,8 @@
 
   <form id="newProjectForm" name="newProjectForm" ng-submit="save()" >		
 
-<div class="form-required-msg" style="display:none;">Please complete this required field.</div>
+<div class="form-msg form-msg-required">Please complete this required field.</div>
+<div class="form-msg form-msg-agree">You must agree to the Data Management Plan in order to submit a new GLRI Project.</div>
 
 <div>
 	<h2 class="detailTitle">Project Information Form</h2>
@@ -370,6 +357,7 @@
   </form>
 </div>
 
+</div>
 
 <div id="contentBrowseDetail" class="clearfix glri_content imageContent">
 	<h4>Project Image</h4>
@@ -377,57 +365,20 @@
 </div>
 
 
-<div class="col-xs-12">
-					<div id="usgs-footer-panel" class="">
-    <div id="footer" style="width: 100%; margin-right: -1em;">
-        <div id="usgs-policy-links">
-            <h4 class="access-help">USGS Policy Information Links</h4>
-            <ul class="hnav">
-                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/accessibility.html',0);_sendEvent('Outbound','www.usgs.gov','/accessibility.html',0);" href="http://www.usgs.gov/accessibility.html" title="USGS web accessibility policy">Accessibility</a></li>
-                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/foia/',0);_sendEvent('Outbound','www.usgs.gov','/foia/',0);" href="http://www.usgs.gov/foia/" title="USGS Freedom of Information Act information">FOIA</a></li>
-                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/privacy.html',0);_sendEvent('Outbound','www.usgs.gov','/privacy.html',0);" href="http://www.usgs.gov/privacy.html" title="USGS privacy policies">Privacy</a></li>
-                <li><a onmousedown="_sendEvent('Outbound','www.usgs.gov','/policies_notices.html',0);_sendEvent('Outbound','www.usgs.gov','/policies_notices.html',0);" href="http://www.usgs.gov/policies_notices.html" title="USGS web policies and notices">Policies and Notices</a></li>
-            </ul>
-        </div><!-- end usgs-policy-links -->
-        <div class="content">
-            <div id="page-info">
-                <p id="footer-doi-links">
-                    <span class="vcard">
-                        <a onmousedown="_sendEvent('Outbound','www.doi.gov','/',0);_sendEvent('Outbound','www.doi.gov','/',0);" class="url fn org" href="http://www.doi.gov/" title="Link to the main DOI web site">U.S. Department of the Interior</a>
-                        <span class="adr">
-                            <span class="street-address">1849 C Street, N.W.</span><br>
-                            <span class="locality">Washington</span>, <span class="region">DC</span>
-                            <span class="postal-code">20240</span>
-                        </span>
-                        <span class="tel">202-208-3100</span>
-                    </span><!-- vcard --> | 
-                    <span class="vcard">
-                        <a onmousedown="_sendEvent('Outbound','www.usgs.gov','/',0);_sendEvent('Outbound','www.usgs.gov','/',0);" class="url fn org" href="http://www.usgs.gov" title="Link to the main USGS web site">U.S. Geological Survey</a>
-                        <span class="adr">
-                            <span class="post-office-box">Box 25286</span><br>
-                            <span class="locality">Denver</span>, <span class="region">CO</span>
-                            <span class="postal-code">8022</span>
-                        </span>
-                    </span><!-- vcard -->
-                </p>
-                <p id="footer-url-info">URL: <script type="text/javascript">document.write(document.location.href);</script></p>
-                <p id="footer-contact-info">Page Contact Information: <a onmousedown="_sendEvent('Outbound MailTo','glri-database@usgs.gov','',0);_sendEvent('Outbound MailTo','glri-database@usgs.gov','',0);" href="mailto:glri-database@usgs.gov">GLRI Help</a></p>
-                <p id="footer-page-modified-info">Page Last modified: 2015-08-27 10:44 (version 0.5.12)</p>
-            </div><!-- /page-info -->
-            <div id="gov-buttons">
-                <a onmousedown="_sendEvent('Outbound','www.firstgov.gov','/',0);_sendEvent('Outbound','www.firstgov.gov','/',0);" title="link to the official US Government web portal" href="http://firstgov.gov/">
-                    <img src="./template/images/footer_graphic_firstGov.jpg" alt="FirstGov button">
-                </a>
-                <a onmousedown="_sendEvent('Outbound','www.takepride.gov','/',0);_sendEvent('Outbound','www.takepride.gov','/',0);" title="Link to Take Pride in America, a volunteer organization that helps to keep America's public lands beautiful." href="http://www.takepride.gov/">
-                    <img src="./template/images/footer_graphic_takePride.jpg" alt="Take Pride in America button">
-                </a>
-            </div><!-- /gov-buttons -->
-        </div><!-- /content -->
-    </div><!-- /footer -->
-</div><!-- /footer panel -->
+<div id="footerContainer" class="row">
+	<div class="col-xs-12">
+		<jsp:include page="./templates/footer.jsp">
+			<jsp:param name="relPath" value="./" />
+			<jsp:param name="header-class" value="" />
+			<jsp:param name="site-url" value="" />
+                <p id="footer-url-info">URL: <script type="text/javascript">document.write(document.location.href);</script>http://cida.usgs.gov/glri/#/Search</p>
+			<jsp:param name="contact-info" value="<a href=\"mailto:glri-database@usgs.gov\">GLRI Help</a>" />
+			<jsp:param name="revisedDate" value="${timestamp}" />
+			<jsp:param name="buildVersion" value="${project.version}" />
+		</jsp:include>
+	</div>
+</div> <!-- footerContainer -->
 
-
-				</div>
 
 </body>
 <script type="text/javascript" src="./js/app/main.js"></script>
