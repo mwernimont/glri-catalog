@@ -39,12 +39,12 @@ public class ScienceBaseAuthService extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		try {
-			ScienceBaseRestClient auth = new ScienceBaseRestClient();
-			String username = request.getParameter(USERNAME);
+		String username = request.getParameter(USERNAME);
+		
+		try ( ScienceBaseRestClient auth = new ScienceBaseRestClient() ) {
 			log.info("authenticating user: " + username);
 			String authJSON = auth.login(username, request.getParameter(PASSWORD));
-			if (authJSON == null || authJSON.length()<32) {
+			if (authJSON == null || authJSON.length() != 32) {
 				throw new RuntimeException("Auth Failed");
 			}
 			
@@ -53,7 +53,7 @@ public class ScienceBaseAuthService extends HttpServlet {
 			PrintWriter out = response.getWriter();
 			out.write(authJSON);
 		} catch (Exception ex) {
-			log.log(Level.SEVERE, null, ex);
+			log.log(Level.SEVERE, "auth error " + username, ex);
 			response.sendError(403);
 		}
 	}

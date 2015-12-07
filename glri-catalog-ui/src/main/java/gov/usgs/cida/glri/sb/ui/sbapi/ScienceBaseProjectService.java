@@ -63,9 +63,14 @@ public class ScienceBaseProjectService extends HttpServlet {
 				client.login(username, password);
 				
 				JSONObject newProject = new JSONObject(newProjectJson);
-				JSONObject project = client.createSbItem(newProject);
-				projectId = project.getString("id");
-				if (projectId == null || projectId.length()<32) {
+				JSONObject sbreply = client.createSbItem(newProject);
+				
+				if ( ! sbreply.isNull("errors") ) {
+					// TODO handle errors
+				}
+				
+				projectId = sbreply.getString("id");
+				if (projectId == null || projectId.length()<24) {
 					throw new RuntimeException("Missing Project ID");
 				}
 			}
