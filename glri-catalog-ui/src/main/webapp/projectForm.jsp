@@ -371,7 +371,6 @@
 			<jsp:param name="relPath" value="./" />
 			<jsp:param name="header-class" value="" />
 			<jsp:param name="site-url" value="" />
-                <p id="footer-url-info">URL: <script type="text/javascript">document.write(document.location.href);</script>http://cida.usgs.gov/glri/#/Search</p>
 			<jsp:param name="contact-info" value="<a href=\"mailto:glri-database@usgs.gov\">GLRI Help</a>" />
 			<jsp:param name="revisedDate" value="${timestamp}" />
 			<jsp:param name="buildVersion" value="${project.version}" />
