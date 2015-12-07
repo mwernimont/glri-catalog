@@ -98,7 +98,7 @@ public class AppConfig {
 			str = val.toString();
 		}
 
-		System.out.println("looking up -> "+ key +"="+ str);
+//		System.out.println("looking up -> "+ key +"="+ str);
 
 		return str;
 	}
