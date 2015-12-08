@@ -32,9 +32,6 @@
 	<link type="text/css" rel="stylesheet" href="./template/css/usgs_style_main.css">
 	<link type="text/css" rel="stylesheet" href="./css/custom.css">
 	
-	<script src="//www.youtube.com/iframe_api"></script>
-	<script async="" src="http://s.ytimg.com/yts/jsbin/www-widgetapi-vflRC6hVw/www-widgetapi.js" id="www-widgetapi-script" type="text/javascript"></script>
-
 	<script type="text/javascript" src="./webjars/jquery/${jquery.version}/jquery.js"></script>
 	<script type="text/javascript" src="./webjars/jquery-cookie/${jquery.cookie.version}/jquery.cookie.js"></script>
 	
