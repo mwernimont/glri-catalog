@@ -1,5 +1,10 @@
 'use strict';
 
+if ( ! window.baseURL) {
+	window.baseURL = "https://www.sciencebase.gov";
+}
+
+
 
 //angular does not check for null
 function isDefined(obj) {
