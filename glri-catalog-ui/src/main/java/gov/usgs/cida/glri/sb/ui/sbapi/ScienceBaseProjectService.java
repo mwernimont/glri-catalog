@@ -66,7 +66,10 @@ public class ScienceBaseProjectService extends HttpServlet {
 				JSONObject sbreply = client.createSbItem(newProject);
 				
 				if ( ! sbreply.isNull("errors") ) {
-					// TODO handle errors
+					/* TODO handle errors
+					 * example error json response
+					 * {"errors":[{"field":"dates[0].dateString","objectName":"class gov.sciencebase.catalog.item.Item","message":"[12-07-2015] is not a valid date.  Dates must be in one of the following formats: yyyy, yyyy-MM, yyyyMM, yyyy-MM-dd, yyyyMMdd, yyyy-MM-dd HH:mm:ss, yyyy-MM-dd HH:mm, yyyyMMdd HHmmss, yyyyMMdd HHmm"},{"field":"dates[1].dateString","objectName":"class gov.sciencebase.catalog.item.Item","message":"[12-07-2016] is not a valid date.  Dates must be in one of the following formats: yyyy, yyyy-MM, yyyyMM, yyyy-MM-dd, yyyyMMdd, yyyy-MM-dd HH:mm:ss, yyyy-MM-dd HH:mm, yyyyMMdd HHmmss, yyyyMMdd HHmm"}]}
+					 */
 				}
 				
 				projectId = sbreply.getString("id");
