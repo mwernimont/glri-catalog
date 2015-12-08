@@ -1,7 +1,14 @@
+<%@ page import="gov.usgs.cida.glri.sb.ui.AppConfig"%>
 <!doctype html>
 <html lang="en" ng-app="GLRICatalogApp">
 	<head>
  	<title>USGS Great Lakes Restoration Initiative (GLRI)</title>
+ 	
+    <script type="text/javascript">
+ 	    var baseURL = "https://<%=AppConfig.get(AppConfig.SCIENCEBASE_HOST)%>"
+    </script>
+ 	
+ 	
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" /> <%-- Bootstrap mobile scaling directive --%>
         <meta http-equiv="X-UA-Compatible" content="IE=11">

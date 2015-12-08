@@ -116,7 +116,7 @@ function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, Re
 							if (init) {
 								ctx.setNavAdd(focusArea);
 							}
-							var url = "https://www.sciencebase.gov/catalog/item/"+id+"?format=json"
+							var url = baseURL+"/catalog/item/"+id+"?format=json"
 							$http.get(url).success(function(data, status, headers, config) {
 								var item = ScienceBase.processItem(data);
 								RecordManager.setProjectDetail(item);
