@@ -236,7 +236,7 @@ var createTag = function(scheme, name) {
 	var tag =
 		'{'+
 		    '"type": "Label",'+
-		    '"scheme": baseURL+"/vocab/'+scheme+'",'+
+		    '"scheme": "https://www.sciencebase.gov/vocab/'+scheme+'",'+
 		    '"name": "'+name+'"'+
 		'},'
 	return tag;
