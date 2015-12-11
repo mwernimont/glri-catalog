@@ -133,13 +133,16 @@ function($scope, $http, Status, ScienceBase) {
 		$("."+clas).css('top',loc+5).delay(500).fadeIn(500);
 		setTimeout(function() {$("."+clas).fadeOut(500);}, 5000);
 	}
-	
+
 	var checkRequiredFields = function() {
 		var requiredFields = $('.form-required');
 		
 		for (var f=0; f<requiredFields.length; f++) {
 			var field = requiredFields[f]
-			var modelBinding = $(field).attr('ng-model')
+			var modelBinding = $(field).attr('model') // have to check for the custom date field first
+			if (!modelBinding) {
+				modelBinding = $(field).attr('ng-model')
+			}
 			if (modelBinding !== undefined) {
 				var model = modelBinding.split('.')
 				var value = $scope[model[0]][model[1]]
@@ -180,11 +183,10 @@ function($scope, $http, Status, ScienceBase) {
 					console.log(resp.data)
 					if (resp.data === undefined) {
 						saveFailed({data:"no response"})
-					} else if (resp.data.indexOf("Missing")) {
+					} else if (resp.data.indexOf("Missing") >= 0) {
 						saveFailed(resp)
 					} else {
-						$scope.transient.newProjectId = resp.data
-						setTimeout(function(){$('#gotoNewProject').click()},500)
+						window.location = "index.jsp#/Browse/all/"+resp.data
 					}
 				},
 				saveFailed

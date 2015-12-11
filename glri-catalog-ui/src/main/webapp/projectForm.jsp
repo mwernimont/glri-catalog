@@ -159,7 +159,7 @@
 			<div class="form-spacing startDate">
 				<input type="text" class="form-control form-control form-field form-date form-required"  style="width:150px !important;"
 					 uib-datepicker-popup model="newProject.startDate" ng-model="newProject.startDateNg" is-open="status.showStart" 
-					  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" 
+					  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="false" close-text="Close" 
 					  datepicker-mode="status.mode"
 					  />
 				<div class="input-group-addon calendar-button" ng-click="showCalendar('start')">
@@ -173,7 +173,7 @@
 			<div class="form-spacing endDate">
 				<input type="text" class="form-control form-control form-field form-date form-optional"  style="width:150px !important;"
 					   uib-datepicker-popup model="newProject.endDate" ng-model="newProject.startDateNg" is-open="status.showFinish"
-					   datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" 
+					   datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="false" close-text="Close" 
 				       datepicker-mode="status.mode"
 				       />
 				<div class="input-group-addon calendar-button" ng-click="showCalendar('finish')">
