@@ -36,6 +36,11 @@ h4 {
     color: darkblue;
     font-size: inherit;
     min-width: 100px;
+    float: left;
+ }
+ .calendar-button {
+ 	height: 34px;
+ 	width: 37px;
  }
  .form-optional {
  	background-color:#E5F5FF;

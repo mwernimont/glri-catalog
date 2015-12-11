@@ -1,17 +1,28 @@
 $(document).ready(function() {
-	  $('.datepickers').datepicker({
-		    todayBtn      : true,
-		    autoclose     : true,
-		    todayHighlight: true,
-		    startView     : 'year',
-		    format        : "yyyy-mm-dd",
-	  });
-	
 	  $("#dmPlan").select2Buttons({noDefault: true});
 	  $("#project_status").select2Buttons({noDefault: true});
 	  $("#duration").select2Buttons({noDefault: true});
 	  $("#entry_type").select2Buttons({noDefault: true});
 	  $("#spatial").select2Buttons({noDefault: true});
+});
+
+
+// custom string date model instead of default date object impl
+GLRICatalogApp.directive('uibDatepickerPopup', function (){
+    return {
+        restrict: 'EAC',
+        require: 'ngModel',
+        link: function(scope, elem, attrs, ngModel) {
+            ngModel.$parsers.push(function toModel(date) {
+            	var strDate = "";
+            	if (date && typeof date === 'object') {
+            		strDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+            	}
+//            	console.log(strDate);
+            	return strDate;
+            });
+        }
+    }
 });
 
 
@@ -21,8 +32,50 @@ function($scope, $http, Status, ScienceBase) {
 	$scope.contactPattern = /^[\w\s]+ [\w\d\.]+@[\w\d]+\.\w+$/;
 	$scope.newProject = {};
 	$scope.login = {message:"",username:"",password:""}
+	$scope.dateOptions = {
+		  };	
 	
 	$scope.transient= Status;
+	$scope.status = {showStart:false, showFinish:false, mode:'year'}
+	
+	// custom year accept along with full date format with default impl
+	var yearRx = new RegExp(/^\d\d\d\d$/);
+	var dateRx = new RegExp(/^\d\d\d\d-\d\d-\d\d$/);
+	var onDateChangeEvent = function(target) {
+//		console.log(target);
+		var value = $(target).val();
+		
+		if (yearRx.test(value) || dateRx.test(value)) {
+			var model = $(target).attr("model").split('.');
+			$scope[model[0]][model[1]] = value;
+//			console.log(value)
+		}
+	}
+	$('.form-date').change(function(event) {
+		onDateChangeEvent(event.target);
+	});
+	var listenToDateClicks = function(field) {
+		$(field+' .dropdown-menu button').click(function(){
+//			console.log('click')
+			setTimeout(function(){
+				listenToDateClicks('.startDate')
+				listenToDateClicks('.endDate')
+			});
+			onDateChangeEvent($(field+' input'));
+		});
+	}
+	$scope.showCalendar = function(which) {
+		if ('start'===which) { // TODO could be tightened up OOP
+			$scope.status.showStart = !$scope.status.showStart
+		} else if ('finish'===which) {
+			$scope.status.showFinish = !$scope.status.showFinish
+		}
+		setTimeout(function(){
+			listenToDateClicks('.startDate')
+			listenToDateClicks('.endDate')
+		});
+	}
+	
 	
 	var authFailed = window.authFailed = function() {
 		$.cookie("JOSSO_TOKEN", null);
@@ -286,6 +339,17 @@ var buildNewProject = function(data) {
 	var water     = concatTagsSelect(VOCAB_WATER,data.water);
 	var templates = concatTagsSelect(VOCAB_TEMPLATE,data.templates);
 
+	var endDate = "";
+	if (data.endDate) { // TODO validation after start and year or full date
+		endDate =
+        ',{'+
+	        '"type": "End",'+
+	        '"dateString": "'+data.endDate+'",'+
+	        '"label": "Project End Date"'+
+        '}'
+	}
+	
+	
 	var newProject =
 	'{'+
 	    '"title": "' +data.title+ '",'+
@@ -304,12 +368,7 @@ var buildNewProject = function(data) {
 	            '"type": "Start",'+
 	            '"dateString": "'+data.startDate+'",'+
 	            '"label": "Project Start Date"'+
-	        '},'+
-	        '{'+
-	            '"type": "End",'+
-	            '"dateString": "'+data.endDate+'",'+
-	            '"label": "Project End Date"'+
-	        '}'+
+	        '}'+ endDate +
 	    '],'+
 	    '"facets": ['+
 	        '{'+

@@ -152,19 +152,33 @@
 </div>
 
 <div>
-	<div class="datepickers input-daterange">
-		<div style="width:50% !important;float:left;">
+	<div class="input-daterange">
+		<div class="datepickerStart" style="width:50% !important;float:left;">
 			<h4 class="">Agreement Start Date</h4>
-			Calendar Year
-			<div class="form-spacing">
-				<input class="form-control form-field form-date form-required" style="width:150px !important;" type="text" ng-model="newProject.startDate" >
+			Required: Calendar Year (yyyy) or Full Date (yyyy-mm-dd)
+			<div class="form-spacing startDate">
+				<input type="text" class="form-control form-control form-field form-date form-required"  style="width:150px !important;"
+					 uib-datepicker-popup model="newProject.startDate" ng-model="newProject.startDateNg" is-open="status.showStart" 
+					  datepicker-options="dateOptions" date-disabled="disabled(date, mode)" ng-required="true" close-text="Close" 
+					  datepicker-mode="status.mode"
+					  />
+				<div class="input-group-addon calendar-button" ng-click="showCalendar('start')">
+			        <span class="glyphicon glyphicon-calendar"></span>
+			    </div>
 			</div>
 		</div>
-		<div style="width:50% !important;float:right;">
+		<div class="datepickerFinish" style="width:50% !important;float:right;">
 			<h4 class="">Agreement End Date</h4>
-			Calendar Year
-			<div class="form-spacing">
-				<input class="form-control form-field form-date form-optional" style="width:150px !important;" type="text" ng-model="newProject.endDate">
+			Optional: Calendar Year (yyyy) or Full Date (yyyy-mm-dd)
+			<div class="form-spacing endDate">
+				<input type="text" class="form-control form-control form-field form-date form-optional"  style="width:150px !important;"
+					   uib-datepicker-popup model="newProject.endDate" ng-model="newProject.startDateNg" is-open="status.showFinish"
+					   datepicker-options="dateOptions" date-disabled="disabled(date, mode)" close-text="Close" 
+				       datepicker-mode="status.mode"
+				       />
+				<div class="input-group-addon calendar-button" ng-click="showCalendar('finish')">
+			        <span class="glyphicon glyphicon-calendar"></span>
+			    </div>
 			</div>
 		</div>
 		<div style="clear:both;"></div>
