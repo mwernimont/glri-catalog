@@ -7,6 +7,7 @@ import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.BeforeClass;
+import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -19,8 +20,6 @@ public class ScienceBaseRestClientTest {
 	// NOTE this class requirs tomcat-julia.jar and catalina.jar in classpath
 
 	// THis is the code used to test the ScienceBase provided code (modified to use JNDI) but is integration - not unit test.
-	
-	/**
 	
 	@BeforeClass
 	public static void setup() throws Exception {
@@ -43,9 +42,9 @@ public class ScienceBaseRestClientTest {
         ic.bind("java:/comp/env/gov.usgs.cida.glri.sb.ui.SCIENCEBASE_GLRI_COMMUNITY_PWD", "password");
 	}
 	
+	@Ignore // because the "password" must be supplied in order to run this integration test and we do not want it checked in
 	@Test
 	public void loginTest() throws Exception{
-
         // This login only works in ENV_PROD
         String username = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_USR);
         String password = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_PWD);
@@ -73,8 +72,8 @@ public class ScienceBaseRestClientTest {
             System.out.println(item.toString(2));
 
         }
-    }    
-	*/
+    }
+	
 	public static Map<?,?> jsonToMap(String json) throws ParseException {
     	JSONParser j = new JSONParser();
     	JSONObject o = (JSONObject)j.parse(json);
