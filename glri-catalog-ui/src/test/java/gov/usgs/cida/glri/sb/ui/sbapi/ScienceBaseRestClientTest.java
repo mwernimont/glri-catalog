@@ -6,7 +6,7 @@ import javax.naming.InitialContext;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.junit.BeforeClass;
+//import org.junit.BeforeClass;
 import org.junit.Ignore;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -21,7 +21,7 @@ public class ScienceBaseRestClientTest {
 
 	// THis is the code used to test the ScienceBase provided code (modified to use JNDI) but is integration - not unit test.
 	
-	@BeforeClass
+//	@BeforeClass
 	public static void setup() throws Exception {
         // Create initial context
         System.setProperty(Context.INITIAL_CONTEXT_FACTORY, "org.apache.naming.java.javaURLContextFactory");
