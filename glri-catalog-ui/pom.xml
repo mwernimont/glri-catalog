@@ -383,6 +383,7 @@
 							<source>src/main/webapp/js/app/pagination.js</source>
 							<source>src/main/webapp/js/app/search.js</source>
 							<source>src/main/webapp/js/app/directives.js</source>
+							<source>src/main/webapp/js/app/newProjectForm.js</source>
                         </preloadSources>
                         
                         <jsTestSrcDir>src/test/js/specs</jsTestSrcDir>
