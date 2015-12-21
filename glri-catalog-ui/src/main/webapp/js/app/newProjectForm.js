@@ -1,9 +1,12 @@
 $(document).ready(function() {
+	// do not perform select2buttons actions during unit tests
+	if ($("#dmPlan").length) {
 	  $("#dmPlan").select2Buttons({noDefault: true});
 	  $("#project_status").select2Buttons({noDefault: true});
 	  $("#duration").select2Buttons({noDefault: true});
 	  $("#entry_type").select2Buttons({noDefault: true});
 	  $("#spatial").select2Buttons({noDefault: true});
+	}
 });
 
 
@@ -233,17 +236,21 @@ var parseContact = function(contact) {
 	var name  = ""
 	var email = contact.match(/\S+@\S+/);
 	if (email && email[0]) {
-		name  = contact.replace(email[0],'').trim();
+		email = email[0]
+		name  = contact.replace(email,'').trim();
 	}
-	if ( name!==undefined && name.length>1 &&
-			email!==undefined && email[0]!==undefined && email[0].length>=5 ) {
-		return {name:name, email:email[0]}
+	if ( name!==undefined && name.length>1
+			&& email!==undefined && email.length>=5 ) {
+		return {name:name, email:email}
 	}
 	return undefined
 }
 
 
 var splitComma = function(text) {
+	if (text === undefined || typeof text !== 'string') {
+		return []
+	}
 	return text.split(/\s*,\s*/);
 }
 
@@ -270,14 +277,14 @@ var createContact = function(type, contact) {
 	return angular.toJson(contact)
 }
 
-var concatContacts = function(type, contacts) {
+var createContacts = function(type, contacts) {
 	var contacts = splitComma(contacts)
 	
-	var jsonContacts = ""
+	var jsonContacts = []
 	for (var c=0; c<contacts.length; c++) {
-		jsonContacts += createContact(type, contacts[c])
+		jsonContacts.push( createContact(type, contacts[c]) )
 	}
-	return jsonContacts + (jsonContacts==="" ?"" :",")
+	return concatStrings(jsonContacts)
 }
 
 var VOCAB_FOCUS    = "category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea"
@@ -288,60 +295,94 @@ var VOCAB_WATER    = "category/Great%20Lakes%20Restoration%20Initiative/GLRIWate
 
 	
 var createTag = function(scheme, name) {
+	if (scheme === undefined) {
+		scheme = "";
+	}
+	if (name === undefined) {
+		name = "";
+	}
 	var tag =
 		'{'+
 		    '"type": "Label",'+
 		    '"scheme": "https://www.sciencebase.gov/vocab/'+scheme+'",'+
 		    '"name": "'+name+'"'+
-		'},'
+		'}'
 	return tag;
 }
+// split and process many tags separated by comma
 var concatTagsComma = function(scheme, tags) {
 	tags = splitComma(tags)
 	
-	var commaTags = ""
+	var commaTags = []
 	for (var tag=0; tag<tags.length; tag++) {
-		commaTags += createTag(scheme, tags[tag].trim())
+		commaTags.push( createTag(scheme, tags[tag].trim()) )
 	}
-	return commaTags
+	return concatStrings(commaTags)
 }
+// select form control creates an object of multiple select values
 var concatTagsSelect = function(scheme, tags) {
-	var selectTags = ""
-	for (var tag=0; tag<tags.length; tag++) {
-		selectTags += createTag(scheme, tags[tag].display)
+	if (!tags) {
+		return ""
 	}
-	return selectTags
+	var selectTags = []
+	for (var tag=0; tag<tags.length; tag++) {
+		selectTags.push( createTag(scheme, tags[tag].display) )
+	}
+	return concatStrings(selectTags)
 }
 
+var concatStrings = function(strings) {
+	var sep = ""
+	var all = ""
+	for (var c=0; c<strings.length; c++ ) {
+		if (strings[c] === "") continue
+		all += sep + strings[c]
+		sep = ","
+	}
+	return all
+}
 
-var buildNewProject = function(data) {
-	
+var buildBody = function(data) {
 	var body = "";
 	body += concatIfExists("<h4>Description of Work<\/h4> ", data.work);
 	body += concatIfExists("<h4>Goals &amp; Objectives<\/h4> ", data.objectives);
 	body += concatIfExists("<h4>Relevance &amp; Impact<\/h4> ", data.impact);
 	body += concatIfExists("<h4>Planned Products<\/h4> ", data.product);
-	
-	var principal = concatContacts(CONTACT_PRINCIPAL,data.principal);
-	var chief     = concatContacts(CONTACT_CHIEF,data.chief);
-	var orgs      = concatContacts(CONTACT_ORG,data.organizations ||""); // optional
-	var contacts  = concatContacts(CONTACT_TEAM,data.contacts ||""); // optional
-	var allContacts = principal + chief + orgs + contacts
-	if ( allContacts.endsWith(',') ) {
-		allContacts = allContacts.substr(0,allContacts.length-1);
-	}
-	
-	var focus     = concatTagsComma(VOCAB_FOCUS,data.focusArea);
+	return body
+}
+
+var buildTags = function(data) {
+	// single entry tags
+	var focus     = createTag(VOCAB_FOCUS,data.focusArea);
+	var spatial   = createTag(VOCAB_KEYWORD,data.spatial);
+	var entryType = createTag(VOCAB_KEYWORD,data.entryType);
+	var duration  = createTag(VOCAB_KEYWORD,data.duration);
+	// comma separated tags
 	var keywords  = concatTagsComma(VOCAB_KEYWORD,data.keywords);
-	var spatial   = concatTagsComma(VOCAB_KEYWORD,data.spatial);
-	var entryType = concatTagsComma(VOCAB_KEYWORD,data.entryType);
-	var duration  = concatTagsComma(VOCAB_KEYWORD,data.duration);
-	
+	// multi-select tags
 	var sigl      = concatTagsSelect(VOCAB_SIGL,data.SiGL);
 	var water     = concatTagsSelect(VOCAB_WATER,data.water);
 	var templates = concatTagsSelect(VOCAB_TEMPLATE,data.templates);
 
-	var endDate = "";
+	return concatStrings([focus, keywords, sigl, water, templates, spatial, entryType, duration])
+}
+
+var buildContacts = function(data) {
+	var principal = createContacts(CONTACT_PRINCIPAL,data.principal);
+	var chief     = createContacts(CONTACT_CHIEF,data.chief);
+	var orgs      = createContacts(CONTACT_ORG,data.organizations ||""); // optional
+	var contacts  = createContacts(CONTACT_TEAM,data.contacts ||""); // optional
+	return concatStrings([principal, chief, orgs, contacts]);
+}
+
+
+var buildNewProject = function(data) {
+	
+	var body = buildBody(data);
+	var tags = buildTags(data);
+	var contacts = buildContacts(data);
+	
+	var endDate   = "";
 	if (data.endDate) { // TODO validation after start and year or full date
 		endDate =
         ',{'+
@@ -359,9 +400,9 @@ var buildNewProject = function(data) {
 	    '"body": "' +body+ '",'+
 	    '"purpose": "' +data.purpose+ '",'+
 	    '"parentId": "52e6a0a0e4b012954a1a238a",'+
-	    '"contacts": [' + allContacts + '],'+
+	    '"contacts": [' + contacts + '],'+
 	    '"browseCategories": ["Project"],'+
-	    '"tags": [' + focus+ keywords + sigl + water + templates + spatial + entryType + duration +
+	    '"tags": [' + tags + ',' +
 	       '{"name": "Great Lakes Restoration Initiative"},'+
 	       '{"type": "Creater","name": "'+ data.username +'"}'+
 	    '],'+
