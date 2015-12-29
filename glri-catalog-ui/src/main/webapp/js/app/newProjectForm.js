@@ -95,12 +95,13 @@ function($scope, $http, Status, ScienceBase) {
  		$.cookie("JOSSO_USER", user, { expires: date });
 		$.cookie("JOSSO_TOKEN", token, { expires: date });
 		$scope.newProject.username = user
+		$scope.login.token = token;
 	}
 	
 	$scope.authenticate = function() {
 		$scope.login.message = "Authenticating...";
 		
-		$http.post('login',{},{params: {username:$scope.login.username, password:$scope.login.password}})
+		$http.post('login',{username:$scope.login.username, password:$scope.login.password})
 		.then(
 			function(resp) {
 				if ( ! resp.data || resp.data.length != 32) {

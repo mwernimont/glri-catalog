@@ -4,8 +4,11 @@
  */
 package gov.usgs.cida.glri.sb.ui.sbapi;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.PrintWriter;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -13,6 +16,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -39,11 +45,24 @@ public class ScienceBaseAuthService extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		String username = request.getParameter(USERNAME);
+		String username = "";
+		String password = "";
+		try (Scanner body = new Scanner(request.getInputStream())) {
+			//BufferedReader
+			StringBuilder json = new StringBuilder();
+			while (body.hasNextLine()) {
+				json.append( body.nextLine() );
+			}
+			JSONObject jobj = new JSONObject(json.toString());
+			username = jobj.getString(USERNAME);
+			password = jobj.getString(PASSWORD);
+		} catch (Exception e) {
+			throw new RuntimeException("Auth Failed");
+		}
 		
 		try ( ScienceBaseRestClient auth = new ScienceBaseRestClient() ) {
 			log.info("authenticating user: " + username);
-			String authJSON = auth.login(username, request.getParameter(PASSWORD));
+			String authJSON = auth.login(username, password);
 			if (authJSON == null || authJSON.length() != 32) {
 				throw new RuntimeException("Auth Failed");
 			}
