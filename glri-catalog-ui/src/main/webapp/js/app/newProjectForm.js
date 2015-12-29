@@ -416,7 +416,7 @@ var buildNewProject = function(data) {
 	    '"browseCategories": ["Project"],'+
 	    '"tags": [' + tags + ',' +
 	       '{"name": "Great Lakes Restoration Initiative"},'+
-	       '{"type": "Creater","name": "'+ data.username +'"}'+
+	       '{"type": "Creator","name": "'+ data.username +'"}'+
 	    '],'+
 	    '"dates": ['+
 	        '{'+
