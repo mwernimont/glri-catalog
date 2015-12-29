@@ -39,13 +39,11 @@
 	<script type="text/javascript" src="./webjars/angular-sanitize/${angular.sanitize.version}/angular-sanitize.js"></script>
 	<script type="text/javascript" src="./webjars/angular-ui-bootstrap/${angular.bootstrap.version}/ui-bootstrap-tpls.js"></script>
 	<script type="text/javascript" src="./webjars/angular-ui-select/${angular.select.version}/select.min.js"></script>
-	<script type="text/javascript" src="./webjars/bootstrap-datepicker/${bootstrap.datepicker.version}/js/bootstrap-datepicker.min.js"></script>
 
 	<!-- Twitter, Bootstrap, & themes -->
 	<link rel="stylesheet" type="text/css" href="./webjars/bootstrap/${bootstrap.version}/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="./style/themes/theme1.css">
 	<link rel="stylesheet" type="text/css" href="./webjars/angular-ui-select/${angular.select.version}/select.min.css" >
-	<link rel="stylesheet" type="text/css" href="./webjars/bootstrap-datepicker/${bootstrap.datepicker.version}/css/bootstrap-datepicker.min.css">
 
 	<!-- legacy css -->
 	<link type="text/css" rel="stylesheet" href="./css/dynamic.css">
