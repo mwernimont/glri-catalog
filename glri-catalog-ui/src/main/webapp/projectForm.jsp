@@ -86,7 +86,7 @@
 
 <div id="contentBrowseDetail" class="clearfix glri_content" style="max-width:800px;margin-left:50px;float:left;">
 
-<div ng-if="login.token === undefined" class="loginBlock">
+<div ng-hide="login.token !== undefined" class="loginBlock">
   <form id="login" name="loginForm" ng-submit="authenticate()" class="login">
 	<h4 class="">Please log in before creating a new project entry.</h4>
 	<div class="form-spacing error" ng-bind-html="login.message"></div>

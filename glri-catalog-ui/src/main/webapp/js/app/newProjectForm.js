@@ -83,15 +83,18 @@ function($scope, $http, Status, ScienceBase) {
 	var authFailed = window.authFailed = function() {
 		$.cookie("JOSSO_TOKEN", null);
 		$scope.login.token   = undefined;
+		$.cookie("JOSSO_USER", null);
+		$scope.login.user   = undefined;
+		$scope.newProject.username = undefined;
 		$scope.login.message = "Login failed, please varify your email and password.";
 	}
 	
-	var authSuccess = function(token) {
-		$scope.login.token = token
+	var authSuccess = function(user, token) {
 		var date = new Date();
-		date.setTime(date.getTime() + (120 * 60 * 1000)); 
+		date.setTime(date.getTime() + (120 * 60 * 1000));
+ 		$.cookie("JOSSO_USER", user, { expires: date });
 		$.cookie("JOSSO_TOKEN", token, { expires: date });
-		$scope.newProject.username = $scope.login.username
+		$scope.newProject.username = user
 	}
 	
 	$scope.authenticate = function() {
@@ -103,7 +106,7 @@ function($scope, $http, Status, ScienceBase) {
 				if ( ! resp.data || resp.data.length != 32) {
 					authFailed();
 				} else {
-					authSuccess(resp.data)
+					authSuccess($scope.login.username,resp.data)
 				}
 			},
 			authFailed
@@ -166,35 +169,35 @@ function($scope, $http, Status, ScienceBase) {
 		if ("agree" !== $scope.newProject.dmPlan) {
 			var loc = scrollTo($("#dmPlan"));
 			displayMsg("form-msg-agree", loc);
-		} else {
-			if ( ! checkRequiredFields() ) {
-				return;
-			}
-				
-			var newProject = buildNewProject($scope.newProject);
-			
-			console.log(newProject);
-			checkToken();
-			if ($scope.login.token === undefined) {
-				var loc = scrollTo($('#newProjectForm'));
-				return;
-			}
-			
-			$http.post('saveProject', newProject, {params:{auth:$scope.login.token}})
-			.then(
-				function(resp) {
-					console.log(resp.data)
-					if (resp.data === undefined) {
-						saveFailed({data:"no response"})
-					} else if (resp.data.indexOf("Missing") >= 0) {
-						saveFailed(resp)
-					} else {
-						window.location = "index.jsp#/Browse/all/"+resp.data
-					}
-				},
-				saveFailed
-			)
+			return;
 		}
+		if ( ! checkRequiredFields() ) {
+			return;
+		}
+		
+		var newProject = buildNewProject($scope.newProject);
+		
+		console.log(newProject);
+		checkToken();
+		if ($scope.login.user === undefined) {
+			var loc = scrollTo($('#newProjectForm'));
+			return;
+		}
+		
+		$http.post('saveProject', newProject, {params:{auth:$scope.login.token}})
+		.then(
+			function(resp) {
+				console.log(resp.data)
+				if (resp.data === undefined) {
+					saveFailed({data:"no response"})
+				} else if (resp.data.indexOf("Missing") >= 0) {
+					saveFailed(resp)
+				} else {
+					window.location = "index.jsp#/Browse/all/"+resp.data
+				}
+			},
+			saveFailed
+		)
 	}
 	
 	var select2focusArea = function(){
@@ -213,10 +216,14 @@ function($scope, $http, Status, ScienceBase) {
 	
 	var checkToken = function() {
 		var token = $.cookie("JOSSO_TOKEN")
+		var user = $.cookie("JOSSO_USER")
 		if (token !== undefined && token.length==32) {
 			$scope.login.token = token
+			$scope.login.username = user
+			$scope.newProject.username = user
 		} else {
 			$scope.login.token = undefined
+			$scope.newProject.username = undefined
 		}
 	}
 	
@@ -361,10 +368,14 @@ var buildTags = function(data) {
 	var keywords  = concatTagsComma(VOCAB_KEYWORD,data.keywords);
 	// multi-select tags
 	var sigl      = concatTagsSelect(VOCAB_SIGL,data.SiGL);
+	var glri      = ""
+	if (sigl.indexOf('GLRI') < 0) {
+		glri      = createTag(VOCAB_SIGL,"GLRI"); // ensure a default SiGL tag for GLRI if not added
+	}
 	var water     = concatTagsSelect(VOCAB_WATER,data.water);
 	var templates = concatTagsSelect(VOCAB_TEMPLATE,data.templates);
 
-	return concatStrings([focus, keywords, sigl, water, templates, spatial, entryType, duration])
+	return concatStrings([focus, keywords, sigl, glri, water, templates, spatial, entryType, duration])
 }
 
 var buildContacts = function(data) {
@@ -421,17 +432,13 @@ var buildNewProject = function(data) {
 	            '"className": "gov.sciencebase.catalog.item.facet.ProjectFacet"'+
 	        '}'+
 	    '],'+
-	    '"previewImage": {'+
-	        '"thumbnail": {'+
-	            '"uri": "'+data.image+'",'+
-	            '"title": "Thumbnail"'+
-	        '},'+
-	        '"small": {'+
-	            '"uri": "'+data.image+'",'+
-	            '"title": "Thumbnail"'+
-	        '},'+
-	        '"from": "webLinks"'+
-	    '}'+
+	    '"weblinks": [{'+
+        	'"title": "Thumbnail",'+
+        	'"type": "browseImage",'+
+        	'"typeLabel": "Browse Image",'+
+            '"uri": "'+data.image+'",'+
+            '"hidden": false'+
+	    '}]'+
     '}'
 	
 	return newProject
