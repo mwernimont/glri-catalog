@@ -84,7 +84,7 @@ function($scope, $http, Status, ScienceBase) {
 		$.cookie("JOSSO_TOKEN", null);
 		$scope.login.token   = undefined;
 		$.cookie("JOSSO_USER", null);
-		$scope.login.user   = undefined;
+		$scope.login.username   = undefined;
 		$scope.newProject.username = undefined;
 		$scope.login.message = "Login failed, please varify your email and password.";
 	}
@@ -179,7 +179,7 @@ function($scope, $http, Status, ScienceBase) {
 		
 		console.log(newProject);
 		checkToken();
-		if ($scope.login.user === undefined) {
+		if ($scope.login.token === undefined) {
 			var loc = scrollTo($('#newProjectForm'));
 			return;
 		}
