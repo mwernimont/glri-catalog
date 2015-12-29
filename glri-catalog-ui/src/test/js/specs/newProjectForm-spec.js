@@ -225,7 +225,15 @@ describe("newProjectForm tests", function() {
 	    	var keyword = findTagsByKeyValue(keywords, 'name', data.keywords)
 	    	expect(keyword.length).toBe(1)
 	    	var sigl = findTagsByKeyValue(jobj, 'scheme', schemeRoot+VOCAB_SIGL)
-	    	expect(sigl.length).toBe(1)
+	    	expect(sigl.length).toBe(1+1) // +1 for default GLRI
+	    	expect(sigl[0].name).toBe(data.SiGL[0].display)
+	    });
+	    it("creates valid json tags with single GLRI entry ", function() {
+			var data={SiGL:[{display:'GLRI'}]}
+			var tags  = buildTags(data);
+	    	var jobj  = jQuery.parseJSON('['+tags+']');
+	    	var sigl = findTagsByKeyValue(jobj, 'scheme', schemeRoot+VOCAB_SIGL)
+	    	expect(sigl.length).toBe(1) // only 1 for default GLRI
 	    	expect(sigl[0].name).toBe(data.SiGL[0].display)
 	    });
 	    it("creates valid json tags with many entries ", function() {
@@ -253,7 +261,7 @@ describe("newProjectForm tests", function() {
 	    	var keyword2 = findTagsByKeyValue(keywords, 'name', splitComma(data.keywords)[1])
 	    	expect(keyword2.length).toBe(1)
 	    	var sigl = findTagsByKeyValue(jobj, 'scheme', schemeRoot+VOCAB_SIGL)
-	    	expect(sigl.length).toBe(3)
+	    	expect(sigl.length).toBe(3+1) // +1 for default GLRI
 	    	expect(sigl[0].name).toBe(data.SiGL[0].display)
 	    	expect(sigl[1].name).toBe(data.SiGL[1].display)
 	    	expect(sigl[2].name).toBe(data.SiGL[2].display)
@@ -477,6 +485,14 @@ describe("newProjectForm tests", function() {
 	    	expect(typeof jobj.dates[0]).toBe('object')
 	    	expect(jobj.dates.length).toBe(1)
 	    	expect(jobj.dates[0].dateString).toBe('Test Date')
+	    });
+	    it("creates valid json for image url", function() {
+	    	var data = {image:'http://image.url/image.gif'}
+	    	var json = buildNewProject(data);
+	    	var jobj = jQuery.parseJSON(json);
+	    	expect(typeof jobj.dates[0]).toBe('object')
+	    	expect(jobj.dates.length).toBe(1)
+	    	expect(jobj.weblinks[0].uri).toBe(data.image)
 	    });
 	    it("creates valid json for start and end date", function() {
 	    	var data = {startDate:'Test Start', endDate:'Test End'}
