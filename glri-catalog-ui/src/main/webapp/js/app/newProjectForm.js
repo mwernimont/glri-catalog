@@ -416,7 +416,7 @@ var buildNewProject = function(data) {
 	    '"browseCategories": ["Project"],'+
 	    '"tags": [' + tags + ',' +
 	       '{"name": "Great Lakes Restoration Initiative"},'+
-	       '{"type": "Creater","name": "'+ data.username +'"}'+
+	       '{"type": "Creator","name": "'+ data.username +'"}'+
 	    '],'+
 	    '"dates": ['+
 	        '{'+
@@ -433,7 +433,7 @@ var buildNewProject = function(data) {
 	            '"className": "gov.sciencebase.catalog.item.facet.ProjectFacet"'+
 	        '}'+
 	    '],'+
-	    '"weblinks": [{'+
+	    '"webLinks": [{'+
         	'"title": "Thumbnail",'+
         	'"type": "browseImage",'+
         	'"typeLabel": "Browse Image",'+
