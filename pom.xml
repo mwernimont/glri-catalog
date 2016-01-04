@@ -3,7 +3,7 @@
 
     <groupId>gov.usgs.cida.glri</groupId>
     <artifactId>glri-catalog</artifactId>
-    <version>0.5.16-SNAPSHOT</version>
+    <version>0.5.16</version>
     <packaging>pom</packaging>
     <name>GLRI Catalog</name>
 	
@@ -104,7 +104,7 @@
 		<connection>scm:git:http://github.com/USGS-CIDA/glri-catalog.git</connection>
 		<developerConnection>scm:git:ssh://git@github.com/USGS-CIDA/glri-catalog.git</developerConnection>
 		<url>https://github.com/USGS-CIDA/glri-catalog.git</url>
-	  <tag>HEAD</tag>
+	  <tag>glri-catalog-0.5.16</tag>
   </scm>
 	
 	<distributionManagement>
