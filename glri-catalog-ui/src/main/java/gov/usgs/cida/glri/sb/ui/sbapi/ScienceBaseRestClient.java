@@ -70,13 +70,13 @@ public class ScienceBaseRestClient implements Closeable {
         httpClient = HttpClients.createDefault();
         context    = HttpClientContext.create();
     }
-
     /**
      *  Login to ScienceBase and return a HttpClient
      *
      * @param username  The plain text username to authenticate on, use your own or a service account
      * @param password  The plain text password to authenticate on
      * @return          The josso_sessionid from the cookie received when logging in
+     * @throws IOException connection error
      */
     public String login(String username, String password) throws IOException {
         jossoId = null;

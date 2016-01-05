@@ -36,7 +36,7 @@ public enum UserSpecifiedParams implements ParameterProcessor {
 	 * Finds a tag for a given shortName or null if it cannot be found.
 	 * 
 	 * @param localName Case Insensitive
-	 * @return 
+	 * @return tag
 	 */
 	public UserSpecifiedParams getForLocalName(String localName) {
 		localName = StringUtils.trimToNull(localName);
@@ -78,8 +78,8 @@ public enum UserSpecifiedParams implements ParameterProcessor {
 	 * In some cases the value is encoded into the param name, so we keep that
 	 * possibility/convention here, even though not used.
 	 * 
-	 * @param value
-	 * @return 
+	 * @param value param
+	 * @return remote name
 	 */
 	@Override
 	public String processParamName(String value) {

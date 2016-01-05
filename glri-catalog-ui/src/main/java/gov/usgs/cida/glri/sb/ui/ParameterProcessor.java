@@ -14,14 +14,14 @@ public interface ParameterProcessor {
 	
 	/**
 	 * Formats the values as the remote system expects.
-	 * @param value
+	 * @param values param value array
 	 * @return The formatted value or null if it cannot be processed or is empty.
 	 */
 	public String processParamValue(String[] values);
 	
 	/**
 	 * Formats the value as the remote system expects.
-	 * @param value
+	 * @param value param value
 	 * @return The formatted value or null if it cannot be processed or is empty.
 	 */
 	public String processParamValue(String value);
@@ -31,8 +31,8 @@ public interface ParameterProcessor {
 	 * Its possible for the param value to be encoded into the name, so the
 	 * value must be passed.
 	 * 
-	 * @param value
-	 * @return 
+	 * @param value param value
+	 * @return param name
 	 */
 	public String processParamName(String value);
 }

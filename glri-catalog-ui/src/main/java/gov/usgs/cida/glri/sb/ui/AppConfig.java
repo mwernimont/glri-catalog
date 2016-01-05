@@ -6,7 +6,7 @@ import gov.usgs.cida.config.DynamicReadOnlyProperties;
  * Mildly ugly singleton configuration point that reads its configuration from
  * Environment parameters.  These can be added to the context.xml file like this:
  * 
- * 	&ltEnvironment name="gov.usgs.cida.glri.sb.ui.SCIENCE_BASE_HOST" value="beta.sciencebase.gov"
+ * 	&lt;Environment name="gov.usgs.cida.glri.sb.ui.SCIENCE_BASE_HOST" value="beta.sciencebase.gov"
  *		type="java.lang.String" override="false"/&gt;
  *
  * @author eeverman

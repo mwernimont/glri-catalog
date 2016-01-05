@@ -20,7 +20,7 @@ public class GLRIUtil {
 	 * 
 	 * @param entity Find the header in this entity
 	 * @param defaultEncoding Return this encoding if we cannot find the value in the header.
-	 * @return 
+	 * @return encoding
 	 */
 	public static String findEncoding(HttpEntity entity, String defaultEncoding) {
 		
@@ -37,7 +37,7 @@ public class GLRIUtil {
 	 * 
 	 * @param contentTypeHeaderString The String value of the http contentType header
 	 * @param defaultEncoding Return this encoding if we cannot find the value in the header.
-	 * @return 
+	 * @return encoding
 	 */
 	public static String findEncoding(String contentTypeHeaderString, String defaultEncoding) {
 		
