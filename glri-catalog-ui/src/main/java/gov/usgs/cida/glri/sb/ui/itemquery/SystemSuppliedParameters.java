@@ -23,7 +23,7 @@ public enum SystemSuppliedParameters implements ParameterProcessor {
 			"url,facets,title,summary,spatial,distributionLinks,browseCategories,contacts,webLinks,systemTypes,hasChildren"),			
 	/** Max number of records to return */
 	MAX_RECORDS("max", "max", INCLUDE_IF_PRESENT_OTHERWISE_USE_DEFAULT_VALUE, "1000"),
-	/** browseCategory filter is a weird one.  Its format is: &filter=browseCategory=<CATEGORY> */
+	/** browseCategory filter is a weird one.  Its format is: &amp;filter=browseCategory=&lt;CATEGORY&gt; */
 	CATEGORIES("resource", "", INCLUDE_IF_PRESENT),
 	/** bounding box filter is std lower left to upper right */
 	SPATIAL("spatial", "searchExtent", INCLUDE_IF_PRESENT),
@@ -82,7 +82,7 @@ public enum SystemSuppliedParameters implements ParameterProcessor {
 	 * Finds a tag for a given shortName or null if it cannot be found.
 	 * 
 	 * @param shortName Case Insensitive
-	 * @return 
+	 * @return tag
 	 */
 	public SystemSuppliedParameters getForLocalName(String shortName) {
 		shortName = StringUtils.trimToNull(shortName);

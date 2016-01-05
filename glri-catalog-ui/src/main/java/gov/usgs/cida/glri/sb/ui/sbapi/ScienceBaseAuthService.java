@@ -4,9 +4,7 @@
  */
 package gov.usgs.cida.glri.sb.ui.sbapi;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.PrintWriter;
 import java.util.Scanner;
 import java.util.logging.Level;
@@ -18,7 +16,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
-import org.json.simple.parser.JSONParser;
 
 /**
  *

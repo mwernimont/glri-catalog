@@ -65,7 +65,7 @@ public enum UserSpecifiedParameters implements ParameterProcessor {
 	 * Finds a tag for a given shortName or null if it cannot be found.
 	 * 
 	 * @param localName Case Insensitive
-	 * @return 
+	 * @return tag
 	 */
 	public UserSpecifiedParameters getForLocalName(String localName) {
 		localName = StringUtils.trimToNull(localName);
