@@ -433,7 +433,7 @@ var buildNewProject = function(data) {
 	            '"className": "gov.sciencebase.catalog.item.facet.ProjectFacet"'+
 	        '}'+
 	    '],'+
-	    '"weblinks": [{'+
+	    '"webLinks": [{'+
         	'"title": "Thumbnail",'+
         	'"type": "browseImage",'+
         	'"typeLabel": "Browse Image",'+

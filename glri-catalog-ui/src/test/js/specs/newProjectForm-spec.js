@@ -474,7 +474,7 @@ describe("newProjectForm tests", function() {
 	    	expect(typeof tags).toBe('object')
 	    	expect(tags.length).not.toBe(0)
 	    	
-	    	var user = findTagsByKeyValue(tags, 'type', 'Creater')
+	    	var user = findTagsByKeyValue(tags, 'type', 'Creator')
 	    	expect(user.length).toBe(1)
 	    	expect(user[0].name).toBe('Test User')
 	    });
@@ -492,7 +492,7 @@ describe("newProjectForm tests", function() {
 	    	var jobj = jQuery.parseJSON(json);
 	    	expect(typeof jobj.dates[0]).toBe('object')
 	    	expect(jobj.dates.length).toBe(1)
-	    	expect(jobj.weblinks[0].uri).toBe(data.image)
+	    	expect(jobj.webLinks[0].uri).toBe(data.image)
 	    });
 	    it("creates valid json for start and end date", function() {
 	    	var data = {startDate:'Test Start', endDate:'Test End'}
