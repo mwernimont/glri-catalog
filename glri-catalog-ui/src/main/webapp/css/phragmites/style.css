@@ -33,7 +33,7 @@ html, input, textarea
 input, select { vertical-align:middle; font-weight:normal;}
 strong {font-size:12px; color:#444444;}
 
-.strong2 {font-size:18px; font-weight:bold; color:#2988C9;}
+.strong2 {font-size:18px; font-weight:bold; color:#000000;}
 
 .strong_updated {font-size:18px; font-weight:bold; color:#800000;}
 
@@ -318,7 +318,7 @@ ul.list-tick li {
         margin-bottom: 5px;
         padding: 0;
         list-style: disc;
-	color:#808080;
+	color:#000000;
 }
 
 ul#list-update {
