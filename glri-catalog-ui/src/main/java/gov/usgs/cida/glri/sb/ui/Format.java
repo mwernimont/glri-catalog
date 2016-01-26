@@ -37,7 +37,7 @@ public enum Format {
 	 * Finds a tag for a given shortName or null if it cannot be found.
 	 * 
 	 * @param shortName Case Insensitive
-	 * @return 
+	 * @return short name
 	 */
 	public Format getForShortName(String shortName) {
 		shortName = StringUtils.trimToNull(shortName);

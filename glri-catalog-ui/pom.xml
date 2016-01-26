@@ -3,7 +3,7 @@
 
     <groupId>gov.usgs.cida.glri</groupId>
 	<artifactId>glri-catalog-ui</artifactId>
-    <version>0.5.13-SNAPSHOT</version>
+    <version>0.5.19-SNAPSHOT</version>
     <packaging>war</packaging>
 
     <name>GLRI Catalog UI</name>
@@ -11,73 +11,122 @@
 	<parent>
 		<groupId>gov.usgs.cida.glri</groupId>
 		<artifactId>glri-catalog</artifactId>
-		<version>0.5.13-SNAPSHOT</version>
+		<version>0.5.19-SNAPSHOT</version>
 	</parent>
+	
+	<properties>
+		<junit.version>4.10</junit.version>
+		<javaee.version>6.0</javaee.version>
+		<httpclient.version>4.3.1</httpclient.version>
+		<json.simple.version>1.1.1</json.simple.version>
+		<commonslang.version>3.1</commonslang.version>
+		<guava.version>16.0</guava.version>
+		<openlayers.version>2.13.1</openlayers.version>
+		<dynamicProperties.version>1.0.1</dynamicProperties.version>
+		<logback.version>1.0.1</logback.version>
+	
+		<jquery.version>2.1.4</jquery.version>
+		<jquery.cookie.version>1.4.1-1</jquery.cookie.version>
+		<bootstrap.version>3.3.4</bootstrap.version>
+		<angular.version>1.4.7</angular.version>
+		<angular.bootstrap.version>0.14.3</angular.bootstrap.version>
+		<angular.sanitize.version>1.3.11</angular.sanitize.version>
+		<select2.version>4.0.0-2</select2.version>
+		<select2.path.version>4.0.0</select2.path.version>
+		<angular.select.version>0.12.1</angular.select.version>
+	</properties>
 
     <dependencies>
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20151123</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.9</version>
+		</dependency>
+    
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.10</version>
+            <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
-            <version>6.0</version>
+            <version>${javaee.version}</version>
             <scope>provided</scope>
         </dependency>
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>
 			<artifactId>httpclient</artifactId>
-			<version>4.3.1</version>
+			<version>${httpclient.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.json-simple</groupId>
 			<artifactId>json-simple</artifactId>
-			<version>1.1.1</version>
+			<version>${json.simple.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-lang3</artifactId>
-			<version>3.1</version>
+			<version>${commonslang.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>16.0</version>
+			<version>${guava.version}</version>
 		</dependency>
 		<dependency>
 		  <groupId>gov.usgs.cida</groupId>
 		  <artifactId>dynamicProperties</artifactId>
-		  <version>1.0.1</version>
+		  <version>${dynamicProperties.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>ch.qos.logback</groupId>
+		    <artifactId>logback-classic</artifactId>
+		    <version>${logback.version}</version>
+		    <scope>runtime</scope>
 		</dependency>
 		
 		<!-- JavaScript Dependencies -->
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			<version>2.1.0-2</version>
+			<version>${jquery.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>jquery-cookie</artifactId>
+		    <version>${jquery.cookie.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
-			<version>3.1.1</version>
+			<version>${bootstrap.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>angularjs</artifactId>
-			<version>1.2.16</version>
+			<version>${angular.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>angular-ui-bootstrap</artifactId>
-			<version>0.10.0-1</version>
+			<version>${angular.bootstrap.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.webjars.bower</groupId>
+		    <artifactId>angular-mocks</artifactId>
+		    <version>${angular.version}</version>
 		</dependency>
 		<dependency>
 		    <groupId>org.webjars</groupId>
 		    <artifactId>angular-sanitize</artifactId>
-		    <version>1.2.16</version>
+		    <version>${angular.sanitize.version}</version>
 		</dependency>		
 		<!--
 			An alternative to angular-ui-bootstrap
@@ -97,13 +146,8 @@
 		-->
 		<dependency>
 			<groupId>org.webjars</groupId>
-			<artifactId>angular-strap</artifactId>
-			<version>2.0.5</version>
-		</dependency>
-		<dependency>
-			<groupId>org.webjars</groupId>
 			<artifactId>openlayers</artifactId>
-			<version>2.13.1</version>
+			<version>${openlayers.version}</version>
 		</dependency>
 		
 		<!-- HTML Dependencies -->
@@ -113,7 +157,17 @@
 			<version>2.2</version>
 			<type>war</type>
 		</dependency>
-		
+
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>select2</artifactId>
+		    <version>${select2.version}</version>
+		</dependency>
+		<dependency>
+		    <groupId>org.webjars</groupId>
+		    <artifactId>angular-ui-select</artifactId>
+		    <version>${angular.select.version}</version>
+		</dependency>
     </dependencies>
 
 	<profiles>
@@ -135,8 +189,8 @@
 						<artifactId>maven-compiler-plugin</artifactId>
 						<version>3.1</version>
 						<configuration>
-							<source>1.6</source>
-							<target>1.6</target>
+							<source>1.8</source>
+							<target>1.8</target>
 							<compilerArguments>
 								<endorseddirs>${endorsed.dir}</endorseddirs>
 							</compilerArguments>
@@ -164,6 +218,7 @@
 									  <includes> 
 										<include>**/*.jsp</include>
 										<include>**/cida-analytics.js</include>
+										<include>**/contentProjectForm.html</include>
 									  </includes> 
 									  <filtering>true</filtering> 
 								</resource> 
@@ -188,7 +243,16 @@
 	                            <artifactItem>
 									<groupId>org.webjars</groupId>
 									<artifactId>jquery</artifactId>
-									<version>2.1.0-2</version>
+									<version>${jquery.version}</version>
+	                                <type>jar</type>
+	                                <overWrite>true</overWrite>
+	                                <outputDirectory>target</outputDirectory>
+	                                <includes>**/*</includes>
+	                            </artifactItem>
+	                            <artifactItem>
+								    <groupId>org.webjars</groupId>
+								    <artifactId>jquery-cookie</artifactId>
+								    <version>${jquery.cookie.version}</version>
 	                                <type>jar</type>
 	                                <overWrite>true</overWrite>
 	                                <outputDirectory>target</outputDirectory>
@@ -197,7 +261,7 @@
 								<artifactItem>
 									<groupId>org.webjars</groupId>
 									<artifactId>bootstrap</artifactId>
-									<version>3.1.1</version>
+									<version>${bootstrap.version}</version>
 	                                <type>jar</type>
 	                                <overWrite>true</overWrite>
 	                                <outputDirectory>target</outputDirectory>
@@ -206,7 +270,7 @@
 								<artifactItem>
 									<groupId>org.webjars</groupId>
 									<artifactId>angularjs</artifactId>
-									<version>1.2.16</version>
+									<version>${angular.version}</version>
 	                                <type>jar</type>
 	                                <overWrite>true</overWrite>
 	                                <outputDirectory>target</outputDirectory>
@@ -215,7 +279,7 @@
 								<artifactItem>
 									<groupId>org.webjars</groupId>
 									<artifactId>angular-ui-bootstrap</artifactId>
-									<version>0.10.0-1</version>
+									<version>${angular.bootstrap.version}</version>
 	                                <type>jar</type>
 	                                <overWrite>true</overWrite>
 	                                <outputDirectory>target</outputDirectory>
@@ -224,21 +288,31 @@
 								<artifactItem>
 								    <groupId>org.webjars</groupId>
 								    <artifactId>angular-sanitize</artifactId>
-								    <version>1.2.16</version>
+								    <version>${angular.sanitize.version}</version>
 	                                <type>jar</type>
 	                                <overWrite>true</overWrite>
 	                                <outputDirectory>target</outputDirectory>
 	                                <includes>**/*</includes>
 								</artifactItem>		
 								<artifactItem>
-									<groupId>org.webjars</groupId>
-									<artifactId>angular-strap</artifactId>
-									<version>2.0.5</version>	
+								    <groupId>org.webjars</groupId>
+								    <artifactId>select2</artifactId>
+								    <version>${select2.version}</version>
 	                                <type>jar</type>
 	                                <overWrite>true</overWrite>
 	                                <outputDirectory>target</outputDirectory>
 	                                <includes>**/*</includes>
-								</artifactItem>		
+								</artifactItem>
+								<artifactItem>
+								    <groupId>org.webjars</groupId>
+								    <artifactId>angular-ui-select</artifactId>
+								    <version>${angular.select.version}</version>
+	                                <type>jar</type>
+	                                <overWrite>true</overWrite>
+	                                <outputDirectory>target</outputDirectory>
+	                                <includes>**/*</includes>
+								</artifactItem>
+
 	                        </artifactItems>
 			            </configuration>
 			          </execution>
@@ -287,13 +361,15 @@
                         </webDriverCapabilities>                   
                         <preloadSources>
                         	<!-- framework libs -->
-                            <source>target/META-INF/resources/webjars/jquery/2.1.0/jquery.js</source>
-                            <source>target/META-INF/resources/webjars/angularjs/1.2.16/angular.js</source>
-                            <source>target/META-INF/resources/webjars/angular-sanitize/1.2.16/angular-sanitize.js</source>
-                            <source>target/META-INF/resources/webjars/angular-ui-bootstrap/0.10.0/ui-bootstrap-tpls.js</source>
+                            <source>target/META-INF/resources/webjars/jquery/${jquery.version}/jquery.js</source>
+                            <source>target/META-INF/resources/webjars/jquery-cookie/${jquery.cookie.version}/jquery.cookie.js</source>
+                            <source>target/META-INF/resources/webjars/angularjs/${angular.version}/angular.js</source>
+                            <source>target/META-INF/resources/webjars/angular-sanitize/${angular.sanitize.version}/angular-sanitize.js</source>
+                            <source>target/META-INF/resources/webjars/angular-ui-bootstrap/${angular.bootstrap.version}/ui-bootstrap-tpls.js</source>
+                            <source>target/META-INF/resources/webjars/angular-ui-select/${angular.select.version}/select.min.js</source>
 
                             <!-- testing libs -->
-                            <source>src/test/js/libs/angular-mocks.1.2.17.js</source>
+                            <source>target/META-INF/resources/webjars/angularjs/${angular.version}/angular-mocks.js</source>
                             <source>src/test/js/libs/jasmine-fixture.js</source>
                             <source>src/test/js/libs/jquery-simulate.js</source>
                             
@@ -306,6 +382,7 @@
 							<source>src/main/webapp/js/app/pagination.js</source>
 							<source>src/main/webapp/js/app/search.js</source>
 							<source>src/main/webapp/js/app/directives.js</source>
+							<source>src/main/webapp/js/app/newProjectForm.js</source>
                         </preloadSources>
                         
                         <jsTestSrcDir>src/test/js/specs</jsTestSrcDir>

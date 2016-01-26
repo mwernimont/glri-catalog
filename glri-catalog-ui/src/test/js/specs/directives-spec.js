@@ -11,8 +11,8 @@ var log = function(msg) {
 
 //TODO why do I have to place this here rather than adding it to the module ?
 //TODO why is this necessary to get proper angular.$compile ?
-var testCtrl = function($scope) {}
-
+GLRICatalogApp.controller('testCtrl', function($scope) {})
+		
 // simple placeholder NO-OP function
 var NOOP = function(){}
 
@@ -225,13 +225,13 @@ describe("simple content directives: ", function() {
 		})
 	}))
 
-	
+/*	
 	it(' - <glri-nav-search> directive - should inject template content' , inject(function() {
 		
 		var vocab = angular.fromJson(jsonCache.vocab);
 		expect(vocab).toBeDefined()
 		
-		http.when('GET', 'ScienceBaseVocabService?parentId=53da7288e4b0fae13b6deb73&format=json')
+		http.when('GET', 'ScienceBaseVocabService?format=json&parentId=53da7288e4b0fae13b6deb73')
 		.respond(vocab);
 				
 		compileTemplate($scope, {elements:'<glri-nav-search></glri-nav-search>'}, function(el) {
@@ -249,7 +249,7 @@ describe("simple content directives: ", function() {
 			})
 		})
 	}))
-	
+*/	
 	
 	it(' - <glri-project-detail> directive - should inject template content' , inject(function() {
 		
@@ -325,7 +325,7 @@ describe("simple content directives: ", function() {
 		})
 	}))
 	
-	
+/*	
 	// TODO requires more tests
 	it(' - <glri-search> results contect directive - should inject template content' , inject(function() {
 		compileTemplate($scope, {elements:'<glri-search></glri-search>'}, function(el) {
@@ -333,7 +333,7 @@ describe("simple content directives: ", function() {
 			expect( html.indexOf('id="searchResults"') > 0 ).toBeTruthy()
 		})
 	}))
-
+*/
 	
 	// TODO this could be used for focusarea tests
 	it(' - <glri-project-lists> contect directive - should inject template content' , inject(function(Status) {
@@ -353,53 +353,3 @@ describe("simple content directives: ", function() {
 	
 	
 })
-
-
-/*
-	GLRICatalogApp.directive("glriFocusArea",
-	['$http', 'Status', 'RecordManager', 'ScienceBase', 'Nav', 'FocusAreaManager',
-	function($http, Status, RecordManager, ScienceBase, Nav, FocusAreaManager) {
-		
-		return {
-			restrict   : 'E', //AEC
-			replace    : true,
-			transclude : true,
-			templateUrl: 'templates/contentFocusArea.html',
-			scope      : {}, //isolated scope
-			
-			controller : function($scope) {
-				
-				$scope.baseQueryUrl  = Status.CONST.BASE_QUERY_URL;
-				$scope.status        = Status;
-				
-				
-				$scope.currentFocusArea = function() {
-					return FocusAreaManager.currentFocusArea;
-				}
-
-				
-				$scope.showDetail = function() {
-					return isDefined(Status.currentItem);
-				}
-				$scope.showList = function() {
-					return ! $scope.showDetail();
-				}
-				
-				
-				$scope.selectProject = function(projectItem) {
-					RecordManager.setProjectDetail(projectItem);
-					
-					// TODO this might not be necessary any longer with the addition of 'all' focus area
-					// Nav to browse should automatically be Browse/all
-					if ( Nav.isNav('Browse') ) {
-						Nav.setNavAdd('all')
-					}
-					
-					Nav.doNavAdd(projectItem.id)
-				}
-				
-			}
-		}
-	}]);
-*/
-

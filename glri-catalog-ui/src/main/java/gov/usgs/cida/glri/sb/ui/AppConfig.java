@@ -1,13 +1,12 @@
 package gov.usgs.cida.glri.sb.ui;
 
 import gov.usgs.cida.config.DynamicReadOnlyProperties;
-import java.util.Map.Entry;
 
 /**
  * Mildly ugly singleton configuration point that reads its configuration from
  * Environment parameters.  These can be added to the context.xml file like this:
  * 
- * 	&ltEnvironment name="gov.usgs.cida.glri.sb.ui.SCIENCE_BASE_HOST" value="beta.sciencebase.gov"
+ * 	&lt;Environment name="gov.usgs.cida.glri.sb.ui.SCIENCE_BASE_HOST" value="beta.sciencebase.gov"
  *		type="java.lang.String" override="false"/&gt;
  *
  * @author eeverman
@@ -17,9 +16,14 @@ public class AppConfig {
 	/** Key prefix appended infront of all key names */
 	public static final String KEY_BASE_PREFIX = "gov.usgs.cida.glri.sb.ui.";
 	
+	
+	public static final String SCIENCEBASE_AUTH = KEY_BASE_PREFIX + "SCIENCEBASE_AUTH";
 	public static final String SCIENCEBASE_HOST = KEY_BASE_PREFIX + "SCIENCEBASE_HOST";
 	public static final String SCIENCEBASE_VOCAB_HOST = KEY_BASE_PREFIX + "SCIENCEBASE_VOCAB_HOST";
-	public static final String SCIENCEBASE_GLRI_COMMUNITY_ID = KEY_BASE_PREFIX + "SCIENCEBASE_GLRI_COMMUNITY_ID";
+	public static final String SCIENCEBASE_GLRI_COMMUNITY_ID  = KEY_BASE_PREFIX + "SCIENCEBASE_GLRI_COMMUNITY_ID";
+
+	public static final String SCIENCEBASE_GLRI_COMMUNITY_USR = KEY_BASE_PREFIX + "SCIENCEBASE_GLRI_COMMUNITY_USR";
+	public static final String SCIENCEBASE_GLRI_COMMUNITY_PWD = KEY_BASE_PREFIX + "SCIENCEBASE_GLRI_COMMUNITY_PWD";
 	
 	/**
 	 * If set to true, the application uses a local json file for all responses, rather than
@@ -28,6 +32,8 @@ public class AppConfig {
 	 * VPN.  No filtering is done - the same file is returned each time.
 	 */
 	public static final String SCIENCEBASE_GLRI_LOCAL_DEV_MODE = KEY_BASE_PREFIX + "SCIENCEBASE_GLRI_LOCAL_DEV_MODE";
+
+
 	
 	private static AppConfig appConfig;
 	private DynamicReadOnlyProperties props;
@@ -36,10 +42,8 @@ public class AppConfig {
 
 		try {
 			
-			DynamicReadOnlyProperties drp = new DynamicReadOnlyProperties();
-			drp.addJNDIContexts(DynamicReadOnlyProperties.DEFAULT_JNDI_CONTEXTS);
-			props = drp;
-			
+			props = new DynamicReadOnlyProperties();
+			props.addJNDIContexts(new String[]{"java:/comp/env"});
 			
 			//Set the beta server as the default value for the ScienceBase Host
 			//Should this be removed??
@@ -47,7 +51,6 @@ public class AppConfig {
 			if (host == null) {
 				props.put(SCIENCEBASE_HOST, "beta.sciencebase.gov");
 			}
-			
 			
 			//Supply the default community id if not specified
 			String commId = props.get(SCIENCEBASE_GLRI_COMMUNITY_ID);
@@ -61,7 +64,6 @@ public class AppConfig {
 				props.put(SCIENCEBASE_VOCAB_HOST, props.get(SCIENCEBASE_HOST));
 			}
 			
-
 		} catch (Exception e) {
 			e.printStackTrace(System.out);
 			throw new RuntimeException();
@@ -90,11 +92,14 @@ public class AppConfig {
 	public static String get(String key, String valueIfNull) {
 		AppConfig inst = AppConfig.instance();
 		Object val = inst.props.getProperty(key, null);
+		String str = null;
 		
 		if (val != null) {
-			return val.toString();
-		} else {
-			return null;
+			str = val.toString();
 		}
+
+//		System.out.println("looking up -> "+ key +"="+ str);
+
+		return str;
 	}
 }

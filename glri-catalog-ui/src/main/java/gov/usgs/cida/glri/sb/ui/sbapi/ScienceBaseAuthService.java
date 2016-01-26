@@ -2,13 +2,11 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package gov.usgs.cida.glri.sb.ui.itemquery;
+package gov.usgs.cida.glri.sb.ui.sbapi;
 
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.io.PrintWriter;
-import java.util.Map;
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -17,21 +15,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.google.common.io.CharStreams;
-
-import gov.usgs.cida.glri.sb.ui.AppConfig;
+import org.json.JSONObject;
 
 /**
  *
- * @author eeverman
+ * @author duselman
  */
-public class ScienceBaseService extends HttpServlet {
+public class ScienceBaseAuthService extends HttpServlet {
 
+	private static final Logger log = Logger.getLogger(ScienceBaseAuthService.class.getName());
+	
 	private static final long serialVersionUID = 1L;
 
+	private static final String USERNAME = "username";
+	private static final String PASSWORD = "password";
+	
 	/**
-	 * Processes requests for both HTTP
-	 * <code>GET</code> and
+	 * Processes authentication requests for HTTP
 	 * <code>POST</code> methods.
 	 *
 	 * @param request servlet request
@@ -42,46 +42,35 @@ public class ScienceBaseService extends HttpServlet {
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		PrintWriter out = response.getWriter();
-		
-		String devMode = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_LOCAL_DEV_MODE);
-		if ( "true".equalsIgnoreCase(devMode) ) {
-			//just return our static json file - we are running in dev mode and
-			//probably can't reach the sb server anyways.
-
-			InputStream inputStream = this.getClass().getClassLoader().getResourceAsStream("/gov/usgs/cida/glri/sb/ui/itemquery/canned_data.json");
-			String stringFromStream = CharStreams.toString(new InputStreamReader(inputStream, "UTF-8"));
-			response.setContentType("application/json; charset=UTF-8");
-			out.write(stringFromStream);
-			return;
+		String username = "";
+		String password = "";
+		try (Scanner body = new Scanner(request.getInputStream())) {
+			//BufferedReader
+			StringBuilder json = new StringBuilder();
+			while (body.hasNextLine()) {
+				json.append( body.nextLine() );
+			}
+			JSONObject jobj = new JSONObject(json.toString());
+			username = jobj.getString(USERNAME);
+			password = jobj.getString(PASSWORD);
+		} catch (Exception e) {
+			throw new RuntimeException("Auth Failed");
 		}
-
-		ScienceBaseQuery query = new ScienceBaseQuery();
-		Map<String, String[]> reqMap = request.getParameterMap();
 		
-		
-		try {
+		try ( ScienceBaseRestClient auth = new ScienceBaseRestClient() ) {
+			log.info("authenticating user: " + username);
+			String authJSON = auth.login(username, password);
+			if (authJSON == null || authJSON.length() != 32) {
+				throw new RuntimeException("Auth Failed");
+			}
 			
-			String strResponse = query.getQueryResponse(reqMap);
-			response.setContentType(query.getRequestedFormat().getFullName() + "; charset=UTF-8");
-			out.write(strResponse);
-		
+//			response.setContentType("application/json; charset=UTF-8"); // TODO could return a JSON jossoId pair
+			response.setContentType("text/plain; charset=UTF-8");
+			PrintWriter out = response.getWriter();
+			out.write(authJSON);
 		} catch (Exception ex) {
-			Logger.getLogger(ScienceBaseService.class.getName()).log(Level.SEVERE, null, ex);
-			
-			response.setContentType("text/html;charset=UTF-8");
-			out.println("<!DOCTYPE html>");
-			out.println("<html>");
-			out.println("<head>");
-			out.println("<title>Servlet ScienceBaseQuery</title>");			
-			out.println("</head>");
-			out.println("<body>");
-			out.println("<h1>Servlet ScienceBaseQuery at " + request.getContextPath() + "</h1>");
-			out.println("<p>Error</p>");
-			out.println("</body>");
-			out.println("</html>");
-		} finally {			
-			out.close();
+			log.log(Level.SEVERE, "auth error " + username, ex);
+			response.sendError(403);
 		}
 	}
 
@@ -98,7 +87,7 @@ public class ScienceBaseService extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		processRequest(request, response);
+		// allow post only
 	}
 
 	/**
@@ -123,7 +112,7 @@ public class ScienceBaseService extends HttpServlet {
 	 */
 	@Override
 	public String getServletInfo() {
-		return "Short description";
-	}// </editor-fold>
+		return "ScienceBase.gov JOSSO Auth Service";
+	}
 
 }

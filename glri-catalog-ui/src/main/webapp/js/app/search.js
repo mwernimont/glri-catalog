@@ -3,8 +3,8 @@
 
 // the mediator between search nav and content
 GLRICatalogApp.service('Search',
-['$http', '$filter', '$timeout', 'Pagination', 'ScienceBase', 'Status',
-function($http, $filter, $timeout, pager, ScienceBase, Status) {
+['$filter', '$timeout', 'Pagination', 
+function($filter, $timeout, pager) {
 	
 	var ctx = this;
 	
@@ -96,8 +96,8 @@ function($http, $filter, $timeout, pager, ScienceBase, Status) {
 
 
 GLRICatalogApp.controller('SearchNavCtrl',
-['$scope', '$http', '$filter', '$timeout', 'Pagination', 'ScienceBase', 'Status', 'Search',
-function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
+['$scope', '$http', 'ScienceBase', 'Search', 'Status',
+function($scope, $http, ScienceBase, Search, Status) {
 	
 	$scope.state         = Search.state;
 	$scope.FACET_DEFS    = Search.FACET_DEFS;
@@ -105,13 +105,11 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 	$scope.results       = Search.results;
 	//storage of state that would not be preserved if the user were to follow a
 	//link to the current page state.
-	$scope.transient = {
-		//The array of funding templates to choose from.  Init as "Any", but async load from vocab server.
-		templateValues : [
-			{key: "", display:"Any Template", sort: -1},
-			{key: "xxx", display:"...loading template list...", sort: 0},
-		]
-	};
+
+	$scope.transient= {templateValues : Status.templates};
+//	$scope.transient= {templateValues : Status.templates.slice(0)};
+//	$scope.transient.templateValues.unshift({key: "", display:"Any Template", sort: -1})
+	
 	$scope.model = {
 		text_query : '',
 		location   : '',
@@ -121,7 +119,7 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 	};
 	
 
-	// asdf ScienceBase	
+	// TODO move to ScienceBase	mod?
 	/**
 	 * For the main (non-nested child) records, read response metadata and add
 	 * extra properties to the records.
@@ -148,7 +146,7 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 	}
 	
 	
-	// asdf ScienceBase	
+	// TODO move to ScienceBase	mod?
 	$scope.loadSearchData = function(model,success,error) {
 		
 		$http.get( ScienceBase.buildSearchUrl(model) )
@@ -189,39 +187,6 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 		Search.FACET_DEFS.forEach(function(category) {
 			$scope.currentFacets[category] = 0;
 		})
-	}
-
-	
-	// asdf ScienceBase	
-	/**
-	 * Loads the template picklist from the vocab service.
-	 * @returns void
-	 */
-	var doTemplateVocabLoad = function() {
-		$http({method: 'GET', url: 'ScienceBaseVocabService?parentId=53da7288e4b0fae13b6deb73&format=json'})
-		.success(function(data, status, headers, config) {
-			//remove the 'loading' message at index 1
-			$scope.transient.templateValues.splice(1, 1);
-			
-			for (var i = 0; i < data.list.length; i++) {
-				var o = {};
-				o.key = data.list[i].name;
-				o.display = o.key;
-				
-				//take all digits at the end, ignoring any trailing spaces.
-				o.sort = Number(o.key.match(/(\d*)\s*$/)[1]);
-				
-				$scope.transient.templateValues.push(o);
-			}
-		})
-		.error(function(data, status, headers, config) {
-			//remove the 'loading' message at index 1
-			$scope.transient.templateValues.splice(1, 1);
-			//just put in a message in the pick-list - no alert.
-			$scope.transient.templateValues.push({
-				key: "", display:"(!) Failed to load template list", sort: 0
-			});
-		});
 	}
 
 	
@@ -337,7 +302,6 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 	//Called at the bottom of this JS file
 	var init = function() {
 		OpenLayersMap.init();
-		doTemplateVocabLoad();
 	}
 
 	init();
@@ -346,8 +310,8 @@ function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
 
 
 GLRICatalogApp.controller('SearchCtrl',
-['$scope', '$http', '$filter', '$timeout', 'Pagination', 'ScienceBase', 'Status', 'Search',
-function($scope, $http, $filter, $timeout, pager, ScienceBase, Status, Search) {
+['$scope', 'Search',
+function($scope, Search) {
 
 	$scope.state   = Search.state;
 	

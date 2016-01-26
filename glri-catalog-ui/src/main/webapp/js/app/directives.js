@@ -34,8 +34,8 @@ GLRICatalogApp.directive("glriProjectDetail",[function(){
 
 
 GLRICatalogApp.directive("glriFocusArea",
-['$http', 'Status', 'RecordManager', 'ScienceBase', 'Nav', 'FocusAreaManager',
-function($http, Status, RecordManager, ScienceBase, Nav, FocusAreaManager) {
+['Status', 'RecordManager', 'Nav', 'FocusAreaManager',
+function(Status, RecordManager, Nav, FocusAreaManager) {
 	
 	return {
 		restrict   : 'E', //AEC

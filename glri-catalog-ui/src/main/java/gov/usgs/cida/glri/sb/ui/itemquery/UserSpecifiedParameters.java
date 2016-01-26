@@ -1,7 +1,6 @@
 package gov.usgs.cida.glri.sb.ui.itemquery;
 
 import gov.usgs.cida.glri.sb.ui.ParameterProcessor;
-import static gov.usgs.cida.glri.sb.ui.ParamType.INCLUDE_IF_PRESENT;
 import org.apache.commons.lang3.StringUtils;
 
 /**
@@ -66,7 +65,7 @@ public enum UserSpecifiedParameters implements ParameterProcessor {
 	 * Finds a tag for a given shortName or null if it cannot be found.
 	 * 
 	 * @param localName Case Insensitive
-	 * @return 
+	 * @return tag
 	 */
 	public UserSpecifiedParameters getForLocalName(String localName) {
 		localName = StringUtils.trimToNull(localName);

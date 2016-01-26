@@ -31,7 +31,6 @@ public class ScienceBaseQuery {
 	
 	
 	public String getQueryResponse(Map<String, String[]> requestParams) throws Exception {
-		CloseableHttpClient httpclient = HttpClients.createDefault();
 		URIBuilder uriBuild = new URIBuilder();
 		uriBuild.setScheme("https");
 		uriBuild.setHost(AppConfig.get(AppConfig.SCIENCEBASE_HOST));
@@ -41,13 +40,13 @@ public class ScienceBaseQuery {
 		appendSpatialParams(requestParams, uriBuild);
 		
 		HttpGet httpGet = new HttpGet(uriBuild.build());
-		//System.out.println(httpGet.getURI());
 		httpGet.addHeader("Accept", "application/json,application/xml,text/html");
-		CloseableHttpResponse response1 = httpclient.execute(httpGet);
+
+		CloseableHttpClient httpclient = HttpClients.createDefault();
+		CloseableHttpResponse response = httpclient.execute(httpGet);
 
 		try {
-			//System.out.println(response1.getStatusLine());
-			HttpEntity entity = response1.getEntity();
+			HttpEntity entity = response.getEntity();
 			
 			String encoding = GLRIUtil.findEncoding(entity, DEFAULT_ENCODING);
 			String stringFromStream = CharStreams.toString(new InputStreamReader(entity.getContent(), encoding));
@@ -56,7 +55,9 @@ public class ScienceBaseQuery {
 			
 			return stringFromStream;
 		} finally {
-			response1.close();
+			if (response != null) {
+				response.close();
+			}
 		}
 
 	}

@@ -1,5 +1,10 @@
 'use strict';
 
+if ( ! window.baseURL) {
+	window.baseURL = "https://www.sciencebase.gov";
+}
+
+
 
 //angular does not check for null
 function isDefined(obj) {
@@ -7,7 +12,7 @@ function isDefined(obj) {
 }
 
 
-var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap','ngSanitize']);
+var GLRICatalogApp = angular.module('GLRICatalogApp', ['ui.bootstrap','ngSanitize', 'ui.select']);
 
 
 GLRICatalogApp.value('Status', {
@@ -32,8 +37,8 @@ GLRICatalogApp.value('Status', {
 	
 	
 	CONST : {
-		FOCUS_AREA_SCHEME : "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
-		TEMPLATE_SCHEME   : "https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
+		FOCUS_AREA_SCHEME : baseURL+"/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea",
+		TEMPLATE_SCHEME   : baseURL+"/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates",
 		BASE_QUERY_URL    : "ScienceBaseService?",
 	},	
 

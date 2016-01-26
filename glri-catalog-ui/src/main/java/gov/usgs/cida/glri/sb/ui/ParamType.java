@@ -27,7 +27,7 @@ public enum ParamType {
 	/**
 	 * If true, the passed in value of this parameter from the user can be used.
 	 * If false, ignore any matching user parameter
-	 * @return 
+	 * @return true if allowed by client
 	 */
 	public boolean isAllowClientValue() {
 		return allowClientValue;
@@ -36,7 +36,7 @@ public enum ParamType {
 	/**
 	 * If true, the default value should be used if the user did not specify a
 	 * value or if user values are not allowed.
-	 * @return 
+	 * @return true if allowed default
 	 */
 	public boolean isAllowDefault() {
 		return allowDefault;
@@ -44,7 +44,7 @@ public enum ParamType {
 	
 	/**
 	 * If true, interpret the default value as a lookup key to an entry in the AppConfig.
-	 * @return 
+	 * @return true if lookup default
 	 */
 	public boolean isLookupDefault() {
 		return lookupDefault;

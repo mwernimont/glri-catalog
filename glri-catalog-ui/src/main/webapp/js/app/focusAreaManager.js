@@ -91,7 +91,7 @@ function(Status) {
 	
 	
 	/**
-	 * Adds an Item returned from the ScienceBase query to the tab data structure.
+	 * Adds an Item returned from the Science Base query to the tab data structure.
 	 * 
 	 * @param {type} sbItem
 	 * @param {type} focusArea

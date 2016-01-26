@@ -1,6 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
     <servlet>
+        <servlet-name>ScienceBaseAuthService</servlet-name>
+        <servlet-class>gov.usgs.cida.glri.sb.ui.sbapi.ScienceBaseAuthService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ScienceBaseAuthService</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+    
+    <servlet>
+        <servlet-name>ScienceBaseProjectService</servlet-name>
+        <servlet-class>gov.usgs.cida.glri.sb.ui.sbapi.ScienceBaseProjectService</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ScienceBaseProjectService</servlet-name>
+        <url-pattern>/saveProject</url-pattern>
+    </servlet-mapping>
+	
+    <servlet>
         <servlet-name>ScienceBaseService</servlet-name>
         <servlet-class>gov.usgs.cida.glri.sb.ui.itemquery.ScienceBaseService</servlet-class>
     </servlet>
@@ -22,4 +40,16 @@
             30
         </session-timeout>
     </session-config>
+    
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Protected Context</web-resource-name>
+			<url-pattern>/projectForm.jsp</url-pattern>
+			<url-pattern>/login</url-pattern>
+		</web-resource-collection>
+		<!-- auth-constraint goes here if authentication page -->
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
 </web-app>
