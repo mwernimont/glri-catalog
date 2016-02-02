@@ -39,7 +39,10 @@ function($scope, $http, Status, ScienceBase) {
 		  };	
 	
 	$scope.transient= Status;
-	$scope.status = {showStart:false, showFinish:false, mode:'year'}
+	$scope.status = {showStart:false, showFinish:false, mode:'year'};
+	
+	$scope.validation = {};
+	$scope.validation.singleMsg = "";
 	
 	// custom year accept along with full date format with default impl
 	var yearRx = new RegExp(/^\d\d\d\d$/);
@@ -138,11 +141,14 @@ function($scope, $http, Status, ScienceBase) {
 	
 	var displayMsg = function(clas,loc) {
 		$("."+clas).css('top',loc+5).delay(500).fadeIn(500);
-		setTimeout(function() {$("."+clas).fadeOut(500);}, 5000);
+		setTimeout(function() {$("."+clas).fadeOut(500);}, 10000);
 	}
 
-	var checkRequiredFields = function() {
+	var doValidation = function() {
+		
+		//Do required fields first
 		var requiredFields = $('.form-required');
+		var contactFields = $('.contact');
 		
 		for (var f=0; f<requiredFields.length; f++) {
 			var field = requiredFields[f]
@@ -160,6 +166,41 @@ function($scope, $http, Status, ScienceBase) {
 				}
 			}
 		}
+		
+		for (var f=0; f<contactFields.length; f++) {
+			var field = contactFields[f];
+			var modelBinding = $(field).attr('model'); // have to check for the custom date field first
+			if (!modelBinding) {
+				modelBinding = $(field).attr('ng-model');
+			}
+			if (modelBinding !== undefined) {
+				var model = modelBinding.split('.');
+				var value = $scope[model[0]][model[1]];
+				
+				if (value != undefined && value.length != 0) {
+					var msg = null;
+					if ($(field).hasClass("single-person")) {
+						msg = parseSinglePersonContact(value);
+					} else if ($(field).hasClass("multi-person")) {
+						msg = parsePersonContacts(value);
+					} else if ($(field).hasClass("single-organization")) {
+						msg = parseSingleOrganizationContact(value);
+					} else if ($(field).hasClass("multi-organization")) {
+						msg = parseOrganizationContacts(value);
+					}
+					
+					if (typeof msg == 'string') {
+						$scope.validation.singleMsg = msg;
+						//alert("Display msg: " + $scope.validation.singleMsg);
+						
+						var loc = scrollTo(field);
+						displayMsg("form-msg-validate", loc);
+						return false;
+					}
+				}
+			}
+		}
+		
 		return true;
 	}
 	
@@ -172,19 +213,19 @@ function($scope, $http, Status, ScienceBase) {
 			displayMsg("form-msg-agree", loc);
 			return;
 		}
-		if ( ! checkRequiredFields() ) {
+		if ( ! doValidation() ) {
 			return;
 		}
 		
 		var newProject = buildNewProject($scope.newProject);
-		
+
 		console.log(newProject);
 		checkToken();
 		if ($scope.login.token === undefined) {
 			var loc = scrollTo($('#newProjectForm'));
 			return;
 		}
-		
+
 		$http.post('saveProject', newProject, {params:{auth:$scope.login.token}})
 		.then(
 			function(resp) {
@@ -198,8 +239,8 @@ function($scope, $http, Status, ScienceBase) {
 				}
 			},
 			saveFailed
-		)
-	}
+		)	
+	};
 	
 	var select2focusArea = function(){
 		if ( Status.focus_areas.length > 1 ) {
@@ -239,20 +280,223 @@ var concatIfExists = function(label, additional) {
 	return "";
 }
 
+/**
+ * Validate new project fields, returning an array of validation messages.
+ * 
+ * If there are no validation issues, an empty array is returned.
+ * 
+ * @param {type} data
+ * @returns {Array}
+ */
+var validateNewProject = function(data) {
+	var messages = [];
+	var msg = null;
 
-var parseContact = function(contact) {
-	var name  = ""
-	var email = contact.match(/\S+@\S+/);
-	if (email && email[0]) {
-		email = email[0]
-		name  = contact.replace(email,'').trim();
-	}
-	if ( name!==undefined && name.length>1
-			&& email!==undefined && email.length>=5 ) {
-		return {name:name, email:email}
-	}
-	return undefined
+	msg = parseSinglePersonContact(data.principal);
+	if (typeof msg == 'string') messages.push(msg);
+
+	msg = parseSinglePersonContact(data.chief);
+	if (typeof msg == 'string') messages.push(msg);
+
+	msg = parseOrganizationContacts(data.organizations);
+	if (typeof msg == 'string') messages.push(msg);
+
+	msg = parsePersonContacts(data.contacts);
+	if (typeof msg == 'string') messages.push(msg);
+
+	return messages;
 }
+
+/*
+ * Parses a list of person contacts that are comma delimited.
+ * 
+ * For successful parses, an array of contacts are returned, each as {name,email}.
+ * Both name and email are required.  Multiple emails are not allowed.
+ * If The string is empty, all whitespace, or undefined, an empty array is returned.
+ * If any contact results in a parse error, a String validation message is returned
+ * instead of an array.
+ * 
+ * @param {type} contactStr
+ * @returns {Array|String|undefined}
+ */
+var parsePersonContacts = function(contactStr) {
+	
+	//initial cleanup / empty check
+	if (contactStr == undefined) return [];
+	contactStr = contactStr.trim();
+	if (contactStr.length == 0) return [];
+	
+	var contactStrArray = contactStr.split(",");
+	var contacts = new Array();
+	for (var i =0; i<contactStrArray.length; i++) {
+		var single = parseSinglePersonContact(contactStrArray[i]);
+		
+		if (typeof single == 'string') {
+			return single;	//this is a validation message
+		} else {
+			contacts.push(single);
+		}
+	}
+	
+	return contacts;
+};
+
+/* Returns an object with name and email fields if the contact can be parsed.
+ * For successful parses, an object is returned as {name,email}.
+ * Both name and email are required.  Multiple emails are not allowed.
+ * Returns a string w/ a validation message if it cannot parse.
+ */
+var parseSinglePersonContact = function(contactStr) {
+	var parsedStr = contactStr;	//preserve org for validation msgs
+	var name  = "";
+	var msgSuffix = "Individual contacts are separated by commas.";
+	
+	if (parsedStr.indexOf(",") > -1) {
+		return "Only one entry is allowed for the contact '" + contactStr + "'. " + msgSuffix;
+	}
+	
+	var email = parsedStr.match(/\S+@\S+/g);
+	if (email) {
+		if (email.length == 1) {
+			email = email[0];
+			parsedStr  = parsedStr.replace(email,'').trim();
+		} else {
+			return "Only one email address is allowed for the contact '" + contactStr + "'. " + msgSuffix;	
+		}
+	}
+	
+	if (parsedStr.match(/@+/)) {
+		return "Something looks like an email address for the contact '" + contactStr + "'. " + msgSuffix;
+	}
+	
+	name = parsedStr;	//everything else has been carved out of the str.
+	
+	
+	if (name==undefined || name.length == 0) {
+		return "No contact name was found for contact '" + contactStr + "'. " + msgSuffix;
+	} else if (name.length <= 1) {
+		return "A contact name longer than a single character is required for '" + contactStr + "'. " + msgSuffix;
+	} else if (email==undefined) {
+		return "No email was found for contact '" + contactStr + "'. " + msgSuffix;
+	} else if (email.length<5) {
+		return "There is something that looks like a partial/incorrect email for contact '" + contactStr + "'. " + msgSuffix;
+	} else {
+		return {name:name, email:email};
+	}
+};
+
+/*
+ * Parses a list of organization contacts that are comma delimited.
+ * 
+ * For successful parses, an array of contacts are returned, each as {name,email,url}.
+ * Name is required, as well as either or both an email or url.
+ * Multiple emails and urls are not allowed.
+ * If The string is empty, all whitespace, or undefined, an empty array is returned.
+ * If any contact results in a parse error, a String validation message is returned
+ * instead of an array.
+ * 
+ * @param {type} contactStr
+ * @returns {Array|String|undefined}
+ */
+var parseOrganizationContacts = function(contactStr) {
+	
+	//initial cleanup / empty check
+	if (contactStr == undefined) return [];
+	contactStr = contactStr.trim();
+	if (contactStr.length == 0) return [];
+	
+	var contactStrArray = contactStr.split(",");
+	var contacts = new Array();
+	for (var i =0; i<contactStrArray.length; i++) {
+		var single = parseSingleOrganizationContact(contactStrArray[i]);
+		
+		if (typeof single == 'string') {
+			return single;	//this is a validation message
+		} else {
+			contacts.push(single);
+		}
+	}
+	
+	return contacts;
+};
+
+/* Returns an object with name, email and url fields if the contact can be parsed.
+ * For successful parses, an array of contacts are returned, each as {name,email,url}.
+ * Name is required, as well as either or both an email or url.
+ * Multiple emails and urls are not allowed.
+ * Returns a string w/ a validation message if it cannot parse.
+ */
+var parseSingleOrganizationContact = function(contactStr) {
+	var parsedStr = contactStr;	//preserve org for validation msgs
+	var name  = "";
+	var hasValidEmail = false;
+	var hasValidUrl = false;
+	var msgSuffix = "Individual organizations are separated by commas.";
+	
+	if (parsedStr.indexOf(",") > -1) {
+		return "Only one entry is allowed for the contact '" + contactStr + "'. " + msgSuffix;
+	}
+	
+	//Find, store and removed an email address
+	var email = parsedStr.match(/\S+@\S+/g);
+	if (email) {
+		if (email.length == 1) {
+			email = email[0];
+			hasValidEmail = email.length > 4;
+			parsedStr  = parsedStr.replace(email,'').trim();
+		} else {
+			return "Only one email address is allowed for the organization '" + contactStr + "'. " + msgSuffix;	
+		}
+	} else {
+		email = undefined;
+	}
+	
+	//Find, store and removed a url
+	//Check that potential urls don't contained '@', which would be a failed email match
+	var url = parsedStr.match(/[^\s@]+\.[^\s@]+/g);
+	if (url) {
+		if (url.length == 1) {
+			url = url[0];
+			hasValidUrl = url.length > 3;
+			parsedStr  = parsedStr.replace(url,'').trim();
+		} else {
+			return "Only one url is allowed for the organization '" + contactStr + "'. " + msgSuffix;	
+		}
+
+	} else {
+		url = undefined;
+	}
+	
+	if (parsedStr.match(/@+/)) {
+		return "Something looks like an email address for the organization '" + contactStr + "'. " + msgSuffix;
+	}
+	
+	if (parsedStr.match(/\S\.\S/)) {
+		return "Something looks like a url for the organization '" + contactStr + "'. " + msgSuffix;
+	}
+	
+	name = parsedStr;	//everything else has been carved out of the str.
+	
+	
+	
+	if (name==undefined || name.length == 0) {
+		return "No name was found for the organization '" + contactStr + "'. " + msgSuffix;
+	} else if (name.length <= 1) {
+		return "An organization name longer than a single character is required for '" + contactStr + "'. " + msgSuffix;
+	} else if (email != undefined && email.length<5) {
+		return "There is something that looks like a partial/incorrect email for the organization '" + contactStr + "'. " + msgSuffix;
+	} else if (url != undefined && url.length < 4) {
+		return "There is something that looks like a partial/incorrect url for the organization '" + contactStr + "'. " + msgSuffix;
+	} else if (!hasValidEmail && !hasValidUrl) {
+		return "There is no valid email or url for the organization '" + contactStr + "'. " + msgSuffix;
+	} else {
+		var contact = new Object();
+		contact.name = name;
+		if (email) { contact.email = email; }
+		if (url) { contact.logoUrl = url; }
+		return contact;
+	}
+};
 
 
 var splitComma = function(text) {
@@ -263,37 +507,60 @@ var splitComma = function(text) {
 }
 
 
-var CONTACT_PRINCIPAL = "Principal Investigator"
-var CONTACT_CHIEF     = "Associate Project Chief"
-var CONTACT_ORG       = "Cooperator/Partner"
-var CONTACT_TEAM      = "Contact"
+var CONTACT_PRINCIPAL = "Principal Investigator";
+var CONTACT_CHIEF     = "Associate Project Chief";
+var CONTACT_ORG       = "Cooperator/Partner";
+var CONTACT_TEAM      = "Contact";
 
+/**
+ * Populates the 'fill in' values of contact objects and returns a JSON string.
+ * @param {type} type
+ * @param {type} contact
+ * @returns {String}
+ */
 var createContact = function(type, contact) {
-	var contact = parseContact(contact)
 	
 	if (contact === undefined) {
-		return ""
+		return "";
 	}
 	
-	contact.active = true
-	contact.type = type
-	contact.contactType= "person"
+	contact.active = true;
+	contact.type = type;
+	contact.contactType= "person";
 	if (CONTACT_ORG === type) {
-		contact.contactType= "organization"
+		contact.contactType= "organization";
 	}
 	
-	return angular.toJson(contact)
-}
+	return angular.toJson(contact);
+};
 
-var createContacts = function(type, contacts) {
-	var contacts = splitComma(contacts)
+/**
+ * Parses a contact string, which may contain may contacts, into a JSON string
+ * 
+ * @param {type} type
+ * @param {type} contactsStr
+ * @returns {String}
+ */
+var createContacts = function(type, contactsStr) {
+	var contacts = [];
 	
-	var jsonContacts = []
-	for (var c=0; c<contacts.length; c++) {
-		jsonContacts.push( createContact(type, contacts[c]) )
+	if (CONTACT_ORG === type) {
+		contacts = parseOrganizationContacts(contactsStr);
+	} else {
+		contacts = parsePersonContacts(contactsStr);
 	}
-	return concatStrings(jsonContacts)
-}
+	
+	if (typeof contacts == 'string') {
+		//Contact string could not be parsed and a validation msg is being returned
+		return "";	//validation should have happened separately
+	}
+	
+	var jsonContacts = [];
+	for (var c=0; c<contacts.length; c++) {
+		jsonContacts.push( createContact(type, contacts[c]) );
+	}
+	return concatStrings(jsonContacts);
+};
 
 var VOCAB_FOCUS    = "category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea"
 var VOCAB_KEYWORD  = "GLRI/keyword"

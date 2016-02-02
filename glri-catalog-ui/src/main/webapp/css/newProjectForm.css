@@ -116,10 +116,11 @@ div.error {
     font-weight: bold;
     padding: 10px;
     position:absolute;
+    max-width: 40em;
     left:300px;
     z-index: 499;
 }
-.form-msg-required {
+.form-msg-required, .form-msg-validate{
     color: darkred;
     background-color: pink;
     border: 3px solid darkred;

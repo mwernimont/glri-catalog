@@ -109,6 +109,7 @@
   <form id="newProjectForm" name="newProjectForm" ng-submit="save()" >		
 
 <div class="form-msg form-msg-required">Please complete this required field.</div>
+<div class="form-msg form-msg-validate">{{validation.singleMsg}}</div>
 <div class="form-msg form-msg-agree">You must agree to the Data Management Plan in order to submit a new GLRI Project.</div>
 
 <div>
@@ -325,8 +326,8 @@
 	<h4 class="">Principal Investigator</h4>
 	<div class="form-spacing">
 		Lead PI for the project
-		<input type="text" class="form-control form-field form-required" ng-model="newProject.principal"
-		placeholder="Enter a name and email address. Example: Jane Doe jdoe@usgs.gov">
+		<input type="text" class="form-control form-field form-required contact single-person" ng-model="newProject.principal"
+		placeholder="Enter the name and email address for a single person.  Both the name and email are required. Example: Jane Doe jdoe@usgs.gov">
 	</div>
 </div>
 
@@ -334,25 +335,25 @@
 	<h4 class="">Associate Project Chief</h4>
 	<div class="form-spacing">
 		Center Director, Office Chief, Regional Staff Member, etc.
-		<input type="text" class="form-control form-field form-required" ng-model="newProject.chief"
-		placeholder="Enter a name and email address. Example: Jane Doe jdoe@usgs.gov">
+		<input type="text" class="form-control form-field form-required contact single-person" ng-model="newProject.chief"
+		placeholder="Enter the name and email address for a single person.  Both the name and email are required. Example: Jane Doe jdoe@usgs.gov">
 	</div>
 </div>
 
 <div>
-	<h4>External Organization Contacts</h4>  
+	<h4>Cooperating Organization</h4>  
 	<div class="point-of-contact form-spacing">
 		This is used to identify significant relationships between the project and organizations outside of USGS that participate in or use information from the project. External Organizations may include Federal entities, State, County, and Municipal government organizations, tribal entities, academic organizations, private organizations, international entities, and non­governmental organizations.
-		<textarea class="form-control form-field form-optional" rows="5"  ng-model="newProject.organizations"
-		placeholder="Enter a comma separated list of organization names and email addresses. Example: &#10;Cooperating Org contact@coop.org, Environmental Org info@environment.org" ></textarea>
+		<textarea class="form-control form-field form-optional contact multi-organization" rows="5"  ng-model="newProject.organizations"
+		placeholder="Enter a comma separated list of organizations.  Each organization must have a name and may have one or both of a url and email address. Example: &#10;Cooperating Org contact@coop.org www.coop.org, Environmental Org info@environment.org http://www.environment.org" ></textarea>
 	</div>
 </div>
 
 <div>
 	<h4>Points of Contact</h4>  
 	<div class="point-of-contact form-spacing">
-		<textarea class="form-control form-field form-optional" rows="5"  ng-model="newProject.contacts"
-		placeholder="Enter a comma separated list of full names and email addresses. Example: &#10;Jane Doe jdoe@usgs.gov, James Brown jbrown@usgs.gov" ></textarea>
+		<textarea class="form-control form-field form-optional contact multi-person" rows="5"  ng-model="newProject.contacts"
+		placeholder="Enter a comma separated list of 'people' contacts for the project.  Each contact must have a name and email. Example: &#10;Jane Doe jdoe@usgs.gov, James Brown jbrown@usgs.gov" ></textarea>
 	</div>
 </div>
 
