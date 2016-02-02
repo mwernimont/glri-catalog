@@ -280,33 +280,6 @@ var concatIfExists = function(label, additional) {
 	return "";
 }
 
-/**
- * Validate new project fields, returning an array of validation messages.
- * 
- * If there are no validation issues, an empty array is returned.
- * 
- * @param {type} data
- * @returns {Array}
- */
-var validateNewProject = function(data) {
-	var messages = [];
-	var msg = null;
-
-	msg = parseSinglePersonContact(data.principal);
-	if (typeof msg == 'string') messages.push(msg);
-
-	msg = parseSinglePersonContact(data.chief);
-	if (typeof msg == 'string') messages.push(msg);
-
-	msg = parseOrganizationContacts(data.organizations);
-	if (typeof msg == 'string') messages.push(msg);
-
-	msg = parsePersonContacts(data.contacts);
-	if (typeof msg == 'string') messages.push(msg);
-
-	return messages;
-}
-
 /*
  * Parses a list of person contacts that are comma delimited.
  * 
