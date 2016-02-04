@@ -231,9 +231,14 @@ function($scope, $http, Status, ScienceBase) {
 			function(resp) {
 				console.log(resp.data)
 				if (resp.data === undefined) {
-					saveFailed({data:"no response"})
+					saveFailed({data:"no response"});
 				} else if (resp.data.indexOf("Missing") >= 0) {
-					saveFailed(resp)
+					saveFailed(resp);
+				} else if (resp.data.indexOf('JSONObject["id"] not found') >=0) {
+					saveFailed({
+						data:"The submission failed for an unknown reason. " +
+							"Please double check the submission fields and try again. " +
+							"If the problem persists, email the Page Contact, listed at the bottom of the page."});
 				} else {
 					window.location = "index.jsp#/Browse/all/"+resp.data
 				}
