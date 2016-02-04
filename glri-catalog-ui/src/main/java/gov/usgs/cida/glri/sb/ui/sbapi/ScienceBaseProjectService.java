@@ -72,17 +72,19 @@ public class ScienceBaseProjectService extends HttpServlet {
 					 */
 				}
 				
-				projectId = sbreply.getString("id");
-				if (projectId == null || projectId.length()<24) {
-					
+				if (!sbreply.has("errors") && sbreply.has("id") && sbreply.getString("id") != null && projectId.length()>=25) {
+					projectId = sbreply.getString("id");
+				} else {
+
 					if (sbreply.has("error")) {
 						log.severe("ScienceBase submission failed.  Response msgs: " + sbreply.getString("error"));
 					} else {
-						log.severe("ScienceBase submission failed.  Unable to find the error message in the response.");
+						log.severe("ScienceBase submission failed.  Full response: " + sbreply.toString());
 					}
-					
+
 					throw new RuntimeException("Missing Project ID");
 				}
+
 			}
 			response.setContentType("text/plain; charset=UTF-8");
 			PrintWriter out = response.getWriter();
