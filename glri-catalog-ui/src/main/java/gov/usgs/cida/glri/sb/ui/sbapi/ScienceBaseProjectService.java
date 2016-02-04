@@ -74,6 +74,13 @@ public class ScienceBaseProjectService extends HttpServlet {
 				
 				projectId = sbreply.getString("id");
 				if (projectId == null || projectId.length()<24) {
+					
+					if (sbreply.has("error")) {
+						log.severe("ScienceBase submission failed.  Response msgs: " + sbreply.getString("error"));
+					} else {
+						log.severe("ScienceBase submission failed.  Unable to find the error message in the response.");
+					}
+					
 					throw new RuntimeException("Missing Project ID");
 				}
 			}
