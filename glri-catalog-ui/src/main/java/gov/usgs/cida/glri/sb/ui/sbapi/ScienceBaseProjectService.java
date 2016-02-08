@@ -72,8 +72,11 @@ public class ScienceBaseProjectService extends HttpServlet {
 					 */
 				}
 				
-				if (!sbreply.has("errors") && sbreply.has("id") && sbreply.getString("id") != null && projectId.length()>=25) {
+				//Not actually sure what the min length is for an id, but the examples I've seen are 24 characters long
+				if (!sbreply.has("errors") && sbreply.has("id") && sbreply.getString("id") != null && sbreply.getString("id").length() >= 4) {
+					
 					projectId = sbreply.getString("id");
+					
 				} else {
 
 					log.severe("ScienceBase submission failed.  Full response: " + sbreply.toString());
