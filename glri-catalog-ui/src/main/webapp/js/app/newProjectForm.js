@@ -286,18 +286,38 @@ var concatIfExists = function(label, additional) {
 }
 
 /*
- * Parses a list of person contacts that are comma delimited.
- * 
- * For successful parses, an array of contacts are returned, each as {name,email}.
- * Both name and email are required.  Multiple emails are not allowed.
- * If The string is empty, all whitespace, or undefined, an empty array is returned.
- * If any contact results in a parse error, a String validation message is returned
- * instead of an array.
- * 
+ * @See parseContacts
  * @param {type} contactStr
  * @returns {Array|String|undefined}
  */
 var parsePersonContacts = function(contactStr) {
+	return parseContacts(contactStr, parseSinglePersonContact);
+};
+
+/*
+ * @See parseContacts
+ * @param {type} contactStr
+ * @returns {Array|String|undefined}
+ */
+var parseOrganizationContacts = function(contactStr) {
+	return parseContacts(contactStr, parseSingleOrganizationContact);
+};
+
+/*
+ * Parses a list of comma delimited contacts, passing each piece to the singleItemParseFunction.
+ * 
+ * For successful parses, an array of contacts are returned, the requirements and
+ * structure of each item is determined by the passed singleItemParseFunction.
+ * 
+ * If The string is empty, all whitespace, or undefined, an empty array is returned.
+ * If any contact results in a parse error, a String validation message is returned
+ * instead of an array.
+ * 
+ * @param String contactStr Comma delimited contact string
+ * @param function singleItemParseFunction Function used to parse a single contact.
+ * @returns {Array|String|undefined}
+ */
+var parseContacts = function(contactStr, singleItemParseFunction) {
 	
 	//initial cleanup / empty check
 	if (contactStr == undefined) return [];
@@ -307,7 +327,7 @@ var parsePersonContacts = function(contactStr) {
 	var contactStrArray = contactStr.split(",");
 	var contacts = new Array();
 	for (var i =0; i<contactStrArray.length; i++) {
-		var single = parseSinglePersonContact(contactStrArray[i]);
+		var single = singleItemParseFunction(contactStrArray[i]);
 		
 		if (typeof single == 'string') {
 			return single;	//this is a validation message
@@ -337,6 +357,8 @@ var parseSinglePersonContact = function(contactStr) {
 	if (email) {
 		if (email.length == 1) {
 			email = email[0];
+			
+			//Carve out the email that we found
 			parsedStr  = parsedStr.replace(email,'').trim();
 		} else {
 			return "Only one email address is allowed for the contact '" + contactStr + "'. " + msgSuffix;	
@@ -363,41 +385,6 @@ var parseSinglePersonContact = function(contactStr) {
 	}
 };
 
-/*
- * Parses a list of organization contacts that are comma delimited.
- * 
- * For successful parses, an array of contacts are returned, each as {name,email,url}.
- * Name is required, as well as either or both an email or url.
- * Multiple emails and urls are not allowed.
- * If The string is empty, all whitespace, or undefined, an empty array is returned.
- * If any contact results in a parse error, a String validation message is returned
- * instead of an array.
- * 
- * @param {type} contactStr
- * @returns {Array|String|undefined}
- */
-var parseOrganizationContacts = function(contactStr) {
-	
-	//initial cleanup / empty check
-	if (contactStr == undefined) return [];
-	contactStr = contactStr.trim();
-	if (contactStr.length == 0) return [];
-	
-	var contactStrArray = contactStr.split(",");
-	var contacts = new Array();
-	for (var i =0; i<contactStrArray.length; i++) {
-		var single = parseSingleOrganizationContact(contactStrArray[i]);
-		
-		if (typeof single == 'string') {
-			return single;	//this is a validation message
-		} else {
-			contacts.push(single);
-		}
-	}
-	
-	return contacts;
-};
-
 /* Returns an object with name, email and url fields if the contact can be parsed.
  * For successful parses, an array of contacts are returned, each as {name,email,url}.
  * Name is required, as well as either or both an email or url.
@@ -421,6 +408,8 @@ var parseSingleOrganizationContact = function(contactStr) {
 		if (email.length == 1) {
 			email = email[0];
 			hasValidEmail = email.length > 4;
+			
+			//Carve out the email that we found
 			parsedStr  = parsedStr.replace(email,'').trim();
 		} else {
 			return "Only one email address is allowed for the organization '" + contactStr + "'. " + msgSuffix;	
@@ -436,6 +425,8 @@ var parseSingleOrganizationContact = function(contactStr) {
 		if (url.length == 1) {
 			url = url[0];
 			hasValidUrl = url.length > 3;
+			
+			//Carve out the url that we found
 			parsedStr  = parsedStr.replace(url,'').trim();
 		} else {
 			return "Only one url is allowed for the organization '" + contactStr + "'. " + msgSuffix;	
