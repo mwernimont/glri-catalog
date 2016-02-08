@@ -65,15 +65,11 @@ public class ScienceBaseProjectService extends HttpServlet {
 				JSONObject newProject = new JSONObject(newProjectJson);
 				JSONObject sbreply = client.createSbItem(newProject);
 				
-				if ( ! sbreply.isNull("errors") ) {
-					/* TODO handle errors
-					 * example error json response
-					 * {"errors":[{"field":"dates[0].dateString","objectName":"class gov.sciencebase.catalog.item.Item","message":"[12-07-2015] is not a valid date.  Dates must be in one of the following formats: yyyy, yyyy-MM, yyyyMM, yyyy-MM-dd, yyyyMMdd, yyyy-MM-dd HH:mm:ss, yyyy-MM-dd HH:mm, yyyyMMdd HHmmss, yyyyMMdd HHmm"},{"field":"dates[1].dateString","objectName":"class gov.sciencebase.catalog.item.Item","message":"[12-07-2016] is not a valid date.  Dates must be in one of the following formats: yyyy, yyyy-MM, yyyyMM, yyyy-MM-dd, yyyyMMdd, yyyy-MM-dd HH:mm:ss, yyyy-MM-dd HH:mm, yyyyMMdd HHmmss, yyyyMMdd HHmm"}]}
-					 */
-				}
-				
-				if (!sbreply.has("errors") && sbreply.has("id") && sbreply.getString("id") != null && projectId.length()>=25) {
+				//Not actually sure what the min length is for an id, but the examples I've seen are 24 characters long
+				if (!sbreply.has("errors") && sbreply.has("id") && sbreply.getString("id") != null && sbreply.getString("id").length() >= 4) {
+					
 					projectId = sbreply.getString("id");
+					
 				} else {
 
 					log.severe("ScienceBase submission failed.  Full response: " + sbreply.toString());
