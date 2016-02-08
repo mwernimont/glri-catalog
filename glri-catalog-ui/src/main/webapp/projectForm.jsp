@@ -327,7 +327,7 @@
 	<div class="form-spacing">
 		Lead PI for the project
 		<input type="text" class="form-control form-field form-required contact single-person" ng-model="newProject.principal"
-		placeholder="Enter the name and email address for a single person.  Both the name and email are required. Example: Jane Doe jdoe@usgs.gov">
+		placeholder="Enter the name and email address for a single person. Both are required. Example: Jane Doe jdoe@usgs.gov">
 	</div>
 </div>
 
@@ -336,16 +336,16 @@
 	<div class="form-spacing">
 		Center Director, Office Chief, Regional Staff Member, etc.
 		<input type="text" class="form-control form-field form-required contact single-person" ng-model="newProject.chief"
-		placeholder="Enter the name and email address for a single person.  Both the name and email are required. Example: Jane Doe jdoe@usgs.gov">
+		placeholder="Enter the name and email address for a single person. Both are required. Example: Jane Doe jdoe@usgs.gov">
 	</div>
 </div>
 
 <div>
 	<h4>Cooperating Organization</h4>  
 	<div class="point-of-contact form-spacing">
-		This is used to identify significant relationships between the project and organizations outside of USGS that participate in or use information from the project. External Organizations may include Federal entities, State, County, and Municipal government organizations, tribal entities, academic organizations, private organizations, international entities, and non­governmental organizations.
+		This is used to identify significant relationships between the project and organizations outside of USGS that participate in or use information from the project. External Organizations may include Federal entities, State, County, and Municipal governmental organizations, tribal entities, academic organizations, private organizations, international entities, and non&#45;governmental organizations.
 		<textarea class="form-control form-field form-optional contact multi-organization" rows="5"  ng-model="newProject.organizations"
-		placeholder="Enter a comma separated list of organizations.  Each organization must have a name and may have one or both of a url and email address. Example: &#10;Cooperating Org contact@coop.org www.coop.org, Environmental Org info@environment.org http://www.environment.org" ></textarea>
+		placeholder="Enter a comma separated list of organizations.  Each organization must have a name and optionally an email address. Example: &#10;Cooperating Org, Environmental Org info@environment.org" ></textarea>
 	</div>
 </div>
 
