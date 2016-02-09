@@ -394,8 +394,6 @@ var parseSinglePersonContact = function(contactStr) {
 var parseSingleOrganizationContact = function(contactStr) {
 	var parsedStr = contactStr;	//preserve org for validation msgs
 	var name  = "";
-	var hasValidEmail = false;
-	var hasValidUrl = false;
 	var msgSuffix = "Individual organizations are separated by commas.";
 	
 	if (parsedStr.indexOf(",") > -1) {
@@ -407,7 +405,6 @@ var parseSingleOrganizationContact = function(contactStr) {
 	if (email) {
 		if (email.length == 1) {
 			email = email[0];
-			hasValidEmail = email.length > 4;
 			
 			//Carve out the email that we found
 			parsedStr  = parsedStr.replace(email,'').trim();
@@ -424,7 +421,6 @@ var parseSingleOrganizationContact = function(contactStr) {
 	if (url) {
 		if (url.length == 1) {
 			url = url[0];
-			hasValidUrl = url.length > 3;
 			
 			//Carve out the url that we found
 			parsedStr  = parsedStr.replace(url,'').trim();
@@ -456,8 +452,6 @@ var parseSingleOrganizationContact = function(contactStr) {
 		return "There is something that looks like a partial/incorrect email for the organization '" + contactStr + "'. " + msgSuffix;
 	} else if (url != undefined && url.length < 4) {
 		return "There is something that looks like a partial/incorrect url for the organization '" + contactStr + "'. " + msgSuffix;
-	} else if (!hasValidEmail && !hasValidUrl) {
-		return "There is no valid email or url for the organization '" + contactStr + "'. " + msgSuffix;
 	} else {
 		var contact = new Object();
 		contact.name = name;
