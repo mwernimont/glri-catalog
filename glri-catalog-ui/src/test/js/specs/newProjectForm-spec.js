@@ -487,6 +487,20 @@ describe("newProjectForm tests", function() {
 			expect(contact.logoUrl).toBe("http://www.someorg.com/home.jsp");
 		});
 		
+		it("returns object for good name ONLY (email and url not required)",function() {
+			var preparsed = "org name";
+			var contact = parseSingleOrganizationContact(preparsed);
+			expect(contact.email).toBeUndefined();
+			expect(contact.name).toBe("org name");
+			expect(contact.logoUrl).toBeUndefined();
+			
+			preparsed = "org name Last Name";
+			contact = parseSingleOrganizationContact(preparsed);
+			expect(contact.email).toBeUndefined();
+			expect(contact.name).toBe("org name Last Name");
+			expect(contact.logoUrl).toBeUndefined();
+		});
+		
 		it("returns error message if the contact contains a comma",function() {
 			var preparsed = "bad, parsing@co.com";
 			var contact = parseSingleOrganizationContact(preparsed);
@@ -575,10 +589,6 @@ describe("newProjectForm tests", function() {
 		it("returns error message for a bad url format",function() {
 			var preparsed = "bad short url a.b";
 			var contact = parseSingleOrganizationContact(preparsed);
-			expect(contact).toEqual(jasmine.any(String));	//A bad validation msg
-			
-			preparsed = "bad url ..";
-			contact = parseSingleOrganizationContact(preparsed);
 			expect(contact).toEqual(jasmine.any(String));	//A bad validation msg
 			
 			preparsed = "bad url ...";
@@ -674,7 +684,7 @@ describe("newProjectForm tests", function() {
 			var contacts = parseOrganizationContacts(preparsed);
 			expect(contacts).toEqual(jasmine.any(String));	//A bad validation msg
 			
-			preparsed = "bad url ..";
+			preparsed = "bad url a.b";
 			contacts = parseOrganizationContacts(preparsed);
 			expect(contacts).toEqual(jasmine.any(String));	//A bad validation msg
 		});
@@ -693,11 +703,7 @@ describe("newProjectForm tests", function() {
 			contacts = parseOrganizationContacts(preparsed);
 			expect(contacts).toEqual(jasmine.any(String));	//A bad validation msg
 			
-			var preparsed = "bad url .., bob bob@co.com";	//reverse order
-			var contacts = parseOrganizationContacts(preparsed);
-			expect(contacts).toEqual(jasmine.any(String));	//A bad validation msg
-			
-			var preparsed = "No contact info provided, bob bob@co.com";	//reverse order
+			var preparsed = "bad url a.b, bob bob@co.com";	//reverse order
 			var contacts = parseOrganizationContacts(preparsed);
 			expect(contacts).toEqual(jasmine.any(String));	//A bad validation msg
 		});

@@ -145,8 +145,8 @@
 <div>
 	<h4 class="">Image URL</h4>
 	<div class="form-spacing">
-		Enter URL to image to be used in the the project page on the GLRI website. Alternatively, you may email an image to Jessica Lucido (<a href="mailto:jlucido@usgs.gov?Subject=GLRI%20Project%20Image">jlucido@usgs.gov</a>).
-		<input class="form-control form-field form-optional" type="text" ng-model="newProject.image">
+		Enter the publicly accessible URL to image to be used in the the project page on the GLRI website.
+		<input class="form-control form-field form-required" type="text" ng-model="newProject.image">
 	</div>
 </div>
 
