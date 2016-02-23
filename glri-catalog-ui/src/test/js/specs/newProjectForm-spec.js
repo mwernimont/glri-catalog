@@ -280,15 +280,15 @@ describe("newProjectForm tests", function() {
 			expect(contact.email).toBe("good@email.org");
 			expect(contact).not.toEqual(jasmine.any(String));
 			
-			preparsed = "good email a@b.c";
+			preparsed = "good email a@b.co";
 			contact = parseSinglePersonContact(preparsed);
-			expect(contact.email).toBe("a@b.c");
+			expect(contact.email).toBe("a@b.co");
 			expect(contact).not.toEqual(jasmine.any(String));
 			
-			preparsed = "dr. tiles should be ok a@b.c";
+			preparsed = "dr. tiles should be ok a@b.co";
 			contact = parseSinglePersonContact(preparsed);
 			expect(contact.name).toBe("dr. tiles should be ok");
-			expect(contact.email).toBe("a@b.c");
+			expect(contact.email).toBe("a@b.co");
 			expect(contact).not.toEqual(jasmine.any(String));
 		});
 		it("returns object for good name format",function() {
@@ -311,18 +311,6 @@ describe("newProjectForm tests", function() {
 		});
 		
 		it("returns error message for a bad email format",function() {
-			var preparsed = "bad email @";
-			var contact = parseSinglePersonContact(preparsed);
-			expect(contact).toEqual(jasmine.any(String));	//A bad validation msg
-			
-			preparsed = "bad email bad@";
-			contact = parseSinglePersonContact(preparsed);
-			expect(contact).toEqual(jasmine.any(String));	//A bad validation msg
-			
-			preparsed = "bad email b@a.";
-			contact = parseSinglePersonContact(preparsed);
-			expect(contact).toEqual(jasmine.any(String));	//A bad validation msg
-			
 			preparsed = "bad email @email.bad";
 			contact = parseSinglePersonContact(preparsed);
 			expect(contact).toEqual(jasmine.any(String));	//A bad validation msg
@@ -357,6 +345,120 @@ describe("newProjectForm tests", function() {
 		});
 	});
 	
+	describe("parseAndRemoveOneUrl tests", function() {
+		it("returns correct values for happy path",function() {
+			var preparsed = "Some Name http://some.org";
+			var response = parseAndRemoveOneUrl(preparsed);
+			expect(response.original).toBe(preparsed);
+			expect(response.isOk).toBe(true);
+			expect(response.remain).toBe("Some Name");
+			expect(response.value).toBe("http://some.org");
+			expect(response.errorMsg).toBeUndefined();
+		});
+		
+		it("Two urls are not allowed",function() {
+			var preparsed = "Some Name http://some.org http://some2.org";
+			var response = parseAndRemoveOneUrl(preparsed);
+			expect(response.original).toBe(preparsed);
+			expect(response.isOk).toBe(false);
+			expect(response.remain).toBe(preparsed);
+			expect(response.value).toBeUndefined();
+			expect(response.errorMsg.length).toBeGreaterThan(1);
+		});
+		
+		it("Dot separated words look like urls and cause errors",function() {
+			var preparsed = "Some Name some.org";
+			var response = parseAndRemoveOneUrl(preparsed);
+			expect(response.original).toBe(preparsed);
+			expect(response.isOk).toBe(false);
+			expect(response.remain).toBe(preparsed);
+			expect(response.value).toBeUndefined();
+			expect(response.errorMsg.length).toBeGreaterThan(1);
+		});
+		
+		it("Schemes other than http and https cause errors",function() {
+			var preparsed = "Some Name iuuq://some.org";
+			var response = parseAndRemoveOneUrl(preparsed);
+			expect(response.original).toBe(preparsed);
+			expect(response.isOk).toBe(false);
+			expect(response.remain).toBe(preparsed);
+			expect(response.value).toBeUndefined();
+			expect(response.errorMsg.length).toBeGreaterThan(1);
+		});
+		
+		it("Urls cannot be too short",function() {
+			var preparsed = "Some Name http://a.b";
+			var response = parseAndRemoveOneUrl(preparsed);
+			expect(response.original).toBe(preparsed);
+			expect(response.isOk).toBe(false);
+			expect(response.remain).toBe(preparsed);
+			expect(response.value).toBeUndefined();
+			expect(response.errorMsg.length).toBeGreaterThan(1);
+		});
+	});
+	
+	describe("parseAndRemoveOneEmail tests", function() {
+		it("returns correct values for happy path",function() {
+			var preparsed = "Some Name bob@bob.com";
+			var response = parseAndRemoveOneEmail(preparsed);
+			expect(response.original).toBe(preparsed);
+			expect(response.isOk).toBe(true);
+			expect(response.remain).toBe("Some Name");
+			expect(response.value).toBe("bob@bob.com");
+			expect(response.errorMsg).toBeUndefined();
+		});
+		
+		it("returns error for email w/o dots",function() {
+			var preparsed = "Some Name bob@com";
+			var response = parseAndRemoveOneEmail(preparsed);
+			expect(response.original).toBe(preparsed);
+			expect(response.isOk).toBe(false);
+			expect(response.remain).toBe(preparsed);
+			expect(response.value).toBeUndefined();
+			expect(response.errorMsg.length).toBeGreaterThan(1);
+		});
+		
+		it("returns error for twitter-like ref",function() {
+			var preparsed = "Some Name @somebodysname";
+			var response = parseAndRemoveOneEmail(preparsed);
+			expect(response.original).toBe(preparsed);
+			expect(response.isOk).toBe(false);
+			expect(response.remain).toBe(preparsed);
+			expect(response.value).toBeUndefined();
+			expect(response.errorMsg.length).toBeGreaterThan(1);
+		});
+		
+		it("returns error for email that is too short",function() {
+			var preparsed = "Some Name b@a.b";
+			var response = parseAndRemoveOneEmail(preparsed);
+			expect(response.original).toBe(preparsed);
+			expect(response.isOk).toBe(false);
+			expect(response.remain).toBe(preparsed);
+			expect(response.value).toBeUndefined();
+			expect(response.errorMsg.length).toBeGreaterThan(1);
+		});
+		
+		it("returns error for two emails",function() {
+			var preparsed = "Some Name bob@bob.com carl@carl.com";
+			var response = parseAndRemoveOneEmail(preparsed);
+			expect(response.original).toBe(preparsed);
+			expect(response.isOk).toBe(false);
+			expect(response.remain).toBe(preparsed);
+			expect(response.value).toBeUndefined();
+			expect(response.errorMsg.length).toBeGreaterThan(1);
+		});
+		
+		it("returns error for an email plus something that looks like an email",function() {
+			var preparsed = "Some Name bob@bob.com @carl";
+			var response = parseAndRemoveOneEmail(preparsed);
+			expect(response.original).toBe(preparsed);
+			expect(response.isOk).toBe(false);
+			expect(response.remain).toBe(preparsed);
+			expect(response.value).toBeUndefined();
+			expect(response.errorMsg.length).toBeGreaterThan(1);
+		});
+	});
+	
 
 	describe("parsePersonContacts tests", function() {
 		
@@ -367,10 +469,10 @@ describe("newProjectForm tests", function() {
 			expect(contacts[0].email).toBe("good@email.org");
 			expect(contacts[0].name).toBe("good email");
 			
-			preparsed = "good email a@b.c";
+			preparsed = "good email a@b.co";
 			contacts = parsePersonContacts(preparsed);
 			expect(contacts.length).toEqual(1);
-			expect(contacts[0].email).toBe("a@b.c");
+			expect(contacts[0].email).toBe("a@b.co");
 		});
 		
 		it("returns multiple entries as array for good comma separated entries",function() {
@@ -448,37 +550,37 @@ describe("newProjectForm tests", function() {
 			expect(contact.name).toBe("org name");
 			expect(contact.logoUrl).toBeUndefined();
 			
-			preparsed = "org a@b.c";
+			preparsed = "org a@b.co";
 			contact = parseSingleOrganizationContact(preparsed);
-			expect(contact.email).toBe("a@b.c");
+			expect(contact.email).toBe("a@b.co");
 			expect(contact.name).toBe("org");
 			expect(contact.logoUrl).toBeUndefined();
 			
-			preparsed = "I. B. M. names ok a@b.c";
+			preparsed = "I. B. M. names ok a@b.co";
 			contact = parseSingleOrganizationContact(preparsed);
-			expect(contact.email).toBe("a@b.c");
+			expect(contact.email).toBe("a@b.co");
 			expect(contact.name).toBe("I. B. M. names ok");
 			expect(contact.logoUrl).toBeUndefined();
 		});
 		
 		it("returns object for good name and url format",function() {
-			var preparsed = "org name someorg.com";
+			var preparsed = "org name http://someorg.com";
 			var contact = parseSingleOrganizationContact(preparsed);
 			expect(contact.email).toBeUndefined();
 			expect(contact.name).toBe("org name");
-			expect(contact.logoUrl).toBe("someorg.com");
+			expect(contact.logoUrl).toBe("http://someorg.com");
 			
-			preparsed = "org name www.someorg.com";
+			preparsed = "org name http://www.someorg.com";
 			contact = parseSingleOrganizationContact(preparsed);
 			expect(contact.email).toBeUndefined();
 			expect(contact.name).toBe("org name");
-			expect(contact.logoUrl).toBe("www.someorg.com");
+			expect(contact.logoUrl).toBe("http://www.someorg.com");
 			
-			preparsed = "org name www.someorg.com/home.jsp";
+			preparsed = "org name https://www.someorg.com/home.jsp";
 			contact = parseSingleOrganizationContact(preparsed);
 			expect(contact.email).toBeUndefined();
 			expect(contact.name).toBe("org name");
-			expect(contact.logoUrl).toBe("www.someorg.com/home.jsp");
+			expect(contact.logoUrl).toBe("https://www.someorg.com/home.jsp");
 			
 			preparsed = "org name http://www.someorg.com/home.jsp";
 			contact = parseSingleOrganizationContact(preparsed);
@@ -508,23 +610,23 @@ describe("newProjectForm tests", function() {
 		});
 		
 		it("returns object for good name, email and url format",function() {
-			var preparsed = "org name hi@org.com someorg.com";
+			var preparsed = "org name hi@org.com https://someorg.com";
 			var contact = parseSingleOrganizationContact(preparsed);
 			expect(contact.email).toBe("hi@org.com");
 			expect(contact.name).toBe("org name");
-			expect(contact.logoUrl).toBe("someorg.com");
+			expect(contact.logoUrl).toBe("https://someorg.com");
 			
-			preparsed = "org name hi@org.com www.someorg.com";
+			preparsed = "org name hi@org.com https://www.someorg.com";
 			contact = parseSingleOrganizationContact(preparsed);
 			expect(contact.email).toBe("hi@org.com");
 			expect(contact.name).toBe("org name");
-			expect(contact.logoUrl).toBe("www.someorg.com");
+			expect(contact.logoUrl).toBe("https://www.someorg.com");
 			
-			preparsed = "hi@org.com org name www.someorg.com/home.jsp";
+			preparsed = "hi@org.com org name https://www.someorg.com/home.jsp";
 			contact = parseSingleOrganizationContact(preparsed);
 			expect(contact.email).toBe("hi@org.com");
 			expect(contact.name).toBe("org name");
-			expect(contact.logoUrl).toBe("www.someorg.com/home.jsp");
+			expect(contact.logoUrl).toBe("https://www.someorg.com/home.jsp");
 			
 			preparsed = "hi@org.com org name http://www.someorg.com/home.jsp";
 			contact = parseSingleOrganizationContact(preparsed);
@@ -587,12 +689,8 @@ describe("newProjectForm tests", function() {
 		});
 		
 		it("returns error message for a bad url format",function() {
-			var preparsed = "bad short url a.b";
+			var preparsed = "no protocal url someorg.org";
 			var contact = parseSingleOrganizationContact(preparsed);
-			expect(contact).toEqual(jasmine.any(String));	//A bad validation msg
-			
-			preparsed = "bad url ...";
-			contact = parseSingleOrganizationContact(preparsed);
 			expect(contact).toEqual(jasmine.any(String));	//A bad validation msg
 			
 			//a.b is too short to be a url, but should still cause a validation issue
@@ -627,22 +725,25 @@ describe("newProjectForm tests", function() {
 	describe("parseOrganizationContacts tests", function() {
 		
 		it("returns single entry object array for good single entry",function() {
-			var preparsed = "good org good@email.org somewhere.com";
+			var preparsed = "good org good@email.org http://somewhere.com";
 			var contacts = parseOrganizationContacts(preparsed);
+			expect(contacts).not.toEqual(jasmine.any(String));
 			expect(contacts.length).toEqual(1);
 			expect(contacts[0].email).toBe("good@email.org");
 			expect(contacts[0].name).toBe("good org");
-			expect(contacts[0].logoUrl).toBe("somewhere.com");
+			expect(contacts[0].logoUrl).toBe("http://somewhere.com");
 			
-			preparsed = "a@b.c mixed order http://url.abc.com";
+			preparsed = "a@b.co mixed order http://url.abc.com";
 			contacts = parseOrganizationContacts(preparsed);
+			expect(contacts).not.toEqual(jasmine.any(String));
 			expect(contacts.length).toEqual(1);
-			expect(contacts[0].email).toBe("a@b.c");
+			expect(contacts[0].email).toBe("a@b.co");
 			expect(contacts[0].name).toBe("mixed order");
 			expect(contacts[0].logoUrl).toBe("http://url.abc.com");
 			
 			preparsed = "only url ok http://url.abc.com";
 			contacts = parseOrganizationContacts(preparsed);
+			expect(contacts).not.toEqual(jasmine.any(String));
 			expect(contacts.length).toEqual(1);
 			expect(contacts[0].email).toBeUndefined();
 			expect(contacts[0].name).toBe("only url ok");
@@ -650,6 +751,7 @@ describe("newProjectForm tests", function() {
 			
 			preparsed = "contact@abc.com only email ok";
 			contacts = parseOrganizationContacts(preparsed);
+			expect(contacts).not.toEqual(jasmine.any(String));
 			expect(contacts.length).toEqual(1);
 			expect(contacts[0].email).toBe("contact@abc.com");
 			expect(contacts[0].name).toBe("only email ok");
@@ -657,12 +759,12 @@ describe("newProjectForm tests", function() {
 		});
 		
 		it("returns multiple entries as array for good comma separated entries",function() {
-			var preparsed = "good org good@email.org somewhere.com, http://somewheres.com good org no2 good2@email.org ";
+			var preparsed = "good org good@email.org http://somewhere.com, http://somewheres.com good org no2 good2@email.org ";
 			var contacts = parseOrganizationContacts(preparsed);
 			expect(contacts.length).toEqual(2);
 			expect(contacts[0].email).toBe("good@email.org");
 			expect(contacts[0].name).toBe("good org");
-			expect(contacts[0].logoUrl).toBe("somewhere.com");
+			expect(contacts[0].logoUrl).toBe("http://somewhere.com");
 			expect(contacts[1].email).toBe("good2@email.org");
 			expect(contacts[1].name).toBe("good org no2");
 			expect(contacts[1].logoUrl).toBe("http://somewheres.com");

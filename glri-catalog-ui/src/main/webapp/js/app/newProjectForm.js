@@ -149,6 +149,7 @@ function($scope, $http, Status, ScienceBase) {
 		//Do required fields first
 		var requiredFields = $('.form-required');
 		var contactFields = $('.contact');
+		var singleUrlFileds = $('.single-url');
 		
 		for (var f=0; f<requiredFields.length; f++) {
 			var field = requiredFields[f]
@@ -163,6 +164,37 @@ function($scope, $http, Status, ScienceBase) {
 					var loc = scrollTo(field);
 					displayMsg("form-msg-required", loc);
 					return false;
+				}
+			}
+		}
+		
+		for (var f=0; f<singleUrlFileds.length; f++) {
+			var field = singleUrlFileds[f];
+			var modelBinding = $(field).attr('model'); // have to check for the custom date field first
+			if (!modelBinding) {
+				modelBinding = $(field).attr('ng-model');
+			}
+			if (modelBinding !== undefined) {
+				var model = modelBinding.split('.');
+				var value = $scope[model[0]][model[1]];
+				
+				if (value != undefined && value.length != 0) {
+					var response = parseAndRemoveOneUrl(value);
+					var msg = undefined;
+					
+					if (response.isOk) {
+						if (response.value == undefined) msg = "No url was found in this field";
+					} else {
+						msg = parseAndRemoveOneUrl(value).errorMsg;
+					}
+						
+					
+					if (typeof msg == 'string' || ) {
+						$scope.validation.singleMsg = msg;
+						var loc = scrollTo(field);
+						displayMsg("form-msg-validate", loc);
+						return false;
+					}
 				}
 			}
 		}
@@ -187,12 +219,12 @@ function($scope, $http, Status, ScienceBase) {
 						msg = parseSingleOrganizationContact(value);
 					} else if ($(field).hasClass("multi-organization")) {
 						msg = parseOrganizationContacts(value);
+					} else if ($(field).hasClass("single-url")) {
+						msg = parseAndRemoveOneUrl(value).errorMsg;
 					}
 					
 					if (typeof msg == 'string') {
 						$scope.validation.singleMsg = msg;
-						//alert("Display msg: " + $scope.validation.singleMsg);
-						
 						var loc = scrollTo(field);
 						displayMsg("form-msg-validate", loc);
 						return false;
@@ -353,16 +385,11 @@ var parseSinglePersonContact = function(contactStr) {
 		return "Only one entry is allowed for the contact '" + contactStr + "'. " + msgSuffix;
 	}
 	
-	var email = parsedStr.match(/\S+@\S+/g);
-	if (email) {
-		if (email.length == 1) {
-			email = email[0];
-			
-			//Carve out the email that we found
-			parsedStr  = parsedStr.replace(email,'').trim();
-		} else {
-			return "Only one email address is allowed for the contact '" + contactStr + "'. " + msgSuffix;	
-		}
+	//Find, store and removed an email address
+	var emailParseResponse = parseAndRemoveOneEmail(parsedStr);
+	parsedStr = emailParseResponse.remain;
+	if (! emailParseResponse.isOk) {
+		return emailParseResponse.errorMsg + " - For contact '" + contactStr + "'. " + msgSuffix;	
 	}
 	
 	if (parsedStr.match(/@+/)) {
@@ -376,12 +403,10 @@ var parseSinglePersonContact = function(contactStr) {
 		return "No contact name was found for contact '" + contactStr + "'. " + msgSuffix;
 	} else if (name.length <= 1) {
 		return "A contact name longer than a single character is required for '" + contactStr + "'. " + msgSuffix;
-	} else if (email==undefined) {
+	} else if (emailParseResponse.value == undefined) {
 		return "No email was found for contact '" + contactStr + "'. " + msgSuffix;
-	} else if (email.length<5) {
-		return "There is something that looks like a partial/incorrect email for contact '" + contactStr + "'. " + msgSuffix;
 	} else {
-		return {name:name, email:email};
+		return {name:name, email:emailParseResponse.value};
 	}
 };
 
@@ -401,43 +426,21 @@ var parseSingleOrganizationContact = function(contactStr) {
 	}
 	
 	//Find, store and removed an email address
-	var email = parsedStr.match(/\S+@\S+/g);
-	if (email) {
-		if (email.length == 1) {
-			email = email[0];
-			
-			//Carve out the email that we found
-			parsedStr  = parsedStr.replace(email,'').trim();
-		} else {
-			return "Only one email address is allowed for the organization '" + contactStr + "'. " + msgSuffix;	
-		}
-	} else {
-		email = undefined;
+	var emailParseResponse = parseAndRemoveOneEmail(parsedStr);
+	parsedStr = emailParseResponse.remain;
+	if (! emailParseResponse.isOk) {
+		return emailParseResponse.errorMsg + " - For organization '" + contactStr + "'. " + msgSuffix;	
 	}
 	
 	//Find, store and removed a url
-	//Check that potential urls don't contained '@', which would be a failed email match
-	var url = parsedStr.match(/[^\s@]+\.[^\s@]+/g);
-	if (url) {
-		if (url.length == 1) {
-			url = url[0];
-			
-			//Carve out the url that we found
-			parsedStr  = parsedStr.replace(url,'').trim();
-		} else {
-			return "Only one url is allowed for the organization '" + contactStr + "'. " + msgSuffix;	
-		}
-
-	} else {
-		url = undefined;
+	var urlParseResponse = parseAndRemoveOneUrl(parsedStr);
+	parsedStr = urlParseResponse.remain;
+	if (! urlParseResponse.isOk) {
+		return urlParseResponse.errorMsg + " - For organization '" + contactStr + "'. " + msgSuffix;	
 	}
 	
 	if (parsedStr.match(/@+/)) {
 		return "Something looks like an email address for the organization '" + contactStr + "'. " + msgSuffix;
-	}
-	
-	if (parsedStr.match(/\S\.\S/)) {
-		return "Something looks like a url for the organization '" + contactStr + "'. " + msgSuffix;
 	}
 	
 	name = parsedStr;	//everything else has been carved out of the str.
@@ -448,19 +451,120 @@ var parseSingleOrganizationContact = function(contactStr) {
 		return "No name was found for the organization '" + contactStr + "'. " + msgSuffix;
 	} else if (name.length <= 1) {
 		return "An organization name longer than a single character is required for '" + contactStr + "'. " + msgSuffix;
-	} else if (email != undefined && email.length<5) {
-		return "There is something that looks like a partial/incorrect email for the organization '" + contactStr + "'. " + msgSuffix;
-	} else if (url != undefined && url.length < 4) {
-		return "There is something that looks like a partial/incorrect url for the organization '" + contactStr + "'. " + msgSuffix;
 	} else {
 		var contact = new Object();
 		contact.name = name;
-		if (email) { contact.email = email; }
-		if (url) { contact.logoUrl = url; }
+		if (emailParseResponse.value) { contact.email = emailParseResponse.value; }
+		if (urlParseResponse.value) { contact.logoUrl = urlParseResponse.value; }
 		return contact;
 	}
 };
 
+/* Parses an email out of a text string and returns an object.
+ * The response object has these properties:
+ * *original: The original text passed to this method
+ * *isOk: true if parsing succeeded w/o error.  The value may still be undefined, however.
+ * *remain: The remaining portion of original after removing url. Same as source if nothing found or parse error.
+ * *value: The url that was found in the original.  If no url was found value will be undefined.
+ * *errorMsg:  If isOk is false, this will contain an explination of the error for the user.  Undef otherwise.
+ */
+parseAndRemoveOneEmail = function(sourceStr) {
+	
+	//var parsedStr = sourceStr;
+	var parseResponse = new Object();
+	
+	parseResponse.original = sourceStr;
+	parseResponse.remain = sourceStr;	//assume nothing parsed out
+	parseResponse.isOk = false;	//assume failure
+	
+	//Find, store and removed a url
+	//Check that potential urls don't contained '@', which would be a failed email match
+	var email = sourceStr.match(/\S+@\S+\.\S+/g);
+	if (email) {
+		if (email.length == 1) {
+			email = email[0];
+			
+			if (email.length>=6) {
+				//Carve out the url that we found
+				parseResponse.remain  = sourceStr.replace(email,'').trim();
+
+				parseResponse.isOk = true;
+				parseResponse.value = email;
+			} else {
+				parseResponse.errorMsg = "The email address '" + email + "' looks too short to be an email";
+			}
+		} else {
+			parseResponse.errorMsg = "Only one email address is allowed";
+		}
+	} else {
+		//No url found
+		parseResponse.isOk = true;
+		parseResponse.value = undefined;
+	}
+	
+	if (parseResponse.isOk && parseResponse.remain.match(/@/g)) {
+		//Ugh.  Things were fine, but something looks url-ish in the remainder
+		parseResponse.errorMsg = "Something looks like an invalid email address";
+		parseResponse.value = undefined;
+		parseResponse.isOk = false
+		parseResponse.remain  = sourceStr;	//reset
+	}
+	
+	return parseResponse;
+};
+
+/* Parses a url out of a text string and returns an object.
+ * The response object has these properties:
+ * *original: The original text passed to this method
+ * *isOk: true if parsing succeeded w/o error.  The value may still be undefined, however.
+ * *remain: The remaining portion of original after removing url. Same as source if nothing found or parse error.
+ * *value: The url that was found in the original.  If no url was found value will be undefined.
+ * *errorMsg:  If isOk is false, this will contain an explination of the error for the user.  Undef otherwise.
+ */
+parseAndRemoveOneUrl = function(sourceStr) {
+	
+	//var parsedStr = sourceStr;
+	var parseResponse = new Object();
+	
+	parseResponse.original = sourceStr;
+	parseResponse.remain = sourceStr;	//assume nothing parsed out
+	parseResponse.isOk = false;	//assume failure
+	
+	//Find, store and removed a url
+	//Check that potential urls don't contained '@', which would be a failed email match
+	var url = sourceStr.match(/(?:http|https):\/\/[^\s@]+\.[^\s@]+/g);
+	if (url) {
+		if (url.length == 1) {
+			url = url[0];
+			
+			if (url.length >= 11) {
+				//Carve out the url that we found
+				parseResponse.remain  = sourceStr.replace(url,'').trim();
+
+				parseResponse.isOk = true;
+				parseResponse.value = url;
+			} else {
+				parseResponse.errorMsg = "The url '" + url + "' looks too short to be a url";
+			}
+		} else {
+			parseResponse.errorMsg = "Only one url is allowed";
+		}
+	} else {
+		//No url found
+		parseResponse.isOk = true;
+		parseResponse.value = undefined;
+	}
+	
+	if (parseResponse.isOk && parseResponse.remain.match(/[^\s@]+\.[^\s@]+/g)) {
+		//Ugh.  Things were fine, but something looks url-ish in the remainder
+		parseResponse.errorMsg = "Something looks like an invalid url";
+		parseResponse.value = undefined;
+		parseResponse.isOk = false
+		parseResponse.remain  = sourceStr;	//reset
+	}
+	
+	return parseResponse;
+};
 
 var splitComma = function(text) {
 	if (text === undefined || typeof text !== 'string') {
