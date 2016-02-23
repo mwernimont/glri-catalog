@@ -634,6 +634,15 @@ var buildNewProject = function(data) {
         '}'
 	}
 	
+	var webLink = "";
+	if (data.image && data.image.trim().length > 0)
+	webLink = ',"webLinks": [{'+
+		'"title": "Thumbnail",'+
+		'"type": "browseImage",'+
+		'"typeLabel": "Browse Image",'+
+		'"uri": "'+data.image.trim()+'",'+
+		'"hidden": false'+
+	'}]';
 	
 	var newProject =
 	'{'+
@@ -662,14 +671,7 @@ var buildNewProject = function(data) {
 	            '"parts": [],'+
 	            '"className": "gov.sciencebase.catalog.item.facet.ProjectFacet"'+
 	        '}'+
-	    '],'+
-	    '"webLinks": [{'+
-        	'"title": "Thumbnail",'+
-        	'"type": "browseImage",'+
-        	'"typeLabel": "Browse Image",'+
-            '"uri": "'+data.image+'",'+
-            '"hidden": false'+
-	    '}]'+
+	    ']'+ webLink +
     '}'
 	
 	return newProject
