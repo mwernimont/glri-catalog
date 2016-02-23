@@ -356,6 +356,16 @@ describe("newProjectForm tests", function() {
 			expect(response.errorMsg).toBeUndefined();
 		});
 		
+		it("returns correct values for happy path w/ leading url",function() {
+			var preparsed = "http://some.org  Some Name ";
+			var response = parseAndRemoveOneUrl(preparsed);
+			expect(response.original).toBe(preparsed);
+			expect(response.isOk).toBe(true);
+			expect(response.remain).toBe("Some Name");
+			expect(response.value).toBe("http://some.org");
+			expect(response.errorMsg).toBeUndefined();
+		});
+		
 		it("Two urls are not allowed",function() {
 			var preparsed = "Some Name http://some.org http://some2.org";
 			var response = parseAndRemoveOneUrl(preparsed);
@@ -388,6 +398,16 @@ describe("newProjectForm tests", function() {
 		
 		it("Urls cannot be too short",function() {
 			var preparsed = "Some Name http://a.b";
+			var response = parseAndRemoveOneUrl(preparsed);
+			expect(response.original).toBe(preparsed);
+			expect(response.isOk).toBe(false);
+			expect(response.remain).toBe(preparsed);
+			expect(response.value).toBeUndefined();
+			expect(response.errorMsg.length).toBeGreaterThan(1);
+		});
+		
+		it("Urls cannot have extra leading text",function() {
+			var preparsed = "Some Name Xhttp://somewhere.com";
 			var response = parseAndRemoveOneUrl(preparsed);
 			expect(response.original).toBe(preparsed);
 			expect(response.isOk).toBe(false);

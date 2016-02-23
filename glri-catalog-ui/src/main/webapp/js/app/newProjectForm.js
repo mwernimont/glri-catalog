@@ -479,7 +479,7 @@ parseAndRemoveOneEmail = function(sourceStr) {
 	
 	//Find, store and removed a url
 	//Check that potential urls don't contained '@', which would be a failed email match
-	var email = sourceStr.match(/\S+@\S+\.\S+/g);
+	var email = sourceStr.match(/\b\S+@\S+\.\S+\b/g);
 	if (email) {
 		if (email.length == 1) {
 			email = email[0];
@@ -532,7 +532,7 @@ parseAndRemoveOneUrl = function(sourceStr) {
 	
 	//Find, store and removed a url
 	//Check that potential urls don't contained '@', which would be a failed email match
-	var url = sourceStr.match(/(?:http|https):\/\/[^\s@]+\.[^\s@]+/g);
+	var url = sourceStr.match(/\b(?:http|https):\/\/[^\s@]+\.[^\s@]+\b/g);
 	if (url) {
 		if (url.length == 1) {
 			url = url[0];
