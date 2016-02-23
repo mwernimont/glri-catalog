@@ -183,13 +183,15 @@ function($scope, $http, Status, ScienceBase) {
 					var msg = undefined;
 					
 					if (response.isOk) {
-						if (response.value == undefined) msg = "No url was found in this field";
+						if (response.value == undefined) {
+							msg = "No url was found in this field";
+						}
 					} else {
-						msg = parseAndRemoveOneUrl(value).errorMsg;
+						msg = response.errorMsg;
 					}
 						
 					
-					if (typeof msg == 'string' || ) {
+					if (typeof msg == 'string') {
 						$scope.validation.singleMsg = msg;
 						var loc = scrollTo(field);
 						displayMsg("form-msg-validate", loc);
@@ -219,8 +221,6 @@ function($scope, $http, Status, ScienceBase) {
 						msg = parseSingleOrganizationContact(value);
 					} else if ($(field).hasClass("multi-organization")) {
 						msg = parseOrganizationContacts(value);
-					} else if ($(field).hasClass("single-url")) {
-						msg = parseAndRemoveOneUrl(value).errorMsg;
 					}
 					
 					if (typeof msg == 'string') {
