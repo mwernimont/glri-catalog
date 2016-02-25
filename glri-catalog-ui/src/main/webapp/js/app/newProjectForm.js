@@ -470,12 +470,13 @@ var parseSingleOrganizationContact = function(contactStr) {
  */
 parseAndRemoveOneEmail = function(sourceStr) {
 	
-	//var parsedStr = sourceStr;
-	var parseResponse = new Object();
-	
-	parseResponse.original = sourceStr;
-	parseResponse.remain = sourceStr;	//assume nothing parsed out
-	parseResponse.isOk = false;	//assume failure
+	var parseResponse = {
+		original: sourceStr,
+		isOk: false,	/* assume failure */
+		remain: sourceStr,	/* assume nothing parsed out */
+		value: undefined,
+		errorMsg: undefined
+	};
 	
 	//Find, store and removed a url
 	//Check that potential urls don't contained '@', which would be a failed email match
@@ -499,14 +500,13 @@ parseAndRemoveOneEmail = function(sourceStr) {
 	} else {
 		//No url found
 		parseResponse.isOk = true;
-		parseResponse.value = undefined;
 	}
 	
 	if (parseResponse.isOk && parseResponse.remain.match(/@/g)) {
 		//Ugh.  Things were fine, but something looks url-ish in the remainder
 		parseResponse.errorMsg = "Something looks like an invalid email address";
 		parseResponse.value = undefined;
-		parseResponse.isOk = false
+		parseResponse.isOk = false;	//reset
 		parseResponse.remain  = sourceStr;	//reset
 	}
 	
@@ -523,12 +523,13 @@ parseAndRemoveOneEmail = function(sourceStr) {
  */
 parseAndRemoveOneUrl = function(sourceStr) {
 	
-	//var parsedStr = sourceStr;
-	var parseResponse = new Object();
-	
-	parseResponse.original = sourceStr;
-	parseResponse.remain = sourceStr;	//assume nothing parsed out
-	parseResponse.isOk = false;	//assume failure
+	var parseResponse = {
+		original: sourceStr,
+		isOk: false,	/* assume failure */
+		remain: sourceStr,	/* assume nothing parsed out */
+		value: undefined,
+		errorMsg: undefined
+	};
 	
 	//Find, store and removed a url
 	//Check that potential urls don't contained '@', which would be a failed email match
@@ -552,14 +553,13 @@ parseAndRemoveOneUrl = function(sourceStr) {
 	} else {
 		//No url found
 		parseResponse.isOk = true;
-		parseResponse.value = undefined;
 	}
 	
 	if (parseResponse.isOk && parseResponse.remain.match(/[^\s@]+\.[^\s@]+/g)) {
 		//Ugh.  Things were fine, but something looks url-ish in the remainder
 		parseResponse.errorMsg = "Something looks like an invalid url";
 		parseResponse.value = undefined;
-		parseResponse.isOk = false
+		parseResponse.isOk = false;	//reset
 		parseResponse.remain  = sourceStr;	//reset
 	}
 	
