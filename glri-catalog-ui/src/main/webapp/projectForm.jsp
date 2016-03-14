@@ -146,7 +146,7 @@
 	<h4 class="">Image URL</h4>
 	<div class="form-spacing">
 		Enter the publicly accessible URL to image to be used in the the project page on the GLRI website.
-		<input class="form-control form-field form-required" type="text" ng-model="newProject.image">
+		<input class="form-control form-field form-optional single-url" type="text" ng-model="newProject.image">
 	</div>
 </div>
 
