@@ -151,6 +151,7 @@ function($scope, $http, Status, ScienceBase) {
 		var contactFields = $('.contact');
 		var singleUrlFileds = $('.single-url');
 		
+		//All required fields handled here, regardless of type
 		for (var f=0; f<requiredFields.length; f++) {
 			var field = requiredFields[f]
 			var modelBinding = $(field).attr('model') // have to check for the custom date field first
@@ -168,6 +169,7 @@ function($scope, $http, Status, ScienceBase) {
 			}
 		}
 		
+		//Validate urls only if non-empty (if req'ed, handled above)
 		for (var f=0; f<singleUrlFileds.length; f++) {
 			var field = singleUrlFileds[f];
 			var modelBinding = $(field).attr('model'); // have to check for the custom date field first
@@ -201,6 +203,7 @@ function($scope, $http, Status, ScienceBase) {
 			}
 		}
 		
+		//Validate contacts only if non-empty (if req'ed, handled above)
 		for (var f=0; f<contactFields.length; f++) {
 			var field = contactFields[f];
 			var modelBinding = $(field).attr('model'); // have to check for the custom date field first
