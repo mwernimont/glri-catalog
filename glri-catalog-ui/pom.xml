@@ -38,7 +38,7 @@
     <dependencies>
 		<dependency>
 			<groupId>gov.usgs.cida.glri</groupId>
-			<artifactId>MyUsgsJaasAuthentication</artifactId>
+			<artifactId>RemoteSingleSignonLogonModule</artifactId>
 			<version>0.5.27-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
