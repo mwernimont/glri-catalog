@@ -329,7 +329,7 @@
 			      </plugin>	
 					
 <!-- js runtime env for tests -->			
-<!--				    <plugin>
+				    <plugin>
 				        <groupId>com.github.klieber</groupId>
 				        <artifactId>phantomjs-maven-plugin</artifactId>
 				        <version>0.4</version>
@@ -343,7 +343,7 @@
 				        <configuration>
 				          <version>1.9.7</version>
 				        </configuration>
-				    </plugin>-->
+				    </plugin>
 				
 
 					<!-- jasmine test engine -->               
