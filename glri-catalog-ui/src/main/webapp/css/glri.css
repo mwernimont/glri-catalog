@@ -1,3 +1,9 @@
+/* Override the bootstrap colors to match our theme */
+.alert-info { background-color: #058fff; color: #000; }
+.alert-info .alert-link { color: #fff; }
+.alert-info .alert-link:hover { color: #058fff; background-color: #fff; }
+.alert-info strong { color: #000; }
+
 .description-of-work {
 	margin-left:15px !important;
 }

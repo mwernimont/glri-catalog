@@ -48,6 +48,8 @@ public class ScienceBaseRestClient implements Closeable {
 	
 	public static final String CONTENT_JSON = "application/json";
 	
+	private static final String HTTP_STATUS_CODE = "httpStatusCode";	//JSON key for the status code of an http response
+	
 //
 //    public static final String ENV_PROD = "prod";
 //    public static final String ENV_BETA = "beta";
@@ -105,6 +107,15 @@ public class ScienceBaseRestClient implements Closeable {
         
         return jossoId;
     }
+	
+	/**
+	 * Directly set the jssoToken.
+	 * This is used if the login has taken place separately.
+	 * @param jssoToken 
+	 */
+	public void setJssoToken(String jssoToken) {
+		jossoId = jssoToken;
+	}
 
     
 	@Override
@@ -199,8 +210,11 @@ public class ScienceBaseRestClient implements Closeable {
     protected JSONObject jsonRequest(HttpRequestBase request) throws IOException {
         request.addHeader("Accept", CONTENT_JSON);
         StringBuilder responseStrBuilder = new StringBuilder();
+		int statusCode;
         
         try (CloseableHttpResponse response = httpClient.execute(request, context)) {
+			statusCode = response.getStatusLine().getStatusCode();
+			
 	        InputStream in = response.getEntity().getContent();
 	        String readLine;
 	        BufferedReader br = new BufferedReader(new InputStreamReader(in));
@@ -210,10 +224,13 @@ public class ScienceBaseRestClient implements Closeable {
         }
 
         try {
-            return new JSONObject(responseStrBuilder.toString());
+			JSONObject json = new JSONObject(responseStrBuilder.toString());
+			json.put(HTTP_STATUS_CODE, statusCode);
+            return json;
         } catch (JSONException jsonException) {
             return new JSONObject().put("error", "error building json from request, full response in errorHTML")
-                    .put("errorHTML", responseStrBuilder.toString());
+                    .put("errorHTML", responseStrBuilder.toString())
+					.put(HTTP_STATUS_CODE, statusCode);
         }
     }
 

@@ -120,12 +120,12 @@ div.error {
     left:300px;
     z-index: 499;
 }
-.form-msg-required, .form-msg-validate{
+#form-msg-required, #form-msg-validate{
     color: darkred;
     background-color: pink;
     border: 3px solid darkred;
 }
-.form-msg-agree {
+#form-msg-agree {
     color: darkgreen;
     background-color: lightgreen;
     border: 3px solid darkgreen;

@@ -34,7 +34,6 @@ GLRICatalogApp.controller('NewProjectCtrl',
 function($scope, $http, Status, ScienceBase) {
 	$scope.contactPattern = /^[\w\s]+ [\w\d\.]+@[\w\d]+\.\w+$/;
 	$scope.newProject = {};
-	$scope.login = {message:"",username:"",password:""}
 	$scope.dateOptions = {
 		  };	
 	
@@ -82,41 +81,6 @@ function($scope, $http, Status, ScienceBase) {
 		});
 	}
 	
-	
-	var authFailed = window.authFailed = function() {
-		$.cookie("JOSSO_TOKEN", null);
-		$scope.login.token   = undefined;
-		$.cookie("JOSSO_USER", null);
-		$scope.login.username   = undefined;
-		$scope.newProject.username = undefined;
-		$scope.login.message = "Login failed, please varify your email and password.";
-	}
-	
-	var authSuccess = function(user, token) {
-		var date = new Date();
-		date.setTime(date.getTime() + (120 * 60 * 1000));
- 		$.cookie("JOSSO_USER", user, { expires: date });
-		$.cookie("JOSSO_TOKEN", token, { expires: date });
-		$scope.newProject.username = user
-		$scope.login.token = token;
-	}
-	
-	$scope.authenticate = function() {
-		$scope.login.message = "Authenticating...";
-		
-		$http.post('login',{username:$scope.login.username, password:$scope.login.password})
-		.then(
-			function(resp) {
-				if ( ! resp.data || resp.data.length != 32) {
-					authFailed();
-				} else {
-					authSuccess($scope.login.username,resp.data)
-				}
-			},
-			authFailed
-		);
-	}
-	
 	$scope.discard = function() {
 		$scope.newProject = {};
 	}
@@ -126,22 +90,76 @@ function($scope, $http, Status, ScienceBase) {
 		alert("There was a problem saving the project -> " + resp.data);
 	}
 	
-	var scrollTo = function(el) {
+	/** 
+	 * Scolls so that the el component is 200 px down from the top of the screen.
+	 * The actual location from the top is passed back (may be less than 200 for
+	 * components very close to the top.
+	 */
+	var scrollTo = function(element) {
 		var container  = $('body')
-	    var scrollToIt = $(el);
-		var scrollTop = {
-		    scrollTop: scrollToIt.parent().parent().offset().top-5
+	    element = $(element);	//JQuery wrapped element (if not wrapped already)
+		var useEl = element;	//actual element offset from (may be a parent element)
+		var vPos = 0;	//Vert pixel position to scroll to
+		var TOP_OFFSET_GOAL = 200;	//Goal is to make the element be this far down the screen
+		
+		//useEl = findOffsetParent(jqEl);
+		useEl = findVisibleElement(element);
+		vPos = useEl.offset().top;
+		
+		//if the element is to close of top, just scroll to the top.
+		if (vPos < TOP_OFFSET_GOAL) {
+			vPos = 0;
+		} else {
+			vPos = vPos - TOP_OFFSET_GOAL;
 		}
 		
-		container.animate(scrollTop);
+		var scrollTop = {
+		    scrollTop: vPos
+		}
 		
-		return scrollTop.scrollTop
+		//container.scrollTop(0);
+		container.animate(scrollTop);
 	}
 	
+	/**
+	 * Returns the nearest parent element that is visible (may be this element).
+	 * This is needed b/c Angular often hides the nominal input field and wraps
+	 * it w/ its own html.  The undisplayed input has no valid position.
+	 * 
+	 * @param {type} element
+	 * @returns {$} Nearest visible element, up the chain (may be element)
+	 */
+	var findVisibleElement = function(element) {
+		//If the element is positioned only relative to the root, hunt for a parent that has position
+		element = $(element);
+		while (!element.is(':visible') && element.parent() != null) {
+			element = element.parent();
+		}
+		return element;
+	}
 	
-	var displayMsg = function(clas,loc) {
-		$("."+clas).css('top',loc+5).delay(500).fadeIn(500);
-		setTimeout(function() {$("."+clas).fadeOut(500);}, 10000);
+	/**
+	 * Displays the div spec'ed by the msgElementId next to refElement
+	 */
+	var displayMsg = function(msgElementId, refElement) {
+		
+		var vPos = findVisibleElement(refElement).offset().top;
+		
+		var msgElement = $('#' + msgElementId);
+		
+		//The element must be visible before its offset can be calculated...
+		msgElement.css('display', 'block');
+		
+		var msgParent = msgElement.offsetParent();	//Assumes there is only one level of positioned nesting
+		var parentVertPos = msgParent.offset().top;
+		
+		//Turn display off and let it fade in...
+		msgElement.css('display', 'none');
+		
+		var absPos = vPos - parentVertPos;
+		
+		msgElement.css('top',absPos).delay(500).fadeIn(500);
+		setTimeout(function() {msgElement.fadeOut(500);}, 10000);
 	}
 
 	var doValidation = function() {
@@ -162,8 +180,8 @@ function($scope, $http, Status, ScienceBase) {
 				var model = modelBinding.split('.')
 				var value = $scope[model[0]][model[1]]
 				if (value === undefined || value.length === 0) {
-					var loc = scrollTo(field);
-					displayMsg("form-msg-required", loc);
+					scrollTo(field);
+					displayMsg("form-msg-required", field);
 					return false;
 				}
 			}
@@ -195,8 +213,8 @@ function($scope, $http, Status, ScienceBase) {
 					
 					if (typeof msg == 'string') {
 						$scope.validation.singleMsg = msg;
-						var loc = scrollTo(field);
-						displayMsg("form-msg-validate", loc);
+						scrollTo(field);
+						displayMsg("form-msg-validate", field);
 						return false;
 					}
 				}
@@ -228,8 +246,8 @@ function($scope, $http, Status, ScienceBase) {
 					
 					if (typeof msg == 'string') {
 						$scope.validation.singleMsg = msg;
-						var loc = scrollTo(field);
-						displayMsg("form-msg-validate", loc);
+						scrollTo(field);
+						displayMsg("form-msg-validate", field);
 						return false;
 					}
 				}
@@ -244,8 +262,9 @@ function($scope, $http, Status, ScienceBase) {
 		console.log($scope.newProject);
 
 		if ("agree" !== $scope.newProject.dmPlan) {
-			var loc = scrollTo($("#dmPlan"));
-			displayMsg("form-msg-agree", loc);
+			var field = $("#dmPlan");
+			scrollTo(field);
+			displayMsg("form-msg-agree", field);
 			return;
 		}
 		if ( ! doValidation() ) {
@@ -255,13 +274,8 @@ function($scope, $http, Status, ScienceBase) {
 		var newProject = buildNewProject($scope.newProject);
 
 		console.log(newProject);
-		checkToken();
-		if ($scope.login.token === undefined) {
-			var loc = scrollTo($('#newProjectForm'));
-			return;
-		}
 
-		$http.post('saveProject', newProject, {params:{auth:$scope.login.token}})
+		$http.post('saveProject', newProject)
 		.then(
 			function(resp) {
 				console.log(resp.data)
@@ -294,22 +308,8 @@ function($scope, $http, Status, ScienceBase) {
 			setTimeout(select2focusArea,100);
 		}
 	}
-	setTimeout(select2focusArea,100)
+	setTimeout(select2focusArea,100);
 	
-	var checkToken = function() {
-		var token = $.cookie("JOSSO_TOKEN")
-		var user = $.cookie("JOSSO_USER")
-		if (token !== undefined && token.length==32) {
-			$scope.login.token = token
-			$scope.login.username = user
-			$scope.newProject.username = user
-		} else {
-			$scope.login.token = undefined
-			$scope.newProject.username = undefined
-		}
-	}
-	
-	checkToken();
 }]);
 
 

@@ -66,6 +66,7 @@
 </head>
 <body ng-controller="NewProjectCtrl">
 
+<div class="container">
 <div class="row">
 	<div class="col-xs-12">
 		<jsp:include page="./templates/header.jsp">
@@ -77,47 +78,31 @@
 	</div>
 </div>
 			
-			
 <div class="row">
-
-<a id="gotoNewProject" class="hidden" href="Browse/all/{{transient.newProjectId}}"></a>
-
-<div id="contentBrowseDetail" class="clearfix glri_content" style="max-width:800px;margin-left:50px;float:left;">
-
-<div ng-hide="login.token !== undefined" class="loginBlock">
-  <form id="login" name="loginForm" ng-submit="authenticate()" class="login">
-	<h4 class="">Please log in before creating a new project entry.</h4>
-	<div class="form-spacing error" ng-bind-html="login.message"></div>
-	<h4 class="">USGS Email Address</h4>
-	<div class="form-spacing">
-		<input type="text" class="form-control form-field" ng-model="login.username" required
-		placeholder="email@usgs.gov">
-	</div>
-	<h4 class="">AD Password</h4>
-	<div class="form-spacing">
-		<input type="password" class="form-control form-field" ng-model="login.password" required>
-	</div>
-	<p class="form-spacing">
-		<a id="home" href="." style="display:nonew;" class="btn btn-primary pull-left">Cancel</a>
-		&nbsp;
-		<button id="login" type="submit" class="btn btn-primary pull-right">Login</button>
-	</p>	
-	
-  </form>
-</div>
-
-  <form id="newProjectForm" name="newProjectForm" ng-submit="save()" >		
-
-<div class="form-msg form-msg-required">Please complete this required field.</div>
-<div class="form-msg form-msg-validate">{{validation.singleMsg}}</div>
-<div class="form-msg form-msg-agree">You must agree to the Data Management Plan in order to submit a new GLRI Project.</div>
-
-<div>
-	<h2 class="detailTitle">Project Information Form</h2>
-	<div class="form-spacing" style="margin-left: 10px;">
-		Information entered in this form will be displayed in the <a href="http://cida.usgs.gov/glri/" target="_blank">USGS GLRI Website</a>.
+	<div class="col-xs-12">
+		<h2 class="detailTitle">Project Information Form</h2>
 	</div>
 </div>
+<div class="row">
+	<div class="col-xs-12">
+		<div class="alert alert-info">
+			<p>Information entered in this form will be displayed in the <a href="http://cida.usgs.gov/glri/" class="alert-link" target="_blank">USGS GLRI Website</a>.</p>
+			<p>
+				You are logged in as <strong><%= request.getUserPrincipal().getName() %></strong>.
+				<a href="logout.jsp" class="alert-link">Logout</a> to sign in as a different user,
+				but you must be signed in with a valid AD account to use this form.
+			</p>
+		</div>
+	</div>
+</div>
+
+<div id="contentBrowseDetail" class="col-xs-12">
+
+  <form id="newProjectForm" name="newProjectForm" ng-submit="save()" >		  
+
+<div class="form-msg" id="form-msg-required">Please complete this required field.</div>
+<div class="form-msg" id="form-msg-validate">{{validation.singleMsg}}</div>
+<div class="form-msg" id="form-msg-agree">You must agree to the Data Management Plan in order to submit a new GLRI Project.</div>
 	
 <span class="form-spacing form-optional" style="margin-bottom: 15px;display: block;">Note: Fields with this background are the only optional entries.</span>
 
@@ -132,6 +117,10 @@
 			<option value="disagree">I Disagree</option>
 		</select>
 	</div>
+</div>
+
+<div>
+	<input type="hidden" ng-model="newProject.username" ng-init="newProject.username = '<%= request.getUserPrincipal().getName() %>'"/>
 </div>
 
 <div>
@@ -369,12 +358,6 @@
 
 </div>
 
-<div id="contentBrowseDetail" class="clearfix glri_content imageContent">
-	<h4>Project Image</h4>
-	<img id="imageTarget" href=""></img>
-</div>
-
-
 <div id="footerContainer" class="row">
 	<div class="col-xs-12">
 		<jsp:include page="./templates/footer.jsp">
@@ -388,7 +371,7 @@
 	</div>
 </div> <!-- footerContainer -->
 
-
+</div>
 </body>
 <script type="text/javascript" src="./js/app/main.js"></script>
 <script type="text/javascript" src="./js/app/focusAreaManager.js"></script>

@@ -289,9 +289,8 @@ color:#404040;
 font-weight:normal;
 }
 
-p {
-padding-bottom:15px;
-}
+p { padding-bottom:15px; }
+p:last-of-type { padding-bottom:0; }
 
 ul.list-tick {
         margin-left: 15px;
