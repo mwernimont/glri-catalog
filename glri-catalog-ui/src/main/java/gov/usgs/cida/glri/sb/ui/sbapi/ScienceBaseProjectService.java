@@ -19,6 +19,8 @@ import org.json.JSONObject;
 import com.google.common.io.CharStreams;
 
 import gov.usgs.cida.glri.sb.ui.AppConfig;
+import gov.usgs.owi.javasinglesignon.RemoteSingleSignonPrincipal;
+import java.security.Principal;
 
 /**
  *
@@ -45,10 +47,6 @@ public class ScienceBaseProjectService extends HttpServlet {
 			throws ServletException, IOException {
 		
 		try {
-			String auth = request.getParameter(AUTH);
-			if (auth == null || auth.length()<32) {
-				throw new RuntimeException("Missing Auth Key");
-			}
 			
 			String newProjectJson = CharStreams.toString( request.getReader() );
 			if (newProjectJson == null || newProjectJson.length()<32) {
@@ -58,25 +56,44 @@ public class ScienceBaseProjectService extends HttpServlet {
 
 			String projectId = "";
 			try (ScienceBaseRestClient client = new ScienceBaseRestClient()) {
-		        String username = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_USR);
-		        String password = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_PWD);
-				client.login(username, password);
-				
+
+				Principal principal = request.getUserPrincipal();
+
+				RemoteSingleSignonPrincipal jssoPrincipal;
+
+				if (principal instanceof RemoteSingleSignonPrincipal) {
+					jssoPrincipal = (RemoteSingleSignonPrincipal)principal;
+					String jssoId = jssoPrincipal.getJssonToken();
+					client.setJssoToken(jssoId);
+				} else {
+					response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Your login is not in the correct realm.  You must login using your AD credentials.");
+					return;
+				}
+
 				JSONObject newProject = new JSONObject(newProjectJson);
 				JSONObject sbreply = client.createSbItem(newProject);
 				
-				//Not actually sure what the min length is for an id, but the examples I've seen are 24 characters long
+				
+				//If the request failed, retry using the service login.
+				//This handles the case where user is not individually authorized to add records
+				if (true || sbreply.has("errors") || !sbreply.has("id") || sbreply.getString("id") == null || sbreply.getString("id").length() < 4) {
+					
+					String username = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_USR);
+					String password = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_PWD);
+					client.login(username, password);	//Will overwrite the JssoToken token set above
+					
+					sbreply = client.createSbItem(newProject);
+				}
+				
+				
 				if (!sbreply.has("errors") && sbreply.has("id") && sbreply.getString("id") != null && sbreply.getString("id").length() >= 4) {
-					
 					projectId = sbreply.getString("id");
-					
 				} else {
 
 					log.severe("ScienceBase submission failed.  Full response: " + sbreply.toString());
 
-					throw new RuntimeException("Missing Project ID");
+					throw new RuntimeException("Unable to add the record for unknown reasons.");
 				}
-
 			}
 			response.setContentType("text/plain; charset=UTF-8");
 			PrintWriter out = response.getWriter();
