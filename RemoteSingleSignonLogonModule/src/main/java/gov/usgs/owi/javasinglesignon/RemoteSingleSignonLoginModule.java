@@ -115,8 +115,8 @@ public class RemoteSingleSignonLoginModule implements LoginModule {
 	private boolean isCommitted;	//If true, consider the user to be logged here.
 	RemoteSingleSignonPrincipal principal;	//The principal.  Keep so we know which principal to remove during logout.
 	ArrayList<RemoteSingleSignonRole> roles;	//Role for the pricipal.  Keep so we know what to remove from the subject.
-	private String name;	//user login name (only kept from login to commit)
-	private String pwd;		//user login pwd (only kept from login to commit)
+	private String name;				//user login name
+	private transient char[] pwd;		//user login pwd (only kept from login to commit)
 		
 		
 	@Override
@@ -136,13 +136,10 @@ public class RemoteSingleSignonLoginModule implements LoginModule {
 			callbackHandler.handle(new Callback[] {nameCb, pwdCb});
 			
 			name = nameCb.getName();
-			char[] pwdArray = pwdCb.getPassword();
+			pwd = pwdCb.getPassword();
 			
-			if (pwdArray != null) {
-				pwd = new String(pwdArray);
-			}
 			
-			if (name != null && name.length() > 0 && pwd != null) {
+			if (name != null && name.length() > 0 && pwd != null && pwd.length > 0) {
 				
 				String jsson = doSingleSignonLogin(name, pwd);
 				
@@ -177,6 +174,8 @@ public class RemoteSingleSignonLoginModule implements LoginModule {
 			subject.getPrincipals().add(principal);
 			subject.getPrincipals().addAll(roles);
 
+			destroySecrets();
+			
 		} else {
 			destroyAllState();
 		}
@@ -200,8 +199,7 @@ public class RemoteSingleSignonLoginModule implements LoginModule {
 		
 		tryLogout();
 		
-		name = null;
-		pwd = null;
+		destroySecrets();
 		subject = null;
 		callbackHandler = null;
 		sharedState = null;
@@ -211,6 +209,10 @@ public class RemoteSingleSignonLoginModule implements LoginModule {
 		
 		isLoggedIn = false;
 		isCommitted = false;
+	}
+	
+	private void destroySecrets() {
+		pwd = null;
 	}
 	
 	private void tryLogout() {
@@ -232,13 +234,15 @@ public class RemoteSingleSignonLoginModule implements LoginModule {
     /**
      *  Login to ScienceBase and return a HttpClient
      *
-     * @param username  The plain text username to authenticate on, use your own or a service account
+     * @param name  The plain text username to authenticate on, use your own or a service account
      * @param password  The plain text password to authenticate on
      * @return          The josso_sessionid from the cookie received when logging in
      * @throws IOException connection error
      */
-    public String doSingleSignonLogin(String username, String password) throws IOException {
+    public String doSingleSignonLogin(String name, char[] pwd) throws IOException {
         
+		String password = new String(pwd);
+				
 		//Create a config b/c we want to specify a non-infinate timeout
 		RequestConfig.Builder rcb = RequestConfig.copy(RequestConfig.DEFAULT);
 		rcb.setConnectTimeout(30 * 1000);
@@ -249,7 +253,7 @@ public class RemoteSingleSignonLoginModule implements LoginModule {
 			
 	        List<NameValuePair> params = new ArrayList<>();
 	        params.add(new BasicNameValuePair(JOSSO_CMD, JOSSO_VAL));
-	        params.add(new BasicNameValuePair(JOSSO_USR, username));
+	        params.add(new BasicNameValuePair(JOSSO_USR, name));
 	        params.add(new BasicNameValuePair(JOSSO_PWD, password));
 
         	URI loginUrl = buildLoginUrl();
@@ -286,16 +290,20 @@ public class RemoteSingleSignonLoginModule implements LoginModule {
 	
     protected URI buildLoginUrl() {
 
+		String scheme = getOption(JAAS_PARAM_REMOTE_SCHEME, DEFAULT_REMOTE_SCHEME);
+		String host = getOption(JAAS_PARAM_REMOTE_HOST, DEFAULT_REMOTE_HOST);
+		String path = getOption(JAAS_PARAM_REMOTE_PATH, DEFAULT_REMOTE_PATH);
+		
         try {
             URIBuilder uriBuilder = new URIBuilder()
-                    .setScheme(getOption(JAAS_PARAM_REMOTE_SCHEME, DEFAULT_REMOTE_SCHEME))
-                    .setHost(getOption(JAAS_PARAM_REMOTE_HOST, DEFAULT_REMOTE_HOST))
-                    .setPath(getOption(JAAS_PARAM_REMOTE_PATH, DEFAULT_REMOTE_PATH));
+                    .setScheme(scheme)
+                    .setHost(host)
+                    .setPath(path);
 
 
             return uriBuilder.build();
         } catch (URISyntaxException e) {
-        	log.severe("While building JSSON URI: " + "https://my.usgs.gov" + "/josso/signon/usernamePasswordLogin.do");
+        	log.severe("While building JSSON URI: " + scheme + "://" + host + path);
             return null;
         }
     }

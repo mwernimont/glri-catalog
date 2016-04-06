@@ -52,6 +52,7 @@
 	try {
 		if (session != null) {
 			session.invalidate();
+			request.logout();
 		}
 	} catch (Throwable t) {
 		//If the session is null, the user was not logged in, so OK to ignore.
