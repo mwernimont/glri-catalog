@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>gov.usgs.cida.glri</groupId>
 			<artifactId>RemoteSingleSignonLogonModule</artifactId>
-			<version>0.5.27-SNAPSHOT</version>
+			<version>${project.version}</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
