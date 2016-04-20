@@ -3,7 +3,7 @@
 	
 	<groupId>gov.usgs.cida.glri</groupId>
 	<artifactId>glri-catalog-sample-records-script</artifactId>
-	<version>0.5.27-SNAPSHOT</version>
+	<version>0.5.27</version>
 	<packaging>jar</packaging>
 	
 	<name>GLRI JMeter Record Loading Script</name>
@@ -11,7 +11,7 @@
 	<parent>
 		<groupId>gov.usgs.cida.glri</groupId>
 		<artifactId>glri-catalog</artifactId>
-		<version>0.5.27-SNAPSHOT</version>
+		<version>0.5.27</version>
 	</parent>
 	
 	<pluginRepositories>
