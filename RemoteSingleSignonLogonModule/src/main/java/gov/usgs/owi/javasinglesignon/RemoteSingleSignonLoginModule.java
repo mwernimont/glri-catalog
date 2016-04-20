@@ -65,18 +65,18 @@ import org.apache.http.message.BasicNameValuePair;
  * 
  * The context.xml needs to have the realm added, eg:
  * <pre>
- * <Context>
- *   <Realm className="org.apache.catalina.realm.LockOutRealm">
- *     <!-- Nested realms in 'lockout' prevents 'too many' attempts.  Children are tried in order.  -->
- *     <!-- UserDatabaseRealm allows std tomcat file logins for manager operations -->
- *     <Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/>
+ * &gt;Context&lt;
+ *   &gt;Realm className="org.apache.catalina.realm.LockOutRealm"&lt;
+ *     &gt;!-- Nested realms in 'lockout' prevents 'too many' attempts.  Children are tried in order.  --&lt;
+ *     &gt;!-- UserDatabaseRealm allows std tomcat file logins for manager operations --&lt;
+ *     &gt;Realm className="org.apache.catalina.realm.UserDatabaseRealm" resourceName="UserDatabase"/&lt;
  * 
- *     <Realm className="org.apache.catalina.realm.JAASRealm" 
+ *     &gt;Realm className="org.apache.catalina.realm.JAASRealm" 
  *     appName="RemoteSingleSignonLoginModule"
  *     userClassNames="gov.usgs.owi.javasinglesignon.RemoteSingleSignonPrincipal"
- *     roleClassNames="gov.usgs.owi.javasinglesignon.RemoteSingleSignonRole" />
- *   </Realm>
- * </Context>
+ *     roleClassNames="gov.usgs.owi.javasinglesignon.RemoteSingleSignonRole" /&lt;
+ *   &gt;/Realm&lt;
+ * &gt;/Context&lt;
  * </pre>
  * 
  * @author eeverman
@@ -235,7 +235,7 @@ public class RemoteSingleSignonLoginModule implements LoginModule {
      *  Login to ScienceBase and return a HttpClient
      *
      * @param name  The plain text username to authenticate on, use your own or a service account
-     * @param password  The plain text password to authenticate on
+     * @param pwd  The plain text password to authenticate on
      * @return          The josso_sessionid from the cookie received when logging in
      * @throws IOException connection error
      */

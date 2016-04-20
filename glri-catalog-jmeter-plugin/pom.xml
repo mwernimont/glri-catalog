@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
     <groupId>gov.usgs.cida.glri</groupId>
     <artifactId>glri-catalog-jmeter-plugin</artifactId>
-    <version>0.5.27</version>
+    <version>0.5.27-SNAPSHOT</version>
     <packaging>jar</packaging>
 	<parent>
 		<groupId>gov.usgs.cida.glri</groupId>
 		<artifactId>glri-catalog</artifactId>
-		<version>0.5.27</version>
+		<version>0.5.27-SNAPSHOT</version>
 	</parent>
 	<name>JMeter Templating Util</name>
 	
@@ -65,6 +65,7 @@
 						</goals>
 					</execution>
 				</executions>
+				<version>2.4.3</version>
 			</plugin>
 		</plugins>
 	</build>
