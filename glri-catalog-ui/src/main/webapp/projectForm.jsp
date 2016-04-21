@@ -126,7 +126,7 @@
 <div>
 	<h4 class="">Project Title</h4>
 	<div class="form-spacing">
-		Enter the project title as it should appear on the GLRI website.
+		Enter the project title as it should appear on the GLRI website. (Basis Task field: Task Title)
 		<textarea class="form-control form-title form-required" ng-model="newProject.title"></textarea>
 	</div>
 </div>
@@ -230,7 +230,7 @@
 <div>
 	<h4>Background/Problem</h4> 
 	<div class="background form-spacing">
-		Brief statement of the problem that the project/task will address.
+		Brief statement of the problem that the project/task will address. (Basis Task field: Summary Narratives, Statement of Problem)
 		<textarea class="form-control form-field form-required" rows="10"  ng-model="newProject.purpose"></textarea>
 	</div>
 </div>
@@ -238,7 +238,7 @@
 <div>
 	<h4>Objectives</h4> 
 	<div class="background form-spacing">
-		Summary of the overall plans, objectives, and approach of the Project or Task. Describe the issues to be addressed, and if applicable, the scientific questions and policy issues addressed.
+		Summary of the overall plans, objectives, and approach of the Project or Task. Describe the issues to be addressed, and if applicable, the scientific questions and policy issues addressed. (Basis Task field: Summary Narratives, Objectives)
 		<textarea class="form-control form-field form-required" rows="10"  ng-model="newProject.objectives"></textarea>
 	</div>
 </div>
@@ -246,7 +246,7 @@
 <div>
 	<h4>Description of Work</h4> 
 	<div class="form-spacing">
-		Short paragraph to briefly describe the work to be done this FY.
+		Short paragraph to briefly describe the work to be done this FY. (Basis Task field: Annual Narratives, Statement of Work)
 		<textarea class="form-control form-field form-required" rows="10"  ng-model="newProject.work"></textarea>
 	</div>
 </div>
@@ -260,9 +260,9 @@
 </div>
 
 <div>
-	<h4>Planned Product</h4> 
+	<h4>Planned Products</h4> 
 	<div class="form-spacing">
-		Describe anticipated products from this project (e.g. publication or data set), providing a title and outlet for each product.
+		Describe anticipated products from this project (e.g. publication or data set), providing a title and outlet for each product. (Basis Task field: Products)
 		<textarea class="form-control form-field form-required" rows="10"  ng-model="newProject.product"></textarea>
 	</div>
 </div>
@@ -314,7 +314,7 @@
 <div>
 	<h4 class="">Principal Investigator</h4>
 	<div class="form-spacing">
-		Lead PI for the project
+		Lead PI for the project. (Basis Task field: Leaders, Task Leader)
 		<input type="text" class="form-control form-field form-required contact single-person" ng-model="newProject.principal"
 		placeholder="Enter the name and email address for a single person. Both are required. Example: Jane Doe jdoe@usgs.gov">
 	</div>
@@ -323,7 +323,7 @@
 <div>
 	<h4 class="">Associate Project Chief</h4>
 	<div class="form-spacing">
-		Center Director, Office Chief, Regional Staff Member, etc.
+		Center Director, Office Chief, Regional Staff Member, etc. (Basis Task field: Leaders,Task Leader)
 		<input type="text" class="form-control form-field form-required contact single-person" ng-model="newProject.chief"
 		placeholder="Enter the name and email address for a single person. Both are required. Example: Jane Doe jdoe@usgs.gov">
 	</div>
