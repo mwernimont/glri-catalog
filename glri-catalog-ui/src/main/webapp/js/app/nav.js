@@ -3,6 +3,8 @@
 GLRICatalogApp.service('Nav', 
 ['$http', '$location', 'Status', 'FocusAreaManager', '$rootScope', 'ScienceBase', 'RecordManager',
 function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, RecordManager) {
+	var DEFAULT_TARGET = "Home";
+	var DEFAULT_FOCUS_AREA = "all";
 	
 	var ctx = this;
 	window.Nav = ctx;
@@ -10,7 +12,9 @@ function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, Re
 	ctx.currentNav = undefined;
 
 	//Top level navigation tabs
-	ctx.navNames = ['Home','Browse','Search'];
+	ctx.navNames = ['Home','Browse','Search']; 
+	
+	ctx.navBrowseCategories = ['Projects', "Publications"];
 	
 	ctx.setNavAdd = function(nav) {
 		var navs = ctx.currentNav;
@@ -28,17 +32,12 @@ function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, Re
 	
 	ctx.navShow = function(nav) {
 		var navs = ctx.currentNav;
+		
 		return isDefined(navs)  &&  navs.indexOf(nav)!=-1
 	}
 	
-	
 	ctx.contentShow = function(nav, index, detail) {
 		var show = ctx.isNav(nav,index)
-//		if (detail) {
-//			show = show &&   isDefined(status.currentItem);
-//		} else {
-//			show = show && ! isDefined(status.currentItem);
-//		}
 		return show
 	}
 	
@@ -59,10 +58,30 @@ function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, Re
 	ctx.doNavRoot = function(nav) {
 		ctx.setNavRoot(nav);
 		
-		if (nav === 'Browse') {
-			FocusAreaManager.activate('all');
+		if(nav === "Publications") {
+			ctx.setActiveCategory("Publications")
+		} else if (nav.startsWith("Browse")) {
+			ctx.setActiveCategory("Projects")
+			FocusAreaManager.activate(DEFAULT_FOCUS_AREA);
 		}
+		
 		ctx.setPath(ctx.currentNav);
+	}
+	
+	ctx.navBrowseCategory = function(cat) {
+		if(cat == "Projects") {
+			ctx.doNavRoot("Browse")
+		} else {
+			ctx.doNavRoot("Browse/Publications")
+		}
+	}
+	
+	ctx.setActiveCategory = function(cat) {
+		setTimeout(function(){
+			$('#navBrowse .glri-navbtn-Browse').addClass('active')
+			$('#navBrowseCategories a').removeClass('active')
+			$('.browse-cat-' + cat).addClass('active')
+		}, 10);
 	}
 
 	ctx.setPath = function(navs) {
@@ -77,59 +96,60 @@ function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, Re
 	}
 	
 	ctx.doNav = function(init) {
-		
 		  try {
-		
 			Status.isCaptureHistory = false;
 		
 			if ($location.path() && $location.path().length>2) {
-				var parts = location.hash.split(/\/+/);
+				var parts = $location.path().split(/\/+/);
+				var rootIndex = 1;
 				
-				//remove a possible last empty item - can be caused by a trailing slash
-				if (parts.length > 1 && parts[parts.length - 1] == "") {
-					parts.splice(-1, 1);
-				}
-				
+				//default nav to home
 				if (parts.length<=1) {
-					ctx.doNavRoot('Home');
-				}
-				if (parts.length==2) {
+					ctx.doNavRoot(DEFAULT_TARGET);
+				} else if (parts.length==2) {
 					ctx.doNavRoot(parts[1]);
-				}
-				if (parts.length>2) {
-					if ($location.path().indexOf('Home')>0) {
+				} else {
+					var basePath = parts[rootIndex];
+					
+					if (basePath == 'Home') {
 						switch(parts.length) {
-						case 3: var ofNote = parts[2];
+						case 3: var ofNote = parts[rootIndex + 1];
 							$rootScope.$broadcast('do-ofNoteClick', { ofNote: ofNote });
 							break;
 						default:
 						}
 					}
-					if ($location.path().indexOf('Browse')>0) {
-						if (init) {
-							ctx.setNavRoot('Browse');
-						}
-						switch(parts.length) {
-						case 4: var id = parts[3];
-							var focusArea = parts[2];
-							FocusAreaManager.activate(focusArea);
+					
+					if(basePath == "Browse") {
+						if(parts[rootIndex + 1] == "Publications") {
+							ctx.doNavRoot(ctx.doNavRoot(parts[rootIndex + 1]));
+						} else {
 							if (init) {
-								ctx.setNavAdd(focusArea);
+								ctx.setNavRoot("Browse");
 							}
-							var url = baseURL+"/catalog/item/"+id+"?format=json"
-							$http.get(url).success(function(data, status, headers, config) {
-								var item = ScienceBase.processItem(data);
-								RecordManager.setProjectDetail(item);
-								$rootScope.$broadcast('do-scopeApply');
-
-							}).error(function(data, status, headers, config) {
-								alert("Unable to connect to ScienceBase.gov to find records.");
-							});
-							break;
-						case 3: var focusArea = parts[2]
-							FocusAreaManager.activate(focusArea);
-							break;
-						default:
+							ctx.setActiveCategory("Projects")
+							switch(parts.length) {
+							case 4: var id = parts[rootIndex + 2];
+								var focusArea = parts[rootIndex + 1];
+								FocusAreaManager.activate(focusArea);
+								if (init) {
+									ctx.setNavAdd(focusArea);
+								}
+								var url = baseURL+"/catalog/item/"+id+"?format=json"
+								$http.get(url).success(function(data, status, headers, config) {
+									var item = ScienceBase.processItem(data);
+									RecordManager.setProjectDetail(item);
+									$rootScope.$broadcast('do-scopeApply');
+		
+								}).error(function(data, status, headers, config) {
+									alert("Unable to connect to ScienceBase.gov to find records.");
+								});
+								break;
+							case 3: var focusArea = parts[rootIndex + 1];
+								FocusAreaManager.activate(focusArea);
+								break;
+							default:
+							}
 						}
 					}
 				}

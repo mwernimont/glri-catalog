@@ -558,7 +558,7 @@ ul.list-tick {
 	padding-bottom: 25px;
 }
 
-#nav #navBrowse.btn-group {
+#nav #navBrowse.btn-group, #navBrowseCategories.btn-group {
 	width: 100% !important;
 	margin-bottom: 5px !important;
 	margin-left: 3px !important;
@@ -571,6 +571,11 @@ ul.list-tick {
 	line-height: 1.4;
 	min-width:45px;
 }
+
+#navBrowseCategories .btn-horizontal {
+	width: 50% !important;
+}
+
 .glri_content .btn-vertical {
 	min-width:145px;
 }
