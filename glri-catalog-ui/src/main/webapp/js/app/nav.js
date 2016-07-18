@@ -63,6 +63,8 @@ function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, Re
 		} else if (nav.startsWith("Browse")) {
 			ctx.setActiveCategory("Projects")
 			FocusAreaManager.activate(DEFAULT_FOCUS_AREA);
+		} else {
+			$('#navBrowse .glri-navbtn-Browse').removeClass('active')
 		}
 		
 		ctx.setPath(ctx.currentNav);
