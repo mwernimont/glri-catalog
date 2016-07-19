@@ -56,7 +56,7 @@ function($scope, Status, Nav, FocusAreaManager, ScienceBase) {
 	
 	
 	$scope.focusAreaClick = function(focusArea) {
-//		Nav.setFocusArea(focusArea);
+		Nav.setFocusArea(focusArea);
 		FocusAreaManager.activate(focusArea);
 		Nav.updateFocusAreas(focusArea);
 	}
