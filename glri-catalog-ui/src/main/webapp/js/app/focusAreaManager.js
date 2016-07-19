@@ -79,14 +79,8 @@ function(Status) {
 		}
 		
 		//asdf move to project manager?
+		Status.currentFocusArea = ctx.currentFocusArea;
 		Status.currentProjectList = ctx.currentFocusArea.items;
-		
-		// TODO service technically not the place for UI
-		// could be moved to the controller and broadcast a message instead
-		setTimeout(function(){
-			$('#focusAreas button').removeClass('active')
-			$('#'+focusArea).addClass('active')
-		}, 10);
 	};
 	
 	

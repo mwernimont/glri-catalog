@@ -81,8 +81,8 @@ function(Status, RecordManager, Nav, FocusAreaManager) {
 
 
 GLRICatalogApp.directive("glriPublications",
-['Status',
-function(status) {
+['Status', 'FocusAreaManager',
+function(status, FocusAreaManager) {
 
 	return {
 		restrict   : 'E', //AEC
