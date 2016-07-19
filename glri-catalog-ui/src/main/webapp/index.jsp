@@ -91,9 +91,15 @@
 	<div id="navBrowse" class="btn-group navBrowse">
 		<a ng-repeat="navName in nav.navNames" class="btn btn-primary btn-horizontal" 
 			prevent-default href="javascript:void(0)" ng-click="nav.doNavRoot(navName)" 
-			ng-class="nav.navShow(navName) ?'active' :'' " ng-bind="navName"></a>
+			ng-class="(nav.navShow(navName) ? 'active' : '') + ' glri-navbtn-' + navName" ng-bind="navName"></a>
 	</div>
 	<hr/>
+	
+	<div id="navBrowseCategories" class="btn-group navBrowseCategories" ng-if="nav.contentShow('Browse',0,false) || nav.contentShow('Publications',0,false)">
+		<a ng-repeat="navBrowseCategory in nav.navBrowseCategories" class="btn btn-primary btn-horizontal" 
+			prevent-default href="javascript:void(0)" ng-click="nav.navBrowseCategory(navBrowseCategory)" 
+			ng-class="'browse-cat-' + navBrowseCategory" ng-bind="navBrowseCategory"></a>
+	</div>
 	
 	<glri-nav-home ng-if="nav.navShow('Home')">home</glri-nav-home>
 
@@ -101,6 +107,12 @@
 		<button id="{{focusArea}}" ng-repeat="focusArea in focusAreaOrder" 
 				ng-bind="focusAreas[focusArea].name" class="btn btn-primary btn-vertical"
 				ng-click="focusAreaClick(focusArea)"></button>
+	</div>
+	
+	<div id="publicationsDescriptions" ng-if="nav.navShow('Publications')" class="navHomeEntry">
+		<img alt="GLRI Publications" src="images/projects_list_badge.png" class="">
+		<strong>Publication List</strong><br>
+		<div class="descr">What is the USGS working on?</div>
 	</div>
 	
 	<glri-nav-search ng-if="nav.navShow('Search')"></glri-nav-search>
