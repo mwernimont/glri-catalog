@@ -1,11 +1,11 @@
 <div>
-	<h1 class="focusAreaTitle">Project Publications</h1>
+	<h1 class="focusAreaTitle">{{status.currentFocusArea.name}} Project Publications</h1>
 	<p class="focusAreaTitle">Click on an entry for more details</p>
 	
 	<glri-loading state="status.publicationsLoadStatus"></glri-loading>
 	
 	<ul id="contentPublications" class="browse-results">
-		<li ng-repeat="publication in publications | orderBy : 'sortDate' : true">
+		<li ng-repeat="publication in publications | orderBy : 'sortDate' : true | publicationFocusAreaFilter : status.currentProjectList : status.currentFocusArea">
 			<a href="{{publication.url}}" target="_blank">
 				<h3 ng-bind-html="publication.citation" ng-if="publication.citation" style="font-size: 14px;"></h3>
 				<h3 ng-bind-html="publication.title" ng-if="!publication.citation" style="font-size: 14px;"></h3>

@@ -103,16 +103,12 @@
 	
 	<glri-nav-home ng-if="nav.navShow('Home')">home</glri-nav-home>
 
+	<hr ng-if="nav.navShow('Browse') || nav.navShow('Publications')"/>
+	
 	<div id="focusAreas" ng-if="nav.navShow('Browse')">
 		<button id="{{focusArea}}" ng-repeat="focusArea in focusAreaOrder" 
 				ng-bind="focusAreas[focusArea].name" class="btn btn-primary btn-vertical"
 				ng-click="focusAreaClick(focusArea)"></button>
-	</div>
-	
-	<div id="publicationsDescriptions" ng-if="nav.navShow('Publications')" class="navHomeEntry">
-		<img alt="GLRI Publications" src="images/projects_list_badge.png" class="">
-		<strong>Publication List</strong><br>
-		<div class="descr">What is the USGS working on?</div>
 	</div>
 	
 	<glri-nav-search ng-if="nav.navShow('Search')"></glri-nav-search>

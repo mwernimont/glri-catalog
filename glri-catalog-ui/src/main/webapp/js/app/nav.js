@@ -60,9 +60,9 @@ function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, Re
 		
 		if(nav === "Publications") {
 			ctx.setActiveCategory("Publications")
-		} else if (nav.startsWith("Browse")) {
+		} else if (nav === "Browse") {
 			ctx.setActiveCategory("Projects")
-			FocusAreaManager.activate(DEFAULT_FOCUS_AREA);
+			ctx.doNavAdd(DEFAULT_FOCUS_AREA);
 		} else {
 			$('#navBrowse .glri-navbtn-Browse').removeClass('active')
 		}
@@ -74,7 +74,18 @@ function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, Re
 		if(cat == "Projects") {
 			ctx.doNavRoot("Browse")
 		} else {
-			ctx.doNavRoot("Browse/Publications")
+			ctx.doNavRoot("Publications")
+		}
+	}
+	
+	ctx.setFocusArea = function(focusArea) {
+		var parts = $location.path().split(/\/+/);
+		var rootIndex = 1;
+		var basePath = parts[rootIndex];
+		Nav.setNavRoot(basePath)
+		
+		if(basePath == "Browse") {
+			Nav.doNavAdd(focusArea);
 		}
 	}
 	
@@ -83,6 +94,18 @@ function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, Re
 			$('#navBrowse .glri-navbtn-Browse').addClass('active')
 			$('#navBrowseCategories a').removeClass('active')
 			$('.browse-cat-' + cat).addClass('active')
+		}, 10);
+	}
+	
+	ctx.updateFocusAreas = function(focusArea) {
+		setTimeout(function(){
+			$('#focusAreas button').removeClass('active')
+			$('#'+focusArea).addClass('active')
+		}, 10);
+
+		setTimeout(function(){
+			$('#focusAreasForPubs button').removeClass('active')
+			$('#'+focusArea).addClass('active')
 		}, 10);
 	}
 
@@ -109,6 +132,10 @@ function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, Re
 				if (parts.length<=1) {
 					ctx.doNavRoot(DEFAULT_TARGET);
 				} else if (parts.length==2) {
+					if(parts[1] == "Publications") {
+						FocusAreaManager.activate(DEFAULT_FOCUS_AREA);
+						ctx.updateFocusAreas(DEFAULT_FOCUS_AREA);
+					}
 					ctx.doNavRoot(parts[1]);
 				} else {
 					var basePath = parts[rootIndex];
@@ -123,35 +150,34 @@ function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, Re
 					}
 					
 					if(basePath == "Browse") {
-						if(parts[rootIndex + 1] == "Publications") {
-							ctx.doNavRoot(ctx.doNavRoot(parts[rootIndex + 1]));
-						} else {
+						if (init) {
+							ctx.setNavRoot("Browse");
+						}
+						ctx.setActiveCategory("Projects")
+						switch(parts.length) {
+						case 4: var id = parts[rootIndex + 2];
+							var focusArea = parts[rootIndex + 1];
+							FocusAreaManager.activate(focusArea);
 							if (init) {
-								ctx.setNavRoot("Browse");
+								ctx.setNavAdd(focusArea);
 							}
-							ctx.setActiveCategory("Projects")
-							switch(parts.length) {
-							case 4: var id = parts[rootIndex + 2];
-								var focusArea = parts[rootIndex + 1];
-								FocusAreaManager.activate(focusArea);
-								if (init) {
-									ctx.setNavAdd(focusArea);
-								}
-								var url = baseURL+"/catalog/item/"+id+"?format=json"
-								$http.get(url).success(function(data, status, headers, config) {
-									var item = ScienceBase.processItem(data);
-									RecordManager.setProjectDetail(item);
-									$rootScope.$broadcast('do-scopeApply');
-		
-								}).error(function(data, status, headers, config) {
-									alert("Unable to connect to ScienceBase.gov to find records.");
-								});
-								break;
-							case 3: var focusArea = parts[rootIndex + 1];
-								FocusAreaManager.activate(focusArea);
-								break;
-							default:
-							}
+							var url = baseURL+"/catalog/item/"+id+"?format=json"
+							$http.get(url).success(function(data, status, headers, config) {
+								var item = ScienceBase.processItem(data);
+								RecordManager.setProjectDetail(item);
+								$rootScope.$broadcast('do-scopeApply');
+	
+							}).error(function(data, status, headers, config) {
+								alert("Unable to connect to ScienceBase.gov to find records.");
+							});
+
+							ctx.updateFocusAreas(focusArea);
+							break;
+						case 3: var focusArea = parts[rootIndex + 1];
+							FocusAreaManager.activate(focusArea);
+							ctx.updateFocusAreas(focusArea);
+							break;
+						default:
 						}
 					}
 				}

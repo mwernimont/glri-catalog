@@ -29,6 +29,8 @@ GLRICatalogApp.value('Status', {
 	// not sure if this is used any longer, it was used to prevent cyclical nav settings
 	isCaptureHistory : true,
 	
+	currentFocusArea: undefined,
+	
 	//A filtered (or all) list of projects to be displayed on the browse tab
 	currentProjectList : [],
 	
