@@ -10,6 +10,7 @@ GLRICatalogApp.filter('publicationFocusAreaFilter', function() {
 		} else {
 			var filteredPublications = [];
 			
+			//This first section adds projects that have relatedItems which match
 			var currentProjects = []
 			for(var i = 0; i < currentProjectList.length; i++) {
 				var project =  currentProjectList[i].id;
@@ -19,8 +20,32 @@ GLRICatalogApp.filter('publicationFocusAreaFilter', function() {
 				}
 			}
 			
-			//TODO figure out how to link a publication to a project for the purposes of filtering
-
+			for(var i = 0; i < publications.length; i++) {
+				var relatedItems = publications[i].relatedItems;
+				for(var j = 0; j < currentProjects.length; j++) {
+					var proj = currentProjects[j];
+					if(relatedItems.link.url.indexOf(proj) >= 0) { //hackey way to see ID
+						filterdPublications.add(proj);
+						break;
+					}
+				}
+			}
+			
+			//This next section adds pubs which have tags that match FA
+			for (var i = 0; i < publications.length; i++) {
+				var tags = publications[i].tags;
+				if (tags) {
+					for (var j = 0; j < tags.length; j++) {
+						var tag = tags[j];
+						if (focusArea.name == tag.name) {
+							filteredPublications.push(publications[i]);
+							break;
+						}
+					}
+				}
+				
+			}
+			
 			return filteredPublications;
 		}
 	}
