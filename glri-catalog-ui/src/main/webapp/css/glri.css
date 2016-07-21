@@ -194,6 +194,16 @@ body {
 	background-position-x: 0px;
 	background-color: #000;
 }
+
+#user-auth-area {
+	float: right;  width: 30em;
+	/* border-left: 2px solid black; */
+}
+#user-auth-area a.btn { 
+	float: right; padding: 0 .8em; margin: 0 1em;
+	background-color: #38e; 
+}
+
 .well { 
 	background-color: white !important; }
 	margin-bottom: .8em; 
