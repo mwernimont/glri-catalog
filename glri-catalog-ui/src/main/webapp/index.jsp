@@ -105,7 +105,7 @@
 
 	<hr ng-if="nav.navShow('Browse') || nav.navShow('Publications')"/>
 	
-	<div id="focusAreas" ng-if="nav.navShow('Browse')')">
+	<div id="focusAreas" ng-if="nav.navShow('Browse')">
 		<button id="{{focusArea}}" ng-repeat="focusArea in focusAreaOrder" 
 				ng-bind="focusAreas[focusArea].name" class="btn btn-primary btn-vertical"
 				ng-click="focusAreaClick(focusArea)"></button>
