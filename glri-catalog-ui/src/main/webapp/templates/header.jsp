@@ -15,6 +15,18 @@
             </ul>
         </div><!-- End content -->
 		<div id="site-title" class="clearfix">
+			<div id="user-auth-area">
+<% if (request.getRemoteUser() != null) { %>
+				<div class="logged-in">
+					<a class="btn btn-small" href="${pageContext.request.contextPath}/logout.jsp">logout</a>
+					<p>Logged in as <i class="user-name"><%= request.getRemoteUser() %></i></p>
+				</div>
+<% } else { %>
+				<div class="not-logged-in">
+					<a class="btn btn-small" href="${pageContext.request.contextPath}/secure.jsp">login</a>
+				</div>
+<% } %>
+			</div>
 			<h1>${param["site-title"]}</h1>
 			<% if (request.getParameter("site-sub-title") != null && request.getParameter("site-sub-title").length() > 0) { %>
 			<h4>${param["site-sub-title"]}</h4>
