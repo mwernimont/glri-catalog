@@ -19,7 +19,7 @@
 <% if (request.getRemoteUser() != null) { %>
 				<div class="logged-in">
 					<a class="btn btn-small" href="${pageContext.request.contextPath}/logout.jsp">logout</a>
-					<p>Logged in as <i><%= request.getRemoteUser() %></i></p>
+					<p>Logged in as <i class="user-name"><%= request.getRemoteUser() %></i></p>
 				</div>
 <% } else { %>
 				<div class="not-logged-in">
