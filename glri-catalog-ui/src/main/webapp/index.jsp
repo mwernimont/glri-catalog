@@ -68,6 +68,7 @@
 		<link rel="stylesheet" type="text/css" href="./css/glri.css" />
 		
 		<link href="./webjars/openlayers/2.13.1/theme/default/style.css" type="text/css" rel="stylesheet">
+		
 		<script type="text/javascript" src="js/select2buttons.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/select2Buttons.css">
 	

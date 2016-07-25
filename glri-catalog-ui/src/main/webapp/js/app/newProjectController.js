@@ -54,6 +54,9 @@ function($scope, $http, Status, ScienceBase, projectsService) {
 		$scope.newProject = {};
 	}
 
+	$scope.updateImage = function() {
+		$('#url-validation').attr("src", $scope['newProject']['image']);
+	}
 	
 	var saveFailed = function(resp) {
 		alert("There was a problem saving the project -> " + resp.data);
