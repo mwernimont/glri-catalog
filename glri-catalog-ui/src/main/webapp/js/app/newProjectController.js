@@ -65,7 +65,7 @@ function($scope, $http, Status, ScienceBase, projectsService) {
 	 * components very close to the top.
 	 */
 	var scrollTo = function(element) {
-		var container  = $('body')
+		var container  = $('html,body')
 	    element = $(element);	//JQuery wrapped element (if not wrapped already)
 		var useEl = element;	//actual element offset from (may be a parent element)
 		var vPos = 0;	//Vert pixel position to scroll to
