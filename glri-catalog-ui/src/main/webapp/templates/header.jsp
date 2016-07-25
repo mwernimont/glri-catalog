@@ -18,12 +18,14 @@
 			<div id="user-auth-area">
 <% if (request.getRemoteUser() != null) { %>
 				<div class="logged-in">
-					<a class="btn btn-small" href="${pageContext.request.contextPath}/logout.jsp">logout</a>
-					<p>Logged in as <i class="user-name"><%= request.getRemoteUser() %></i></p>
+					<a class="btn btn-small" href="${pageContext.request.contextPath}/logout.jsp">Logout</a>
+					<a class="btn btn-smalll" ng-if="!nav.navShow('Projects')" prevent-default href="javascript:void(0)" ng-click="nav.doNavRoot('Projects')">Project Form</a>
+					<a class="btn btn-smalll" ng-if="nav.navShow('Projects')" prevent-default href="javascript:void(0)" ng-click="nav.doNavRoot('Home')">Home</a>
+					<p>Logged in as <i class="user-name"><%= request.getRemoteUser() %></i> </p>
 				</div>
 <% } else { %>
 				<div class="not-logged-in">
-					<a class="btn btn-small" href="${pageContext.request.contextPath}/secure.jsp">login</a>
+					<a class="btn btn-small" href="${pageContext.request.contextPath}/secure.jsp">Login</a>
 				</div>
 <% } %>
 			</div>
