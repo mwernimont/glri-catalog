@@ -41,10 +41,12 @@
 		<script type="text/javascript" src="./js/app/sciencebase.js"></script>
 		<script type="text/javascript" src="./js/app/nav.js"></script>
 		<script type="text/javascript" src="./js/app/controller.js"></script>
+		<script type="text/javascript" src="./js/app/newProjectController.js"></script>
 		<script type="text/javascript" src="./js/app/recordManager.js"></script>
 		<script type="text/javascript" src="./js/app/pagination.js"></script>
 		<script type="text/javascript" src="./js/app/search.js"></script>
 		<script type="text/javascript" src="./js/app/directives.js"></script>
+		<script type="text/javascript" src="./js/app/projects.js"></script>
 		
 		<script type="text/javascript" src="./js/app/cida-analytics.js"></script>
 		<script type="application/javascript" src="http://www.usgs.gov/scripts/analytics/usgs-analytics.js"></script>
@@ -52,6 +54,7 @@
 		<!-- Twitter Bootstrap & theme-->
 		<link rel="stylesheet" type="text/css" href="./webjars/bootstrap/${bootstrap.version}/css/bootstrap.css">
 		<link rel="stylesheet" type="text/css" href="./style/themes/theme1.css">
+		<link rel="stylesheet" type="text/css" href="./webjars/angular-ui-select/${angular.select.version}/select.min.css" >
 
 		<!-- legacy css -->
 		<link type="text/css" rel="stylesheet" href="./css/dynamic.css">
@@ -64,6 +67,12 @@
 		<!-- Application custom -->
 		<link rel="stylesheet" type="text/css" href="./css/glri.css" />
 		
+		<link href="./webjars/openlayers/2.13.1/theme/default/style.css" type="text/css" rel="stylesheet">
+		
+		<script type="text/javascript" src="js/select2buttons.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/select2Buttons.css">
+	
+		<link rel="stylesheet" type="text/css" href="css/newProjectForm.css">
 	</head>
 	<body  ng-controller="CatalogCtrl">
 		<div id="container" class="container">
@@ -86,7 +95,7 @@
 
 <div id="navPane" class="col-left col-sm-3 hidden-xs">
 
-<div id="nav" class="border" style="height:300px">
+<div id="nav" class="border" style="height:300px" ng-if="!nav.navShow('Projects')" >
 
 	<div id="navBrowse" class="btn-group navBrowse">
 		<a ng-repeat="navName in nav.navNames" class="btn btn-primary btn-horizontal" 
@@ -124,7 +133,7 @@
 </div><!-- navPane -->
 
 
-<div id="contentPane" class="col-right col-sm-9 col-xs-12">
+<div id="contentPane" class="col-right col-sm-9 col-xs-12" ng-if="!nav.navShow('Projects')" >
 
 	<div class="border">
 
@@ -157,7 +166,7 @@
 
 				</div>				
 			</div> <!-- outerCol -->
-			
+			<jsp:include page="projectForm.jsp"></jsp:include>
 			<div id="footerContainer" class="row">
 				<div class="col-xs-12">
 					<jsp:include page="./templates/footer.jsp">

@@ -32,7 +32,6 @@
     <security-constraint>
         <web-resource-collection>
             <url-pattern>/saveProject</url-pattern>
-            <url-pattern>/projectForm.jsp</url-pattern>
 			<url-pattern>/secure.jsp</url-pattern>
         </web-resource-collection>
         <auth-constraint>

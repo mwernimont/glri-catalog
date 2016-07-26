@@ -199,4 +199,23 @@ GLRICatalogApp.directive("glriSearch",['$parse', function($parse){
 	}	
 }]);
 
+
+//custom string date model instead of default date object impl
+GLRICatalogApp.directive('uibDatepickerPopup', function (){
+ return {
+     restrict: 'EAC',
+     require: 'ngModel',
+     link: function(scope, elem, attrs, ngModel) {
+         ngModel.$parsers.push(function toModel(date) {
+         	var strDate = "";
+         	if (date && typeof date === 'object') {
+         		strDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+         	}
+//         	console.log(strDate);
+         	return strDate;
+         });
+     }
+ }
+});
+
 }) ();
