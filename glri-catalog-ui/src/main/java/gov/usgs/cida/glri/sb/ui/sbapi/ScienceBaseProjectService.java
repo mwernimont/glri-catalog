@@ -76,7 +76,7 @@ public class ScienceBaseProjectService extends HttpServlet {
 				
 				//If the request failed, retry using the service login.
 				//This handles the case where user is not individually authorized to add records
-				if (true || sbreply.has("errors") || !sbreply.has("id") || sbreply.getString("id") == null || sbreply.getString("id").length() < 4) {
+				if (sbreply.has("errors") || !sbreply.has("id") || sbreply.getString("id") == null || sbreply.getString("id").length() < 4) {
 					
 					String username = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_USR);
 					String password = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_PWD);
