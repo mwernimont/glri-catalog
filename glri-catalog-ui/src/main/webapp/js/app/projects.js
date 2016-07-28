@@ -11,8 +11,7 @@ $(document).ready(function() {
 
 
 GLRICatalogApp.service('Projects', 
-['$rootScope',
-function($rootScope){
+[function(){
 	var CONTACT_PRINCIPAL = "Principal Investigator";
 	var CONTACT_CHIEF     = "Associate Project Chief";
 	var CONTACT_ORG       = "Cooperator/Partner";
