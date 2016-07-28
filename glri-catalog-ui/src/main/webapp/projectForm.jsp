@@ -76,7 +76,7 @@
 					Enter the publicly accessible URL to image to be used in the the
 					project page on the GLRI website. <input
 						class="form-control form-field form-optional single-url"
-						type="text" ng-model="newProject.image" ng-change="updateImage()">
+						type="text" ng-model="newProject.image">
 					<div class="proj-img-container">
 					If valid, the image at the specified URL should be displayed:
 					<br/><br/>
