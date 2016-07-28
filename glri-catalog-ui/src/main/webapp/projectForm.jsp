@@ -80,7 +80,7 @@
 					<div class="proj-img-container">
 					If valid, the image at the specified URL should be displayed:
 					<br/><br/>
-					<img id="url-validation"/>
+					<img ng-src="{{newProject.image}}"/>
 					</div>
 				</div>
 			</div>
