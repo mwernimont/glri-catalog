@@ -49,9 +49,13 @@ ul.simple-list > li {
 	max-width: 200px;
 }
 
-#url-validation {
+.proj-img-container {
+	padding: 1em;
+	border-radius: 10px;
+	border: solid 1px grey;
 	margin-top: 1em;
 	margin-left: 2em;	
+	margin-right: 2em;	
 }
 
 .form-control,

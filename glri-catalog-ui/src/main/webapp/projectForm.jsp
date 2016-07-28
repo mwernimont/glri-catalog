@@ -77,7 +77,11 @@
 					project page on the GLRI website. <input
 						class="form-control form-field form-optional single-url"
 						type="text" ng-model="newProject.image" ng-change="updateImage()">
+					<div class="proj-img-container">
+					If valid, the image at the specified URL should be displayed:
+					<br/><br/>
 					<img id="url-validation"/>
+					</div>
 				</div>
 			</div>
 
