@@ -166,7 +166,7 @@
 
 				</div>				
 			</div> <!-- outerCol -->
-			<jsp:include page="projectForm.jsp"></jsp:include>
+			<jsp:include page="./templates/projectForm.jsp"></jsp:include>
 			<div id="footerContainer" class="row">
 				<div class="col-xs-12">
 					<jsp:include page="./templates/footer.jsp">
