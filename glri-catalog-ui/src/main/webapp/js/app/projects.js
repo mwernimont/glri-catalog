@@ -1,15 +1,3 @@
-$(document).ready(function() {
-	// do not perform select2buttons actions during unit tests
-	if ($("#dmPlan").length) {
-	  $("#dmPlan").select2Buttons({noDefault: true});
-	  $("#project_status").select2Buttons({noDefault: true});
-	  $("#duration").select2Buttons({noDefault: true});
-	  $("#entry_type").select2Buttons({noDefault: true});
-	  $("#spatial").select2Buttons({noDefault: true});
-	}
-});
-
-
 GLRICatalogApp.service('Projects', 
 [function(){
 	var CONTACT_PRINCIPAL = "Principal Investigator";
