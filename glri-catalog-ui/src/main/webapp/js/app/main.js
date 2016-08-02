@@ -46,3 +46,30 @@ GLRICatalogApp.value('Status', {
 
 });
 
+/**
+ * A small service to find and cache the current username.
+ * The entire app is reloaded if the user logs in, so its OK to cache the value
+ * after we search for it.
+ */
+GLRICatalogApp.service('userService', function(){
+	
+	var _checked = false;
+	var _userName = null;
+	
+	this._findUserName = function() {
+		var un = $('#user-name');
+		if (un) {
+			this._userName = un.text();
+		}
+		return this._userName;
+	};
+	this.getUserName = function() {
+		if (_userName != null || _checked) {
+			return this._userName;
+		} else {
+			return this._findUserName();
+		}
+	};
+
+});
+

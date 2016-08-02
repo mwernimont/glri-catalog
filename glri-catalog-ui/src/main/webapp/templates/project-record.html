@@ -4,6 +4,9 @@
 			<img ng-src="style/image/darkblue/{{record.resource}}.svg" />
 		</a>
 	</div>
+	<div class="edit-link" ng-if="record.userCanEdit">
+		<a class="btn btn-small" title="Because you have a role on this project, you may edit it.  Click to edit" href="{{record.url}}" target="_blank">Edit this project</a>
+	</div>
 	<h4 ng-bind-html="record.title"></h4>
 	<p class="point-of-contact" ng-bind-html="record.contactText"></p>
 	<div class="related-links" ng-if="record.mainLink || (record.hasChildren == true)">

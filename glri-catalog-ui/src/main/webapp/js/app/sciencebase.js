@@ -2,8 +2,8 @@
 
 
 GLRICatalogApp.service('ScienceBase', 
-['$http', 'Status', 'FocusAreaManager', '$rootScope',
-function($http, Status, FocusAreaManager, $rootScope){
+['$http', 'Status', 'FocusAreaManager', '$rootScope', 'userService',
+function($http, Status, FocusAreaManager, $rootScope, userService){
 
 	var ctx = this;
 	ctx.vocabs =  {
@@ -237,6 +237,29 @@ function($http, Status, FocusAreaManager, $rootScope){
 					}
 				}
 			}
+		}
+		
+		//Add edit permissions to projects if the user is logged in
+		if (item.resource == 'project' && userService.getUserName() != null) {
+			var userName = userService.getUserName();
+			
+			if ( isDefined(item.contacts) ) {
+				for (var j = 0; j < item.contacts.length; j++) {
+					var contact = item.contacts[j];
+
+					if ( isDefined(contact.email) ) {
+						if (contact.email == userName) {
+							item.userCanEdit = true;
+							break;
+						}
+					}
+
+				}
+			}
+		
+		
+		
+			
 		}
 		
 		item.summary = ctx.cleanSummary(item.summary);
