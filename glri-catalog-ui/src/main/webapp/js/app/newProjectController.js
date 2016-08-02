@@ -241,7 +241,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			return;
 		}
 		
-		var project = projectsService.buildproject($scope.project);
+		var project = projectsService.buildNewProject($scope.project);
 
 		console.log(project);
 
@@ -279,6 +279,16 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		}
 	}
 	setTimeout(select2focusArea,100);
+	
+	// do not perform select2buttons actions during unit tests
+	if ($("#dmPlan").length) {
+	  $("#dmPlan").select2Buttons({noDefault: true});
+	  $("#project_status").select2Buttons({noDefault: true});
+	  $("#duration").select2Buttons({noDefault: true});
+	  $("#entry_type").select2Buttons({noDefault: true});
+	  $("#spatial").select2Buttons({noDefault: true});
+	}
+	
 //	
 //	var loadAndBindProject = function(pid) {
 //		var projectInList = $filter('filter')(Status.currentProjectList, {id: fish_id}, true);
