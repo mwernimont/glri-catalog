@@ -95,32 +95,32 @@
 
 <div id="navPane" class="col-left col-sm-3 hidden-xs">
 
-<div id="nav" class="border" style="height:300px" ng-if="!nav.navShow('Projects')" >
+<div id="nav" class="border" style="height:300px" ng-if="!nav.isBasePath('Projects')" >
 
 	<div id="navBrowse" class="btn-group navBrowse">
 		<a ng-repeat="navName in nav.navNames" class="btn btn-primary btn-horizontal" 
-			prevent-default href="javascript:void(0)" ng-click="nav.doNavRoot(navName)" 
-			ng-class="(nav.navShow(navName) ? 'active' : '') + ' glri-navbtn-' + navName" ng-bind="navName"></a>
+			prevent-default href="javascript:void(0)" ng-click="nav.setPath(navName)" 
+			ng-class="(nav.isBasePath(navName) ? 'active' : '') + ' glri-navbtn-' + navName" ng-bind="navName"></a>
 	</div>
 	<hr/>
 	
-	<div id="navBrowseCategories" class="btn-group navBrowseCategories" ng-if="nav.contentShow('Browse',0,false) || nav.contentShow('Publications',0,false)">
+	<div id="navBrowseCategories" class="btn-group navBrowseCategories" ng-if="nav.isBasePath('Browse') || nav.isBasePath('Publications')">
 		<a ng-repeat="navBrowseCategory in nav.navBrowseCategories" class="btn btn-primary btn-horizontal" 
 			prevent-default href="javascript:void(0)" ng-click="nav.navBrowseCategory(navBrowseCategory)" 
 			ng-class="'browse-cat-' + navBrowseCategory" ng-bind="navBrowseCategory"></a>
 	</div>
 	
-	<glri-nav-home ng-if="nav.navShow('Home')">home</glri-nav-home>
+	<glri-nav-home ng-if="nav.isBasePath('Home')">home</glri-nav-home>
 
-	<hr ng-if="nav.navShow('Browse') || nav.navShow('Publications')"/>
+	<hr ng-if="nav.isBasePath('Browse') || nav.isBasePath('Publications')"/>
 	
-	<div id="focusAreas" ng-if="nav.navShow('Browse')">
+	<div id="focusAreas" ng-if="nav.isBasePath('Browse')">
 		<button id="{{focusArea}}" ng-repeat="focusArea in focusAreaOrder" 
 				ng-bind="focusAreas[focusArea].name" class="btn btn-primary btn-vertical"
 				ng-click="focusAreaClick(focusArea)"></button>
 	</div>
 	
-	<glri-nav-search ng-if="nav.navShow('Search')"></glri-nav-search>
+	<glri-nav-search ng-if="nav.isBasePath('Search')"></glri-nav-search>
 	
 	<a href="https://www.sciencebase.gov/catalog/items?community=Great+Lakes+Restoration+Initiative"
 		 target="_blank" title="ScienceBase, a repository of projects, data and metadata">
@@ -133,18 +133,18 @@
 </div><!-- navPane -->
 
 
-<div id="contentPane" class="col-right col-sm-9 col-xs-12" ng-if="!nav.navShow('Projects')" >
+<div id="contentPane" class="col-right col-sm-9 col-xs-12" ng-if="!nav.isBasePath('Projects')" >
 
 	<div class="border">
 
-		<glri-home           ng-if="nav.contentShow('Home')"></glri-home>
-		<glri-asian-carp     ng-if="nav.contentShow('AsianCarp')"></glri-asian-carp>
-		<glri-invasive       ng-if="nav.contentShow('Invasive')"></glri-invasive>
-		<glri-project-lists  ng-if="nav.contentShow('ProjectLists')"></glri-project-lists>
-		<glri-publications   ng-if="nav.contentShow('Publications')"></glri-publications>
-		<glri-focus-area     ng-if="nav.contentShow('Browse',0,false)"></glri-focus-area>
+		<glri-home           ng-if="nav.isBasePath('Home')"></glri-home>
+		<glri-asian-carp     ng-if="nav.isAtPath('AsianCarp')"></glri-asian-carp>
+		<glri-invasive       ng-if="nav.isAtPath('Invasive')"></glri-invasive>
+		<glri-project-lists  ng-if="nav.isAtPath('ProjectLists')"></glri-project-lists>
+		<glri-publications   ng-if="nav.isAtPath('Publications')"></glri-publications>
+		<glri-focus-area     ng-if="nav.isBasePath('Browse')"></glri-focus-area>
 
-		<div ng-if="nav.contentShow('BeachHealth')" >
+		<div ng-if="nav.isAtPath('BeachHealth')" >
 		<div>
 			<img src="style/image/darkblue/glri_logo.svg" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;width:200px; height:80px;float:left">
 			<div class="largetitle">GLRI Beach Health Webinar Feb11 2014</div>
@@ -154,7 +154,7 @@
 		</center>
 		</div>
 
-		<glri-search ng-if="nav.contentShow('Search')"></glri-search>
+		<glri-search ng-if="nav.isBasePath('Search')"></glri-search>
 
 	</div>
 	

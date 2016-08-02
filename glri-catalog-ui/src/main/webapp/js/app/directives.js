@@ -65,14 +65,7 @@ function(Status, RecordManager, Nav, FocusAreaManager) {
 			
 			$scope.selectProject = function(projectItem) {
 				RecordManager.setProjectDetail(projectItem);
-				
-				// TODO this might not be necessary any longer with the addition of 'all' focus area
-				// Nav to browse should automatically be Browse/all
-				if ( Nav.isNav('Browse') ) {
-					Nav.setNavAdd('all')
-				}
-				
-				Nav.doNavAdd(projectItem.id)
+				Nav.addPath(projectItem.id)
 			}
 			
 		}
