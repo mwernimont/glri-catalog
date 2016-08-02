@@ -1,6 +1,6 @@
 <%String username = request.getUserPrincipal() != null ? request.getUserPrincipal().getName() : ""; %>
 
-<div class="col-sm-12 col-xs-12" ng-controller="NewProjectCtrl" ng-if="nav.navShow('Projects')">
+<div class="col-sm-12 col-xs-12" ng-controller="ProjectCtrl" ng-if="nav.isBasePath('Projects')">
 	<div class="row">
 		<div class="col-xs-12">
 			<h2 class="detailTitle">Project Information Form</h2>
@@ -48,7 +48,7 @@
 					found <a href="http://www.usgs.gov/datamanagement/plan/dmplans.php"
 						target="_blank">here</a>). <select
 						class="select2 form-control form-required" id="dmPlan"
-						ng-model="newProject.dmPlan">
+						ng-model="project.dmPlan">
 						<option value="agree">I Agree</option>
 						<option value="disagree">I Disagree</option>
 					</select>
@@ -56,8 +56,8 @@
 			</div>
 
 			<div>
-				<input type="hidden" ng-model="newProject.username"
-					ng-init="newProject.username = '<%=username%>'" />
+				<input type="hidden" ng-model="project.username"
+					ng-init="project.username = '<%=username%>'" />
 			</div>
 
 			<div>
@@ -66,7 +66,7 @@
 					Enter the project title as it should appear on the GLRI website.
 					(Basis Task field: Task Title)
 					<textarea class="form-control form-title form-required"
-						ng-model="newProject.title"></textarea>
+						ng-model="project.title"></textarea>
 				</div>
 			</div>
 
@@ -76,11 +76,11 @@
 					Enter the publicly accessible URL to image to be used in the the
 					project page on the GLRI website. <input
 						class="form-control form-field form-optional single-url"
-						type="text" ng-model="newProject.image">
+						type="text" ng-model="project.image">
 					<div class="proj-img-container">
 					If valid, the image at the specified URL should be displayed:
 					<br/><br/>
-					<img ng-src="{{newProject.image}}"/>
+					<img ng-src="{{project.image}}"/>
 					</div>
 				</div>
 			</div>
@@ -95,7 +95,7 @@
 							<input type="text"
 								class="form-control form-control form-field form-date form-required"
 								style="width: 150px !important;" uib-datepicker-popup
-								model="newProject.startDate" ng-model="newProject.startDateNg"
+								model="project.startDate" ng-model="project.startDateNg"
 								is-open="status.showStart" datepicker-options="dateOptions"
 								date-disabled="disabled(date, mode)" ng-required="false"
 								close-text="Close" datepicker-mode="status.mode" />
@@ -113,7 +113,7 @@
 							<input type="text"
 								class="form-control form-control form-field form-date form-optional"
 								style="width: 150px !important;" uib-datepicker-popup
-								model="newProject.endDate" ng-model="newProject.startDateNg"
+								model="project.endDate" ng-model="project.startDateNg"
 								is-open="status.showFinish" datepicker-options="dateOptions"
 								date-disabled="disabled(date, mode)" ng-required="false"
 								close-text="Close" datepicker-mode="status.mode" />
@@ -131,7 +131,7 @@
 				<h4 class="">Project Duration</h4>
 				<div class="form-spacing" style="margin-left: 10px;">
 					Choose One. <select class="select2 form-control form-required"
-						id="duration" ng-model="newProject.duration">
+						id="duration" ng-model="project.duration">
 						<option>Single effort (1 year or less)</option>
 						<option>Short term (2 to 5 years)</option>
 						<option>Long term (greater than 5 years)</option>
@@ -143,7 +143,7 @@
 				<h4>Primary Focus Area</h4>
 				<div class="form-spacing" style="margin-left: 10px;">
 					Choose One. <select class="select2 form-control form-required"
-						id="focus_area" ng-model="newProject.focusArea">
+						id="focus_area" ng-model="project.focusArea">
 					</select>
 				</div>
 			</div>
@@ -152,7 +152,7 @@
 				<h4 class="">Project Status</h4>
 				<div class="form-spacing" style="margin-left: 10px;">
 					Choose One. <select class="select2 form-control form-required"
-						id="project_status" ng-model="newProject.status">
+						id="project_status" ng-model="project.status">
 						<option value="Completed">Completed</option>
 						<option value="In Progress">In Progress</option>
 					</select>
@@ -163,7 +163,7 @@
 				<h4 class="">Entry Type</h4>
 				<div class="form-spacing" style="margin-left: 10px;">
 					Choose One. <select class="select2 form-control form-required"
-						id="entry_type" ng-model="newProject.entryType">
+						id="entry_type" ng-model="project.entryType">
 						<option>New Project</option>
 						<option>Project Update</option>
 					</select>
@@ -177,7 +177,7 @@
 					for projects that do not relate to a geographic area (e.g.
 					overhead, lab analysis, software development or science support). <select
 						class="select2 form-control form-required" id="spatial"
-						ng-model="newProject.spatial">
+						ng-model="project.spatial">
 						<option value="Has Spatial">Has Spatial</option>
 						<option value="No Spatial">No Spatial</option>
 					</select>
@@ -190,7 +190,7 @@
 					Brief statement of the problem that the project/task will address.
 					(Basis Task field: Summary Narratives, Statement of Problem)
 					<textarea class="form-control form-field form-required" rows="10"
-						ng-model="newProject.purpose"></textarea>
+						ng-model="project.purpose"></textarea>
 				</div>
 			</div>
 
@@ -202,7 +202,7 @@
 					applicable, the scientific questions and policy issues addressed.
 					(Basis Task field: Summary Narratives, Objectives)
 					<textarea class="form-control form-field form-required" rows="10"
-						ng-model="newProject.objectives"></textarea>
+						ng-model="project.objectives"></textarea>
 				</div>
 			</div>
 
@@ -212,7 +212,7 @@
 					Short paragraph to briefly describe the work to be done this FY.
 					(Basis Task field: Annual Narratives, Statement of Work)
 					<textarea class="form-control form-field form-required" rows="10"
-						ng-model="newProject.work"></textarea>
+						ng-model="project.work"></textarea>
 				</div>
 			</div>
 
@@ -223,7 +223,7 @@
 					policy and scientific issues, and Program relevance of the project.
 					Required, except for projects of type 'Support'.
 					<textarea class="form-control form-field form-optional" rows="10"
-						ng-model="newProject.impact"></textarea>
+						ng-model="project.impact"></textarea>
 				</div>
 			</div>
 
@@ -234,14 +234,14 @@
 					or data set), providing a title and outlet for each product. (Basis
 					Task field: Products)
 					<textarea class="form-control form-field form-required" rows="10"
-						ng-model="newProject.product"></textarea>
+						ng-model="project.product"></textarea>
 				</div>
 			</div>
 
 			<div>
 				<h4>Template(s)</h4>
 				<div class="form-spacing">
-					<ui-select multiple ng-model="newProject.templates"
+					<ui-select multiple ng-model="project.templates"
 						style="width:100%" class="form-required"> <ui-select-match
 						placeholder="Check all that apply.">{{$item.display}}</ui-select-match>
 					<ui-select-choices
@@ -253,7 +253,7 @@
 			<div>
 				<h4>SiGL Keyword(s)</h4>
 				<div class="form-spacing">
-					<ui-select multiple ng-model="newProject.SiGL" style="width:100%"
+					<ui-select multiple ng-model="project.SiGL" style="width:100%"
 						class="form-required"> <ui-select-match
 						placeholder="Check all that apply.">{{$item.display}}</ui-select-match>
 					<ui-select-choices
@@ -265,7 +265,7 @@
 			<div>
 				<h4>Water Feature(s)</h4>
 				<div class="form-spacing">
-					<ui-select multiple ng-model="newProject.water" style="width:100%"
+					<ui-select multiple ng-model="project.water" style="width:100%"
 						class="form-required"> <ui-select-match
 						placeholder="Check all that apply.">{{$item.display}}</ui-select-match>
 					<ui-select-choices
@@ -278,7 +278,7 @@
 				<h4>GLRI Keyword(s)</h4>
 				<div class="form-spacing">
 					<textarea class="form-control form-field form-required" rows="5"
-						ng-model="newProject.keywords"
+						ng-model="project.keywords"
 						placeholder="Enter a comma separated list of keywords or phrases. Example: &#10;forecasting, wetlands ecology, coastal"></textarea>
 				</div>
 			</div>
@@ -289,7 +289,7 @@
 					Lead PI for the project. (Basis Task field: Leaders, Task Leader) <input
 						type="text"
 						class="form-control form-field form-required contact single-person"
-						ng-model="newProject.principal"
+						ng-model="project.principal"
 						placeholder="Enter the name and email address for a single person. Both are required. Example: Jane Doe jdoe@usgs.gov">
 				</div>
 			</div>
@@ -300,7 +300,7 @@
 					Center Director, Office Chief, Regional Staff Member, etc. (Basis
 					Task field: Leaders,Task Leader) <input type="text"
 						class="form-control form-field form-required contact single-person"
-						ng-model="newProject.chief"
+						ng-model="project.chief"
 						placeholder="Enter the name and email address for a single person. Both are required. Example: Jane Doe jdoe@usgs.gov">
 				</div>
 			</div>
@@ -317,7 +317,7 @@
 					organizations.
 					<textarea
 						class="form-control form-field form-optional contact multi-organization"
-						rows="5" ng-model="newProject.organizations"
+						rows="5" ng-model="project.organizations"
 						placeholder="Enter a comma separated list of organizations.  Each organization must have a name and optionally an email address. Example: &#10;Cooperating Org, Environmental Org info@environment.org"></textarea>
 				</div>
 			</div>
@@ -327,7 +327,7 @@
 				<div class="point-of-contact form-spacing">
 					<textarea
 						class="form-control form-field form-optional contact multi-person"
-						rows="5" ng-model="newProject.contacts"
+						rows="5" ng-model="project.contacts"
 						placeholder="Enter a comma separated list of 'people' contacts for the project.  Each contact must have a name and email. Example: &#10;Jane Doe jdoe@usgs.gov, James Brown jbrown@usgs.gov"></textarea>
 				</div>
 			</div>

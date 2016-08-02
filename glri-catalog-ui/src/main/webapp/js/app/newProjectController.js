@@ -1,8 +1,8 @@
-GLRICatalogApp.controller('NewProjectCtrl', 
-['$scope', '$http', 'Status', 'ScienceBase', "Projects",
-function($scope, $http, Status, ScienceBase, projectsService) {
+GLRICatalogApp.controller('ProjectCtrl', 
+['$scope', '$http', '$filter', '$location', 'Status', 'ScienceBase', "Projects",
+function($scope, $http, $filter, $location, Status, ScienceBase, projectsService) {
 	$scope.contactPattern = /^[\w\s]+ [\w\d\.]+@[\w\d]+\.\w+$/;
-	$scope.newProject = {};
+	$scope.project = {};
 	$scope.dateOptions = {
 		  };	
 	
@@ -11,6 +11,8 @@ function($scope, $http, Status, ScienceBase, projectsService) {
 	
 	$scope.validation = {};
 	$scope.validation.singleMsg = "";
+	
+	$scope.editMode = false;
 	
 	// custom year accept along with full date format with default impl
 	var yearRx = new RegExp(/^\d\d\d\d$/);
@@ -51,7 +53,7 @@ function($scope, $http, Status, ScienceBase, projectsService) {
 	}
 	
 	$scope.discard = function() {
-		$scope.newProject = {};
+		$scope.project = {};
 	}
 	
 	var saveFailed = function(resp) {
@@ -227,9 +229,9 @@ function($scope, $http, Status, ScienceBase, projectsService) {
 	
 	
 	$scope.save = function() {
-		console.log($scope.newProject);
+		console.log($scope.project);
 
-		if ("agree" !== $scope.newProject.dmPlan) {
+		if ("agree" !== $scope.project.dmPlan) {
 			var field = $("#dmPlan");
 			scrollTo(field);
 			displayMsg("form-msg-agree", field);
@@ -239,11 +241,11 @@ function($scope, $http, Status, ScienceBase, projectsService) {
 			return;
 		}
 		
-		var newProject = projectsService.buildNewProject($scope.newProject);
+		var project = projectsService.buildproject($scope.project);
 
-		console.log(newProject);
+		console.log(project);
 
-		$http.post('saveProject', newProject)
+		$http.post('saveProject', project)
 		.then(
 			function(resp) {
 				console.log(resp.data)
@@ -277,5 +279,22 @@ function($scope, $http, Status, ScienceBase, projectsService) {
 		}
 	}
 	setTimeout(select2focusArea,100);
-	
+//	
+//	var loadAndBindProject = function(pid) {
+//		var projectInList = $filter('filter')(Status.currentProjectList, {id: fish_id}, true);
+//		
+//		if(projectInList.lenght > 0) {
+//			console.log(projectInList);
+//		} else {
+//			console.log("DO SOME AJAX!")
+//		}
+//	}
+//	
+//	//check to see if we have a project ID, if so, load/bind the project data and set this form to edit mode
+//	var parts = $location.path().split(/\/+/);
+//	if(parts.lenght > 1 && parts[1]) {
+//		$scope.editMode = true;
+//		var id = parts[1];
+//		loadAndBindProject(id);
+//	}
 }]);

@@ -75,8 +75,7 @@ function($scope, Status, Nav, FocusAreaManager, ScienceBase) {
 
 	
 	$scope.ofNoteClick = function(ofNote) {
-		Nav.setNavRoot('Home');
-		Nav.doNavAdd(ofNote);
+		Nav.setPath('Home/' + ofNote);
 	}
 	
 	
