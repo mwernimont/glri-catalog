@@ -289,22 +289,23 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	  $("#spatial").select2Buttons({noDefault: true});
 	}
 	
-//	
-//	var loadAndBindProject = function(pid) {
-//		var projectInList = $filter('filter')(Status.currentProjectList, {id: fish_id}, true);
-//		
-//		if(projectInList.lenght > 0) {
-//			console.log(projectInList);
-//		} else {
-//			console.log("DO SOME AJAX!")
-//		}
-//	}
-//	
-//	//check to see if we have a project ID, if so, load/bind the project data and set this form to edit mode
-//	var parts = $location.path().split(/\/+/);
-//	if(parts.lenght > 1 && parts[1]) {
-//		$scope.editMode = true;
-//		var id = parts[1];
-//		loadAndBindProject(id);
-//	}
+	
+	var loadAndBindProject = function(pid) {
+		var projectInList = $filter('filter')(Status.currentProjectList, {id: pid}, true);
+		
+		if(projectInList.length > 0) {
+			console.log(projectInList);
+		} else {
+			console.log("DO SOME AJAX!")
+		}
+	}
+	
+	//check to see if we have a project ID, if so, load/bind the project data and set this form to edit mode
+	//Splits are [empty]/Projects/[ProjectId]
+	var parts = $location.path().split(/\/+/);
+	if(parts.length > 2 && parts[2]) {
+		$scope.editMode = true;
+		var id = parts[1];
+		loadAndBindProject(id);
+	}
 }]);
