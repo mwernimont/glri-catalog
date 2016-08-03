@@ -448,7 +448,7 @@ GLRICatalogApp.service('Projects',
 		    '"summary": "",'+
 		    '"body": "' +body+ '",'+
 		    '"purpose": "' +data.purpose+ '",'+
-		    '"parentId": "52e6a0a0e4b012954a1a238a",'+
+		    '"parentId": "52e6a0a0e4b012954a1a238a",'+ //TODO what is this ID!? Is it a hardcoded value from a specific data store?
 		    '"contacts": [' + contacts + '],'+
 		    '"browseCategories": ["Project"],'+
 		    '"tags": [' + tags + ',' +
@@ -474,4 +474,52 @@ GLRICatalogApp.service('Projects',
 		
 		return newProject;
 	};
+	
+	/**
+	 * Converts a science base project item into the the json format that is currently
+	 * used on the project form. 
+	 */
+	ctx.convertToGlriProject = function(sbProj) {
+		var glriProj = {
+			title: sbProj.title,
+			purpose: sbProj.purpose,
+			status: sbProj.facets[0].projectStatus
+		}
+		
+		//find thumbnail
+		for(var i = 0; i < sbProj.webLinks.length; i++) {
+			var link = sbProj.webLinks[i];
+			if(link.type == "browseImage") {
+				glriProj.image = link.uri;
+			}
+		}
+		
+		//find start/end dates
+		for(var i = 0; i < sbProj.dates.length; i++) {
+			var dt = sbProj.dates[i];
+			if(dt.type == "Start") {
+				glriProj.startDate = dt.dateString;
+			}
+			if(dt.type == "End") {
+				glriProj.endDate = dt.dateString;
+			}
+		}
+		
+		//find creator to get username
+		for(var i = 0; i < sbProj.tags.length; i++) {
+			var tag = sbProj.tags[i];
+			if(tag.type == "Creator") {
+				glriProj.username = tag.name;
+			}
+			
+			//TODO move rest of tags to corresponding glri object fields
+		}
+		
+		//TODO reverse body conversion, place data needed in glri object fields
+		
+		//TODO revers contactsn conversion, place data needed in glri object fields
+		
+		
+		return glriProj;
+	}
 }])

@@ -276,33 +276,35 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			}
 			$("#focus_area").html(options);
 			$("#focus_area").select2Buttons({noDefault: true});
+			
+			// do not perform select2buttons actions during unit tests
+			if ($("#dmPlan").length) {
+			  $("#dmPlan").select2Buttons({noDefault: true});
+			  $("#project_status").select2Buttons({noDefault: true});
+			  $("#duration").select2Buttons({noDefault: true});
+			  $("#entry_type").select2Buttons({noDefault: true});
+			  $("#spatial").select2Buttons({noDefault: true});
+			}
 		} else {
 			setTimeout(select2focusArea,100);
 		}
 	}
-	setTimeout(select2focusArea,100);
-	
-	// do not perform select2buttons actions during unit tests
-	if ($("#dmPlan").length) {
-	  $("#dmPlan").select2Buttons({noDefault: true});
-	  $("#project_status").select2Buttons({noDefault: true});
-	  $("#duration").select2Buttons({noDefault: true});
-	  $("#entry_type").select2Buttons({noDefault: true});
-	  $("#spatial").select2Buttons({noDefault: true});
-	}
-	
 	
 	var loadAndBindProject = function(pid) {
 		if(Status.currentItem) {
-			console.log(Status.currentItem)
-			$scope.project = Status.currentItem;
+			$scope.project = projectsService.convertToGlriProject(Status.currentItem);
 		} else {
 			$scope.loading = true;
 			ScienceBase.getItemPromise(id).success(function(data, status, headers, config) {
 				$scope.loading = false;
-				$scope.project = ScienceBase.processItem(data);
+				$scope.project = projectsService.convertToGlriProject(ScienceBase.processItem(data));
 			});
 		}
+		
+		//TODO, should users be required to Agree to terms again for edits?
+		$scope.project.dmPlan = true;
+		
+		setTimeout(select2focusArea,100);
 	}
 	
 	//check to see if we have a project ID, if so, load/bind the project data and set this form to edit mode
@@ -311,5 +313,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		$scope.editMode = true;
 		var id = parts[2];
 		loadAndBindProject(id);
+	} else {
+		setTimeout(select2focusArea,100);
 	}
 }]);
