@@ -2,8 +2,8 @@
 
 
 GLRICatalogApp.service('ScienceBase', 
-['$http', 'Status', 'FocusAreaManager', '$rootScope',
-function($http, Status, FocusAreaManager, $rootScope){
+['$http', 'Status', 'FocusAreaManager', '$rootScope', 'userService',
+function($http, Status, FocusAreaManager, $rootScope, userService){
 
 	var ctx = this;
 	ctx.vocabs =  {
@@ -248,8 +248,7 @@ function($http, Status, FocusAreaManager, $rootScope){
 					var contact = item.contacts[j];
 
 					if ( isDefined(contact.email) ) {
-						if (true) {
-						//if (contact.email == userName) {
+						if (contact.email == userName) {
 							item.userCanEdit = true;
 							break;
 						}
