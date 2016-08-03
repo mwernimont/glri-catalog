@@ -422,6 +422,12 @@ GLRICatalogApp.service('Projects',
 		var tags = buildTags(data);
 		var contacts = buildContacts(data);
 		
+		var id = "";
+		
+		if (data.id) {
+			id = '"id": "' +data.id+ '",';
+		}
+		
 		var endDate   = "";
 		if (data.endDate) { // TODO validation after start and year or full date
 			endDate =
@@ -444,7 +450,7 @@ GLRICatalogApp.service('Projects',
 		
 		var newProject =
 		'{'+
-		    '"title": "' +data.title+ '",'+
+			id + '"title": "' +data.title+ '",'+
 		    '"summary": "",'+
 		    '"body": "' +body+ '",'+
 		    '"purpose": "' +data.purpose+ '",'+
@@ -483,7 +489,8 @@ GLRICatalogApp.service('Projects',
 		var glriProj = {
 			title: sbProj.title,
 			purpose: sbProj.purpose,
-			status: sbProj.facets[0].projectStatus
+			status: sbProj.facets[0].projectStatus,
+			id: sbProj.id
 		}
 		
 		//find thumbnail

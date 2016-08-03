@@ -71,28 +71,29 @@ public class ScienceBaseProjectService extends HttpServlet {
 				}
 
 				JSONObject newProject = new JSONObject(newProjectJson);
-				JSONObject sbreply = client.createSbItem(newProject);
+				JSONObject sbreply = null;
 				
+				//We are managing our own permissions, so we just use the glriservice login for everything
+				String username = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_USR);
+				String password = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_PWD);
+				client.login(username, password);	//Will overwrite the JssoToken token set above
 				
-				//If the request failed, retry using the service login.
-				//This handles the case where user is not individually authorized to add records
-				if (sbreply.has("errors") || !sbreply.has("id") || sbreply.getString("id") == null || sbreply.getString("id").length() < 4) {
-					
-					String username = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_USR);
-					String password = AppConfig.get(AppConfig.SCIENCEBASE_GLRI_COMMUNITY_PWD);
-					client.login(username, password);	//Will overwrite the JssoToken token set above
-					
-					sbreply = client.createSbItem(newProject);
+				if (newProject.has("id")) {
+					//This is an update
+					String id = newProject.get("id").toString();
+					sbreply = client.updateSbItem(id, newProject);
+				} else {
+					//This is a new record
+					 sbreply = client.createSbItem(newProject);
 				}
-				
 				
 				if (!sbreply.has("errors") && sbreply.has("id") && sbreply.getString("id") != null && sbreply.getString("id").length() >= 4) {
 					projectId = sbreply.getString("id");
 				} else {
-
 					log.severe("ScienceBase submission failed.  Full response: " + sbreply.toString());
-
-					throw new RuntimeException("Unable to add the record for unknown reasons.");
+					
+					//Todo:  This should really not pass ScienceBase messages back to the UI
+					throw new RuntimeException("Unable to add the record.  This is what ScienceBase had to say: " + sbreply.toString());
 				}
 			}
 			response.setContentType("text/plain; charset=UTF-8");
