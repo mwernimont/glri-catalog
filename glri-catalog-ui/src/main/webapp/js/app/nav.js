@@ -78,13 +78,11 @@ function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, Re
 		
 		try {
 			var parts = $location.path().split(/\/+/);
-			var basePath = parts[1];
-
+			var basePath = parts.length > 1 ? parts[1] : '';
+			
 			switch(basePath) {
 			case '':
 				ctx.setPath("Home");
-			case 'Home':
-				ctx.goHome(parts);
 				break;
 			case 'Publications':
 				ctx.goPubsList(parts);
@@ -111,8 +109,7 @@ function($http, $location, Status, FocusAreaManager, $rootScope, ScienceBase, Re
 		case 4: var id = parts[rootIndex + 2];
 			var focusArea = parts[rootIndex + 1];
 			FocusAreaManager.activate(focusArea);
-			var url = baseURL+"/catalog/item/"+id+"?format=json"
-			$http.get(url).success(function(data, status, headers, config) {
+			ScienceBase.getItemPromise(id).success(function(data, status, headers, config) {
 				var item = ScienceBase.processItem(data);
 				RecordManager.setProjectDetail(item);
 				$rootScope.$broadcast('do-scopeApply');
