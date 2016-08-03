@@ -210,9 +210,12 @@ body {
 }
 #user-auth-area a.btn { 
 	float: right; padding: 0 .8em; margin: 0 1em;
-	background-color: #38e; 
+	background-color: #38e; border: 2px solid transparent;
 }
 
+#user-auth-area a.btn:hover {
+	border: 2px solid #22f;
+}
 .well { 
 	background-color: white !important;
 	margin-bottom: .8em; 
