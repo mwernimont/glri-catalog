@@ -14,6 +14,8 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	
 	$scope.editMode = false;
 	
+	$scope.loading = false;
+	
 	// custom year accept along with full date format with default impl
 	var yearRx = new RegExp(/^\d\d\d\d$/);
 	var dateRx = new RegExp(/^\d\d\d\d-\d\d-\d\d$/);
@@ -295,9 +297,9 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			console.log(Status.currentItem)
 			$scope.project = Status.currentItem;
 		} else {
-			//TODO loading mask
+			$scope.loading = true;
 			ScienceBase.getItemPromise(id).success(function(data, status, headers, config) {
-				//TODO remove loading mask
+				$scope.loading = false;
 				$scope.project = ScienceBase.processItem(data);
 			});
 		}

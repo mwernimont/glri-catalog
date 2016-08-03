@@ -804,3 +804,10 @@ left: 60px; /*position where enlarged image should offset horizontally */
 	width :20px;
 	margin-left:10px;
 }
+
+#projectFormLoadingMessage {
+	text-align: center;
+	font-size: x-large;
+	padding: 5em;
+	height: 100em;
+}
