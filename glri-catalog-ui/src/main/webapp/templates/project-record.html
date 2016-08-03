@@ -5,7 +5,7 @@
 		</a>
 	</div>
 	<div class="edit-link" ng-if="record.userCanEdit">
-		<a class="btn btn-small" title="Because you have a role on this project, you may edit it.  Click to edit" href="{{record.url}}" target="_blank">Edit this project</a>
+		<a class="btn btn-small" title="Because you have a role on this project, you may edit it.  Click to edit" prevent-default href="javascript:void(0)" ng-click="nav.setPath('Projects/' + record.id)">Edit this Project</a>
 	</div>
 	<h4 ng-bind-html="record.title"></h4>
 	<p class="point-of-contact" ng-bind-html="record.contactText"></p>
