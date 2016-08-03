@@ -19,8 +19,8 @@
 <% if (request.getRemoteUser() != null) { %>
 				<div class="logged-in">
 					<a class="btn btn-small" href="${pageContext.request.contextPath}/logout.jsp">Logout</a>
-					<a class="btn btn-small" ng-if="!nav.isBasePath('Projects')" prevent-default href="javascript:void(0)" ng-click="nav.setPath('Projects')">Project Form</a>
-					<a class="btn btn-small" ng-if="nav.isBasePath('Projects')" prevent-default href="javascript:void(0)" ng-click="nav.setPath('Home')">Home</a>
+					<a class="btn btn-small project-btn" ng-if="!nav.isBasePath('Projects')" prevent-default href="javascript:void(0)" ng-click="nav.setPath('Projects')">Project Form</a>
+					<a class="btn btn-small home-btn" ng-if="nav.isBasePath('Projects')" prevent-default href="javascript:void(0)" ng-click="nav.setPath('Home')">Home</a>
 					<p class="logged-in-as" title="You are logged in"><i id="user-name"><%= request.getRemoteUser() %></i> </p>
 				</div>
 <% } else { %>
