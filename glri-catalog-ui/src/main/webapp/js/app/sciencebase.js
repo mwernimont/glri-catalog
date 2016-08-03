@@ -462,6 +462,7 @@ function($http, Status, FocusAreaManager, $rootScope, userService){
 			+"fields=" +encodeURI("url,summary,tags,title,contacts,hasChildren,webLinks,purpose,body,dateCreated,parentId,facets,dates,browseCategories");
 		return url;
 	}
+	
 	ctx.buildSearchUrl = function(model) {
 		var url = Status.CONST.BASE_QUERY_URL;
 		
@@ -531,8 +532,12 @@ function($http, Status, FocusAreaManager, $rootScope, userService){
 				key: "", display:"(!) Failed to load list", sort: 0
 			});
 		});
-	}	
+	};	
 
+	ctx.getItemPromise = function(item_id) {
+		var url = baseURL+"/catalog/item/"+ item_id +"?format=json"
+		return $http.get(url);
+	};
 	
 	init();
 	
