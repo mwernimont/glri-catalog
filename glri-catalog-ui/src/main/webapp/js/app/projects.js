@@ -191,6 +191,39 @@ GLRICatalogApp.service('Projects',
 		return concatStrings([principal, chief, orgs, contacts]);
 	}
 	
+	var extractContact = function(sbContacts, glriProj, target, type) {
+		
+		var contact = "";
+		
+		for(var i = 0; i < sbContacts.length; i++) {
+			var c = sbContacts[i];
+			if(c.type == type) {
+				var contactString = c.name;
+				
+				if(c.email) {
+					contactString += " " + c.email
+				}
+				
+				if(contact) {
+					contact += ", ";
+				}
+				
+				contact += contactString;
+			}
+		}
+		
+		if(contact) {
+			glriProj[target] = contact;
+		}
+	}
+	
+	var extractContacts = function(sbContacts, glriProj) {
+		extractContact(sbContacts, glriProj, "principal", CONTACT_PRINCIPAL);
+		extractContact(sbContacts, glriProj, "chief", CONTACT_CHIEF);
+		extractContact(sbContacts, glriProj, "organizations", CONTACT_ORG);
+		extractContact(sbContacts, glriProj, "contacts", CONTACT_TEAM);
+	}
+	
 	/*
 	 * Parses a list of comma delimited contacts, passing each piece to the singleItemParseFunction.
 	 * 
@@ -643,7 +676,7 @@ GLRICatalogApp.service('Projects',
 		
 		extractBodyValues(sbProj.body, glriProj);
 		
-		//TODO revers contacts conversion, place data needed in glri object fields
+		extractContacts(sbProj.contacts, glriProj);
 		
 		console.log(glriProj)
 		return glriProj;
