@@ -77,6 +77,9 @@ GLRICatalogApp.service('Projects',
 	var VOCAB_TEMPLATE = "category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates"
 	var VOCAB_WATER    = "category/Great%20Lakes%20Restoration%20Initiative/GLRIWaterFeature"
 	
+	var toFullSchemeUri = function(scheme) {
+		return "https://www.sciencebase.gov/vocab/" + scheme;
+	}
 		
 	var createTag = function(scheme, name) {
 		if (scheme === undefined) {
@@ -88,7 +91,7 @@ GLRICatalogApp.service('Projects',
 		var tag =
 			'{'+
 			    '"type": "Label",'+
-			    '"scheme": "https://www.sciencebase.gov/vocab/'+scheme+'",'+
+			    '"scheme": "'+toFullSchemeUri(scheme)+'",'+
 			    '"name": "'+name+'"'+
 			'}'
 		return tag;
@@ -134,7 +137,29 @@ GLRICatalogApp.service('Projects',
 		body += concatIfExists("<h4>Goals &amp; Objectives<\/h4> ", data.objectives);
 		body += concatIfExists("<h4>Relevance &amp; Impact<\/h4> ", data.impact);
 		body += concatIfExists("<h4>Planned Products<\/h4> ", data.product);
-		return body
+		return body;
+	}
+	
+	var extractBodyValues = function(sbBody, glriProj) {
+		extractFromBodyString(sbBody, glriProj, "work", "<h4>Description of Work<\/h4> ");
+		extractFromBodyString(sbBody, glriProj, "objectives", "<h4>Goals &amp; Objectives<\/h4> ");
+		extractFromBodyString(sbBody, glriProj, "impact", "<h4>Relevance &amp; Impact<\/h4> ");
+		extractFromBodyString(sbBody, glriProj, "product", "<h4>Planned Products<\/h4> ");
+	}
+	 
+	var extractFromBodyString = function(sbBody, glriProj, target, label) {
+		var result = sbBody;
+		var startIndex = sbBody.indexOf(label);
+		
+		result = result.substring(startIndex + label.length);
+		
+		var endIndex = result.indexOf("<h4");
+		if(endIndex >= 0) {
+			result = result.substring(0, endIndex);
+		}
+		if(result) {
+			glriProj[target] = result.trim();
+		}
 	}
 	
 	var buildTags = function(data) {
@@ -143,6 +168,7 @@ GLRICatalogApp.service('Projects',
 		var spatial   = createTag(VOCAB_KEYWORD,data.spatial);
 		var entryType = createTag(VOCAB_KEYWORD,data.entryType);
 		var duration  = createTag(VOCAB_KEYWORD,data.duration);
+		
 		// comma separated tags
 		var keywords  = concatTagsComma(VOCAB_KEYWORD,data.keywords);
 		// multi-select tags
@@ -154,7 +180,7 @@ GLRICatalogApp.service('Projects',
 		var water     = concatTagsSelect(VOCAB_WATER,data.water);
 		var templates = concatTagsSelect(VOCAB_TEMPLATE,data.templates);
 	
-		return concatStrings([focus, keywords, sigl, glri, water, templates, spatial, entryType, duration])
+		return concatStrings([focus, keywords, sigl, glri, water, templates, spatial, entryType, duration]);
 	}
 	
 	var buildContacts = function(data) {
@@ -481,12 +507,90 @@ GLRICatalogApp.service('Projects',
 		return newProject;
 	};
 	
+	var extractTag = function(tags, glriProj, target, scheme, limitToValues) {
+		for(var i = 0; i < tags.length; i++) {
+			var fullScheme = toFullSchemeUri(scheme);
+			if(tags[i].scheme === fullScheme) {
+				if(limitToValues) { //only select a value that's also in this list if provided
+					for(var v in limitToValues) {
+						if(limitToValues[v] === tags[i].name) {
+							glriProj[target] = tags[i].name;
+							return;
+						}
+					}
+				} else {
+					glriProj[target] = tags[i].name;
+					return;
+				}
+			}
+		}
+	}
+	
+	var extractTagsAsCsv = function(tags, glriProj, target, scheme, excludeValues) {
+		var tagValues = [];
+		
+		for(var i = 0; i < tags.length; i++) {
+			var fullScheme = toFullSchemeUri(scheme);
+			if(tags[i].scheme === fullScheme) {
+				var tagVal = tags[i].name;
+				var exclude = false;
+				
+				if(excludeValues) {
+					for(var j = 0; j < excludeValues.length; j++) {
+						if(excludeValues[j] == tagVal) {
+							exclude = true;
+							break;
+						}
+					}
+				}
+				
+				if(!exclude) {
+					tagValues.push(tagVal)
+				}
+			}
+		}
+		
+		var tagsAsList = "";
+		for(var t in tagValues) {
+			tagsAsList += tagValues[t] + ", ";
+		}
+		tagsAsList = tagsAsList.substring(0, tagsAsList.length-2);
+		
+		glriProj[target] = tagsAsList;
+	}
+	
+	var extractTagsAsArray = function(tags, glriProj, target, scheme) {
+		var tagValues = [];
+		
+		for(var i = 0; i < tags.length; i++) {
+			var fullScheme = toFullSchemeUri(scheme);
+			if(tags[i].scheme === fullScheme) {
+				var tagVal = tags[i].name;
+				tagValues.push({key: tagVal, display: tagVal})
+			}
+		}
+		
+		glriProj[target] = tagValues;
+	}
+	
+	var getSelectOptions = function(id) {
+		var list = [];
+		
+		$("#" + id + " option").each(function(){
+		    list.push($(this).val());
+		});
+		return list;
+	}
+	
 	/**
 	 * Converts a science base project item into the the json format that is currently
 	 * used on the project form. 
 	 */
 	ctx.convertToGlriProject = function(sbProj) {
+		console.log(sbProj)
+		
 		var glriProj = {
+			dmPlan: "agree", //TODO, should users be required to Agree to terms again for edits?
 			title: sbProj.title,
 			purpose: sbProj.purpose,
 			status: sbProj.facets[0].projectStatus,
@@ -506,9 +610,11 @@ GLRICatalogApp.service('Projects',
 			var dt = sbProj.dates[i];
 			if(dt.type == "Start") {
 				glriProj.startDate = dt.dateString;
+				glriProj.startDateNg = dt.dateString;
 			}
 			if(dt.type == "End") {
 				glriProj.endDate = dt.dateString;
+				glriProj.endDateNg = dt.dateString;
 			}
 		}
 		
@@ -518,15 +624,28 @@ GLRICatalogApp.service('Projects',
 			if(tag.type == "Creator") {
 				glriProj.username = tag.name;
 			}
-			
-			//TODO move rest of tags to corresponding glri object fields
 		}
 		
-		//TODO reverse body conversion, place data needed in glri object fields
+		var tags = sbProj.tags;
 		
-		//TODO revers contactsn conversion, place data needed in glri object fields
+		extractTag(tags, glriProj, "focusArea", VOCAB_FOCUS);
+		extractTag(tags, glriProj, "spatial", VOCAB_KEYWORD, getSelectOptions("spatial"));
+		extractTag(tags, glriProj, "entryType", VOCAB_KEYWORD, getSelectOptions("entry_type"));
+		extractTag(tags, glriProj, "duration", VOCAB_KEYWORD, getSelectOptions("duration"));
 		
+		// comma separated keywords
+		extractTagsAsCsv(tags, glriProj, "keywords", VOCAB_KEYWORD, [glriProj.spatial, glriProj.entryType, glriProj.duration]);
 		
+		// multi-select tags
+		extractTagsAsArray(tags, glriProj, "SiGL", VOCAB_SIGL);
+		extractTagsAsArray(tags, glriProj, "water", VOCAB_WATER);
+		extractTagsAsArray(tags, glriProj, "templates", VOCAB_TEMPLATE);
+		
+		extractBodyValues(sbProj.body, glriProj);
+		
+		//TODO revers contacts conversion, place data needed in glri object fields
+		
+		console.log(glriProj)
 		return glriProj;
 	}
 }])

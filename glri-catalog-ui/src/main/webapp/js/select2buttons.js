@@ -78,5 +78,9 @@ jQuery.fn.select2Buttons = function(options) {
       $(select.find('option')[$(this).attr('data-select-index')]).attr('selected', 'selected');
       select.trigger('change');
     });
+    
+    select.change(function(){
+    	//TODO need to update the buttons when angular updates the model/select
+    });
   });
 };
