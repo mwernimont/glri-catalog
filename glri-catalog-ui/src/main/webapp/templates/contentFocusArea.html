@@ -29,11 +29,12 @@
 		
 		<ul id="contentRecords" class="browse-results" >
 		
-			<li ng-repeat="project in status.currentProjectList | orderBy:'dateCreated':true" ng-click="selectProject(project.item)">
+			<li ng-repeat="project in status.currentProjectList | orderBy:'dateCreated':true" ng-click="selectProject(project)">
 				
 				<h3 ng-bind-html="project.title"></h3>
+				<h3 ng-bind-html="project.userCanEdit"></h3>
 				<div class="edit-link" ng-if="project.userCanEdit">
-					<a class="btn btn-small" title="Because you have a role on this project, you may edit it.  Click to edit" prevent-default href="javascript:void(0)" ng-click="nav.setPath('Projects/{{project.id}}')">Edit this project</a>
+					<a class="btn btn-small" title="Because you have a role on this project, you may edit it.  Click to edit" prevent-default href="javascript:void(0)" ng-click="nav.setPath('Projects/' + project.id)">Edit this project</a>
 				</div>
 				
 				<p> Template<span ng-if="project.templates.length && project.templates.length>1">s</span>: 
@@ -41,7 +42,7 @@
 					<span ng-if="!project.templates.length || project.templates.length==0">none</span>
 				</p>
 				
-				<p ng-bind-html="project.contacts"></p>
+				<p ng-bind-html="project.contactText"></p>
 				
 			</li>
 			
