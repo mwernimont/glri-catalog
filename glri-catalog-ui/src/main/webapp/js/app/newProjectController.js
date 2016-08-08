@@ -270,16 +270,12 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	};
 	
 	var radiofySelect2 = function() {
-		// do not perform select2buttons actions during unit tests
-//		TODO reenable after angular binding is fixed for plugin
-//		if ($("#dmPlan").length) {
-//			$("#dmPlan").select2Buttons({noDefault: true});
-//			$("#project_status").select2Buttons({noDefault: true});
-//			$("#duration").select2Buttons({noDefault: true});
-//			$("#entry_type").select2Buttons({noDefault: true});
-//			$("#spatial").select2Buttons({noDefault: true});
-//			$("#focus_area").select2Buttons({noDefault: true});
-//		}
+		$("#dmPlan").select2Buttons({noDefault: true}).refreshSelect2Button();
+		$("#project_status").select2Buttons({noDefault: true}).refreshSelect2Button();
+		$("#duration").select2Buttons({noDefault: true}).refreshSelect2Button();
+		$("#entry_type").select2Buttons({noDefault: true}).refreshSelect2Button();
+		$("#spatial").select2Buttons({noDefault: true}).refreshSelect2Button();
+		$("#focus_area").select2Buttons({noDefault: true}).refreshSelect2Button();
 	}
 
 	var loadAndBindProject = function(pid) {
@@ -288,6 +284,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			$scope.loading = false;	
 			setTimeout(function() { //need this timeout to give select2 a chance to render
 				$scope.project = projectsService.convertToGlriProject(ScienceBase.processItem(data));
+				setTimeout(radiofySelect2, 100);
 			}, 100);
 		});
 	}
@@ -298,7 +295,9 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		$scope.editMode = true;
 		var id = parts[2];
 		loadAndBindProject(id);
-	} 
+	} else {
+		radiofySelect2();
+	}
 	
-	radiofySelect2();
+	
 }]);
