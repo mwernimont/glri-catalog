@@ -1,10 +1,11 @@
 GLRICatalogApp.controller('ProjectCtrl', 
-['$scope', '$http', '$filter', '$location', 'Status', 'ScienceBase', "Projects",
-function($scope, $http, $filter, $location, Status, ScienceBase, projectsService) {
+['$scope', '$http', '$filter', '$location', 'Status', 'ScienceBase', "Projects", "FocusAreaManager",
+function($scope, $http, $filter, $location, Status, ScienceBase, projectsService, focusAreaManager) {
 	$scope.contactPattern = /^[\w\s]+ [\w\d\.]+@[\w\d]+\.\w+$/;
 	$scope.project = {};
 	$scope.dateOptions = {
 		  };	
+	$scope.focusAreas = focusAreaManager.areasByType;
 	
 	$scope.transient= Status;
 	$scope.status = {showStart:false, showFinish:false, mode:'year'};
@@ -268,43 +269,27 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		)	
 	};
 	
-	var select2focusArea = function(){
-		if ( Status.focus_areas.length > 1 ) {
-			var options = "";
-			for (f in Status.focus_areas) { // value=" + focus.display + "
-				options += "<option>"+Status.focus_areas[f].display+"</option>"
-			}
-			$("#focus_area").html(options);
-			$("#focus_area").select2Buttons({noDefault: true});
-			
-			// do not perform select2buttons actions during unit tests
-			if ($("#dmPlan").length) {
-			  $("#dmPlan").select2Buttons({noDefault: true});
-			  $("#project_status").select2Buttons({noDefault: true});
-			  $("#duration").select2Buttons({noDefault: true});
-			  $("#entry_type").select2Buttons({noDefault: true});
-			  $("#spatial").select2Buttons({noDefault: true});
-			}
-		} else {
-			setTimeout(select2focusArea,100);
-		}
+	var radiofySelect2 = function() {
+		// do not perform select2buttons actions during unit tests
+//		TODO reenable after angular binding is fixed for plugin
+//		if ($("#dmPlan").length) {
+//			$("#dmPlan").select2Buttons({noDefault: true});
+//			$("#project_status").select2Buttons({noDefault: true});
+//			$("#duration").select2Buttons({noDefault: true});
+//			$("#entry_type").select2Buttons({noDefault: true});
+//			$("#spatial").select2Buttons({noDefault: true});
+//			$("#focus_area").select2Buttons({noDefault: true});
+//		}
 	}
-	
+
 	var loadAndBindProject = function(pid) {
-		if(Status.currentItem) {
-			$scope.project = projectsService.convertToGlriProject(Status.currentItem);
-		} else {
-			$scope.loading = true;
-			ScienceBase.getItemPromise(id).success(function(data, status, headers, config) {
-				$scope.loading = false;
+		$scope.loading = true;
+		ScienceBase.getItemPromise(pid).success(function(data, status, headers, config) {
+			$scope.loading = false;	
+			setTimeout(function() { //need this timeout to give select2 a chance to render
 				$scope.project = projectsService.convertToGlriProject(ScienceBase.processItem(data));
-			});
-		}
-		
-		//TODO, should users be required to Agree to terms again for edits?
-		$scope.project.dmPlan = true;
-		
-		setTimeout(select2focusArea,100);
+			}, 100);
+		});
 	}
 	
 	//check to see if we have a project ID, if so, load/bind the project data and set this form to edit mode
@@ -313,7 +298,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		$scope.editMode = true;
 		var id = parts[2];
 		loadAndBindProject(id);
-	} else {
-		setTimeout(select2focusArea,100);
-	}
+	} 
+	
+	radiofySelect2();
 }]);

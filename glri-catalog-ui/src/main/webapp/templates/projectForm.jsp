@@ -114,7 +114,7 @@
 								<input type="text"
 									class="form-control form-control form-field form-date form-optional"
 									style="width: 150px !important;" uib-datepicker-popup
-									model="project.endDate" ng-model="project.startDateNg"
+									model="project.endDate" ng-model="project.endDateNg"
 									is-open="status.showFinish" datepicker-options="dateOptions"
 									date-disabled="disabled(date, mode)" ng-required="false"
 									close-text="Close" datepicker-mode="status.mode" />
@@ -145,6 +145,7 @@
 					<div class="form-spacing" style="margin-left: 10px;">
 						Choose One. <select class="select2 form-control form-required"
 							id="focus_area" ng-model="project.focusArea">
+							<option ng-repeat="(key, value) in focusAreas" value="{{value.name}}">{{value.name}}</option>
 						</select>
 					</div>
 				</div>
