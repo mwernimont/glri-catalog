@@ -49,7 +49,7 @@
 		<script type="text/javascript" src="./js/app/projects.js"></script>
 		
 		<script type="text/javascript" src="./js/app/cida-analytics.js"></script>
-		<script type="application/javascript" src="http://www.usgs.gov/scripts/analytics/usgs-analytics.js"></script>
+		<script type="application/javascript" src="https://www2.usgs.gov/scripts/analytics/usgs-analytics.js"></script>
 
 		<!-- Twitter Bootstrap & theme-->
 		<link rel="stylesheet" type="text/css" href="./webjars/bootstrap/${bootstrap.version}/css/bootstrap.css">
