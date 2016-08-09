@@ -253,16 +253,16 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			function(resp) {
 				console.log(resp.data)
 				if (resp.data === undefined) {
-					saveFailed({data:"no response"});
-				} else if (resp.data.indexOf("Missing") >= 0) {
-					saveFailed(resp);
-				} else if (resp.data.indexOf('JSONObject["id"] not found') >=0) {
-					saveFailed({
-						data:"The submission failed for an unknown reason. " +
-							"Please double check the submission fields and try again. " +
-							"If the problem persists, email the Page Contact, listed at the bottom of the page."});
-				} else {
+					saveFailed({data:"No response received from the server"});
+				} else if (/^[0-9|a-f]*$/.test(resp.data)) {
+					//Success!
 					window.location = "index.jsp#/Browse/all/"+resp.data
+				} else {
+					saveFailed({
+						data:"The submission failed. " +
+							"Please double check the project fields and try again. " +
+							"If the problem persists, email the Page Contact, listed at the bottom of the page.  " +
+							"Here is the response from the server for reference: " + resp.data});
 				}
 			},
 			saveFailed
