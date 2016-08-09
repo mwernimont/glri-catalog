@@ -254,7 +254,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				console.log(resp.data)
 				if (resp.data === undefined) {
 					saveFailed({data:"No response received from the server"});
-				} else if ($.isNumeric(resp.data)) {
+				} else if (/^[0-9|a-f]*$/.test(resp.data)) {
 					//Success!
 					window.location = "index.jsp#/Browse/all/"+resp.data
 				} else {
