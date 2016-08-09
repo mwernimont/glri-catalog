@@ -22,20 +22,25 @@ GLRICatalogApp.directive("glriHome",[function(){
 }])
 
 
-GLRICatalogApp.directive("glriProjectDetail",[function(){
+GLRICatalogApp.directive("glriProjectDetail",['Status', 'Nav', function(status, nav){
 	return {
 		restrict   : 'E', //AEC
 		replace    : true,
 		transclude : true,
-		scope      : true,
+		scope      : {},
 		templateUrl: 'templates/contentProjectDetail.html',
+		
+		controller : function($scope) {
+			$scope.record = status.currentItem;
+			$scope.nav = nav;
+		}
 	}	
 }])
 
 
 GLRICatalogApp.directive("glriFocusArea",
 ['Status', 'RecordManager', 'Nav', 'FocusAreaManager',
-function(Status, RecordManager, Nav, FocusAreaManager) {
+function(Status, RecordManager, nav, FocusAreaManager) {
 	
 	return {
 		restrict   : 'E', //AEC
@@ -48,6 +53,7 @@ function(Status, RecordManager, Nav, FocusAreaManager) {
 			
 			$scope.baseQueryUrl  = Status.CONST.BASE_QUERY_URL;
 			$scope.status        = Status;
+			$scope.nav			= nav;
 			
 			
 			$scope.currentFocusArea = function() {
@@ -65,7 +71,7 @@ function(Status, RecordManager, Nav, FocusAreaManager) {
 			
 			$scope.selectProject = function(projectItem) {
 				RecordManager.setProjectDetail(projectItem);
-				Nav.addPath(projectItem.id)
+				$scope.nav.addPath(projectItem.id)
 			}
 			
 		}

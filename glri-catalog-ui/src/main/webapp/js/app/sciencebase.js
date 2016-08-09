@@ -160,12 +160,18 @@ function($http, Status, FocusAreaManager, $rootScope, userService){
 				var tags = item.tags;
 				
 				if (tags) {
+					var focusAreasForProject = [];
 					for (var j = 0; j < tags.length; j++) {
 						var tag = tags[j];
 						if (Status.CONST.FOCUS_AREA_SCHEME == tag.scheme) {
-							FocusAreaManager.addProjectToFocusArea(item, tag.name);
+							focusAreasForProject.push(tag.name);
 						}
 					}
+					
+					if (focusAreasForProject.length > 0) {
+						FocusAreaManager.addProjectToFocusArea(item, focusAreasForProject);
+					}
+
 				}
 				
 			}

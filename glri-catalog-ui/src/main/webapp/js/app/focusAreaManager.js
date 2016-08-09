@@ -87,26 +87,25 @@ function(Status) {
 	/**
 	 * Adds an Item returned from the Science Base query to the tab data structure.
 	 * 
-	 * @param {type} sbItem
-	 * @param {type} focusArea
+	 * @param {type} project - A processed SB Item that is a project
+	 * @param {type} focusAreaNames - A single focus area or an array of focus areas
 	 * @returns {project}
 	 */
-	ctx.addProjectToFocusArea = function(item, focusAreaName) {
-		
-		var project = {
-			title:      item.title,
-			id:         item.id,
-			item:       item,
-			dateCreated:item.dateCreated,
-			contacts:   item.contactText,
-			templates:  item.templates,
-		};
+	ctx.addProjectToFocusArea = function(project, focusAreaNames) {
 		
 		//asdf this is a bit strange
-		var focusArea = ctx.areasByName[focusAreaName];
-		var fa = ctx.areasByType[focusArea];
-		
-		fa.items.push(project);
+		if (focusAreaNames.length) {	//treat as an array
+			for (var i = 0; i < focusAreaNames.length; i++) {
+				var focusArea = ctx.areasByName[focusAreaNames[i]];
+				var fa = ctx.areasByType[focusArea];
+				fa.items.push(project);
+			}
+		} else {	//treat as a string
+			var focusArea = ctx.areasByName[focusAreaNames];
+			var fa = ctx.areasByType[focusArea];
+			fa.items.push(project);
+		}
+
 		ctx.areasByType['all'].items.push(project);
 		
 		return project;
