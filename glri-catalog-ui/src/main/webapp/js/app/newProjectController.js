@@ -284,8 +284,9 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			$scope.loading = false;	
 			setTimeout(function() { //need this timeout to give select2 a chance to render
 				$scope.project = projectsService.convertToGlriProject(ScienceBase.processItem(data));
-				setTimeout(radiofySelect2, 100);
-			}, 100);
+				$scope.$apply();
+				setTimeout(radiofySelect2, 200);
+			}, 200);
 		});
 	}
 	
