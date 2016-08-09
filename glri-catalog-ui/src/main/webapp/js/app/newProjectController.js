@@ -296,7 +296,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		var id = parts[2];
 		loadAndBindProject(id);
 	} else {
-		radiofySelect2();
+		setTimeout(radiofySelect2, 100);
 	}
 	
 	
