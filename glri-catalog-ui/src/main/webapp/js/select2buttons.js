@@ -84,10 +84,12 @@ jQuery.fn.select2Buttons = function(options) {
 jQuery.fn.refreshSelect2Button = function(options) {
 	return this.each(function(){
 		var select = $(this);
-		var selectIndex = select.prop('selectedIndex')
 		var buttonsHtml = select.next()
+		var selectedText = select.find('option[value="'+select.val()+'"]').text();
 		
 		buttonsHtml.find('a, span').removeClass('picked');
-		buttonsHtml.find('a[data-select-index='+selectIndex+']').addClass('picked');
+		buttonsHtml.find('a').filter(function() {
+		    return $(this).text() === selectedText;
+		}).addClass('picked');
 	});
 };
