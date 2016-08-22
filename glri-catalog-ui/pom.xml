@@ -383,12 +383,15 @@
 							<source>src/main/webapp/js/app/main.js</source>
 							<source>src/main/webapp/js/app/focusAreaManager.js</source>
 							<source>src/main/webapp/js/app/sciencebase.js</source>
+							<source>src/main/webapp/js/app/nav.js</source>
 							<source>src/main/webapp/js/app/controller.js</source>
+							<source>src/main/webapp/js/app/newProjectController.js</source>
 							<source>src/main/webapp/js/app/recordManager.js</source>
 							<source>src/main/webapp/js/app/pagination.js</source>
 							<source>src/main/webapp/js/app/search.js</source>
 							<source>src/main/webapp/js/app/directives.js</source>
-							<source>src/main/webapp/js/app/newProjectForm.js</source>
+							<source>src/main/webapp/js/app/projects.js</source>
+							<source>src/main/webapp/js/app/cida-analytics.js</source>
                         </preloadSources>
                         
                         <jsTestSrcDir>src/test/js/specs</jsTestSrcDir>
