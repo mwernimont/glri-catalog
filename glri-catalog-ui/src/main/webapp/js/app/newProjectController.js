@@ -232,7 +232,6 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	
 	
 	$scope.save = function() {
-		console.log($scope.project);
 
 		if ("agree" !== $scope.project.dmPlan) {
 			var field = $("#dmPlan");
@@ -245,9 +244,10 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		}
 		
 		var project = projectsService.buildNewProject($scope.project);
-
+		
 		console.log(project);
-
+		
+		/* Temporarily Disable Saving Reports for Debugging
 		$http.post('saveProject', project)
 		.then(
 			function(resp) {
@@ -266,7 +266,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				}
 			},
 			saveFailed
-		)	
+		)*/
 	};
 	
 	var radiofySelect2 = function() {

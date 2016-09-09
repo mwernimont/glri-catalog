@@ -12,14 +12,14 @@ GLRICatalogApp.service('Projects',
 			return label + additional;
 		}
 		return "";
-	}
+	};
 	
 	var splitComma = function(text) {
 		if (text === undefined || typeof text !== 'string') {
 			return [];
 		}
 		return text.split(/\s*,\s*/);
-	}
+	};
 	
 	/**
 	 * Populates the 'fill in' values of contact objects and returns a JSON string.
@@ -28,19 +28,23 @@ GLRICatalogApp.service('Projects',
 	 * @returns {String}
 	 */
 	var createContact = function(type, contact) {
-		
 		if (contact === undefined) {
-			return "";
+			return {};
 		}
 		
-		contact.active = true;
-		contact.type = type;
-		contact.contactType= "person";
+		var newContact = {
+			name: contact.name,
+			email: contact.email,
+			active: true,
+			type: type,
+			contactType: "person"
+		};
+		
 		if (CONTACT_ORG === type) {
-			contact.contactType= "organization";
+			newContact.contactType= "organization";
 		}
 		
-		return angular.toJson(contact);
+		return newContact;
 	};
 	
 	/**
@@ -66,20 +70,20 @@ GLRICatalogApp.service('Projects',
 		
 		var jsonContacts = [];
 		for (var c=0; c<contacts.length; c++) {
-			jsonContacts.push( createContact(type, contacts[c]) );
+			jsonContacts.push(createContact(type, contacts[c]) );
 		}
-		return concatStrings(jsonContacts);
+		return jsonContacts;
 	};
 	
-	var VOCAB_FOCUS    = "category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea"
-	var VOCAB_KEYWORD  = "GLRI/keyword"
-	var VOCAB_SIGL     = "category/Great%20Lakes%20Restoration%20Initiative/SiGLProjectObjective"
-	var VOCAB_TEMPLATE = "category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates"
-	var VOCAB_WATER    = "category/Great%20Lakes%20Restoration%20Initiative/GLRIWaterFeature"
+	var VOCAB_FOCUS    = "category/Great%20Lakes%20Restoration%20Initiative/GLRIFocusArea";
+	var VOCAB_KEYWORD  = "GLRI/keyword";
+	var VOCAB_SIGL     = "category/Great%20Lakes%20Restoration%20Initiative/SiGLProjectObjective";
+	var VOCAB_TEMPLATE = "category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates";
+	var VOCAB_WATER    = "category/Great%20Lakes%20Restoration%20Initiative/GLRIWaterFeature";
 	
 	var toFullSchemeUri = function(scheme) {
 		return "https://www.sciencebase.gov/vocab/" + scheme;
-	}
+	};
 		
 	var createTag = function(scheme, name) {
 		if (scheme === undefined) {
@@ -88,64 +92,69 @@ GLRICatalogApp.service('Projects',
 		if (name === undefined) {
 			name = "";
 		}
-		var tag =
-			'{'+
-			    '"type": "Label",'+
-			    '"scheme": "'+toFullSchemeUri(scheme)+'",'+
-			    '"name": "'+name+'"'+
-			'}'
+	
+		var tag = {
+			type: "Label",
+			scheme: toFullSchemeUri(scheme),
+			name: name
+		};
+		
 		return tag;
-	}
+	};
 	
 	// split and process many tags separated by comma
 	var concatTagsComma = function(scheme, tags) {
-		tags = splitComma(tags)
+		if (!tags) {
+			return [];
+		}
 		
-		var commaTags = []
+		tags = splitComma(tags);		
+		var commaTags = [];		
 		for (var tag=0; tag<tags.length; tag++) {
 			commaTags.push( createTag(scheme, tags[tag].trim()) );
 		}
-		return concatStrings(commaTags);
-	}
+		return commaTags;
+	};
 	
 	// select form control creates an object of multiple select values
 	var concatTagsSelect = function(scheme, tags) {
 		if (!tags) {
-			return "";
+			return [];
 		}
-		var selectTags = []
+		
+		var selectTags = [];
 		for (var tag=0; tag<tags.length; tag++) {
 			selectTags.push( createTag(scheme, tags[tag].display) );
 		}
-		return concatStrings(selectTags);
-	}
+		return selectTags;
+	};
 	
 	var concatStrings = function(strings) {
-		var sep = ""
-		var all = ""
+		var sep = "";
+		var all = "";
 		for (var c=0; c<strings.length; c++ ) {
 			if (strings[c] === "") continue;
 			all += sep + strings[c];
 			sep = ",";
 		}
 		return all;
-	}
+	};
 	
-	var buildBody = function(data) {
+	var buildBodyString = function(data) {
 		var body = "";
 		body += concatIfExists("<h4>Description of Work<\/h4> ", data.work);
 		body += concatIfExists("<h4>Goals &amp; Objectives<\/h4> ", data.objectives);
 		body += concatIfExists("<h4>Relevance &amp; Impact<\/h4> ", data.impact);
 		body += concatIfExists("<h4>Planned Products<\/h4> ", data.product);
 		return body;
-	}
+	};
 	
 	var extractBodyValues = function(sbBody, glriProj) {
 		extractFromBodyString(sbBody, glriProj, "work", "<h4>Description of Work<\/h4> ");
 		extractFromBodyString(sbBody, glriProj, "objectives", "<h4>Goals &amp; Objectives<\/h4> ");
 		extractFromBodyString(sbBody, glriProj, "impact", "<h4>Relevance &amp; Impact<\/h4> ");
 		extractFromBodyString(sbBody, glriProj, "product", "<h4>Planned Products<\/h4> ");
-	}
+	};
 	 
 	var extractFromBodyString = function(sbBody, glriProj, target, label) {
 		var result = sbBody;
@@ -160,7 +169,7 @@ GLRICatalogApp.service('Projects',
 		if(result) {
 			glriProj[target] = result.trim();
 		}
-	}
+	};
 	
 	var buildTags = function(data) {
 		// single entry tags
@@ -171,25 +180,35 @@ GLRICatalogApp.service('Projects',
 		
 		// comma separated tags
 		var keywords  = concatTagsComma(VOCAB_KEYWORD,data.keywords);
+		
 		// multi-select tags
 		var sigl      = concatTagsSelect(VOCAB_SIGL,data.SiGL);
-		var glri      = ""
+		var glri      = {};
 		if (sigl.indexOf('GLRI') < 0) {
 			glri      = createTag(VOCAB_SIGL,"GLRI"); // ensure a default SiGL tag for GLRI if not added
 		}
 		var water     = concatTagsSelect(VOCAB_WATER,data.water);
 		var templates = concatTagsSelect(VOCAB_TEMPLATE,data.templates);
+		
+		var glriId = {
+			name: "Great Lakes Restoration Initiative"
+		};
+		
+		var creator = {
+			type: "Creator",
+			name: data.username
+		};
 	
-		return concatStrings([focus, keywords, sigl, glri, water, templates, spatial, entryType, duration]);
-	}
+		return [].concat.apply([], [focus, keywords, sigl, glri, water, templates, spatial, entryType, duration, glriId, creator]);
+	};
 	
 	var buildContacts = function(data) {
 		var principal = createContacts(CONTACT_PRINCIPAL,data.principal);
 		var chief     = createContacts(CONTACT_CHIEF,data.chief);
 		var orgs      = createContacts(CONTACT_ORG,data.organizations ||""); // optional
 		var contacts  = createContacts(CONTACT_TEAM,data.contacts ||""); // optional
-		return concatStrings([principal, chief, orgs, contacts]);
-	}
+		return [].concat.apply([], [principal, chief, orgs, contacts]);
+	};
 	
 	var extractContact = function(sbContacts, glriProj, target, type) {
 		
@@ -201,7 +220,7 @@ GLRICatalogApp.service('Projects',
 				var contactString = c.name;
 				
 				if(c.email) {
-					contactString += " " + c.email
+					contactString += " " + c.email;
 				}
 				
 				if(contact) {
@@ -215,14 +234,14 @@ GLRICatalogApp.service('Projects',
 		if(contact) {
 			glriProj[target] = contact;
 		}
-	}
+	};
 	
 	var extractContacts = function(sbContacts, glriProj) {
 		extractContact(sbContacts, glriProj, "principal", CONTACT_PRINCIPAL);
 		extractContact(sbContacts, glriProj, "chief", CONTACT_CHIEF);
 		extractContact(sbContacts, glriProj, "organizations", CONTACT_ORG);
 		extractContact(sbContacts, glriProj, "contacts", CONTACT_TEAM);
-	}
+	};
 	
 	/*
 	 * Parses a list of comma delimited contacts, passing each piece to the singleItemParseFunction.
@@ -406,8 +425,6 @@ GLRICatalogApp.service('Projects',
 		
 		name = parsedStr;	//everything else has been carved out of the str.
 		
-		
-		
 		if (name==undefined || name.length == 0) {
 			return "No name was found for the organization '" + contactStr + "'. " + msgSuffix;
 		} else if (name.length <= 1) {
@@ -476,66 +493,71 @@ GLRICatalogApp.service('Projects',
 	};
 	
 	ctx.buildNewProject = function(data) {
-		
-		var body = buildBody(data);
-		var tags = buildTags(data);
-		var contacts = buildContacts(data);
-		
+		//Build required data
 		var id = "";
 		
 		if (data.id) {
-			id = '"id": "' +data.id+ '",';
+			id = data.id;
 		}
 		
-		var endDate   = "";
+		var body = buildBodyString(data);
+		var tags = buildTags(data);
+		var contacts = buildContacts(data);
+				
+		//Initial Structure holds all required data
+		var newProject = {
+			id: id,
+			title: data.title,
+			summary: "",
+			body: body,
+			purpose: data.purpose,
+			parentId: "52e6a0a0e4b012954a1a238a", //TODO what is this ID!? Is it a hardcoded value from a specific data store?
+			contacts: contacts,
+			browseCategories: ["Project"],
+			tags: tags,
+			dates: [
+				{
+					type: "Start",
+					dateString: data.startDate,
+					label: "Project Start Date"
+				}
+			],
+			facets: [
+				{
+					projectStatus: data.status,
+					projectProducts: [],
+					parts: [],
+					className: "gov.sciencebase.catalog.item.facet.ProjectFacet"
+				}
+			]
+		};
+		
+		//Build and append optional data
+		var endDate   = {};
 		if (data.endDate) { // TODO validation after start and year or full date
-			endDate =
-	        ',{'+
-		        '"type": "End",'+
-		        '"dateString": "'+data.endDate+'",'+
-		        '"label": "Project End Date"'+
-	        '}'
+			endDate = {
+				type: "End",
+				dateString: data.endDate,
+				label: "Project End Date"
+			};
+			
+			newProject.dates.push(endDate);
 		}
 		
-		var webLink = "";
-		if (data.image && data.image.trim().length > 0)
-		webLink = ',"webLinks": [{'+
-			'"title": "Thumbnail",'+
-			'"type": "browseImage",'+
-			'"typeLabel": "Browse Image",'+
-			'"uri": "'+data.image.trim()+'",'+
-			'"hidden": false'+
-		'}]';
-		
-		var newProject =
-		'{'+
-			id + '"title": "' +data.title+ '",'+
-		    '"summary": "",'+
-		    '"body": "' +body+ '",'+
-		    '"purpose": "' +data.purpose+ '",'+
-		    '"parentId": "52e6a0a0e4b012954a1a238a",'+ //TODO what is this ID!? Is it a hardcoded value from a specific data store?
-		    '"contacts": [' + contacts + '],'+
-		    '"browseCategories": ["Project"],'+
-		    '"tags": [' + tags + ',' +
-		       '{"name": "Great Lakes Restoration Initiative"},'+
-		       '{"type": "Creator","name": "'+ data.username +'"}'+
-		    '],'+
-		    '"dates": ['+
-		        '{'+
-		            '"type": "Start",'+
-		            '"dateString": "'+data.startDate+'",'+
-		            '"label": "Project Start Date"'+
-		        '}'+ endDate +
-		    '],'+
-		    '"facets": ['+
-		        '{'+
-		            '"projectStatus": "'+data.status+'",'+
-		            '"projectProducts": [],'+
-		            '"parts": [],'+
-		            '"className": "gov.sciencebase.catalog.item.facet.ProjectFacet"'+
-		        '}'+
-		    ']'+ webLink +
-	    '}'
+		var webLinks = {};
+		if (data.image && data.image.trim().length > 0){	
+			webLinks = [
+				{
+					title: "Tumbnail",
+					type: "browseImage",
+					typeLabel: "Browse Image",
+					uri: data.image.trim(),
+					hidden: false
+				}
+			];
+			
+			newProject.webLinks = webLinks;
+		}		
 		
 		return newProject;
 	};
