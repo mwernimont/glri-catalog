@@ -129,17 +129,6 @@ GLRICatalogApp.service('Projects',
 		return selectTags;
 	};
 	
-	var concatStrings = function(strings) {
-		var sep = "";
-		var all = "";
-		for (var c=0; c<strings.length; c++ ) {
-			if (strings[c] === "") continue;
-			all += sep + strings[c];
-			sep = ",";
-		}
-		return all;
-	};
-	
 	var buildBodyString = function(data) {
 		var body = "";
 		body += concatIfExists("<h4>Description of Work<\/h4> ", data.work);
@@ -584,7 +573,7 @@ GLRICatalogApp.service('Projects',
 				}
 			}
 		}
-	}
+	};
 	
 	var extractTagsAsCsv = function(tags, glriProj, target, scheme, excludeValues) {
 		var tagValues = [];
@@ -617,7 +606,7 @@ GLRICatalogApp.service('Projects',
 		tagsAsList = tagsAsList.substring(0, tagsAsList.length-2);
 		
 		glriProj[target] = tagsAsList;
-	}
+	};
 	
 	var extractTagsAsArray = function(tags, glriProj, target, scheme) {
 		var tagValues = [];
@@ -631,7 +620,7 @@ GLRICatalogApp.service('Projects',
 		}
 		
 		glriProj[target] = tagValues;
-	}
+	};
 	
 	var getSelectOptions = function(id) {
 		var list = [];
@@ -640,14 +629,14 @@ GLRICatalogApp.service('Projects',
 		    list.push($(this).val());
 		});
 		return list;
-	}
+	};
 	
 	/**
 	 * Converts a science base project item into the the json format that is currently
 	 * used on the project form. 
 	 */
 	ctx.convertToGlriProject = function(sbProj) {
-		console.log(sbProj)
+		console.log(sbProj);
 		
 		var glriProj = {
 			dmPlan: "agree", //TODO, should users be required to Agree to terms again for edits?
@@ -655,7 +644,7 @@ GLRICatalogApp.service('Projects',
 			purpose: sbProj.purpose,
 			status: sbProj.facets[0].projectStatus,
 			id: sbProj.id
-		}
+		};
 		
 		//find thumbnail
 		for(var i = 0; i < sbProj.webLinks.length; i++) {
@@ -705,7 +694,7 @@ GLRICatalogApp.service('Projects',
 		
 		extractContacts(sbProj.contacts, glriProj);
 		
-		console.log(glriProj)
+		console.log(glriProj);
 		return glriProj;
-	}
-}])
+	};
+}]);
