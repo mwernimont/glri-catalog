@@ -505,7 +505,7 @@ GLRICatalogApp.service('Projects',
 			summary: "",
 			body: body,
 			purpose: data.purpose,
-			parentId: "52e6a0a0e4b012954a1a238a", //TODO what is this ID!? Is it a hardcoded value from a specific data store?
+			parentId: "52e6a0a0e4b012954a1a238a", //TODO what is this ID!? Is it a hardcoded value from a specific data store? || Zack (9/9/16): It's the ID for GLRI in ScienceBase, sets the created item as a child of GLRI
 			contacts: contacts,
 			browseCategories: ["Project"],
 			tags: tags,

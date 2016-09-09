@@ -239,10 +239,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		if ( ! doValidation() ) {
 			return;
 		}
-		
-		console.log("SCIENCE BASE PROJECT");
-		console.log($scope.sbProject);
-		
+				
 		var glriNewProject = projectsService.buildNewProject($scope.project);
 		var project = undefined;
 				
@@ -253,7 +250,6 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			project = glriNewProject;
 		}
 		
-		console.log("Final Project JSON");
 		console.log(project);
 		
 		$http.post('saveProject', project)
