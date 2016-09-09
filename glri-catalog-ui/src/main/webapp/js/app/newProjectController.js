@@ -270,17 +270,64 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				}
 			},
 			saveFailed
-		)
+		);
 	};
 	
-	var applyJSONChanges = function(changes, replace) {
+	var applyJSONChanges = function(changes, original) {
 		for (var key in changes) {
 			if (changes.hasOwnProperty(key)) {
 				if($scope.sbProject.hasOwnProperty(key)) {
-					replace[key] = changes[key];
+					if(!Array.isArray(changes[key]) && !Array.isArray(original[key])){
+						original[key] = changes[key];
+					}			
 				}
 			}
 		}
+		
+		applyJSONArrayChanges(changes, original);
+	};
+	
+	var applyJSONArrayChanges = function(changes, original){
+		//Tags
+		var sbTags = original.tags.filter(function(obj) {
+			return obj.type !== "Label" && obj.type !== "Creator" && obj.name !== "Great Lakes Restoration Initiative";
+		});
+				
+		original.tags = changes.tags.concat(sbTags);
+		
+		//Contacts
+		var sbContacts = original.contacts.filter(function(obj) {
+			return obj.type !== "Associate Project Chief" && obj.type !== "Principal Investigator" && obj.type !== "Cooperator/Partner" && obj.type !== "Contact";
+		});
+		
+		original.contacts = changes.contacts.concat(sbContacts);
+		
+		//Weblinks
+		var sbWebLinks = original.webLinks.filter(function(obj) {
+			return obj.type !== "browseImage";
+		});
+		
+		original.webLinks = changes.webLinks.concat(sbWebLinks);
+	};
+	
+	//Helper function that was used in my first implementation but isn't currently. Worth keeping around for now until everything is settled.
+	var getUniqueElements = function(arr1, arr2, comparisonProperty) {
+		var uniqueArr1 = [];
+
+		//Identify tags that only exist in the original JSON and save them
+		for(var x in arr1){
+			var comparisonSet = arr2.filter(function(obj){
+				return obj[comparisonProperty] === obj[comparisonProperty];
+			});
+
+			if(comparisonSet.length > 0){
+				break;
+			} else {
+				uniqueArr1.push(x);
+			}
+		}
+		
+		return uniqueArr1.concat(arr2);
 	};
 	
 	var radiofySelect2 = function() {
