@@ -29,7 +29,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			$scope[model[0]][model[1]] = value;
 //			console.log(value)
 		}
-	}
+	};
 	$('.form-date').change(function(event) {
 		onDateChangeEvent(event.target);
 	});
@@ -37,31 +37,31 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		$(field+' .dropdown-menu button').click(function(){
 //			console.log('click')
 			setTimeout(function(){
-				listenToDateClicks('.startDate')
-				listenToDateClicks('.endDate')
+				listenToDateClicks('.startDate');
+				listenToDateClicks('.endDate');
 			});
 			onDateChangeEvent($(field+' input'));
 		});
-	}
+	};
 	$scope.showCalendar = function(which) {
 		if ('start'===which) { // TODO could be tightened up OOP
-			$scope.status.showStart = !$scope.status.showStart
+			$scope.status.showStart = !$scope.status.showStart;
 		} else if ('finish'===which) {
-			$scope.status.showFinish = !$scope.status.showFinish
+			$scope.status.showFinish = !$scope.status.showFinish;
 		}
 		setTimeout(function(){
-			listenToDateClicks('.startDate')
-			listenToDateClicks('.endDate')
+			listenToDateClicks('.startDate');
+			listenToDateClicks('.endDate');
 		});
-	}
+	};
 	
 	$scope.discard = function() {
 		$scope.project = {};
-	}
+	};
 	
 	var saveFailed = function(resp) {
 		alert("There was a problem saving the project -> " + resp.data);
-	}
+	};
 	
 	/** 
 	 * Scolls so that the el component is 200 px down from the top of the screen.
@@ -69,7 +69,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	 * components very close to the top.
 	 */
 	var scrollTo = function(element) {
-		var container  = $('html,body')
+		var container  = $('html,body');
 	    element = $(element);	//JQuery wrapped element (if not wrapped already)
 		var useEl = element;	//actual element offset from (may be a parent element)
 		var vPos = 0;	//Vert pixel position to scroll to
@@ -88,12 +88,11 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		
 		var scrollTop = {
 		    scrollTop: vPos
-		}
+		};
 		
 		//container.scrollTop(0);
 		container.animate(scrollTop);
-	}
-	
+	};
 	/**
 	 * Returns the nearest parent element that is visible (may be this element).
 	 * This is needed b/c Angular often hides the nominal input field and wraps
@@ -109,7 +108,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			element = element.parent();
 		}
 		return element;
-	}
+	};
 	
 	/**
 	 * Displays the div spec'ed by the msgElementId next to refElement
@@ -133,7 +132,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		
 		msgElement.css('top',absPos).delay(500).fadeIn(500);
 		setTimeout(function() {msgElement.fadeOut(500);}, 10000);
-	}
+	};
 
 	var doValidation = function() {
 		
@@ -228,11 +227,9 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		}
 		
 		return true;
-	}
-	
+	};
 	
 	$scope.save = function() {
-
 		if ("agree" !== $scope.project.dmPlan) {
 			var field = $("#dmPlan");
 			scrollTo(field);
@@ -243,11 +240,22 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			return;
 		}
 		
-		var project = projectsService.buildNewProject($scope.project);
+		console.log("SCIENCE BASE PROJECT");
+		console.log($scope.sbProject);
 		
+		var glriNewProject = projectsService.buildNewProject($scope.project);
+		var project = undefined;
+				
+		if($scope.editMode){
+			applyJSONChanges(glriNewProject, $scope.sbProject);
+			project = $scope.sbProject;
+		} else {
+			project = glriNewProject;
+		}
+		
+		console.log("Final Project JSON");
 		console.log(project);
 		
-		/* Temporarily Disable Saving Reports for Debugging
 		$http.post('saveProject', project)
 		.then(
 			function(resp) {
@@ -266,7 +274,17 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				}
 			},
 			saveFailed
-		)*/
+		)
+	};
+	
+	var applyJSONChanges = function(changes, replace) {
+		for (var key in changes) {
+			if (changes.hasOwnProperty(key)) {
+				if($scope.sbProject.hasOwnProperty(key)) {
+					replace[key] = changes[key];
+				}
+			}
+		}
 	};
 	
 	var radiofySelect2 = function() {
@@ -276,19 +294,20 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		$("#entry_type").select2Buttons({noDefault: true}).refreshSelect2Button();
 		$("#spatial").select2Buttons({noDefault: true}).refreshSelect2Button();
 		$("#focus_area").select2Buttons({noDefault: true}).refreshSelect2Button();
-	}
+	};
 
 	var loadAndBindProject = function(pid) {
 		$scope.loading = true;
 		ScienceBase.getItemPromise(pid).success(function(data, status, headers, config) {
 			$scope.loading = false;	
 			setTimeout(function() { //need this timeout to give select2 a chance to render
-				$scope.project = projectsService.convertToGlriProject(ScienceBase.processItem(data));
+				$scope.sbProject = ScienceBase.processItem(data);
+				$scope.project = projectsService.convertToGlriProject($scope.sbProject);
 				$scope.$apply();
 				setTimeout(radiofySelect2, 200);
 			}, 200);
 		});
-	}
+	};
 	
 	//check to see if we have a project ID, if so, load/bind the project data and set this form to edit mode
 	var parts = $location.path().split(/\/+/);

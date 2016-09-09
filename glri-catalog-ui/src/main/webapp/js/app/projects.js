@@ -183,8 +183,13 @@ GLRICatalogApp.service('Projects',
 		
 		// multi-select tags
 		var sigl      = concatTagsSelect(VOCAB_SIGL,data.SiGL);
-		var glri      = {};
-		if (sigl.indexOf('GLRI') < 0) {
+		var glri      = [];
+		
+		var glriTag = sigl.filter(function(obj){
+			return obj.name === "GLRI";
+		});
+		
+		if (glriTag.length === 0) {
 			glri      = createTag(VOCAB_SIGL,"GLRI"); // ensure a default SiGL tag for GLRI if not added
 		}
 		var water     = concatTagsSelect(VOCAB_WATER,data.water);
