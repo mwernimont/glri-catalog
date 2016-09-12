@@ -59,6 +59,19 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		$scope.project = {};
 	};
 	
+	$scope.addContact = function(target, type) {
+		target.push({name: "", email: "", type: type});
+	};
+	
+	$scope.removeContact = function(target, index, required) {
+		var type = target[index].type;
+		target.splice(index, 1);
+		
+		if(required && target.length === 0){
+			target.push({name: "", email: "", type: type});
+		}
+	};
+	
 	var saveFailed = function(resp) {
 		alert("There was a problem saving the project -> " + resp.data);
 	};
@@ -251,7 +264,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		}
 		
 		console.log(project);
-		
+		/* Hey would you look at that, disabling posts again
 		$http.post('saveProject', project)
 		.then(
 			function(resp) {
@@ -270,7 +283,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				}
 			},
 			saveFailed
-		);
+		);*/
 	};
 	
 	var applyJSONChanges = function(changes, original) {
@@ -305,8 +318,8 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				console.log($scope.sbProject);
 				$scope.project = projectsService.convertToGlriProject($scope.sbProject);
 				console.log($scope.project);
-				$scope.cleanSbProject = cleanSBProject();
-				console.log($scope.cleanSbProject);
+				//$scope.cleanSbProject = cleanSBProject();
+				//console.log($scope.cleanSbProject);
 				$scope.$apply();
 				setTimeout(radiofySelect2, 200);
 			}, 200);

@@ -288,22 +288,47 @@
 				<div>
 					<h4 class="">Principal Investigator</h4>
 					<div class="form-spacing">
-						Lead PI for the project. (Basis Task field: Leaders, Task Leader) <input
-							type="text"
-							class="form-control form-field form-required contact single-person"
-							ng-model="project.principal"
-							placeholder="Enter the name and email address for a single person. Both are required. Example: Jane Doe jdoe@usgs.gov">
+						Lead PI for the project. (Basis Task field: Leaders, Task Leader)
+						<ul>
+							<li ng-repeat="principal in project.principals">
+								<div class="form-inline ui-contact-subform">
+									<div class="form-group">
+										<label class="control-label">Name</label>
+										<input type="text" class="form-control form-field form-required" ng-model ="principal.name" placeholder="Enter the name for this contact."/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Email</label>
+										<input type="text" class="form-control form-field form-required" ng-model ="principal.email" placeholder="Enter the email for this contact."/>
+									</div>
+									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.principals, $index, true)">X</button>
+								</div>
+							</li>
+						</ul>
 					</div>
 				</div>
 	
 				<div>
 					<h4 class="">Associate Project Chief</h4>
 					<div class="form-spacing">
-						Center Director, Office Chief, Regional Staff Member, etc. (Basis
-						Task field: Leaders,Task Leader) <input type="text"
-							class="form-control form-field form-required contact single-person"
-							ng-model="project.chief"
-							placeholder="Enter the name and email address for a single person. Both are required. Example: Jane Doe jdoe@usgs.gov">
+						Center Director, Office Chief, Regional Staff Member, etc. (Basis Task field: Leaders,Task Leader)
+						<div class="ui-contact-add-spacer">
+							<button type="button" class="contact-add-button btn btn-success" ng-click="addContact(project.chiefs, 'Associate Project Chief')">+</button>
+						</div>
+						<ul>
+							<li ng-repeat="chief in project.chiefs">
+								<div class="form-inline ui-contact-subform">
+									<div class="form-group">
+										<label class="control-label">Name</label>
+										<input type="text" class="form-control form-field form-required" ng-model ="chief.name" placeholder="Enter the name for this contact."/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Email</label>
+										<input id="chief-email-input" ntype="text" class="form-control form-field form-required" ng-model ="chief.email" placeholder="Enter the email for this contact."/>
+									</div>
+									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.chiefs, $index, true)">X</button>
+								</div>
+							</li>
+						</ul>
 					</div>
 				</div>
 	
@@ -317,20 +342,48 @@
 						organizations, tribal entities, academic organizations, private
 						organizations, international entities, and non&#45;governmental
 						organizations.
-						<textarea
-							class="form-control form-field form-optional contact multi-organization"
-							rows="5" ng-model="project.organizations"
-							placeholder="Enter a comma separated list of organizations.  Each organization must have a name and optionally an email address. Example: &#10;Cooperating Org, Environmental Org info@environment.org"></textarea>
+						<div class="ui-contact-add-spacer">
+							<button type="button" class="contact-add-button btn btn-success" ng-click="addContact(project.organizations, 'Cooperator/Partner')">+</button>
+						</div>
+						<ul>
+							<li ng-repeat="org in project.organizations">
+								<div class="form-inline ui-contact-subform">
+									<div class="form-group">
+										<label class="control-label">Name</label>
+										<input type="text" class="form-control form-field form-required" ng-model ="org.name" placeholder="Enter the name for this contact."/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Email</label>
+										<input type="text" class="form-control form-field form-required" ng-model ="org.email" placeholder="Enter the email for this contact."/>
+									</div>
+									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.organizations, $index, false)">X</button>
+								</div>
+							</li>
+						</ul>
 					</div>
 				</div>
 	
 				<div>
 					<h4>Points of Contact</h4>
 					<div class="point-of-contact form-spacing">
-						<textarea
-							class="form-control form-field form-optional contact multi-person"
-							rows="5" ng-model="project.contacts"
-							placeholder="Enter a comma separated list of 'people' contacts for the project.  Each contact must have a name and email. Example: &#10;Jane Doe jdoe@usgs.gov, James Brown jbrown@usgs.gov"></textarea>
+						<div class="ui-contact-add-spacer">
+							<button type="button" class="contact-add-button btn btn-success" ng-click="addContact(project.contacts, 'Contact')">+</button>
+						</div>
+						<ul>
+							<li ng-repeat="contact in project.contacts">
+								<div class="form-inline ui-contact-subform">
+									<div class="form-group">
+										<label class="control-label">Name</label>
+										<input type="text" class="form-control form-field form-required" ng-model ="contact.name" placeholder="Enter the name for this contact."/>
+									</div>
+									<div class="form-group">
+										<label class="control-label">Email</label>
+										<input type="text" class="form-control form-field form-required" ng-model ="contact.email" placeholder="Enter the email for this contact."/>
+									</div>
+									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.contacts, $index, false)">X</button>
+								</div>
+							</li>
+						</ul>
 					</div>
 				</div>
 	

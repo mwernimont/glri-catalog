@@ -205,34 +205,19 @@ GLRICatalogApp.service('Projects',
 	};
 	
 	var extractContact = function(sbContacts, glriProj, target, type) {
-		
-		var contact = "";
-		
+		var contactList = [];
 		for(var i = 0; i < sbContacts.length; i++) {
 			var c = sbContacts[i];
-			if(c.type == type) {
-				var contactString = c.name;
-				
-				if(c.email) {
-					contactString += " " + c.email;
-				}
-				
-				if(contact) {
-					contact += ", ";
-				}
-				
-				contact += contactString;
+			if(c.type === type) {
+				contactList.push(c);
 			}
 		}
-		
-		if(contact) {
-			glriProj[target] = contact;
-		}
+		glriProj[target] = contactList;
 	};
 	
 	var extractContacts = function(sbContacts, glriProj) {
-		extractContact(sbContacts, glriProj, "principal", CONTACT_PRINCIPAL);
-		extractContact(sbContacts, glriProj, "chief", CONTACT_CHIEF);
+		extractContact(sbContacts, glriProj, "principals", CONTACT_PRINCIPAL);
+		extractContact(sbContacts, glriProj, "chiefs", CONTACT_CHIEF);
 		extractContact(sbContacts, glriProj, "organizations", CONTACT_ORG);
 		extractContact(sbContacts, glriProj, "contacts", CONTACT_TEAM);
 	};
