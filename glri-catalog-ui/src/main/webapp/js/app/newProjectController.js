@@ -244,8 +244,8 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		var project = undefined;
 				
 		if($scope.editMode){
-			applyJSONChanges(glriNewProject, $scope.sbProject);
-			project = $scope.sbProject;
+			applyJSONChanges(glriNewProject, $scope.cleanSbProject);
+			project = $scope.cleanSbProject;
 		} else {
 			project = glriNewProject;
 		}
@@ -255,12 +255,12 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		$http.post('saveProject', project)
 		.then(
 			function(resp) {
-				console.log(resp.data)
+				console.log(resp.data);
 				if (resp.data === undefined) {
 					saveFailed({data:"No response received from the server"});
 				} else if (/^[0-9|a-f]*$/.test(resp.data)) {
 					//Success!
-					window.location = "index.jsp#/Browse/all/"+resp.data
+					window.location = "index.jsp#/Browse/all/"+resp.data;
 				} else {
 					saveFailed({
 						data:"The submission failed. " +
@@ -276,60 +276,17 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	var applyJSONChanges = function(changes, original) {
 		for (var key in changes) {
 			if (changes.hasOwnProperty(key)) {
-				if($scope.sbProject.hasOwnProperty(key)) {
+				if(original.hasOwnProperty(key)) {
 					if(!Array.isArray(changes[key]) && !Array.isArray(original[key])){
 						original[key] = changes[key];
-					}			
+					} else {
+						original[key] = changes[key].concat(original[key]);
+					}
 				}
 			}
 		}
-		
-		applyJSONArrayChanges(changes, original);
 	};
-	
-	var applyJSONArrayChanges = function(changes, original){
-		//Tags
-		var sbTags = original.tags.filter(function(obj) {
-			return obj.type !== "Label" && obj.type !== "Creator" && obj.name !== "Great Lakes Restoration Initiative";
-		});
-				
-		original.tags = changes.tags.concat(sbTags);
 		
-		//Contacts
-		var sbContacts = original.contacts.filter(function(obj) {
-			return obj.type !== "Associate Project Chief" && obj.type !== "Principal Investigator" && obj.type !== "Cooperator/Partner" && obj.type !== "Contact";
-		});
-		
-		original.contacts = changes.contacts.concat(sbContacts);
-		
-		//Weblinks
-		var sbWebLinks = original.webLinks.filter(function(obj) {
-			return obj.type !== "browseImage";
-		});
-		
-		original.webLinks = changes.webLinks.concat(sbWebLinks);
-	};
-	
-	//Helper function that was used in my first implementation but isn't currently. Worth keeping around for now until everything is settled.
-	var getUniqueElements = function(arr1, arr2, comparisonProperty) {
-		var uniqueArr1 = [];
-
-		//Identify tags that only exist in the original JSON and save them
-		for(var x in arr1){
-			var comparisonSet = arr2.filter(function(obj){
-				return obj[comparisonProperty] === obj[comparisonProperty];
-			});
-
-			if(comparisonSet.length > 0){
-				break;
-			} else {
-				uniqueArr1.push(x);
-			}
-		}
-		
-		return uniqueArr1.concat(arr2);
-	};
-	
 	var radiofySelect2 = function() {
 		$("#dmPlan").select2Buttons({noDefault: true}).refreshSelect2Button();
 		$("#project_status").select2Buttons({noDefault: true}).refreshSelect2Button();
@@ -345,13 +302,60 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			$scope.loading = false;	
 			setTimeout(function() { //need this timeout to give select2 a chance to render
 				$scope.sbProject = ScienceBase.processItem(data);
+				console.log($scope.sbProject);
 				$scope.project = projectsService.convertToGlriProject($scope.sbProject);
+				console.log($scope.project);
+				$scope.cleanSbProject = cleanSBProject();
+				console.log($scope.cleanSbProject);
 				$scope.$apply();
 				setTimeout(radiofySelect2, 200);
 			}, 200);
 		});
 	};
 	
+	//Helper function to remove anything from the arrays of the original SB project that we extracted
+	var cleanSBProject = function() {
+		var tempProject = projectsService.buildNewProject($scope.project);
+		var cleanProject = JSON.parse(JSON.stringify($scope.sbProject));
+		
+		console.log("CONTACT COMPARISON: ");
+		console.log(tempProject.contacts);
+		console.log(cleanProject.contacts);
+				
+		for (var key in cleanProject) {
+			if (cleanProject.hasOwnProperty(key)) {
+				if(tempProject.hasOwnProperty(key)) {
+					if(Array.isArray(cleanProject[key]) && Array.isArray(tempProject[key])){
+						removeDuplicateObjects(cleanProject[key], tempProject[key]);
+					}
+				}
+			}
+		}
+		
+		return cleanProject;
+	};
+	
+	//Helper function to remove objects from arr1 that also exist in arr2
+	var removeDuplicateObjects = function(arr1, arr2){
+		for(var i = 0; i < arr1.length; i++){
+			var doSplice = false;
+			
+			for(var j = 0; j < arr2.length; j++){
+				var arr1Obj = arr1[i];
+				var arr2Obj = arr2[j];				
+				
+				if(angular.equals(arr1Obj, arr2Obj)){
+					doSplice = true;
+				}				
+			}
+			
+			if(doSplice){
+				arr1.splice(i, 1);
+				i--;
+			}
+		}
+	};
+		
 	//check to see if we have a project ID, if so, load/bind the project data and set this form to edit mode
 	var parts = $location.path().split(/\/+/);
 	if(parts.length > 2 && parts[2]) {

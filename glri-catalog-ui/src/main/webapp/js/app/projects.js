@@ -635,9 +635,7 @@ GLRICatalogApp.service('Projects',
 	 * Converts a science base project item into the the json format that is currently
 	 * used on the project form. 
 	 */
-	ctx.convertToGlriProject = function(sbProj) {
-		console.log(sbProj);
-		
+	ctx.convertToGlriProject = function(sbProj) {		
 		var glriProj = {
 			dmPlan: "agree", //TODO, should users be required to Agree to terms again for edits?
 			title: sbProj.title,
@@ -694,7 +692,6 @@ GLRICatalogApp.service('Projects',
 		
 		extractContacts(sbProj.contacts, glriProj);
 		
-		console.log(glriProj);
 		return glriProj;
 	};
 }]);
