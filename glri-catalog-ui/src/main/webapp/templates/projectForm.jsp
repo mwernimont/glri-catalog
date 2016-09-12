@@ -290,7 +290,7 @@
 					<div class="form-spacing">
 						Lead PI for the project. (Basis Task field: Leaders, Task Leader)
 						<ul>
-							<li ng-repeat="principal in project.principals">
+							<li ng-repeat="principal in project.principal">
 								<div class="form-inline ui-contact-subform">
 									<div class="form-group">
 										<label class="control-label">Name</label>
@@ -300,7 +300,7 @@
 										<label class="control-label">Email</label>
 										<input type="text" class="form-control form-field form-required" ng-model ="principal.email" placeholder="Enter the email for this contact."/>
 									</div>
-									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.principals, $index, true)">X</button>
+									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.principal, $index, true)">X</button>
 								</div>
 							</li>
 						</ul>

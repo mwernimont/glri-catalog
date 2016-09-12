@@ -60,7 +60,18 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	};
 	
 	$scope.addContact = function(target, type) {
-		target.push({name: "", email: "", type: type});
+		var contactType = "person";
+		
+		if(type === "Cooperator/Partner"){
+			contactType = "organization";
+		}
+		
+		target.push({
+			active: true,
+			name: "", 
+			email: "", 
+			type: type, 
+			contactType: contactType});
 	};
 	
 	$scope.removeContact = function(target, index, required) {
@@ -68,7 +79,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		target.splice(index, 1);
 		
 		if(required && target.length === 0){
-			target.push({name: "", email: "", type: type});
+			$scope.addContact(target, type);
 		}
 	};
 	
@@ -318,8 +329,8 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				console.log($scope.sbProject);
 				$scope.project = projectsService.convertToGlriProject($scope.sbProject);
 				console.log($scope.project);
-				//$scope.cleanSbProject = cleanSBProject();
-				//console.log($scope.cleanSbProject);
+				$scope.cleanSbProject = cleanSBProject();
+				console.log($scope.cleanSbProject);
 				$scope.$apply();
 				setTimeout(radiofySelect2, 200);
 			}, 200);
@@ -344,7 +355,6 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				}
 			}
 		}
-		
 		return cleanProject;
 	};
 	
