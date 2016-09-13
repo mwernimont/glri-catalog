@@ -40,7 +40,7 @@
 					style="margin-bottom: 15px; display: block;">Note: Fields
 					with this background are the only optional entries.</span>
 	
-				<div>
+				<div ng-if="!editMode">
 					<h4 class="">Data Management Plan</h4>
 					<div class="form-spacing" style="margin-left: 10px;">
 						I will create a data management plan within the first year of the
@@ -68,7 +68,7 @@
 						Enter the project title as it should appear on the GLRI website.
 						(Basis Task field: Task Title)
 						<textarea class="form-control form-title form-required"
-							ng-model="project.title"></textarea>
+							ng-model="project.title" ng-disabled="editMode"></textarea>
 					</div>
 				</div>
 	
@@ -290,6 +290,7 @@
 					<h4 class="">Principal Investigator</h4>
 					<div class="form-spacing">
 						Lead PI for the project. (Basis Task field: Leaders, Task Leader) <input
+							ng-disabled="editMode"
 							type="text"
 							class="form-control form-field form-required contact single-person"
 							ng-model="project.principal"
@@ -302,6 +303,7 @@
 					<div class="form-spacing">
 						Center Director, Office Chief, Regional Staff Member, etc. (Basis
 						Task field: Leaders,Task Leader) <input type="text"
+							ng-disabled="editMode"
 							class="form-control form-field form-required contact single-person"
 							ng-model="project.chief"
 							placeholder="Enter the name and email address for a single person. Both are required. Example: Jane Doe jdoe@usgs.gov">
