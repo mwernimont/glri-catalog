@@ -31,6 +31,7 @@
 	
 				<div class="form-msg" id="form-msg-required">Please complete
 					this required field.</div>
+				<div class="form-msg" id="form-msg-no-h4">Field cannot contain h4 html elements.</div>
 				<div class="form-msg" id="form-msg-validate">{{validation.singleMsg}}</div>
 				<div class="form-msg" id="form-msg-agree">You must agree to the
 					Data Management Plan in order to submit a new GLRI Project.</div>
