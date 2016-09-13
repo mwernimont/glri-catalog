@@ -158,16 +158,14 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		setTimeout(function() {msgElement.fadeOut(500);}, 10000);
 	};
 
-	var doValidation = function() {
+	var doValidation = function(form) {
 		
 		//Do required fields first
 		var requiredFields = $('.form-required');
-		var contactFields = $('.contact');
-		var singleUrlFileds = $('.single-url');
 		
-		//All required fields handled here, regardless of type
+		//Handle default required field validation
 		for (var f=0; f<requiredFields.length; f++) {
-			var field = requiredFields[f]
+			var field = requiredFields[f];
 			var modelBinding = $(field).attr('model') // have to check for the custom date field first
 			if (!modelBinding) {
 				modelBinding = $(field).attr('ng-model')
@@ -182,68 +180,19 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				}
 			}
 		}
-		
-		//Validate urls only if non-empty (if req'ed, handled above)
-		for (var f=0; f<singleUrlFileds.length; f++) {
-			var field = singleUrlFileds[f];
-			var modelBinding = $(field).attr('model'); // have to check for the custom date field first
-			if (!modelBinding) {
-				modelBinding = $(field).attr('ng-model');
-			}
-			if (modelBinding !== undefined) {
-				var model = modelBinding.split('.');
-				var value = $scope[model[0]][model[1]];
 				
-				if (value != undefined && value.length != 0) {
-					var response = projectsService.parseAndRemoveOneUrl(value);
-					var msg = undefined;
-					
-					if (response.isOk) {
-						if (response.value == undefined) {
-							msg = "No url was found in this field";
+		//Handle additional required field validation that is not covered by above		
+		if(!form.$valid && form.$error){
+			for(var key in form.$error){
+				if(key !== "date"){
+					if(Array.isArray(form.$error[key])){
+						var name = form.$error[key][0].$name;
+						var elem = angular.element("[name='" + name + "']");
+
+						if(elem !== undefined && elem.length > 0){
+							scrollTo(elem);
+							displayMsg("form-msg-required", elem);
 						}
-					} else {
-						msg = response.errorMsg;
-					}
-						
-					
-					if (typeof msg == 'string') {
-						$scope.validation.singleMsg = msg;
-						scrollTo(field);
-						displayMsg("form-msg-validate", field);
-						return false;
-					}
-				}
-			}
-		}
-		
-		//Validate contacts only if non-empty (if req'ed, handled above)
-		for (var f=0; f<contactFields.length; f++) {
-			var field = contactFields[f];
-			var modelBinding = $(field).attr('model'); // have to check for the custom date field first
-			if (!modelBinding) {
-				modelBinding = $(field).attr('ng-model');
-			}
-			if (modelBinding !== undefined) {
-				var model = modelBinding.split('.');
-				var value = $scope[model[0]][model[1]];
-				
-				if (value != undefined && value.length != 0) {
-					var msg = null;
-					if ($(field).hasClass("single-person")) {
-						msg = projectsService.parseSinglePersonContact(value);
-					} else if ($(field).hasClass("multi-person")) {
-						msg = projectsService.parsePersonContacts(value);
-					} else if ($(field).hasClass("single-organization")) {
-						msg = projectsService.parseSingleOrganizationContact(value);
-					} else if ($(field).hasClass("multi-organization")) {
-						msg = projectsService.parseOrganizationContacts(value);
-					}
-					
-					if (typeof msg == 'string') {
-						$scope.validation.singleMsg = msg;
-						scrollTo(field);
-						displayMsg("form-msg-validate", field);
 						return false;
 					}
 				}
@@ -253,14 +202,14 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		return true;
 	};
 	
-	$scope.save = function() {
+	$scope.save = function(form) {
 		if ("agree" !== $scope.project.dmPlan) {
 			var field = $("#dmPlan");
 			scrollTo(field);
 			displayMsg("form-msg-agree", field);
 			return;
 		}
-		if ( ! doValidation() ) {
+		if ( ! doValidation(form) ) {
 			return;
 		}
 				

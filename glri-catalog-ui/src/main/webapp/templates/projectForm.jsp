@@ -27,7 +27,7 @@
 	<div class="row">
 		<div id="contentBrowseDetail" class="col-xs-12" ng-if="!loading">
 	
-			<form id="newProjectForm" name="newProjectForm" ng-submit="save()">
+			<form id="newProjectForm" name="newProjectForm" ng-submit="save(newProjectForm)" novalidate>
 	
 				<div class="form-msg" id="form-msg-required">Please complete
 					this required field.</div>
@@ -49,7 +49,7 @@
 						found <a href="http://www.usgs.gov/datamanagement/plan/dmplans.php"
 							target="_blank">here</a>). <select
 							class="select2 form-control form-required" id="dmPlan"
-							ng-model="project.dmPlan">
+							name="dmPlan" ng-model="project.dmPlan" required>
 							<option value="agree">I Agree</option>
 							<option value="disagree">I Disagree</option>
 						</select>
@@ -57,7 +57,7 @@
 				</div>
 	
 				<div>
-					<input type="hidden" ng-model="project.username"
+					<input type="hidden" name="username" ng-model="project.username"
 						ng-init="project.username = '<%=username%>'" />
 				</div>
 	
@@ -67,7 +67,7 @@
 						Enter the project title as it should appear on the GLRI website.
 						(Basis Task field: Task Title)
 						<textarea class="form-control form-title form-required"
-							ng-model="project.title"></textarea>
+							ng-model="project.title" name="title" required></textarea>
 					</div>
 				</div>
 	
@@ -77,7 +77,7 @@
 						Enter the publicly accessible URL to image to be used in the the
 						project page on the GLRI website. <input
 							class="form-control form-field form-optional single-url"
-							type="text" ng-model="project.image">
+							type="url" ng-model="project.image" name="image">
 						<div class="proj-img-container">
 						If valid, the image at the specified URL should be displayed:
 						<br/><br/>
@@ -99,7 +99,7 @@
 									model="project.startDate" ng-model="project.startDateNg"
 									is-open="status.showStart" datepicker-options="dateOptions"
 									date-disabled="disabled(date, mode)" ng-required="false"
-									close-text="Close" datepicker-mode="status.mode" />
+									close-text="Close" datepicker-mode="status.mode" name="startDate"/>
 								<div class="input-group-addon calendar-button"
 									ng-click="showCalendar('start')">
 									<span class="glyphicon glyphicon-calendar"></span>
@@ -117,7 +117,7 @@
 									model="project.endDate" ng-model="project.endDateNg"
 									is-open="status.showFinish" datepicker-options="dateOptions"
 									date-disabled="disabled(date, mode)" ng-required="false"
-									close-text="Close" datepicker-mode="status.mode" />
+									close-text="Close" datepicker-mode="status.mode" name="endDate"/>
 								<div class="input-group-addon calendar-button"
 									ng-click="showCalendar('finish')">
 									<span class="glyphicon glyphicon-calendar"></span>
@@ -132,7 +132,7 @@
 					<h4 class="">Project Duration</h4>
 					<div class="form-spacing" style="margin-left: 10px;">
 						Choose One. <select class="select2 form-control form-required"
-							id="duration" ng-model="project.duration">
+							id="duration" ng-model="project.duration" name="duration" required>
 							<option>Single effort (1 year or less)</option>
 							<option>Short term (2 to 5 years)</option>
 							<option>Long term (greater than 5 years)</option>
@@ -144,7 +144,7 @@
 					<h4>Primary Focus Area</h4>
 					<div class="form-spacing" style="margin-left: 10px;">
 						Choose One. <select class="select2 form-control form-required"
-							id="focus_area" ng-model="project.focusArea">
+							id="focus_area" ng-model="project.focusArea" name="focusArea" required>
 							<option ng-repeat="(key, value) in focusAreas" value="{{value.name}}">{{value.name}}</option>
 						</select>
 					</div>
@@ -154,7 +154,7 @@
 					<h4 class="">Project Status</h4>
 					<div class="form-spacing" style="margin-left: 10px;">
 						Choose One. <select class="select2 form-control form-required"
-							id="project_status" ng-model="project.status">
+							id="project_status" ng-model="project.status" name="status" required>
 							<option value="Completed">Completed</option>
 							<option value="In Progress">In Progress</option>
 						</select>
@@ -165,7 +165,7 @@
 					<h4 class="">Entry Type</h4>
 					<div class="form-spacing" style="margin-left: 10px;">
 						Choose One. <select class="select2 form-control form-required"
-							id="entry_type" ng-model="project.entryType">
+							id="entry_type" ng-model="project.entryType" name="entryType" required>
 							<option>New Project</option>
 							<option>Project Update</option>
 						</select>
@@ -179,7 +179,7 @@
 						for projects that do not relate to a geographic area (e.g.
 						overhead, lab analysis, software development or science support). <select
 							class="select2 form-control form-required" id="spatial"
-							ng-model="project.spatial">
+							ng-model="project.spatial" name="spatial" required>
 							<option value="Has Spatial">Has Spatial</option>
 							<option value="No Spatial">No Spatial</option>
 						</select>
@@ -192,7 +192,7 @@
 						Brief statement of the problem that the project/task will address.
 						(Basis Task field: Summary Narratives, Statement of Problem)
 						<textarea class="form-control form-field form-required" rows="10"
-							ng-model="project.purpose"></textarea>
+							ng-model="project.purpose" name="purpose" required></textarea>
 					</div>
 				</div>
 	
@@ -204,7 +204,7 @@
 						applicable, the scientific questions and policy issues addressed.
 						(Basis Task field: Summary Narratives, Objectives)
 						<textarea class="form-control form-field form-required" rows="10"
-							ng-model="project.objectives"></textarea>
+							ng-model="project.objectives" name="objectives" required></textarea>
 					</div>
 				</div>
 	
@@ -214,7 +214,7 @@
 						Short paragraph to briefly describe the work to be done this FY.
 						(Basis Task field: Annual Narratives, Statement of Work)
 						<textarea class="form-control form-field form-required" rows="10"
-							ng-model="project.work"></textarea>
+							ng-model="project.work" name="work" required></textarea>
 					</div>
 				</div>
 	
@@ -225,7 +225,7 @@
 						policy and scientific issues, and Program relevance of the project.
 						Required, except for projects of type 'Support'.
 						<textarea class="form-control form-field form-optional" rows="10"
-							ng-model="project.impact"></textarea>
+							ng-model="project.impact" name="impact"></textarea>
 					</div>
 				</div>
 	
@@ -236,7 +236,7 @@
 						or data set), providing a title and outlet for each product. (Basis
 						Task field: Products)
 						<textarea class="form-control form-field form-required" rows="10"
-							ng-model="project.product"></textarea>
+							ng-model="project.product" name="product" required></textarea>
 					</div>
 				</div>
 	
@@ -244,8 +244,8 @@
 					<h4>Template(s)</h4>
 					<div class="form-spacing">
 						<ui-select multiple ng-model="project.templates"
-							style="width:100%" class="form-required"> <ui-select-match
-							placeholder="Check all that apply.">{{$item.display}}</ui-select-match>
+							style="width:100%" class="form-required" name="templates" required> <ui-select-match
+							placeholder="Check all that apply." required>{{$item.display}}</ui-select-match>
 						<ui-select-choices
 							repeat="template in transient.templates | orderBy:'sort'">
 						{{template.display}} </ui-select-choices> </ui-select>
@@ -256,7 +256,7 @@
 					<h4>SiGL Keyword(s)</h4>
 					<div class="form-spacing">
 						<ui-select multiple ng-model="project.SiGL" style="width:100%"
-							class="form-required"> <ui-select-match
+							class="form-required" name="sigl" required> <ui-select-match
 							placeholder="Check all that apply.">{{$item.display}}</ui-select-match>
 						<ui-select-choices
 							repeat="SiGL in transient.SiGL_keywords | orderBy:'sort'">
@@ -268,8 +268,8 @@
 					<h4>Water Feature(s)</h4>
 					<div class="form-spacing">
 						<ui-select multiple ng-model="project.water" style="width:100%"
-							class="form-required"> <ui-select-match
-							placeholder="Check all that apply.">{{$item.display}}</ui-select-match>
+							class="form-required" name="water"> <ui-select-match
+							placeholder="Check all that apply." required>{{$item.display}}</ui-select-match>
 						<ui-select-choices
 							repeat="water in transient.water_features | orderBy:'sort'">
 						{{water.display}} </ui-select-choices> </ui-select>
@@ -281,7 +281,7 @@
 					<div class="form-spacing">
 						<textarea class="form-control form-field form-required" rows="5"
 							ng-model="project.keywords"
-							placeholder="Enter a comma separated list of keywords or phrases. Example: &#10;forecasting, wetlands ecology, coastal"></textarea>
+							placeholder="Enter a comma separated list of keywords or phrases. Example: &#10;forecasting, wetlands ecology, coastal" name="keywords" required></textarea>
 					</div>
 				</div>
 	
@@ -294,11 +294,11 @@
 								<div class="form-inline ui-contact-subform">
 									<div class="form-group">
 										<label class="control-label">Name</label>
-										<input type="text" class="form-control form-field form-required" ng-model ="principal.name" placeholder="Enter the name for this contact."/>
+										<input type="text" class="form-control form-field" name="principal-name-{{$index}}" ng-model ="principal.name" placeholder="Enter the name for this contact." required/>
 									</div>
 									<div class="form-group">
 										<label class="control-label">Email</label>
-										<input type="text" class="form-control form-field form-required" ng-model ="principal.email" placeholder="Enter the email for this contact."/>
+										<input type="email" class="form-control form-field" name="principal-email-{{$index}}" ng-model ="principal.email" placeholder="Enter the email for this contact." required/>
 									</div>
 									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.principal, $index, true)">X</button>
 								</div>
@@ -319,11 +319,11 @@
 								<div class="form-inline ui-contact-subform">
 									<div class="form-group">
 										<label class="control-label">Name</label>
-										<input type="text" class="form-control form-field form-required" ng-model ="chief.name" placeholder="Enter the name for this contact."/>
+										<input type="text" class="form-control form-field" name="chief-name-{{$index}}" ng-model ="chief.name" placeholder="Enter the name for this contact." required/>
 									</div>
 									<div class="form-group">
 										<label class="control-label">Email</label>
-										<input id="chief-email-input" ntype="text" class="form-control form-field form-required" ng-model ="chief.email" placeholder="Enter the email for this contact."/>
+										<input type="text" class="form-control form-field" name="cieft-email-{{$index}}" ng-model ="chief.email" placeholder="Enter the email for this contact." required/>
 									</div>
 									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.chiefs, $index, true)">X</button>
 								</div>
@@ -350,11 +350,11 @@
 								<div class="form-inline ui-contact-subform">
 									<div class="form-group">
 										<label class="control-label">Name</label>
-										<input type="text" class="form-control form-field form-required" ng-model ="org.name" placeholder="Enter the name for this contact."/>
+										<input type="text" class="form-control form-field" name="org-name-{{$index}}" ng-model ="org.name" placeholder="Enter the name for this contact." required/>
 									</div>
 									<div class="form-group">
 										<label class="control-label">Email</label>
-										<input type="text" class="form-control form-field form-required" ng-model ="org.email" placeholder="Enter the email for this contact."/>
+										<input type="text" class="form-control form-field" name="org-email-{{$index}}" ng-model ="org.email" placeholder="Enter the email for this contact." required/>
 									</div>
 									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.organizations, $index, false)">X</button>
 								</div>
@@ -374,11 +374,11 @@
 								<div class="form-inline ui-contact-subform">
 									<div class="form-group">
 										<label class="control-label">Name</label>
-										<input type="text" class="form-control form-field form-required" ng-model ="contact.name" placeholder="Enter the name for this contact."/>
+										<input type="text" class="form-control form-field" name="contact-name-{{$index}}" ng-model ="contact.name" placeholder="Enter the name for this contact." required/>
 									</div>
 									<div class="form-group">
 										<label class="control-label">Email</label>
-										<input type="text" class="form-control form-field form-required" ng-model ="contact.email" placeholder="Enter the email for this contact."/>
+										<input type="text" class="form-control form-field" name="contact-email-{{$index}}" ng-model ="contact.email" placeholder="Enter the email for this contact." required/>
 									</div>
 									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.contacts, $index, false)">X</button>
 								</div>
