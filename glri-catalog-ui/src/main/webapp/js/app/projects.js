@@ -172,7 +172,6 @@ GLRICatalogApp.service('Projects',
 		// single entry tags
 		var focus     = createTag(VOCAB_FOCUS,data.focusArea);
 		var spatial   = createTag(VOCAB_KEYWORD,data.spatial);
-		var entryType = createTag(VOCAB_KEYWORD,data.entryType);
 		var duration  = createTag(VOCAB_KEYWORD,data.duration);
 		
 		// comma separated tags
@@ -186,7 +185,7 @@ GLRICatalogApp.service('Projects',
 		var water     = concatTagsSelect(VOCAB_WATER,data.water);
 		var templates = concatTagsSelect(VOCAB_TEMPLATE,data.templates);
 	
-		return concatStrings([focus, keywords, sigl, glri, water, templates, spatial, entryType, duration]);
+		return concatStrings([focus, keywords, sigl, glri, water, templates, spatial, duration]);
 	}
 	
 	var buildContacts = function(data) {
@@ -669,11 +668,10 @@ GLRICatalogApp.service('Projects',
 		
 		extractTag(tags, glriProj, "focusArea", VOCAB_FOCUS);
 		extractTag(tags, glriProj, "spatial", VOCAB_KEYWORD, getSelectOptions("spatial"));
-		extractTag(tags, glriProj, "entryType", VOCAB_KEYWORD, getSelectOptions("entry_type"));
 		extractTag(tags, glriProj, "duration", VOCAB_KEYWORD, getSelectOptions("duration"));
 		
 		// comma separated keywords
-		extractTagsAsCsv(tags, glriProj, "keywords", VOCAB_KEYWORD, [glriProj.spatial, glriProj.entryType, glriProj.duration]);
+		extractTagsAsCsv(tags, glriProj, "keywords", VOCAB_KEYWORD, [glriProj.spatial, glriProj.duration]);
 		
 		// multi-select tags
 		extractTagsAsArray(tags, glriProj, "SiGL", VOCAB_SIGL);

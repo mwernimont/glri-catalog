@@ -163,17 +163,6 @@
 				</div>
 	
 				<div>
-					<h4 class="">Entry Type</h4>
-					<div class="form-spacing" style="margin-left: 10px;">
-						Choose One. <select class="select2 form-control form-required"
-							id="entry_type" ng-model="project.entryType">
-							<option>New Project</option>
-							<option>Project Update</option>
-						</select>
-					</div>
-				</div>
-	
-				<div>
 					<h4 class="">Spatial Location</h4>
 					<div class="form-spacing" style="margin-left: 10px;">
 						Indicates if the project has geospatial footprint(s). Select "No"
