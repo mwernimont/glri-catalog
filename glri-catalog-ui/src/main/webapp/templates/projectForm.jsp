@@ -145,7 +145,7 @@
 					<div class="form-spacing" style="margin-left: 10px;">
 						Choose One. <select class="select2 form-control form-required"
 							id="focus_area" ng-model="project.focusArea">
-							<option ng-repeat="(key, value) in focusAreas" value="{{value.name}}">{{value.name}}</option>
+							<option ng-repeat="(key, value) in focusAreas" ng-if="key.toLowerCase() != 'all'" value="{{value.name}}">{{value.name}}</option>
 						</select>
 					</div>
 				</div>
