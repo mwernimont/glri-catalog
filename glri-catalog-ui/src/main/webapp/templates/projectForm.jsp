@@ -165,21 +165,6 @@
 				</div>
 	
 				<div>
-<<<<<<< HEAD
-=======
-					<h4 class="">Entry Type</h4>
-					<div class="form-spacing" style="margin-left: 10px;">
-						Choose One.
-						
-						<div id="entry_type" class="btn-group form-radio-select">
-							<label class="btn btn-primary" ng-model="project.entryType" uib-btn-radio="'New Project'" ng-required="!project.entryType">New Project</label>
-							<label class="btn btn-primary" ng-model="project.entryType" uib-btn-radio="'Project Update'" ng-required="!project.entryType">Project Update</label>
-						</div>
-					</div>
-				</div>
-	
-				<div>
->>>>>>> refs/remotes/remote-zmoore/feature/json-fix
 					<h4 class="">Spatial Location</h4>
 					<div class="form-spacing" style="margin-left: 10px;">
 						Indicates if the project has geospatial footprint(s). Select "No Spatial"
@@ -322,14 +307,6 @@
 				<div>
 					<h4 class="">Principal Investigator</h4>
 					<div class="form-spacing">
-<<<<<<< HEAD
-						Lead PI for the project. (Basis Task field: Leaders, Task Leader) <input
-							ng-disabled="editMode"
-							type="text"
-							class="form-control form-field form-required contact single-person"
-							ng-model="project.principal"
-							placeholder="Enter the name and email address for a single person. Both are required. Example: Jane Doe jdoe@usgs.gov">
-=======
 						Lead PI for the project. (Basis Task field: Leaders, Task Leader)
 						<ul>
 							<li ng-repeat="principal in project.principal">
@@ -346,21 +323,12 @@
 								</div>
 							</li>
 						</ul>
->>>>>>> refs/remotes/remote-zmoore/feature/json-fix
 					</div>
 				</div>
 	
 				<div>
 					<h4 class="">Associate Project Chief</h4>
 					<div class="form-spacing">
-<<<<<<< HEAD
-						Center Director, Office Chief, Regional Staff Member, etc. (Basis
-						Task field: Leaders,Task Leader) <input type="text"
-							ng-disabled="editMode"
-							class="form-control form-field form-required contact single-person"
-							ng-model="project.chief"
-							placeholder="Enter the name and email address for a single person. Both are required. Example: Jane Doe jdoe@usgs.gov">
-=======
 						Center Director, Office Chief, Regional Staff Member, etc. (Basis Task field: Leaders,Task Leader)
 						<div class="ui-contact-add-spacer">
 							<button type="button" class="contact-add-button btn btn-success" ng-click="addContact(project.chiefs, 'Associate Project Chief')">+</button>
@@ -380,7 +348,6 @@
 								</div>
 							</li>
 						</ul>
->>>>>>> refs/remotes/remote-zmoore/feature/json-fix
 					</div>
 				</div>
 	
