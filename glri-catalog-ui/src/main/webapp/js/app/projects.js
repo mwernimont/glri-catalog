@@ -129,8 +129,10 @@ GLRICatalogApp.service('Projects',
 			{ dataField: "work", displayField : "Description of Work" },
 			{ dataField: "objectives", displayField : "Goals &amp; Objectives" },
 			{ dataField: "impact", displayField : "Relevance &amp; Impact" },
-			{ dataField: "product", displayField : "Planned Products" }
-			//TODO add/remove more acceptable headers
+			{ dataField: "product", displayField : "Products" },
+			{ dataField: "approach", displayField : "Approach" },
+			{ dataField: "keyFindings", displayField : "Key Findings" },
+			{ dataField: "references", displayField : "References" }
 		];
 	
 	ctx.getBodyFieldMappings = function() {
@@ -156,6 +158,10 @@ GLRICatalogApp.service('Projects',
 	var extractFromBodyString = function(sbBody, glriProj, target, label) {
 		var result = sbBody;
 		var startIndex = sbBody.toLowerCase().indexOf("<h4>" + label.toLowerCase() + "</h4>");
+		
+		if(startIndex < 0) { //this field not entered
+			return;
+		}
 		
 		result = result.substring(startIndex + label.length + 9);
 		

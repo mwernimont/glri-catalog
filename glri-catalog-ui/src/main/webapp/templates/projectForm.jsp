@@ -220,13 +220,40 @@
 				</div>
 	
 				<div>
-					<h4>Planned Products</h4>
+					<h4>Products</h4>
 					<div class="form-spacing">
-						Describe anticipated products from this project (e.g. publication
+						Describe products from this project. (e.g. publication
 						or data set), providing a title and outlet for each product. (Basis
 						Task field: Products)
 						<textarea class="form-control form-field form-required" rows="10"
 							ng-model="project.product"></textarea>
+					</div>
+				</div>
+	
+				<div>
+					<h4>Approach</h4>
+					<div class="form-spacing">
+						Describe the approached used during this project.
+						<textarea class="form-control form-field form-optional" rows="10"
+							ng-model="project.approach"></textarea>
+					</div>
+				</div>
+	
+				<div>
+					<h4>Key Findings</h4>
+					<div class="form-spacing">
+						Key findings produced by this project.
+						<textarea class="form-control form-field form-optional" rows="10"
+							ng-model="project.keyFindings"></textarea>
+					</div>
+				</div>
+	
+				<div>
+					<h4>References</h4>
+					<div class="form-spacing">
+						Any references around this project.
+						<textarea class="form-control form-field form-optional" rows="10"
+							ng-model="project.references"></textarea>
 					</div>
 				</div>
 	
