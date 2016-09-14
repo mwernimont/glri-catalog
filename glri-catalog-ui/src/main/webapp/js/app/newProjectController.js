@@ -21,13 +21,11 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	var yearRx = new RegExp(/^\d\d\d\d$/);
 	var dateRx = new RegExp(/^\d\d\d\d-\d\d-\d\d$/);
 	var onDateChangeEvent = function(target) {
-//		console.log(target);
 		var value = $(target).val();
 		
 		if (yearRx.test(value) || dateRx.test(value)) {
 			var model = $(target).attr("model").split('.');
 			$scope[model[0]][model[1]] = value;
-//			console.log(value)
 		}
 	};
 	$('.form-date').change(function(event) {
@@ -35,7 +33,6 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	});
 	var listenToDateClicks = function(field) {
 		$(field+' .dropdown-menu button').click(function(){
-//			console.log('click')
 			setTimeout(function(){
 				listenToDateClicks('.startDate');
 				listenToDateClicks('.endDate');
@@ -226,14 +223,11 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			project = glriNewProject;
 		}
 		
-		console.log("Final JSON sent to ScienceBase");
 		console.log(project);
 		
 		$http.post('saveProject', project)
 		.then(
 			function(resp) {
-				console.log("Response from ScienceBase: ");
-				console.log(resp.data);
 				if (resp.data === undefined) {
 					saveFailed({data:"No response received from the server"});
 				} else if (/^[0-9|a-f]*$/.test(resp.data)) {
@@ -313,7 +307,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		if(returnJson.hasOwnProperty("resource")){
 			delete returnJson["resource"];
 		}
-		
+				
 		if(returnJson.hasOwnProperty("hasChildren")){
 			delete returnJson["hasChildren"];
 		}
@@ -345,7 +339,6 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		if(project.hasOwnProperty("contacts") && Array.isArray(project.contacts)){
 			for(var i=0; i<project.contacts.length; i++){
 				var contact = project.contacts[i];
-				console.log(contact);
 				if(contact.hasOwnProperty("organization") && isEmptyObject(contact.organization)){
 					delete contact.organization;
 				}
@@ -388,16 +381,13 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			$scope.loading = false;	
 			setTimeout(function() {
 				$scope.sbProject = ScienceBase.processItem(data);
-				console.log("Original Project");
-				console.log(JSON.parse(JSON.stringify(ScienceBase.processItem(data))));
+				console.log(JSON.parse(JSON.stringify($scope.sbProject)));
 				$scope.project = projectsService.convertToGlriProject($scope.sbProject);
-				console.log("GLRI Project");
-				console.log($scope.project);
+				console.log(JSON.parse(JSON.stringify($scope.project)));
 				$scope.cleanSbProject = cleanSBProject();
-				console.log("Cleaned Original Project");
-				console.log($scope.cleanSbProject);
+				console.log(JSON.parse(JSON.stringify($scope.cleanSbProject)));
 				$scope.$apply();
-			}, 200);
+			}, 100);
 		});
 	};
 	
@@ -405,11 +395,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	var cleanSBProject = function() {
 		var tempProject = projectsService.buildNewProject($scope.project);
 		var cleanProject = JSON.parse(JSON.stringify($scope.sbProject));
-						
-		console.log("CONTACT COMPARISON: ");
-		console.log(tempProject.contacts);
-		console.log(cleanProject.contacts);
-				
+										
 		for (var key in cleanProject) {
 			if (cleanProject.hasOwnProperty(key)) {
 				if(tempProject.hasOwnProperty(key)) {

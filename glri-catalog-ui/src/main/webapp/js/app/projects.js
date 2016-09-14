@@ -234,7 +234,7 @@ GLRICatalogApp.service('Projects',
 		if (data.image && data.image.trim().length > 0){	
 			webLinks = [
 				{
-					title: "Tumbnail",
+					title: "Thumbnail",
 					type: "browseImage",
 					typeLabel: "Browse Image",
 					uri: data.image.trim(),
