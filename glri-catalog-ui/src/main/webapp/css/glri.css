@@ -828,15 +828,15 @@ left: 60px; /*position where enlarged image should offset horizontally */
 
 .ui-contact-subform {
 	margin: 1%;
-    padding: 1%;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+	padding: 1%;
+	border: 1px solid #ccc;
+	border-radius: 6px;
 	margin-left: 2% !important;
 	width: 96%;
 }
 
 .ui-contact-add-spacer {
-    margin-left: 2%;
+	margin-left: 2%;
 }
 
 .contact-delete-button {
@@ -845,4 +845,10 @@ left: 60px; /*position where enlarged image should offset horizontally */
 
 .contact-add-button {
 	margin-top: 1%;
+}
+
+.form-radio-select {
+	margin-top: 1%;
+    width: 96%;
+    margin-left: 1%;
 }

@@ -5,6 +5,10 @@ GLRICatalogApp.service('Projects',
 	var CONTACT_ORG       = "Cooperator/Partner";
 	var CONTACT_TEAM      = "Contact";
 	
+	var allowedSpatialValues = ["Has Spatial", "No Spatial"];
+	var allowedEntryTypeValues = ["New Project", "Project Update"];
+	var allowedDurationValues = ["Single effort (1 year or less)", "Short term (2 to 5 years)", "Long term (greater than 5 years)"];
+	
 	var ctx = this;
 	
 	var concatIfExists = function(label, additional) {
@@ -310,15 +314,6 @@ GLRICatalogApp.service('Projects',
 		glriProj[target] = tagValues;
 	};
 	
-	var getSelectOptions = function(id) {
-		var list = [];
-		
-		$("#" + id + " option").each(function(){
-		    list.push($(this).val());
-		});
-		return list;
-	};
-	
 	/**
 	 * Converts a science base project item into the the json format that is currently
 	 * used on the project form. 
@@ -364,9 +359,9 @@ GLRICatalogApp.service('Projects',
 		var tags = sbProj.tags;
 		
 		extractTag(tags, glriProj, "focusArea", VOCAB_FOCUS);
-		extractTag(tags, glriProj, "spatial", VOCAB_KEYWORD, getSelectOptions("spatial"));
-		extractTag(tags, glriProj, "entryType", VOCAB_KEYWORD, getSelectOptions("entry_type"));
-		extractTag(tags, glriProj, "duration", VOCAB_KEYWORD, getSelectOptions("duration"));
+		extractTag(tags, glriProj, "spatial", VOCAB_KEYWORD, allowedSpatialValues);
+		extractTag(tags, glriProj, "entryType", VOCAB_KEYWORD, allowedEntryTypeValues);
+		extractTag(tags, glriProj, "duration", VOCAB_KEYWORD, allowedDurationValues);
 		
 		// comma separated keywords
 		extractTagsAsCsv(tags, glriProj, "keywords", VOCAB_KEYWORD, [glriProj.spatial, glriProj.entryType, glriProj.duration]);

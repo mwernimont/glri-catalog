@@ -47,12 +47,11 @@
 						in a timely manner. (Note: this is required for all GLRI funded
 						projects. More information about USGS data management plans can be
 						found <a href="http://www.usgs.gov/datamanagement/plan/dmplans.php"
-							target="_blank">here</a>). <select
-							class="select2 form-control form-required" id="dmPlan"
-							name="dmPlan" ng-model="project.dmPlan" required>
-							<option value="agree">I Agree</option>
-							<option value="disagree">I Disagree</option>
-						</select>
+							target="_blank">here</a>). 
+						<div id="dmPlan" class="btn-group form-radio-select">
+							<label class="btn btn-primary" ng-model="project.dmPlan" uib-btn-radio="'agree'" ng-required="!project.dmPlan">I Agree</label>
+							<label class="btn btn-primary" ng-model="project.dmPlan" uib-btn-radio="'disagree'" ng-required="!project.dmPlan">I Disagree</label>
+						</div>
 					</div>
 				</div>
 	
@@ -131,58 +130,62 @@
 				<div>
 					<h4 class="">Project Duration</h4>
 					<div class="form-spacing" style="margin-left: 10px;">
-						Choose One. <select class="select2 form-control form-required"
-							id="duration" ng-model="project.duration" name="duration" required>
-							<option>Single effort (1 year or less)</option>
-							<option>Short term (2 to 5 years)</option>
-							<option>Long term (greater than 5 years)</option>
-						</select>
+						Choose One. 
+												
+						<div id="duration" class="btn-group form-radio-select">
+							<label class="btn btn-primary" ng-model="project.duration" uib-btn-radio="'Single effort (1 year or less)'" ng-required="!project.duration">Single effort (1 year or less)</label>
+							<label class="btn btn-primary" ng-model="project.duration" uib-btn-radio="'Short term (2 to 5 years)'" ng-required="!project.duration">Short term (2 to 5 years)</label>
+							<label class="btn btn-primary" ng-model="project.duration" uib-btn-radio="'Long term (greater than 5 years)'" ng-required="!project.duration">Long term (greater than 5 years)</label>
+						</div>
 					</div>
 				</div>
 	
 				<div>
 					<h4>Primary Focus Area</h4>
 					<div class="form-spacing" style="margin-left: 10px;">
-						Choose One. <select class="select2 form-control form-required"
-							id="focus_area" ng-model="project.focusArea" name="focusArea" required>
-							<option ng-repeat="(key, value) in focusAreas" value="{{value.name}}">{{value.name}}</option>
-						</select>
+						Choose One. 
+						
+						<div id="focus_area" class="btn-group form-radio-select">
+							<label ng-repeat="(key, value) in focusAreas" class="btn btn-primary" ng-model="project.focusArea" uib-btn-radio="'{{value.name}}'" ng-required="!project.focusArea">{{value.name}}</label>
+						</div>
 					</div>
 				</div>
-	
+				
 				<div>
 					<h4 class="">Project Status</h4>
 					<div class="form-spacing" style="margin-left: 10px;">
-						Choose One. <select class="select2 form-control form-required"
-							id="project_status" ng-model="project.status" name="status" required>
-							<option value="Completed">Completed</option>
-							<option value="In Progress">In Progress</option>
-						</select>
+						Choose One.
+						
+						<div id="project_status" class="btn-group form-radio-select">
+							<label class="btn btn-primary" ng-model="project.status" uib-btn-radio="'Completed'" ng-required="!project.status">Completed</label>
+							<label class="btn btn-primary" ng-model="project.status" uib-btn-radio="'In Progress'" ng-required="!project.status">In Progress</label>
+						</div>
 					</div>
 				</div>
 	
 				<div>
 					<h4 class="">Entry Type</h4>
 					<div class="form-spacing" style="margin-left: 10px;">
-						Choose One. <select class="select2 form-control form-required"
-							id="entry_type" ng-model="project.entryType" name="entryType" required>
-							<option>New Project</option>
-							<option>Project Update</option>
-						</select>
+						Choose One.
+						
+						<div id="entry_type" class="btn-group form-radio-select">
+							<label class="btn btn-primary" ng-model="project.entryType" uib-btn-radio="'New Project'" ng-required="!project.entryType">New Project</label>
+							<label class="btn btn-primary" ng-model="project.entryType" uib-btn-radio="'Project Update'" ng-required="!project.entryType">Project Update</label>
+						</div>
 					</div>
 				</div>
 	
 				<div>
 					<h4 class="">Spatial Location</h4>
 					<div class="form-spacing" style="margin-left: 10px;">
-						Indicates if the project has geospatial footprint(s). Select "No"
+						Indicates if the project has geospatial footprint(s). Select "No Spatial"
 						for projects that do not relate to a geographic area (e.g.
-						overhead, lab analysis, software development or science support). <select
-							class="select2 form-control form-required" id="spatial"
-							ng-model="project.spatial" name="spatial" required>
-							<option value="Has Spatial">Has Spatial</option>
-							<option value="No Spatial">No Spatial</option>
-						</select>
+						overhead, lab analysis, software development or science support). 
+						
+						<div id="spatial" class="btn-group form-radio-select">
+							<label class="btn btn-primary" ng-model="project.spatial" uib-btn-radio="'Has Spatial'" ng-required="!project.spatial">Has Spatial</label>
+							<label class="btn btn-primary" ng-model="project.spatial" uib-btn-radio="'No Spatial'" ng-required="!project.spatial">No Spatial</label>
+						</div>
 					</div>
 				</div>
 	

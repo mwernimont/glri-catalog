@@ -57,6 +57,10 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	
 	$scope.discard = function() {
 		$scope.project = {};
+		$scope.sbProject = {};
+		$scope.cleanSbProject = {};
+		
+		window.history.back();
 	};
 	
 	$scope.addContact = function(target, type) {
@@ -82,7 +86,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			$scope.addContact(target, type);
 		}
 	};
-	
+		
 	var saveFailed = function(resp) {
 		alert("There was a problem saving the project -> " + resp.data);
 	};
@@ -152,10 +156,10 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		//Turn display off and let it fade in...
 		msgElement.css('display', 'none');
 		
-		var absPos = vPos - parentVertPos;
+		var absPos = vPos - parentVertPos - msgElement.height() * 2.5;
 		
 		msgElement.css('top',absPos).delay(500).fadeIn(500);
-		setTimeout(function() {msgElement.fadeOut(500);}, 10000);
+		setTimeout(function() {msgElement.fadeOut(500);}, 7000);
 	};
 
 	var doValidation = function(form) {
@@ -217,17 +221,18 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		var project = undefined;
 				
 		if($scope.editMode){
-			applyJSONChanges(glriNewProject, $scope.cleanSbProject);
-			project = $scope.cleanSbProject;
+			project = applyJSONChanges(glriNewProject, $scope.cleanSbProject);
 		} else {
 			project = glriNewProject;
 		}
 		
+		console.log("Final JSON sent to ScienceBase");
 		console.log(project);
-		/* Hey would you look at that, disabling posts again
+		
 		$http.post('saveProject', project)
 		.then(
 			function(resp) {
+				console.log("Response from ScienceBase: ");
 				console.log(resp.data);
 				if (resp.data === undefined) {
 					saveFailed({data:"No response received from the server"});
@@ -243,45 +248,42 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				}
 			},
 			saveFailed
-		);*/
+		);
 	};
 	
 	var applyJSONChanges = function(changes, original) {
+		var returnJson = JSON.parse(JSON.stringify(original));
+		
 		for (var key in changes) {
 			if (changes.hasOwnProperty(key)) {
-				if(original.hasOwnProperty(key)) {
-					if(!Array.isArray(changes[key]) && !Array.isArray(original[key])){
-						original[key] = changes[key];
+				if(returnJson.hasOwnProperty(key)) {
+					if(!Array.isArray(changes[key]) && !Array.isArray(returnJson[key])){
+						returnJson[key] = changes[key];
 					} else {
-						original[key] = changes[key].concat(original[key]);
+						returnJson[key] = changes[key].concat(original[key]);
 					}
 				}
 			}
 		}
+		
+		return returnJson;
 	};
 		
-	var radiofySelect2 = function() {
-		$("#dmPlan").select2Buttons({noDefault: true}).refreshSelect2Button();
-		$("#project_status").select2Buttons({noDefault: true}).refreshSelect2Button();
-		$("#duration").select2Buttons({noDefault: true}).refreshSelect2Button();
-		$("#entry_type").select2Buttons({noDefault: true}).refreshSelect2Button();
-		$("#spatial").select2Buttons({noDefault: true}).refreshSelect2Button();
-		$("#focus_area").select2Buttons({noDefault: true}).refreshSelect2Button();
-	};
-
 	var loadAndBindProject = function(pid) {
 		$scope.loading = true;
 		ScienceBase.getItemPromise(pid).success(function(data, status, headers, config) {
 			$scope.loading = false;	
-			setTimeout(function() { //need this timeout to give select2 a chance to render
+			setTimeout(function() {
 				$scope.sbProject = ScienceBase.processItem(data);
+				console.log("Original Project");
 				console.log($scope.sbProject);
 				$scope.project = projectsService.convertToGlriProject($scope.sbProject);
+				console.log("GLRI Project");
 				console.log($scope.project);
 				$scope.cleanSbProject = cleanSBProject();
+				console.log("Cleaned Original Project");
 				console.log($scope.cleanSbProject);
 				$scope.$apply();
-				setTimeout(radiofySelect2, 200);
 			}, 200);
 		});
 	};
@@ -290,7 +292,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	var cleanSBProject = function() {
 		var tempProject = projectsService.buildNewProject($scope.project);
 		var cleanProject = JSON.parse(JSON.stringify($scope.sbProject));
-		
+						
 		console.log("CONTACT COMPARISON: ");
 		console.log(tempProject.contacts);
 		console.log(cleanProject.contacts);
@@ -334,9 +336,5 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		$scope.editMode = true;
 		var id = parts[2];
 		loadAndBindProject(id);
-	} else {
-		setTimeout(radiofySelect2, 100);
-	}
-	
-	
+	}	
 }]);
