@@ -146,7 +146,7 @@
 						Choose One. 
 						
 						<div id="focus_area" class="btn-group form-radio-select">
-							<label ng-repeat="(key, value) in focusAreas" class="btn btn-primary" ng-model="project.focusArea" uib-btn-radio="'{{value.name}}'" ng-required="!project.focusArea">{{value.name}}</label>
+							<label ng-repeat="(key, value) in focusAreas" class="btn btn-primary" ng-if="key.toLowerCase() !== 'all'" ng-model="project.focusArea" uib-btn-radio="'{{value.name}}'" ng-required="!project.focusArea">{{value.name}}</label>
 						</div>
 					</div>
 				</div>
