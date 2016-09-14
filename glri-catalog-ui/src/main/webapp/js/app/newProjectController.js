@@ -2,7 +2,23 @@ GLRICatalogApp.controller('ProjectCtrl',
 ['$scope', '$http', '$filter', '$location', 'Status', 'ScienceBase', "Projects", "FocusAreaManager",
 function($scope, $http, $filter, $location, Status, ScienceBase, projectsService, focusAreaManager) {
 	$scope.contactPattern = /^[\w\s]+ [\w\d\.]+@[\w\d]+\.\w+$/;
-	$scope.project = {};
+	$scope.project = {
+		principal: [
+			
+		],
+		chiefs: [
+			
+		],
+		contacts: [
+			
+		],
+		organizations: [
+			
+		],
+		tags: [
+			
+		]		
+	};
 	$scope.dateOptions = {
 		  };	
 	$scope.focusAreas = focusAreaManager.areasByType;
@@ -408,6 +424,12 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		});
 	};
 	
+	//Helper function to initialize certain parts of the form for new projects
+	var initializeNewProject = function() {
+		$scope.addContact($scope.project.principal, "Principal Investigator");
+		$scope.addContact($scope.project.chiefs, "Associate Project Chief");
+	};
+	
 	//Helper function to remove anything from the arrays of the original SB project that we extracted
 	var cleanSBProject = function() {
 		var tempProject = projectsService.buildNewProject($scope.project);
@@ -452,5 +474,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		$scope.editMode = true;
 		var id = parts[2];
 		loadAndBindProject(id);
-	}	
+	} else {
+		initializeNewProject();
+	}
 }]);

@@ -179,20 +179,13 @@ GLRICatalogApp.service('Projects',
 	};
 	
 	ctx.buildNewProject = function(data) {
-		//Build required data
-		var id = "";
-		
-		if (data.id) {
-			id = data.id;
-		}
-		
+		//Build required data			
 		var body = buildBodyString(data);
 		var tags = buildTags(data);
 		var contacts = buildContacts(data);
 				
 		//Initial Structure holds all required data
 		var newProject = {
-			id: id,
 			title: data.title,
 			summary: "",
 			body: body,
@@ -219,6 +212,10 @@ GLRICatalogApp.service('Projects',
 		};
 		
 		//Build and append optional data
+		if (data.id) {
+			newProject.id = data.id;
+		}
+		
 		var endDate   = {};
 		if (data.endDate) { // TODO validation after start and year or full date
 			endDate = {
