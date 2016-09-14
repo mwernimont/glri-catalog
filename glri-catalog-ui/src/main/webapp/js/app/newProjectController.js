@@ -329,9 +329,13 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		if(returnJson.hasOwnProperty("alternateTitles")){
 			delete returnJson["alternateTitles"];
 		}
+				
+		if(returnJson.hasOwnProperty("templates")){
+			delete returnJson["templates"];
+		}
 		
-		if(returnJson.hasOwnProperty("browseCategories")){
-			delete returnJson["browseCategories"];
+		if(returnJson.hasOwnProperty("distributionLinks")){
+			delete returnJson["distributionLinks"];
 		}
 				
 		return returnJson;
