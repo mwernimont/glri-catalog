@@ -153,10 +153,10 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		//Turn display off and let it fade in...
 		msgElement.css('display', 'none');
 		
-		var absPos = vPos - parentVertPos - msgElement.height() * 2.5;
+		var absPos = vPos - parentVertPos - msgElement.height()*3;
 		
-		msgElement.css('top',absPos).delay(500).fadeIn(500);
-		setTimeout(function() {msgElement.fadeOut(500);}, 7000);
+		msgElement.css('top',absPos).fadeIn(400);
+		setTimeout(function() {msgElement.fadeOut(400);}, 7000);
 	};
 
 	var doValidation = function(form) {
@@ -177,6 +177,10 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				if (value === undefined || value.length === 0) {
 					scrollTo(field);
 					displayMsg("form-msg-required", field);
+					$(field).css('border', '2px solid red');
+					setTimeout(function() {
+						$(field).css('border', '1px solid #ccc');
+					},7100);
 					return false;
 				}
 			}
@@ -192,7 +196,20 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 
 						if(elem !== undefined && elem.length > 0){
 							scrollTo(elem);
-							displayMsg("form-msg-required", elem);
+														
+							elem.css('border', '2px solid red');
+							
+							setTimeout(function() {
+								elem.css('border', '1px solid #ccc');
+							},7100);
+							
+							if(key === "email") {
+								displayMsg("form-msg-email", elem);
+							} else if(key === "url") {
+								displayMsg("form-msg-url", elem);
+							} else {
+								displayMsg("form-msg-required", elem);
+							}
 						}
 						return false;
 					}

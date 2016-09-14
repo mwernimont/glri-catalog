@@ -31,6 +31,8 @@
 	
 				<div class="form-msg" id="form-msg-required">Please complete
 					this required field.</div>
+				<div class="form-msg" id="form-msg-email">This email address is not valid.</div>
+				<div class="form-msg" id="form-msg-url">This url is not valid.</div>
 				<div class="form-msg" id="form-msg-validate">{{validation.singleMsg}}</div>
 				<div class="form-msg" id="form-msg-agree">You must agree to the
 					Data Management Plan in order to submit a new GLRI Project.</div>
@@ -77,7 +79,7 @@
 						project page on the GLRI website. <input
 							class="form-control form-field form-optional single-url"
 							type="url" ng-model="project.image" name="image">
-						<div class="proj-img-container">
+						<div class="proj-img-container" ng-require="project.image">
 						If valid, the image at the specified URL should be displayed:
 						<br/><br/>
 						<img ng-src="{{project.image}}"/>
@@ -314,9 +316,6 @@
 					<h4 class="">Associate Project Chief</h4>
 					<div class="form-spacing">
 						Center Director, Office Chief, Regional Staff Member, etc. (Basis Task field: Leaders,Task Leader)
-						<div class="ui-contact-add-spacer">
-							<button type="button" class="contact-add-button btn btn-success" ng-click="addContact(project.chiefs, 'Associate Project Chief')">+</button>
-						</div>
 						<ul>
 							<li ng-repeat="chief in project.chiefs">
 								<div class="form-inline ui-contact-subform">
@@ -326,7 +325,7 @@
 									</div>
 									<div class="form-group">
 										<label class="control-label">Email</label>
-										<input type="text" class="form-control form-field" name="cieft-email-{{$index}}" ng-model ="chief.email" placeholder="Enter the email for this contact." required/>
+										<input type="email" class="form-control form-field" name="cieft-email-{{$index}}" ng-model ="chief.email" placeholder="Enter the email for this contact." required/>
 									</div>
 									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.chiefs, $index, true)">X</button>
 								</div>
@@ -350,14 +349,14 @@
 						</div>
 						<ul>
 							<li ng-repeat="org in project.organizations">
-								<div class="form-inline ui-contact-subform">
+								<div class="form-inline ui-contact-subform" style="background: #E5F5FF;">
 									<div class="form-group">
 										<label class="control-label">Name</label>
 										<input type="text" class="form-control form-field" name="org-name-{{$index}}" ng-model ="org.name" placeholder="Enter the name for this contact." required/>
 									</div>
 									<div class="form-group">
 										<label class="control-label">Email</label>
-										<input type="text" class="form-control form-field" name="org-email-{{$index}}" ng-model ="org.email" placeholder="Enter the email for this contact." required/>
+										<input type="email" class="form-control form-field" name="org-email-{{$index}}" ng-model ="org.email" ng-require="org.email" placeholder="Enter the email for this contact." style="background: #E5F5FF;"/>
 									</div>
 									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.organizations, $index, false)">X</button>
 								</div>
@@ -374,14 +373,14 @@
 						</div>
 						<ul>
 							<li ng-repeat="contact in project.contacts">
-								<div class="form-inline ui-contact-subform">
+								<div class="form-inline ui-contact-subform" style="background: #E5F5FF;">
 									<div class="form-group">
 										<label class="control-label">Name</label>
 										<input type="text" class="form-control form-field" name="contact-name-{{$index}}" ng-model ="contact.name" placeholder="Enter the name for this contact." required/>
 									</div>
 									<div class="form-group">
 										<label class="control-label">Email</label>
-										<input type="text" class="form-control form-field" name="contact-email-{{$index}}" ng-model ="contact.email" placeholder="Enter the email for this contact." required/>
+										<input type="email" class="form-control form-field" name="contact-email-{{$index}}" ng-model ="contact.email" placeholder="Enter the email for this contact." required/>
 									</div>
 									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.contacts, $index, false)">X</button>
 								</div>
