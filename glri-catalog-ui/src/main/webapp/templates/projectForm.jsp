@@ -93,14 +93,20 @@
 							style="width: 50% !important; float: left;">
 							<h4 class="">Agreement Start Date</h4>
 							Required: Calendar Year (yyyy) or Full Date (yyyy-mm-dd)
+							<div class="form-spacing date-format-spacer">
+								<div id="startDateFormat" class="btn-group form-radio-select">
+									<label class="btn btn-primary" ng-model="startDateMode" uib-btn-radio="'year'" ng-change='updateDateFormat("start","yyyy")'>Calendar Year</label>
+									<label class="btn btn-primary" ng-model="startDateMode" uib-btn-radio="'day'" ng-change='updateDateFormat("start","yyyy-MM-dd")'>Full Date</label>
+								</div>
+							</div>
 							<div class="form-spacing startDate">
-								<input type="text"
+								<input ng-readonly="true" type="text"
 									class="form-control form-control form-field form-date form-required"
-									style="width: 150px !important;" uib-datepicker-popup
-									model="project.startDate" ng-model="project.startDateNg"
-									is-open="status.showStart" datepicker-options="dateOptions"
+									style="width: 150px !important;" uib-datepicker-popup="{{startDateFormat}}"
+									model="project.startDate" is-open="status.showStart" datepicker-options="dateOptions"
+									datpicker-mode="startDateMode" min-mode="startDateMode" ng-model="project.startDateNg"
 									date-disabled="disabled(date, mode)" ng-required="false"
-									close-text="Close" datepicker-mode="status.mode" name="startDate"/>
+									close-text="Close" name="startDate"/>
 								<div class="input-group-addon calendar-button"
 									ng-click="showCalendar('start')">
 									<span class="glyphicon glyphicon-calendar"></span>
@@ -111,14 +117,20 @@
 							style="width: 50% !important; float: right;">
 							<h4 class="">Agreement End Date</h4>
 							Optional: Calendar Year (yyyy) or Full Date (yyyy-mm-dd)
+							<div class="form-spacing date-format-spacer">
+								<div id="endDateFormat" class="btn-group form-radio-select">
+									<label class="btn btn-primary" ng-model="endDateMode" uib-btn-radio="'year'" ng-change='updateDateFormat("finish","yyyy")'>Calendar Year</label>
+									<label class="btn btn-primary" ng-model="endDateMode" uib-btn-radio="'day'" ng-change='updateDateFormat("finish","yyyy-MM-dd")'>Full Date</label>
+								</div>
+							</div>
 							<div class="form-spacing endDate">
-								<input type="text"
-									class="form-control form-control form-field form-date form-optional"
-									style="width: 150px !important;" uib-datepicker-popup
-									model="project.endDate" ng-model="project.endDateNg"
-									is-open="status.showFinish" datepicker-options="dateOptions"
+								<input ng-readonly="true" type="text"
+									class="form-control form-control form-field form-date-optional form-optional"
+									style="width: 150px !important;" uib-datepicker-popup="{{endDateFormat}}"
+									model="project.endDate" is-open="status.showFinish" datepicker-options="dateOptions"
+									datpicker-mode="endDateMode" min-mode="endDateMode" ng-model="project.endDateNg"
 									date-disabled="disabled(date, mode)" ng-required="false"
-									close-text="Close" datepicker-mode="status.mode" name="endDate"/>
+									close-text="Close" name="endDate"/>
 								<div class="input-group-addon calendar-button"
 									ng-click="showCalendar('finish')">
 									<span class="glyphicon glyphicon-calendar"></span>

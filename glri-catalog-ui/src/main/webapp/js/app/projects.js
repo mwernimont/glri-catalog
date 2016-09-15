@@ -197,7 +197,7 @@ GLRICatalogApp.service('Projects',
 			dates: [
 				{
 					type: "Start",
-					dateString: data.startDate,
+					dateString: data.startDate.toISOString().slice(0,10),
 					label: "Project Start Date"
 				}
 			],
@@ -220,7 +220,7 @@ GLRICatalogApp.service('Projects',
 		if (data.endDate) { // TODO validation after start and year or full date
 			endDate = {
 				type: "End",
-				dateString: data.endDate,
+				dateString: data.endDate.toISOString().slice(0,10),
 				label: "Project End Date"
 			};
 			
@@ -325,10 +325,12 @@ GLRICatalogApp.service('Projects',
 		};
 		
 		//find thumbnail
-		for(var i = 0; i < sbProj.webLinks.length; i++) {
-			var link = sbProj.webLinks[i];
-			if(link.type == "browseImage") {
-				glriProj.image = link.uri;
+		if(sbProj.hasOwnProperty("webLinks")){
+			for(var i = 0; i < sbProj.webLinks.length; i++) {
+				var link = sbProj.webLinks[i];
+				if(link.type == "browseImage") {
+					glriProj.image = link.uri;
+				}
 			}
 		}
 		
@@ -336,12 +338,20 @@ GLRICatalogApp.service('Projects',
 		for(var i = 0; i < sbProj.dates.length; i++) {
 			var dt = sbProj.dates[i];
 			if(dt.type == "Start") {
-				glriProj.startDate = dt.dateString;
-				glriProj.startDateNg = dt.dateString;
+				glriProj.startDate = new Date(dt.dateString);
+				glriProj.startDateNg = new Date(dt.dateString);
+				
+				//Fix date timezones
+				glriProj.startDate.setMinutes(glriProj.startDate.getMinutes() + glriProj.startDate.getTimezoneOffset());
+				glriProj.startDateNg.setMinutes(glriProj.startDate.getMinutes() + glriProj.startDateNg.getTimezoneOffset());
 			}
 			if(dt.type == "End") {
-				glriProj.endDate = dt.dateString;
-				glriProj.endDateNg = dt.dateString;
+				glriProj.endDate = new Date(dt.dateString);
+				glriProj.endDateNg = new Date(dt.dateString);
+				
+				//Fix date timezones
+				glriProj.endDate.setMinutes(glriProj.endDate.getMinutes() + glriProj.endDate.getTimezoneOffset());
+				glriProj.endDateNg.setMinutes(glriProj.endDateNg.getMinutes() + glriProj.endDateNg.getTimezoneOffset());
 			}
 		}
 		

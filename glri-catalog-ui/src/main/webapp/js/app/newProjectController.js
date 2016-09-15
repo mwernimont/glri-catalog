@@ -17,10 +17,18 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		],
 		tags: [
 			
-		]		
+		]
 	};
+	
+	$scope.startDateMode = 'day';
+	$scope.startDateFormat = 'yyyy-MM-dd';
+	$scope.endDateMode = 'day';
+	$scope.endDateFormat = 'yyyy-MM-dd';
+	
 	$scope.dateOptions = {
-		  };	
+		
+	};
+	
 	$scope.focusAreas = focusAreaManager.areasByType;
 	
 	$scope.transient= Status;
@@ -36,17 +44,44 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	// custom year accept along with full date format with default impl
 	var yearRx = new RegExp(/^\d\d\d\d$/);
 	var dateRx = new RegExp(/^\d\d\d\d-\d\d-\d\d$/);
-	var onDateChangeEvent = function(target) {
+	var dateRx2 = new RegExp(/^\d\d\d\d\/\d\d\/\d\d$/);
+	
+	var onDateChangeEvent = function(target) {		
 		var value = $(target).val();
-		
-		if (yearRx.test(value) || dateRx.test(value)) {
-			var model = $(target).attr("model").split('.');
-			$scope[model[0]][model[1]] = value;
+				
+		//Erase invalid dates
+		if(!validDate(value)) {
+			var date = "";
+		} else {
+			var date = new Date(value);
+			date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
 		}
+		
+		var model = $(target).attr("model").split('.');
+		$scope[model[0]][model[1]] = date;
 	};
+	
+	var validDate = function(value){
+		if (yearRx.test(value) || dateRx.test(value) || dateRx2.test(value)) {
+			return true;
+		}
+		return false;
+	};
+	
 	$('.form-date').change(function(event) {
 		onDateChangeEvent(event.target);
 	});
+	
+	$scope.updateDateFormat = function(type, format){
+		if(type === "start"){
+			$scope.startDateFormat = format;
+			$scope.project.startDateNg = $scope.project.startDate;
+		} else if(type === "finish") {
+			$scope.endDateFormat = format;
+			$scope.project.endDateNg = $scope.project.endDate;
+		}
+	};
+	
 	var listenToDateClicks = function(field) {
 		$(field+' .dropdown-menu button').click(function(){
 			setTimeout(function(){
@@ -56,6 +91,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			onDateChangeEvent($(field+' input'));
 		});
 	};
+	
 	$scope.showCalendar = function(which) {
 		if ('start'===which) { // TODO could be tightened up OOP
 			$scope.status.showStart = !$scope.status.showStart;
@@ -185,7 +221,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			var field = requiredFields[f];
 			var modelBinding = $(field).attr('model') // have to check for the custom date field first
 			if (!modelBinding) {
-				modelBinding = $(field).attr('ng-model')
+				modelBinding = $(field).attr('ng-model');
 			}
 			if (modelBinding !== undefined) {
 				var model = modelBinding.split('.')
@@ -246,7 +282,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		if ( ! doValidation(form) ) {
 			return;
 		}
-				
+		
 		var glriNewProject = projectsService.buildNewProject($scope.project);
 		var project = undefined;
 				
@@ -277,13 +313,14 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			saveFailed
 		);
 	};
-	
+		
 	var applyJSONChanges = function(changes, original) {
 		var returnJson = JSON.parse(JSON.stringify(original));
 		
 		//Clean contact information that is empty before sending to ScienecBase
 		cleanContacts(changes);
 		
+		//Apply array changes
 		for (var key in changes) {
 			if (changes.hasOwnProperty(key)) {
 				if(returnJson.hasOwnProperty(key)) {
@@ -292,6 +329,8 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 					} else {
 						returnJson[key] = changes[key].concat(original[key]);
 					}
+				} else {
+					returnJson[key] = changes[key];
 				}
 			}
 		}
