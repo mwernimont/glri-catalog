@@ -6,17 +6,9 @@ GLRICatalogApp.service('Projects',
 	var CONTACT_TEAM      = "Contact";
 	
 	var allowedSpatialValues = ["Has Spatial", "No Spatial"];
-	var allowedEntryTypeValues = ["New Project", "Project Update"];
 	var allowedDurationValues = ["Single effort (1 year or less)", "Short term (2 to 5 years)", "Long term (greater than 5 years)"];
 	
 	var ctx = this;
-	
-	var concatIfExists = function(label, additional) {
-		if (additional && additional.length>1) {
-			return label + additional;
-		}
-		return "";
-	};
 	
 	var splitComma = function(text) {
 		if (text === undefined || typeof text !== 'string') {
@@ -91,29 +83,48 @@ GLRICatalogApp.service('Projects',
 		return selectTags;
 	};
 	
+	//ordered mapping objects.
+	var bodyFieldMappings = [
+			{ dataField: "work", displayField : "Description of Work" },
+			{ dataField: "objectives", displayField : "Goals &amp; Objectives" },
+			{ dataField: "impact", displayField : "Relevance &amp; Impact" },
+			{ dataField: "product", displayField : "Products" },
+			{ dataField: "approach", displayField : "Approach" },
+			{ dataField: "keyFindings", displayField : "Key Findings" },
+			{ dataField: "references", displayField : "References" }
+		];
+	
+	ctx.getBodyFieldMappings = function() {
+		return bodyFieldMappings;
+	};
+	
 	var buildBodyString = function(data) {
 		var body = "";
-		body += concatIfExists("<h4>Description of Work<\/h4> ", data.work);
-		body += concatIfExists("<h4>Goals &amp; Objectives<\/h4> ", data.objectives);
-		body += concatIfExists("<h4>Relevance &amp; Impact<\/h4> ", data.impact);
-		body += concatIfExists("<h4>Planned Products<\/h4> ", data.product);
+		angular.forEach(bodyFieldMappings, function(mapping) {
+			if(data[mapping.dataField]) {
+				body += "<h4>" + mapping.displayField + "<\/h4>" + data[mapping.dataField]
+			}
+		});
 		return body;
 	};
 	
 	var extractBodyValues = function(sbBody, glriProj) {
-		extractFromBodyString(sbBody, glriProj, "work", "<h4>Description of Work<\/h4> ");
-		extractFromBodyString(sbBody, glriProj, "objectives", "<h4>Goals &amp; Objectives<\/h4> ");
-		extractFromBodyString(sbBody, glriProj, "impact", "<h4>Relevance &amp; Impact<\/h4> ");
-		extractFromBodyString(sbBody, glriProj, "product", "<h4>Planned Products<\/h4> ");
+		angular.forEach(bodyFieldMappings, function(mapping) {
+			extractFromBodyString(sbBody, glriProj, mapping.dataField, mapping.displayField);
+		});
 	};
 	 
 	var extractFromBodyString = function(sbBody, glriProj, target, label) {
 		var result = sbBody;
-		var startIndex = sbBody.indexOf(label);
+		var startIndex = sbBody.toLowerCase().indexOf("<h4>" + label.toLowerCase() + "</h4>");
 		
-		result = result.substring(startIndex + label.length);
+		if(startIndex < 0) { //this field not entered
+			return;
+		}
 		
-		var endIndex = result.indexOf("<h4");
+		result = result.substring(startIndex + label.length + 9);
+		
+		var endIndex = result.toLowerCase().indexOf("<h4");
 		if(endIndex >= 0) {
 			result = result.substring(0, endIndex);
 		}
@@ -126,7 +137,6 @@ GLRICatalogApp.service('Projects',
 		// single entry tags
 		var focus     = createTag(VOCAB_FOCUS,data.focusArea);
 		var spatial   = createTag(VOCAB_SPATIAL,data.spatial);
-		var entryType = createTag(VOCAB_KEYWORD,data.entryType);
 		var duration  = createTag(VOCAB_DURATION,data.duration);
 		
 		// comma separated tags
@@ -155,7 +165,7 @@ GLRICatalogApp.service('Projects',
 			name: data.username
 		};
 	
-		return [].concat.apply([], [focus, keywords, sigl, glri, water, templates, spatial, entryType, duration, glriId, creator]);
+		return [].concat.apply([], [focus, keywords, sigl, glri, water, templates, spatial, duration, glriId, creator]);
 	};
 	
 	var buildContacts = function(data) {
@@ -372,11 +382,10 @@ GLRICatalogApp.service('Projects',
 		
 		extractTag(tags, glriProj, "focusArea", VOCAB_FOCUS);
 		extractTag(tags, glriProj, "spatial", VOCAB_SPATIAL, allowedSpatialValues);
-		extractTag(tags, glriProj, "entryType", VOCAB_KEYWORD, allowedEntryTypeValues);
 		extractTag(tags, glriProj, "duration", VOCAB_DURATION, allowedDurationValues);
 		
 		// comma separated keywords
-		extractTagsAsCsv(tags, glriProj, "keywords", VOCAB_KEYWORD, [glriProj.spatial, glriProj.entryType, glriProj.duration]);
+		extractTagsAsCsv(tags, glriProj, "keywords", VOCAB_KEYWORD, [glriProj.spatial, glriProj.duration]);
 		
 		// multi-select tags
 		extractTagsAsArray(tags, glriProj, "SiGL", VOCAB_SIGL);
