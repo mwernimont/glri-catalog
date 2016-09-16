@@ -12,7 +12,9 @@
 				<p>
 					Information entered in this form will be displayed in the <a
 						href="http://cida.usgs.gov/glri/" class="alert-link"
-						target="_blank">USGS GLRI Website</a>.
+						target="_blank">USGS GLRI Website</a>. Be aware that adding
+						or removing html tags may result in unanticipated changes to
+						formatting of project pages.
 				</p>
 				<p>
 					You are logged in as <strong><%=username%></strong>.
