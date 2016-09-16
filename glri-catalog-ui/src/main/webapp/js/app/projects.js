@@ -37,6 +37,8 @@ GLRICatalogApp.service('Projects',
 	var VOCAB_SIGL     = "category/Great%20Lakes%20Restoration%20Initiative/SiGLProjectObjective";
 	var VOCAB_TEMPLATE = "category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates";
 	var VOCAB_WATER    = "category/Great%20Lakes%20Restoration%20Initiative/GLRIWaterFeature";
+	var VOCAB_SPATIAL = "category/Great%20Lakes%20Restoration%20Initiative/GLRISpatialLocation";
+	var VOCAB_DURATION = "category/Great%20Lakes%20Restoration%20Initiative/GLRIProjectDuration";
 	
 	var toFullSchemeUri = function(scheme) {
 		return "https://www.sciencebase.gov/vocab/" + scheme;
@@ -120,9 +122,9 @@ GLRICatalogApp.service('Projects',
 	var buildTags = function(data) {
 		// single entry tags
 		var focus     = createTag(VOCAB_FOCUS,data.focusArea);
-		var spatial   = createTag(VOCAB_KEYWORD,data.spatial);
+		var spatial   = createTag(VOCAB_SPATIAL,data.spatial);
 		var entryType = createTag(VOCAB_KEYWORD,data.entryType);
-		var duration  = createTag(VOCAB_KEYWORD,data.duration);
+		var duration  = createTag(VOCAB_DURATION,data.duration);
 		
 		// comma separated tags
 		var keywords  = concatTagsComma(VOCAB_KEYWORD,data.keywords);
@@ -366,9 +368,9 @@ GLRICatalogApp.service('Projects',
 		var tags = sbProj.tags;
 		
 		extractTag(tags, glriProj, "focusArea", VOCAB_FOCUS);
-		extractTag(tags, glriProj, "spatial", VOCAB_KEYWORD, allowedSpatialValues);
+		extractTag(tags, glriProj, "spatial", VOCAB_SPATIAL, allowedSpatialValues);
 		extractTag(tags, glriProj, "entryType", VOCAB_KEYWORD, allowedEntryTypeValues);
-		extractTag(tags, glriProj, "duration", VOCAB_KEYWORD, allowedDurationValues);
+		extractTag(tags, glriProj, "duration", VOCAB_DURATION, allowedDurationValues);
 		
 		// comma separated keywords
 		extractTagsAsCsv(tags, glriProj, "keywords", VOCAB_KEYWORD, [glriProj.spatial, glriProj.entryType, glriProj.duration]);
