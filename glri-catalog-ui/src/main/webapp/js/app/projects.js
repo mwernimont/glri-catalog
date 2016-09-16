@@ -4,10 +4,7 @@ GLRICatalogApp.service('Projects',
 	var CONTACT_CHIEF     = "Associate Project Chief";
 	var CONTACT_ORG       = "Cooperator/Partner";
 	var CONTACT_TEAM      = "Contact";
-	
-	var allowedSpatialValues = ["Has Spatial", "No Spatial"];
-	var allowedDurationValues = ["Single effort (1 year or less)", "Short term (2 to 5 years)", "Long term (greater than 5 years)"];
-	
+		
 	var ctx = this;
 	
 	var splitComma = function(text) {
@@ -381,11 +378,11 @@ GLRICatalogApp.service('Projects',
 		var tags = sbProj.tags;
 		
 		extractTag(tags, glriProj, "focusArea", VOCAB_FOCUS);
-		extractTag(tags, glriProj, "spatial", VOCAB_SPATIAL, allowedSpatialValues);
-		extractTag(tags, glriProj, "duration", VOCAB_DURATION, allowedDurationValues);
+		extractTag(tags, glriProj, "spatial", VOCAB_SPATIAL);
+		extractTag(tags, glriProj, "duration", VOCAB_DURATION);
 		
 		// comma separated keywords
-		extractTagsAsCsv(tags, glriProj, "keywords", VOCAB_KEYWORD, [glriProj.spatial, glriProj.duration]);
+		extractTagsAsCsv(tags, glriProj, "keywords", VOCAB_KEYWORD);
 		
 		// multi-select tags
 		extractTagsAsArray(tags, glriProj, "SiGL", VOCAB_SIGL);
