@@ -238,9 +238,10 @@
 				<div>
 					<h4>Products</h4>
 					<div class="form-spacing">
-						Describe products from this project. (e.g. publication
-						or data set), providing a title and outlet for each product. (Basis
-						Task field: Products)
+						Describe products from this project. (e.g. publications, presentations, posters
+						or data sets), providing a minimum a title and resource for each product. If 
+						there are products that are planned or in process please include those as well.
+						(Basis Task field: Products)
 						<textarea class="form-control form-field form-required" rows="10"
 							ng-model="project.product" name="product" required></textarea>
 					</div>
