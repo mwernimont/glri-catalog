@@ -70,7 +70,10 @@ GLRICatalogApp.service('Projects',
 		tags = splitComma(tags);		
 		var commaTags = [];		
 		for (var tag=0; tag<tags.length; tag++) {
-			commaTags.push( createTag(scheme, tags[tag].trim()) );
+			if(tags[tag].trim().length > 0)
+			{
+				commaTags.push( createTag(scheme, tags[tag].trim()) );
+			}
 		}
 		return commaTags;
 	};
