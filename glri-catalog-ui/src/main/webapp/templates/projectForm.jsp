@@ -238,6 +238,15 @@
 				</div>
 	
 				<div>
+					<h4>Approach</h4>
+					<div class="form-spacing">
+						Describe the approached used during this project.
+						<textarea class="form-control form-field form-optional" rows="10"
+							ng-model="project.approach"></textarea>
+					</div>
+				</div>
+	
+				<div>
 					<h4>Products</h4>
 					<div class="form-spacing">
 						Describe products from this project. (e.g. publication
@@ -245,15 +254,6 @@
 						Task field: Products)
 						<textarea class="form-control form-field form-required" rows="10"
 							ng-model="project.product" name="product" required></textarea>
-					</div>
-				</div>
-	
-				<div>
-					<h4>Approach</h4>
-					<div class="form-spacing">
-						Describe the approached used during this project.
-						<textarea class="form-control form-field form-optional" rows="10"
-							ng-model="project.approach"></textarea>
 					</div>
 				</div>
 	
