@@ -12,9 +12,7 @@
 				<p>
 					Information entered in this form will be displayed in the <a
 						href="http://cida.usgs.gov/glri/" class="alert-link"
-						target="_blank">USGS GLRI Website</a>. Be aware that adding
-						or removing html tags may result in unanticipated changes to
-						formatting of project pages.
+						target="_blank">USGS GLRI Website</a>.
 				</p>
 				<p>
 					You are logged in as <strong><%=username%></strong>.
@@ -238,30 +236,29 @@
 				</div>
 	
 				<div>
-					<h4>Products</h4>
-					<div class="form-spacing">
-						Describe products from this project. (e.g. publications, presentations, posters
-						or data sets), providing a minimum a title and resource for each product. If 
-						there are products that are planned or in process please include those as well.
-						(Basis Task field: Products)
-						<textarea class="form-control form-field form-required" rows="10"
-							ng-model="project.product" name="product" required></textarea>
-					</div>
-				</div>
-	
-				<div>
 					<h4>Approach</h4>
 					<div class="form-spacing">
-						Describe the method or approach taken for this project.
+						Describe the approached used during this project.
 						<textarea class="form-control form-field form-optional" rows="10"
 							ng-model="project.approach"></textarea>
 					</div>
 				</div>
 	
 				<div>
+					<h4>Products</h4>
+					<div class="form-spacing">
+						Describe products from this project. (e.g. publication
+						or data set), providing a title and outlet for each product. (Basis
+						Task field: Products)
+						<textarea class="form-control form-field form-required" rows="10"
+							ng-model="project.product" name="product" required></textarea>
+					</div>
+				</div>
+	
+				<div>
 					<h4>Key Findings</h4>
 					<div class="form-spacing">
-						Describe any findings or outcomes of the project that you'd like to highlight.
+						Key findings produced by this project.
 						<textarea class="form-control form-field form-optional" rows="10"
 							ng-model="project.keyFindings"></textarea>
 					</div>
@@ -270,7 +267,7 @@
 				<div>
 					<h4>References</h4>
 					<div class="form-spacing">
-						Provide and relevant references for the project, i.e. citations.
+						Any references around this project.
 						<textarea class="form-control form-field form-optional" rows="10"
 							ng-model="project.references"></textarea>
 					</div>
