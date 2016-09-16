@@ -260,22 +260,24 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 						var name = form.$error[key][0].$name;
 						var elem = angular.element("[name='" + name + "']");
 						if(elem !== undefined && elem.length > 0){
-							
 							//Proper highlighting for radio selections
 							if(elem.attr("uib-btn-radio") !== undefined && elem.attr("uib-btn-radio").length > 0){
-								if(elem.ownerElement !== undefined && elem.ownerElement.length > 0)
+								if(elem.parent() !== undefined && elem.parent().length > 0)
 								{
-									elem = elem.ownerElement;
+									elem = elem.parent();
+									elem.css('border-radius', '4px');
+									setTimeout(function() {
+										elem.css('border', '2px solid white');
+									},7100);
 								}
+							} else {
+								setTimeout(function() {
+									elem.css('border', '1px solid #ccc');
+								},7100);
 							}
 							
-							scrollTo(elem);
-														
 							elem.css('border', '2px solid red');
-							
-							setTimeout(function() {
-								elem.css('border', '1px solid #ccc');
-							},7100);
+							scrollTo(elem);							
 							
 							if(key === "email") {
 								displayMsg("form-msg-email", elem);
