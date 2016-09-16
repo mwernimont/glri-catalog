@@ -327,13 +327,13 @@
 								<div class="form-inline ui-contact-subform">
 									<div class="form-group">
 										<label class="control-label">Name</label>
-										<input type="text" class="form-control form-field" name="principal-name-{{$index}}" ng-model ="principal.name" placeholder="Enter the name for this contact." required/>
+										<input type="text" class="form-control form-field" name="principal-name-{{$index}}" ng-model ="principal.name" ng-disabled="editMode" placeholder="Enter the name for this contact." required/>
 									</div>
 									<div class="form-group">
 										<label class="control-label">Email</label>
-										<input type="email" class="form-control form-field" name="principal-email-{{$index}}" ng-model ="principal.email" placeholder="Enter the email for this contact." required/>
+										<input type="email" class="form-control form-field" name="principal-email-{{$index}}" ng-model ="principal.email" ng-disabled="editMode" placeholder="Enter the email for this contact." required/>
 									</div>
-									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.principal, $index, true)">X</button>
+									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.principal, $index, true)" ng-disabled="editMode">X</button>
 								</div>
 							</li>
 						</ul>
@@ -349,13 +349,13 @@
 								<div class="form-inline ui-contact-subform">
 									<div class="form-group">
 										<label class="control-label">Name</label>
-										<input type="text" class="form-control form-field" name="chief-name-{{$index}}" ng-model ="chief.name" placeholder="Enter the name for this contact." required/>
+										<input type="text" class="form-control form-field" name="chief-name-{{$index}}" ng-model ="chief.name" ng-disabled="editMode" placeholder="Enter the name for this contact." required/>
 									</div>
 									<div class="form-group">
 										<label class="control-label">Email</label>
-										<input type="email" class="form-control form-field" name="cieft-email-{{$index}}" ng-model ="chief.email" placeholder="Enter the email for this contact." required/>
+										<input type="email" class="form-control form-field" name="cieft-email-{{$index}}" ng-model ="chief.email" ng-disabled="editMode" placeholder="Enter the email for this contact." required/>
 									</div>
-									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.chiefs, $index, true)">X</button>
+									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.chiefs, $index, true)" ng-disabled="editMode">X</button>
 								</div>
 							</li>
 						</ul>
