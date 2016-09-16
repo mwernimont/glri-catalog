@@ -249,7 +249,7 @@
 				<div>
 					<h4>Approach</h4>
 					<div class="form-spacing">
-						Describe the approached used during this project.
+						Describe the method or approach taken for this project.
 						<textarea class="form-control form-field form-optional" rows="10"
 							ng-model="project.approach"></textarea>
 					</div>
@@ -258,7 +258,7 @@
 				<div>
 					<h4>Key Findings</h4>
 					<div class="form-spacing">
-						Key findings produced by this project.
+						Describe any findings or outcomes of the project that you'd like to highlight.
 						<textarea class="form-control form-field form-optional" rows="10"
 							ng-model="project.keyFindings"></textarea>
 					</div>
@@ -267,7 +267,7 @@
 				<div>
 					<h4>References</h4>
 					<div class="form-spacing">
-						Any references around this project.
+						Provide and relevant references for the project, i.e. citations.
 						<textarea class="form-control form-field form-optional" rows="10"
 							ng-model="project.references"></textarea>
 					</div>
