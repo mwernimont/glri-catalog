@@ -237,6 +237,20 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				}
 			}
 		}
+		
+		//Make sure body fields do not include h4 start/end tags
+		var h4ErrorField;
+		angular.forEach(projectsService.getBodyFieldMappings(), function(mapping) {
+			var value = $scope.project[mapping.dataField];
+			if(value.toLowerCase().indexOf("<h4>") >= 0 || value.toLowerCase().indexOf("</h4>") >= 0) {
+				h4ErrorField = $("textarea[ng-model='project."+mapping.dataField+"']")
+			}			
+		});
+		if(h4ErrorField) {
+			scrollTo(h4ErrorField);
+			displayMsg("form-msg-no-h4", h4ErrorField);
+			return false;
+		}
 				
 		//Handle additional required field validation that is not covered by above		
 		if(!form.$valid && form.$error){

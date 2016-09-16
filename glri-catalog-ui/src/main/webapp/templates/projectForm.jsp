@@ -31,6 +31,7 @@
 	
 				<div class="form-msg" id="form-msg-required">Please complete
 					this required field.</div>
+				<div class="form-msg" id="form-msg-no-h4">Field cannot contain h4 html elements.</div>
 				<div class="form-msg" id="form-msg-email">This email address is not valid.</div>
 				<div class="form-msg" id="form-msg-url">This url is not valid.</div>
 				<div class="form-msg" id="form-msg-validate">{{validation.singleMsg}}</div>
@@ -41,7 +42,7 @@
 					style="margin-bottom: 15px; display: block;">Note: Fields
 					with this background are the only optional entries.</span>
 	
-				<div>
+				<div ng-if="!editMode">
 					<h4 class="">Data Management Plan</h4>
 					<div class="form-spacing" style="margin-left: 10px;">
 						I will create a data management plan within the first year of the
@@ -68,7 +69,7 @@
 						Enter the project title as it should appear on the GLRI website.
 						(Basis Task field: Task Title)
 						<textarea class="form-control form-title form-required"
-							ng-model="project.title" name="title" required></textarea>
+							ng-model="project.title" ng-disabled="editMode" name="title" required></textarea>
 					</div>
 				</div>
 	
@@ -178,18 +179,6 @@
 				</div>
 	
 				<div>
-					<h4 class="">Entry Type</h4>
-					<div class="form-spacing" style="margin-left: 10px;">
-						Choose One.
-						
-						<div id="entry_type" class="btn-group form-radio-select">
-							<label class="btn btn-primary" ng-model="project.entryType" uib-btn-radio="'New Project'" ng-required="!project.entryType">New Project</label>
-							<label class="btn btn-primary" ng-model="project.entryType" uib-btn-radio="'Project Update'" ng-required="!project.entryType">Project Update</label>
-						</div>
-					</div>
-				</div>
-	
-				<div>
 					<h4 class="">Spatial Location</h4>
 					<div class="form-spacing" style="margin-left: 10px;">
 						Indicates if the project has geospatial footprint(s). Select "No Spatial"
@@ -247,13 +236,40 @@
 				</div>
 	
 				<div>
-					<h4>Planned Products</h4>
+					<h4>Products</h4>
 					<div class="form-spacing">
-						Describe anticipated products from this project (e.g. publication
+						Describe products from this project. (e.g. publication
 						or data set), providing a title and outlet for each product. (Basis
 						Task field: Products)
 						<textarea class="form-control form-field form-required" rows="10"
 							ng-model="project.product" name="product" required></textarea>
+					</div>
+				</div>
+	
+				<div>
+					<h4>Approach</h4>
+					<div class="form-spacing">
+						Describe the approached used during this project.
+						<textarea class="form-control form-field form-optional" rows="10"
+							ng-model="project.approach"></textarea>
+					</div>
+				</div>
+	
+				<div>
+					<h4>Key Findings</h4>
+					<div class="form-spacing">
+						Key findings produced by this project.
+						<textarea class="form-control form-field form-optional" rows="10"
+							ng-model="project.keyFindings"></textarea>
+					</div>
+				</div>
+	
+				<div>
+					<h4>References</h4>
+					<div class="form-spacing">
+						Any references around this project.
+						<textarea class="form-control form-field form-optional" rows="10"
+							ng-model="project.references"></textarea>
 					</div>
 				</div>
 	
@@ -311,13 +327,13 @@
 								<div class="form-inline ui-contact-subform">
 									<div class="form-group">
 										<label class="control-label">Name</label>
-										<input type="text" class="form-control form-field" name="principal-name-{{$index}}" ng-model ="principal.name" placeholder="Enter the name for this contact." required/>
+										<input type="text" class="form-control form-field" name="principal-name-{{$index}}" ng-model ="principal.name" ng-disabled="editMode" placeholder="Enter the name for this contact." required/>
 									</div>
 									<div class="form-group">
 										<label class="control-label">Email</label>
-										<input type="email" class="form-control form-field" name="principal-email-{{$index}}" ng-model ="principal.email" placeholder="Enter the email for this contact." required/>
+										<input type="email" class="form-control form-field" name="principal-email-{{$index}}" ng-model ="principal.email" ng-disabled="editMode" placeholder="Enter the email for this contact." required/>
 									</div>
-									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.principal, $index, true)">X</button>
+									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.principal, $index, true)" ng-disabled="editMode">X</button>
 								</div>
 							</li>
 						</ul>
@@ -333,13 +349,13 @@
 								<div class="form-inline ui-contact-subform">
 									<div class="form-group">
 										<label class="control-label">Name</label>
-										<input type="text" class="form-control form-field" name="chief-name-{{$index}}" ng-model ="chief.name" placeholder="Enter the name for this contact." required/>
+										<input type="text" class="form-control form-field" name="chief-name-{{$index}}" ng-model ="chief.name" ng-disabled="editMode" placeholder="Enter the name for this contact." required/>
 									</div>
 									<div class="form-group">
 										<label class="control-label">Email</label>
-										<input type="email" class="form-control form-field" name="cieft-email-{{$index}}" ng-model ="chief.email" placeholder="Enter the email for this contact." required/>
+										<input type="email" class="form-control form-field" name="cieft-email-{{$index}}" ng-model ="chief.email" ng-disabled="editMode" placeholder="Enter the email for this contact." required/>
 									</div>
-									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.chiefs, $index, true)">X</button>
+									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.chiefs, $index, true)" ng-disabled="editMode">X</button>
 								</div>
 							</li>
 						</ul>
