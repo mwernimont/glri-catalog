@@ -32,6 +32,8 @@
 				<div class="form-msg" id="form-msg-required">Please complete
 					this required field.</div>
 				<div class="form-msg" id="form-msg-no-h4">Field cannot contain h4 html elements.</div>
+				<div class="form-msg" id="form-msg-email">This email address is not valid.</div>
+				<div class="form-msg" id="form-msg-url">This url is not valid.</div>
 				<div class="form-msg" id="form-msg-validate">{{validation.singleMsg}}</div>
 				<div class="form-msg" id="form-msg-agree">You must agree to the
 					Data Management Plan in order to submit a new GLRI Project.</div>
@@ -78,7 +80,7 @@
 						project page on the GLRI website. <input
 							class="form-control form-field form-optional single-url"
 							type="url" ng-model="project.image" name="image">
-						<div class="proj-img-container">
+						<div class="proj-img-container" ng-require="project.image">
 						If valid, the image at the specified URL should be displayed:
 						<br/><br/>
 						<img ng-src="{{project.image}}"/>
@@ -92,14 +94,20 @@
 							style="width: 50% !important; float: left;">
 							<h4 class="">Agreement Start Date</h4>
 							Required: Calendar Year (yyyy) or Full Date (yyyy-mm-dd)
+							<div class="form-spacing date-format-spacer">
+								<div id="startDateFormat" class="btn-group form-radio-select">
+									<label class="btn btn-primary" ng-model="startDateMode" uib-btn-radio="'year'" ng-change='updateDateFormat("start","yyyy")'>Calendar Year</label>
+									<label class="btn btn-primary" ng-model="startDateMode" uib-btn-radio="'day'" ng-change='updateDateFormat("start","yyyy-MM-dd")'>Full Date</label>
+								</div>
+							</div>
 							<div class="form-spacing startDate">
-								<input type="text"
+								<input ng-readonly="true" type="text"
 									class="form-control form-control form-field form-date form-required"
-									style="width: 150px !important;" uib-datepicker-popup
-									model="project.startDate" ng-model="project.startDateNg"
-									is-open="status.showStart" datepicker-options="dateOptions"
+									style="width: 150px !important;" uib-datepicker-popup="{{startDateFormat}}"
+									model="project.startDate" is-open="status.showStart" datepicker-options="dateOptions"
+									datpicker-mode="startDateMode" min-mode="startDateMode" ng-model="project.startDateNg"
 									date-disabled="disabled(date, mode)" ng-required="false"
-									close-text="Close" datepicker-mode="status.mode" name="startDate"/>
+									close-text="Close" name="startDate"/>
 								<div class="input-group-addon calendar-button"
 									ng-click="showCalendar('start')">
 									<span class="glyphicon glyphicon-calendar"></span>
@@ -110,14 +118,20 @@
 							style="width: 50% !important; float: right;">
 							<h4 class="">Agreement End Date</h4>
 							Optional: Calendar Year (yyyy) or Full Date (yyyy-mm-dd)
+							<div class="form-spacing date-format-spacer">
+								<div id="endDateFormat" class="btn-group form-radio-select">
+									<label class="btn btn-primary" ng-model="endDateMode" uib-btn-radio="'year'" ng-change='updateDateFormat("finish","yyyy")'>Calendar Year</label>
+									<label class="btn btn-primary" ng-model="endDateMode" uib-btn-radio="'day'" ng-change='updateDateFormat("finish","yyyy-MM-dd")'>Full Date</label>
+								</div>
+							</div>
 							<div class="form-spacing endDate">
-								<input type="text"
-									class="form-control form-control form-field form-date form-optional"
-									style="width: 150px !important;" uib-datepicker-popup
-									model="project.endDate" ng-model="project.endDateNg"
-									is-open="status.showFinish" datepicker-options="dateOptions"
+								<input ng-readonly="true" type="text"
+									class="form-control form-control form-field form-date-optional form-optional"
+									style="width: 150px !important;" uib-datepicker-popup="{{endDateFormat}}"
+									model="project.endDate" is-open="status.showFinish" datepicker-options="dateOptions"
+									datpicker-mode="endDateMode" min-mode="endDateMode" ng-model="project.endDateNg"
 									date-disabled="disabled(date, mode)" ng-required="false"
-									close-text="Close" datepicker-mode="status.mode" name="endDate"/>
+									close-text="Close" name="endDate"/>
 								<div class="input-group-addon calendar-button"
 									ng-click="showCalendar('finish')">
 									<span class="glyphicon glyphicon-calendar"></span>
@@ -330,9 +344,6 @@
 					<h4 class="">Associate Project Chief</h4>
 					<div class="form-spacing">
 						Center Director, Office Chief, Regional Staff Member, etc. (Basis Task field: Leaders,Task Leader)
-						<div class="ui-contact-add-spacer">
-							<button type="button" class="contact-add-button btn btn-success" ng-click="addContact(project.chiefs, 'Associate Project Chief')">+</button>
-						</div>
 						<ul>
 							<li ng-repeat="chief in project.chiefs">
 								<div class="form-inline ui-contact-subform">
@@ -342,7 +353,7 @@
 									</div>
 									<div class="form-group">
 										<label class="control-label">Email</label>
-										<input type="text" class="form-control form-field" name="cieft-email-{{$index}}" ng-model ="chief.email" placeholder="Enter the email for this contact." required/>
+										<input type="email" class="form-control form-field" name="cieft-email-{{$index}}" ng-model ="chief.email" placeholder="Enter the email for this contact." required/>
 									</div>
 									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.chiefs, $index, true)">X</button>
 								</div>
@@ -366,14 +377,14 @@
 						</div>
 						<ul>
 							<li ng-repeat="org in project.organizations">
-								<div class="form-inline ui-contact-subform">
+								<div class="form-inline ui-contact-subform" style="background: #E5F5FF;">
 									<div class="form-group">
 										<label class="control-label">Name</label>
 										<input type="text" class="form-control form-field" name="org-name-{{$index}}" ng-model ="org.name" placeholder="Enter the name for this contact." required/>
 									</div>
 									<div class="form-group">
 										<label class="control-label">Email</label>
-										<input type="text" class="form-control form-field" name="org-email-{{$index}}" ng-model ="org.email" placeholder="Enter the email for this contact." required/>
+										<input type="email" class="form-control form-field" name="org-email-{{$index}}" ng-model ="org.email" ng-require="org.email" placeholder="Enter the email for this contact." style="background: #E5F5FF;"/>
 									</div>
 									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.organizations, $index, false)">X</button>
 								</div>
@@ -390,14 +401,14 @@
 						</div>
 						<ul>
 							<li ng-repeat="contact in project.contacts">
-								<div class="form-inline ui-contact-subform">
+								<div class="form-inline ui-contact-subform" style="background: #E5F5FF;">
 									<div class="form-group">
 										<label class="control-label">Name</label>
 										<input type="text" class="form-control form-field" name="contact-name-{{$index}}" ng-model ="contact.name" placeholder="Enter the name for this contact." required/>
 									</div>
 									<div class="form-group">
 										<label class="control-label">Email</label>
-										<input type="text" class="form-control form-field" name="contact-email-{{$index}}" ng-model ="contact.email" placeholder="Enter the email for this contact." required/>
+										<input type="email" class="form-control form-field" name="contact-email-{{$index}}" ng-model ="contact.email" placeholder="Enter the email for this contact." required/>
 									</div>
 									<button type="button" class="contact-delete-button btn btn-danger" ng-click="removeContact(project.contacts, $index, false)">X</button>
 								</div>

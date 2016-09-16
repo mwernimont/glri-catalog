@@ -2,9 +2,33 @@ GLRICatalogApp.controller('ProjectCtrl',
 ['$scope', '$http', '$filter', '$location', 'Status', 'ScienceBase', "Projects", "FocusAreaManager",
 function($scope, $http, $filter, $location, Status, ScienceBase, projectsService, focusAreaManager) {
 	$scope.contactPattern = /^[\w\s]+ [\w\d\.]+@[\w\d]+\.\w+$/;
-	$scope.project = {};
+	$scope.project = {
+		principal: [
+			
+		],
+		chiefs: [
+			
+		],
+		contacts: [
+			
+		],
+		organizations: [
+			
+		],
+		tags: [
+			
+		]
+	};
+	
+	$scope.startDateMode = 'day';
+	$scope.startDateFormat = 'yyyy-MM-dd';
+	$scope.endDateMode = 'day';
+	$scope.endDateFormat = 'yyyy-MM-dd';
+	
 	$scope.dateOptions = {
-		  };	
+		
+	};
+	
 	$scope.focusAreas = focusAreaManager.areasByType;
 	
 	$scope.transient= Status;
@@ -20,22 +44,46 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	// custom year accept along with full date format with default impl
 	var yearRx = new RegExp(/^\d\d\d\d$/);
 	var dateRx = new RegExp(/^\d\d\d\d-\d\d-\d\d$/);
-	var onDateChangeEvent = function(target) {
-//		console.log(target);
+	var dateRx2 = new RegExp(/^\d\d\d\d\/\d\d\/\d\d$/);
+	
+	var onDateChangeEvent = function(target) {		
 		var value = $(target).val();
-		
-		if (yearRx.test(value) || dateRx.test(value)) {
-			var model = $(target).attr("model").split('.');
-			$scope[model[0]][model[1]] = value;
-//			console.log(value)
+				
+		//Erase invalid dates
+		if(!validDate(value)) {
+			var date = "";
+		} else {
+			var date = new Date(value);
+			date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
 		}
+		
+		var model = $(target).attr("model").split('.');
+		$scope[model[0]][model[1]] = date;
 	};
+	
+	var validDate = function(value){
+		if (yearRx.test(value) || dateRx.test(value) || dateRx2.test(value)) {
+			return true;
+		}
+		return false;
+	};
+	
 	$('.form-date').change(function(event) {
 		onDateChangeEvent(event.target);
 	});
+	
+	$scope.updateDateFormat = function(type, format){
+		if(type === "start"){
+			$scope.startDateFormat = format;
+			$scope.project.startDateNg = $scope.project.startDate;
+		} else if(type === "finish") {
+			$scope.endDateFormat = format;
+			$scope.project.endDateNg = $scope.project.endDate;
+		}
+	};
+	
 	var listenToDateClicks = function(field) {
 		$(field+' .dropdown-menu button').click(function(){
-//			console.log('click')
 			setTimeout(function(){
 				listenToDateClicks('.startDate');
 				listenToDateClicks('.endDate');
@@ -43,6 +91,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			onDateChangeEvent($(field+' input'));
 		});
 	};
+	
 	$scope.showCalendar = function(which) {
 		if ('start'===which) { // TODO could be tightened up OOP
 			$scope.status.showStart = !$scope.status.showStart;
@@ -156,10 +205,10 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		//Turn display off and let it fade in...
 		msgElement.css('display', 'none');
 		
-		var absPos = vPos - parentVertPos - msgElement.height() * 2.5;
+		var absPos = vPos - parentVertPos - msgElement.height()*3;
 		
-		msgElement.css('top',absPos).delay(500).fadeIn(500);
-		setTimeout(function() {msgElement.fadeOut(500);}, 7000);
+		msgElement.css('top',absPos).fadeIn(400);
+		setTimeout(function() {msgElement.fadeOut(400);}, 7000);
 	};
 
 	var doValidation = function(form) {
@@ -172,7 +221,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			var field = requiredFields[f];
 			var modelBinding = $(field).attr('model') // have to check for the custom date field first
 			if (!modelBinding) {
-				modelBinding = $(field).attr('ng-model')
+				modelBinding = $(field).attr('ng-model');
 			}
 			if (modelBinding !== undefined) {
 				var model = modelBinding.split('.')
@@ -180,6 +229,10 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				if (value === undefined || value.length === 0) {
 					scrollTo(field);
 					displayMsg("form-msg-required", field);
+					$(field).css('border', '2px solid red');
+					setTimeout(function() {
+						$(field).css('border', '1px solid #ccc');
+					},7100);
 					return false;
 				}
 			}
@@ -209,7 +262,20 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 
 						if(elem !== undefined && elem.length > 0){
 							scrollTo(elem);
-							displayMsg("form-msg-required", elem);
+														
+							elem.css('border', '2px solid red');
+							
+							setTimeout(function() {
+								elem.css('border', '1px solid #ccc');
+							},7100);
+							
+							if(key === "email") {
+								displayMsg("form-msg-email", elem);
+							} else if(key === "url") {
+								displayMsg("form-msg-url", elem);
+							} else {
+								displayMsg("form-msg-required", elem);
+							}
 						}
 						return false;
 					}
@@ -230,7 +296,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		if ( ! doValidation(form) ) {
 			return;
 		}
-				
+		
 		var glriNewProject = projectsService.buildNewProject($scope.project);
 		var project = undefined;
 				
@@ -240,14 +306,11 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			project = glriNewProject;
 		}
 		
-		console.log("Final JSON sent to ScienceBase");
 		console.log(project);
 		
 		$http.post('saveProject', project)
 		.then(
 			function(resp) {
-				console.log("Response from ScienceBase: ");
-				console.log(resp.data);
 				if (resp.data === undefined) {
 					saveFailed({data:"No response received from the server"});
 				} else if (/^[0-9|a-f]*$/.test(resp.data)) {
@@ -264,13 +327,14 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			saveFailed
 		);
 	};
-	
+		
 	var applyJSONChanges = function(changes, original) {
 		var returnJson = JSON.parse(JSON.stringify(original));
 		
 		//Clean contact information that is empty before sending to ScienecBase
 		cleanContacts(changes);
 		
+		//Apply array changes
 		for (var key in changes) {
 			if (changes.hasOwnProperty(key)) {
 				if(returnJson.hasOwnProperty(key)) {
@@ -279,6 +343,8 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 					} else {
 						returnJson[key] = changes[key].concat(original[key]);
 					}
+				} else {
+					returnJson[key] = changes[key];
 				}
 			}
 		}
@@ -327,7 +393,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		if(returnJson.hasOwnProperty("resource")){
 			delete returnJson["resource"];
 		}
-		
+				
 		if(returnJson.hasOwnProperty("hasChildren")){
 			delete returnJson["hasChildren"];
 		}
@@ -359,7 +425,6 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		if(project.hasOwnProperty("contacts") && Array.isArray(project.contacts)){
 			for(var i=0; i<project.contacts.length; i++){
 				var contact = project.contacts[i];
-				console.log(contact);
 				if(contact.hasOwnProperty("organization") && isEmptyObject(contact.organization)){
 					delete contact.organization;
 				}
@@ -402,28 +467,27 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			$scope.loading = false;	
 			setTimeout(function() {
 				$scope.sbProject = ScienceBase.processItem(data);
-				console.log("Original Project");
-				console.log(JSON.parse(JSON.stringify(ScienceBase.processItem(data))));
+				console.log(JSON.parse(JSON.stringify($scope.sbProject)));
 				$scope.project = projectsService.convertToGlriProject($scope.sbProject);
-				console.log("GLRI Project");
-				console.log($scope.project);
+				console.log(JSON.parse(JSON.stringify($scope.project)));
 				$scope.cleanSbProject = cleanSBProject();
-				console.log("Cleaned Original Project");
-				console.log($scope.cleanSbProject);
+				console.log(JSON.parse(JSON.stringify($scope.cleanSbProject)));
 				$scope.$apply();
-			}, 200);
+			}, 100);
 		});
+	};
+	
+	//Helper function to initialize certain parts of the form for new projects
+	var initializeNewProject = function() {
+		$scope.addContact($scope.project.principal, "Principal Investigator");
+		$scope.addContact($scope.project.chiefs, "Associate Project Chief");
 	};
 	
 	//Helper function to remove anything from the arrays of the original SB project that we extracted
 	var cleanSBProject = function() {
 		var tempProject = projectsService.buildNewProject($scope.project);
 		var cleanProject = JSON.parse(JSON.stringify($scope.sbProject));
-						
-		console.log("CONTACT COMPARISON: ");
-		console.log(tempProject.contacts);
-		console.log(cleanProject.contacts);
-				
+										
 		for (var key in cleanProject) {
 			if (cleanProject.hasOwnProperty(key)) {
 				if(tempProject.hasOwnProperty(key)) {
@@ -463,5 +527,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		$scope.editMode = true;
 		var id = parts[2];
 		loadAndBindProject(id);
-	}	
+	} else {
+		initializeNewProject();
+	}
 }]);
