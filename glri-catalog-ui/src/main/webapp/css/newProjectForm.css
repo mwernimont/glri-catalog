@@ -134,7 +134,7 @@ div.error {
     left:300px;
     z-index: 499;
 }
-#form-msg-required, #form-msg-validate, #form-msg-email, #form-msg-url, #form-msg-no-h4, #form-msg-other{
+#form-msg-required, #form-msg-validate, #form-msg-email, #form-msg-url, #form-msg-no-h4, #form-msg-dates, #form-msg-other{
     color: darkred;
     background-color: pink;
     border: 3px solid darkred;

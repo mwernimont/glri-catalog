@@ -37,6 +37,7 @@
 				<div class="form-msg" id="form-msg-other">There was an error while validating the form. 
 					This can be caused by the project being edited outside of GLRI.</div>
 				<div class="form-msg" id="form-msg-validate">{{validation.singleMsg}}</div>
+				<div class="form-msg" id="form-msg-dates">The Agreement End Date cannot be earlier than the Agreement Start Date.</div>
 				<div class="form-msg" id="form-msg-agree">You must agree to the
 					Data Management Plan in order to submit a new GLRI Project.</div>
 	

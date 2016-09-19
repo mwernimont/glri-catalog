@@ -237,7 +237,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				}
 			}
 		}
-		
+
 		//Make sure body fields do not include h4 start/end tags
 		var h4ErrorField;
 		angular.forEach(projectsService.getBodyFieldMappings(), function(mapping) {
@@ -251,10 +251,39 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			displayMsg("form-msg-no-h4", h4ErrorField);
 			return false;
 		}
-				
+		
+		//Additional date validation based on selected formats
+		if($scope.project.endDate){
+			var invalidDates = false;
+			if($scope.startDateFormat === "yyyy" || $scope.endDateFormat === "yyyy"){
+				if($scope.project.startDate.getFullYear() > $scope.project.endDate.getFullYear()){
+					invalidDates = true;
+				}
+			} else {
+				if($scope.project.startDate > $scope.project.endDate){
+					invalidDates = true;
+				}
+			}
+
+			if(invalidDates){
+				var elem = angular.element(".input-daterange");
+				if(elem !== undefined && elem.length > 0){
+					elem.css('border', '2px solid red');
+					scrollTo(elem);		
+					elem.css('border-radius', '4px');
+					setTimeout(function() {
+						elem.css('border', '2px solid white');
+					},7100);
+					displayMsg("form-msg-dates", elem);
+					return false;
+				}
+			}
+		}
+
 		//Handle additional required field validation that is not covered by above		
 		if(!form.$valid && form.$error){
 			for(var key in form.$error){
+				//Ignore date errors, above validation for dates is all that is needed
 				if(key !== "date"){
 					if(Array.isArray(form.$error[key])){
 						var name = form.$error[key][0].$name;
@@ -283,23 +312,19 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 								displayMsg("form-msg-email", elem);
 							} else if(key === "url") {
 								displayMsg("form-msg-url", elem);
-							} else {
+							} else if(key === "required"){
 								displayMsg("form-msg-required", elem);
+							} else {
+								elem = angular.element("#save");
+								displayMsg("form-msg-other", elem);
 							}
+						} else {
+							elem = angular.element("#save");
+							displayMsg("form-msg-other", elem);
 						}
 						return false;
 					}
 				}
-			}
-		}
-		
-		//Additional Validation Error that was not caught by the above
-		if(!form.$valid){
-			//Ignore date errors, above validation for dates is all that is needed
-			if(form.error.keys.length > 1 || (form.keys.length === 1 && form.error.date === undefined)){
-				var elem = angular.element("#save");
-				displayMsg("form-msg-other", elem);
-				return false;
 			}
 		}
 		
@@ -357,10 +382,12 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			$scope.project.startDateString = $scope.project.startDate.toISOString().slice(0, 10);
 		}
 		
-		if($scope.endDateFormat === 'yyyy') {
-			$scope.project.endDateString = $scope.project.endDate.toISOString().slice(0, 4);
-		} else {
-			$scope.project.endDateString = $scope.project.endDate.toISOString().slice(0, 10);
+		if($scope.project.endDate){
+			if($scope.endDateFormat === 'yyyy') {
+				$scope.project.endDateString = $scope.project.endDate.toISOString().slice(0, 4);
+			} else {
+				$scope.project.endDateString = $scope.project.endDate.toISOString().slice(0, 10);
+			}
 		}
 	};
 		
@@ -523,12 +550,14 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			$scope.updateDateFormat("start", "yyyy-MM-dd");
 		}
 		
-		if($scope.project.endDateString.trim().length === 4){
-			$scope.updateDateFormat("finish", "yyyy");
-			$scope.endDateMode = "year";
-		} else {
-			$scope.endDateMode = "day";
-			$scope.updateDateFormat("finish", "yyyy-MM-dd");
+		if($scope.project.endDate){
+			if($scope.project.endDateString.trim().length === 4){
+				$scope.updateDateFormat("finish", "yyyy");
+				$scope.endDateMode = "year";
+			} else {
+				$scope.endDateMode = "day";
+				$scope.updateDateFormat("finish", "yyyy-MM-dd");
+			}
 		}
 	};
 	
