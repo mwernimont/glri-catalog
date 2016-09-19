@@ -242,7 +242,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		var h4ErrorField;
 		angular.forEach(projectsService.getBodyFieldMappings(), function(mapping) {
 			var value = $scope.project[mapping.dataField];
-			if(value !== undefined && (value.toLowerCase().indexOf("<h4>") >= 0 || value.toLowerCase().indexOf("</h4>") >= 0)) {
+			if(value && (value.toLowerCase().indexOf("<h4>") >= 0 || value.toLowerCase().indexOf("</h4>") >= 0)) {
 				h4ErrorField = $("textarea[ng-model='project."+mapping.dataField+"']")
 			}			
 		});
