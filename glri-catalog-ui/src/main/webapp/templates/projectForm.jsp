@@ -34,6 +34,8 @@
 				<div class="form-msg" id="form-msg-no-h4">Field cannot contain h4 html elements.</div>
 				<div class="form-msg" id="form-msg-email">This email address is not valid.</div>
 				<div class="form-msg" id="form-msg-url">This url is not valid.</div>
+				<div class="form-msg" id="form-msg-other">There was an error while validating the form. 
+					This can be caused by the project being edited outside of GLRI.</div>
 				<div class="form-msg" id="form-msg-validate">{{validation.singleMsg}}</div>
 				<div class="form-msg" id="form-msg-agree">You must agree to the
 					Data Management Plan in order to submit a new GLRI Project.</div>
@@ -148,9 +150,9 @@
 						Choose One. 
 												
 						<div id="duration" class="btn-group form-radio-select">
-							<label class="btn btn-primary" ng-model="project.duration" uib-btn-radio="'Single effort (1 year or less)'" ng-required="!project.duration">Single effort (1 year or less)</label>
-							<label class="btn btn-primary" ng-model="project.duration" uib-btn-radio="'Short term (2 to 5 years)'" ng-required="!project.duration">Short term (2 to 5 years)</label>
-							<label class="btn btn-primary" ng-model="project.duration" uib-btn-radio="'Long term (greater than 5 years)'" ng-required="!project.duration">Long term (greater than 5 years)</label>
+							<label class="btn btn-primary" ng-model="project.duration" uib-btn-radio="'Single effort (1 year or less)'" ng-required="!project.duration" name="duration-1">Single effort (1 year or less)</label>
+							<label class="btn btn-primary" ng-model="project.duration" uib-btn-radio="'Short term (2 to 5 years)'" ng-required="!project.duration" name="duration-2">Short term (2 to 5 years)</label>
+							<label class="btn btn-primary" ng-model="project.duration" uib-btn-radio="'Long term (greater than 5 years)'" ng-required="!project.duration" name="duration-3">Long term (greater than 5 years)</label>
 						</div>
 					</div>
 				</div>
@@ -161,7 +163,7 @@
 						Choose One. 
 						
 						<div id="focus_area" class="btn-group form-radio-select">
-							<label ng-repeat="(key, value) in focusAreas" class="btn btn-primary" ng-if="key.toLowerCase() !== 'all'" ng-model="project.focusArea" uib-btn-radio="'{{value.name}}'" ng-required="!project.focusArea">{{value.name}}</label>
+							<label ng-repeat="(key, value) in focusAreas" class="btn btn-primary" ng-if="key.toLowerCase() !== 'all'" ng-model="project.focusArea" uib-btn-radio="'{{value.name}}'" ng-required="!project.focusArea" name="focus-{{$index}}">{{value.name}}</label>
 						</div>
 					</div>
 				</div>
@@ -172,8 +174,8 @@
 						Choose One.
 						
 						<div id="project_status" class="btn-group form-radio-select">
-							<label class="btn btn-primary" ng-model="project.status" uib-btn-radio="'Completed'" ng-required="!project.status">Completed</label>
-							<label class="btn btn-primary" ng-model="project.status" uib-btn-radio="'In Progress'" ng-required="!project.status">In Progress</label>
+							<label class="btn btn-primary" ng-model="project.status" uib-btn-radio="'Completed'" ng-required="!project.status" name="status-1">Completed</label>
+							<label class="btn btn-primary" ng-model="project.status" uib-btn-radio="'In Progress'" ng-required="!project.status" name="status-2">In Progress</label>
 						</div>
 					</div>
 				</div>
@@ -186,8 +188,8 @@
 						overhead, lab analysis, software development or science support). 
 						
 						<div id="spatial" class="btn-group form-radio-select">
-							<label class="btn btn-primary" ng-model="project.spatial" uib-btn-radio="'Has Spatial'" ng-required="!project.spatial">Has Spatial</label>
-							<label class="btn btn-primary" ng-model="project.spatial" uib-btn-radio="'No Spatial'" ng-required="!project.spatial">No Spatial</label>
+							<label class="btn btn-primary" ng-model="project.spatial" uib-btn-radio="'Has Spatial'" ng-required="!project.spatial" name="spatial-1">Has Spatial</label>
+							<label class="btn btn-primary" ng-model="project.spatial" uib-btn-radio="'No Spatial'" ng-required="!project.spatial" name="spatial-2">No Spatial</label>
 						</div>
 					</div>
 				</div>
@@ -419,7 +421,7 @@
 	
 				<div>
 					<p class="form-spacing">
-						<button id="discard" class="btn btn-primary pull-left"
+						<button type="button" id="discard" class="btn btn-primary pull-left"
 							ng-click="discard()">Discard</button>
 						<button id="save" type="submit" class="btn btn-primary pull-right">Save</button>
 					</p>

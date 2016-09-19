@@ -4,10 +4,7 @@ GLRICatalogApp.service('Projects',
 	var CONTACT_CHIEF     = "Associate Project Chief";
 	var CONTACT_ORG       = "Cooperator/Partner";
 	var CONTACT_TEAM      = "Contact";
-	
-	var allowedSpatialValues = ["Has Spatial", "No Spatial"];
-	var allowedDurationValues = ["Single effort (1 year or less)", "Short term (2 to 5 years)", "Long term (greater than 5 years)"];
-	
+		
 	var ctx = this;
 	
 	var splitComma = function(text) {
@@ -29,6 +26,8 @@ GLRICatalogApp.service('Projects',
 	var VOCAB_SIGL     = "category/Great%20Lakes%20Restoration%20Initiative/SiGLProjectObjective";
 	var VOCAB_TEMPLATE = "category/Great%20Lakes%20Restoration%20Initiative/GLRITemplates";
 	var VOCAB_WATER    = "category/Great%20Lakes%20Restoration%20Initiative/GLRIWaterFeature";
+	var VOCAB_SPATIAL = "category/Great%20Lakes%20Restoration%20Initiative/GLRISpatialLocation";
+	var VOCAB_DURATION = "category/Great%20Lakes%20Restoration%20Initiative/GLRIProjectDuration";
 	
 	var toFullSchemeUri = function(scheme) {
 		return "https://www.sciencebase.gov/vocab/" + scheme;
@@ -60,7 +59,10 @@ GLRICatalogApp.service('Projects',
 		tags = splitComma(tags);		
 		var commaTags = [];		
 		for (var tag=0; tag<tags.length; tag++) {
-			commaTags.push( createTag(scheme, tags[tag].trim()) );
+			if(tags[tag].trim().length > 0)
+			{
+				commaTags.push( createTag(scheme, tags[tag].trim()) );
+			}
 		}
 		return commaTags;
 	};
@@ -131,8 +133,8 @@ GLRICatalogApp.service('Projects',
 	var buildTags = function(data) {
 		// single entry tags
 		var focus     = createTag(VOCAB_FOCUS,data.focusArea);
-		var spatial   = createTag(VOCAB_KEYWORD,data.spatial);
-		var duration  = createTag(VOCAB_KEYWORD,data.duration);
+		var spatial   = createTag(VOCAB_SPATIAL,data.spatial);
+		var duration  = createTag(VOCAB_DURATION,data.duration);
 		
 		// comma separated tags
 		var keywords  = concatTagsComma(VOCAB_KEYWORD,data.keywords);
@@ -378,11 +380,11 @@ GLRICatalogApp.service('Projects',
 		var tags = sbProj.tags;
 		
 		extractTag(tags, glriProj, "focusArea", VOCAB_FOCUS);
-		extractTag(tags, glriProj, "spatial", VOCAB_KEYWORD, allowedSpatialValues);
-		extractTag(tags, glriProj, "duration", VOCAB_KEYWORD, allowedDurationValues);
+		extractTag(tags, glriProj, "spatial", VOCAB_SPATIAL);
+		extractTag(tags, glriProj, "duration", VOCAB_DURATION);
 		
 		// comma separated keywords
-		extractTagsAsCsv(tags, glriProj, "keywords", VOCAB_KEYWORD, [glriProj.spatial, glriProj.duration]);
+		extractTagsAsCsv(tags, glriProj, "keywords", VOCAB_KEYWORD);
 		
 		// multi-select tags
 		extractTagsAsArray(tags, glriProj, "SiGL", VOCAB_SIGL);
