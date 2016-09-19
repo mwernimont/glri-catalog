@@ -105,11 +105,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	};
 	
 	$scope.discard = function() {
-		$scope.project = {};
-		$scope.sbProject = {};
-		$scope.cleanSbProject = {};
-		
-		window.history.back();
+		window.location = "index.jsp#/Browse/all/";
 	};
 	
 	$scope.addContact = function(target, type) {
@@ -146,6 +142,10 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	 * components very close to the top.
 	 */
 	var scrollTo = function(element) {
+		if(element === undefined || element.length === 0){
+			return null;
+		}
+		
 		var container  = $('html,body');
 	    element = $(element);	//JQuery wrapped element (if not wrapped already)
 		var useEl = element;	//actual element offset from (may be a parent element)
@@ -259,15 +259,25 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 					if(Array.isArray(form.$error[key])){
 						var name = form.$error[key][0].$name;
 						var elem = angular.element("[name='" + name + "']");
-
 						if(elem !== undefined && elem.length > 0){
-							scrollTo(elem);
-														
-							elem.css('border', '2px solid red');
+							//Proper highlighting for radio selections
+							if(elem.attr("uib-btn-radio") !== undefined && elem.attr("uib-btn-radio").length > 0){
+								if(elem.parent() !== undefined && elem.parent().length > 0)
+								{
+									elem = elem.parent();
+									elem.css('border-radius', '4px');
+									setTimeout(function() {
+										elem.css('border', '2px solid white');
+									},7100);
+								}
+							} else {
+								setTimeout(function() {
+									elem.css('border', '1px solid #ccc');
+								},7100);
+							}
 							
-							setTimeout(function() {
-								elem.css('border', '1px solid #ccc');
-							},7100);
+							elem.css('border', '2px solid red');
+							scrollTo(elem);							
 							
 							if(key === "email") {
 								displayMsg("form-msg-email", elem);
@@ -281,6 +291,13 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 					}
 				}
 			}
+		}
+		
+		//Additional Validation Error that was not caught by the above
+		if(!form.$valid){
+			var elem = angular.element("#save");
+			displayMsg("form-msg-other", elem);
+			return false;
 		}
 		
 		return true;
