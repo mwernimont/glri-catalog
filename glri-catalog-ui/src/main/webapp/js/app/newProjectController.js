@@ -242,7 +242,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		var h4ErrorField;
 		angular.forEach(projectsService.getBodyFieldMappings(), function(mapping) {
 			var value = $scope.project[mapping.dataField];
-			if(value.toLowerCase().indexOf("<h4>") >= 0 || value.toLowerCase().indexOf("</h4>") >= 0) {
+			if(value !== undefined && (value.toLowerCase().indexOf("<h4>") >= 0 || value.toLowerCase().indexOf("</h4>") >= 0)) {
 				h4ErrorField = $("textarea[ng-model='project."+mapping.dataField+"']")
 			}			
 		});
@@ -297,6 +297,8 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			return;
 		}
 		
+		createDateStrings();
+		
 		var glriNewProject = projectsService.buildNewProject($scope.project);
 		var project = undefined;
 				
@@ -326,6 +328,20 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			},
 			saveFailed
 		);
+	};
+	
+	var createDateStrings = function() {
+		if($scope.startDateFormat === 'yyyy') {
+			$scope.project.startDateString = $scope.project.startDate.toISOString().slice(0, 4);
+		} else {
+			$scope.project.startDateString = $scope.project.startDate.toISOString().slice(0, 10);
+		}
+		
+		if($scope.endDateFormat === 'yyyy') {
+			$scope.project.endDateString = $scope.project.endDate.toISOString().slice(0, 4);
+		} else {
+			$scope.project.endDateString = $scope.project.endDate.toISOString().slice(0, 10);
+		}
 	};
 		
 	var applyJSONChanges = function(changes, original) {
@@ -472,9 +488,28 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				console.log(JSON.parse(JSON.stringify($scope.project)));
 				$scope.cleanSbProject = cleanSBProject();
 				console.log(JSON.parse(JSON.stringify($scope.cleanSbProject)));
+				applyDateFormats();
 				$scope.$apply();
 			}, 100);
 		});
+	};
+	
+	var applyDateFormats = function() {
+		if($scope.project.startDateString.trim().length === 4){
+			$scope.startDateMode = "year";
+			$scope.updateDateFormat("start", "yyyy");
+		} else {
+			$scope.startDateMode = "day";
+			$scope.updateDateFormat("start", "yyyy-MM-dd");
+		}
+		
+		if($scope.project.endDateString.trim().length === 4){
+			$scope.updateDateFormat("finish", "yyyy");
+			$scope.endDateMode = "year";
+		} else {
+			$scope.endDateMode = "day";
+			$scope.updateDateFormat("finish", "yyyy-MM-dd");
+		}
 	};
 	
 	//Helper function to initialize certain parts of the form for new projects
