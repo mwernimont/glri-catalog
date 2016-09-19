@@ -295,9 +295,12 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		
 		//Additional Validation Error that was not caught by the above
 		if(!form.$valid){
-			var elem = angular.element("#save");
-			displayMsg("form-msg-other", elem);
-			return false;
+			//Ignore date errors, above validation for dates is all that is needed
+			if(form.error.keys.length > 1 || (form.keys.length === 1 && form.error.date === undefined)){
+				var elem = angular.element("#save");
+				displayMsg("form-msg-other", elem);
+				return false;
+			}
 		}
 		
 		return true;
