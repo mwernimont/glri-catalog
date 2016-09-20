@@ -235,8 +235,8 @@
 						A 'narrative' description of the expected outcomes, pertinence to
 						policy and scientific issues, and Program relevance of the project.
 						Required, except for projects of type 'Support'.
-						<textarea class="form-control form-field form-required" rows="10"
-							ng-model="project.impact" name="impact" required></textarea>
+						<textarea class="form-control form-field form-optional" rows="10"
+							ng-model="project.impact" name="impact"></textarea>
 					</div>
 				</div>
 	
