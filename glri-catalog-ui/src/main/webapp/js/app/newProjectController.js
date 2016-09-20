@@ -237,12 +237,12 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				}
 			}
 		}
-		
+
 		//Make sure body fields do not include h4 start/end tags
 		var h4ErrorField;
 		angular.forEach(projectsService.getBodyFieldMappings(), function(mapping) {
 			var value = $scope.project[mapping.dataField];
-			if(value.toLowerCase().indexOf("<h4>") >= 0 || value.toLowerCase().indexOf("</h4>") >= 0) {
+			if(value && (value.toLowerCase().indexOf("<h4>") >= 0 || value.toLowerCase().indexOf("</h4>") >= 0)) {
 				h4ErrorField = $("textarea[ng-model='project."+mapping.dataField+"']")
 			}			
 		});
@@ -251,10 +251,39 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			displayMsg("form-msg-no-h4", h4ErrorField);
 			return false;
 		}
-				
+		
+		//Additional date validation based on selected formats
+		if($scope.project.endDate){
+			var invalidDates = false;
+			if($scope.startDateFormat === "yyyy" || $scope.endDateFormat === "yyyy"){
+				if($scope.project.startDate.getFullYear() > $scope.project.endDate.getFullYear()){
+					invalidDates = true;
+				}
+			} else {
+				if($scope.project.startDate > $scope.project.endDate){
+					invalidDates = true;
+				}
+			}
+
+			if(invalidDates){
+				var elem = angular.element(".input-daterange");
+				if(elem !== undefined && elem.length > 0){
+					elem.css('border', '2px solid red');
+					scrollTo(elem);		
+					elem.css('border-radius', '4px');
+					setTimeout(function() {
+						elem.css('border', '2px solid white');
+					},7100);
+					displayMsg("form-msg-dates", elem);
+					return false;
+				}
+			}
+		}
+
 		//Handle additional required field validation that is not covered by above		
 		if(!form.$valid && form.$error){
 			for(var key in form.$error){
+				//Ignore date errors, above validation for dates is all that is needed
 				if(key !== "date"){
 					if(Array.isArray(form.$error[key])){
 						var name = form.$error[key][0].$name;
@@ -283,21 +312,20 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 								displayMsg("form-msg-email", elem);
 							} else if(key === "url") {
 								displayMsg("form-msg-url", elem);
-							} else {
+							} else if(key === "required"){
 								displayMsg("form-msg-required", elem);
+							} else {
+								elem = angular.element("#save");
+								displayMsg("form-msg-other", elem);
 							}
+						} else {
+							elem = angular.element("#save");
+							displayMsg("form-msg-other", elem);
 						}
 						return false;
 					}
 				}
 			}
-		}
-		
-		//Additional Validation Error that was not caught by the above
-		if(!form.$valid){
-			var elem = angular.element("#save");
-			displayMsg("form-msg-other", elem);
-			return false;
 		}
 		
 		return true;
@@ -313,6 +341,8 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		if ( ! doValidation(form) ) {
 			return;
 		}
+		
+		createDateStrings();
 		
 		var glriNewProject = projectsService.buildNewProject($scope.project);
 		var project = undefined;
@@ -343,6 +373,22 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			},
 			saveFailed
 		);
+	};
+	
+	var createDateStrings = function() {
+		if($scope.startDateFormat === 'yyyy') {
+			$scope.project.startDateString = $scope.project.startDate.toISOString().slice(0, 4);
+		} else {
+			$scope.project.startDateString = $scope.project.startDate.toISOString().slice(0, 10);
+		}
+		
+		if($scope.project.endDate){
+			if($scope.endDateFormat === 'yyyy') {
+				$scope.project.endDateString = $scope.project.endDate.toISOString().slice(0, 4);
+			} else {
+				$scope.project.endDateString = $scope.project.endDate.toISOString().slice(0, 10);
+			}
+		}
 	};
 		
 	var applyJSONChanges = function(changes, original) {
@@ -489,9 +535,30 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				console.log(JSON.parse(JSON.stringify($scope.project)));
 				$scope.cleanSbProject = cleanSBProject();
 				console.log(JSON.parse(JSON.stringify($scope.cleanSbProject)));
+				applyDateFormats();
 				$scope.$apply();
 			}, 100);
 		});
+	};
+	
+	var applyDateFormats = function() {
+		if($scope.project.startDateString.trim().length === 4){
+			$scope.startDateMode = "year";
+			$scope.updateDateFormat("start", "yyyy");
+		} else {
+			$scope.startDateMode = "day";
+			$scope.updateDateFormat("start", "yyyy-MM-dd");
+		}
+		
+		if($scope.project.endDate){
+			if($scope.project.endDateString.trim().length === 4){
+				$scope.updateDateFormat("finish", "yyyy");
+				$scope.endDateMode = "year";
+			} else {
+				$scope.endDateMode = "day";
+				$scope.updateDateFormat("finish", "yyyy-MM-dd");
+			}
+		}
 	};
 	
 	//Helper function to initialize certain parts of the form for new projects

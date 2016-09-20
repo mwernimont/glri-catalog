@@ -39,6 +39,7 @@
 				<div class="form-msg" id="form-msg-other">There was an error while validating the form. 
 					This can be caused by the project being edited outside of GLRI.</div>
 				<div class="form-msg" id="form-msg-validate">{{validation.singleMsg}}</div>
+				<div class="form-msg" id="form-msg-dates">The Agreement End Date cannot be earlier than the Agreement Start Date.</div>
 				<div class="form-msg" id="form-msg-agree">You must agree to the
 					Data Management Plan in order to submit a new GLRI Project.</div>
 	
@@ -234,8 +235,8 @@
 						A 'narrative' description of the expected outcomes, pertinence to
 						policy and scientific issues, and Program relevance of the project.
 						Required, except for projects of type 'Support'.
-						<textarea class="form-control form-field form-optional" rows="10"
-							ng-model="project.impact" name="impact"></textarea>
+						<textarea class="form-control form-field form-required" rows="10"
+							ng-model="project.impact" name="impact" required></textarea>
 					</div>
 				</div>
 	

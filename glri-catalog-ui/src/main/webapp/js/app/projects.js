@@ -209,7 +209,7 @@ GLRICatalogApp.service('Projects',
 			dates: [
 				{
 					type: "Start",
-					dateString: data.startDate.toISOString().slice(0,10),
+					dateString: data.startDateString,
 					label: "Project Start Date"
 				}
 			],
@@ -232,7 +232,7 @@ GLRICatalogApp.service('Projects',
 		if (data.endDate) { // TODO validation after start and year or full date
 			endDate = {
 				type: "End",
-				dateString: data.endDate.toISOString().slice(0,10),
+				dateString: data.endDateString,
 				label: "Project End Date"
 			};
 			
@@ -354,10 +354,12 @@ GLRICatalogApp.service('Projects',
 				glriProj.startDateNg = new Date(dt.dateString);
 				
 				//Fix date timezones
+				glriProj.startDateString = dt.dateString;
 				glriProj.startDate.setMinutes(glriProj.startDate.getMinutes() + glriProj.startDate.getTimezoneOffset());
 				glriProj.startDateNg.setMinutes(glriProj.startDate.getMinutes() + glriProj.startDateNg.getTimezoneOffset());
 			}
 			if(dt.type == "End") {
+				glriProj.endDateString = dt.dateString;
 				glriProj.endDate = new Date(dt.dateString);
 				glriProj.endDateNg = new Date(dt.dateString);
 				
