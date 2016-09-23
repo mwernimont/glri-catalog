@@ -2,9 +2,33 @@ GLRICatalogApp.controller('ProjectCtrl',
 ['$scope', '$http', '$filter', '$location', 'Status', 'ScienceBase', "Projects", "FocusAreaManager",
 function($scope, $http, $filter, $location, Status, ScienceBase, projectsService, focusAreaManager) {
 	$scope.contactPattern = /^[\w\s]+ [\w\d\.]+@[\w\d]+\.\w+$/;
-	$scope.project = {};
+	$scope.project = {
+		principal: [
+			
+		],
+		chiefs: [
+			
+		],
+		contacts: [
+			
+		],
+		organizations: [
+			
+		],
+		tags: [
+			
+		]
+	};
+	
+	$scope.startDateMode = 'day';
+	$scope.startDateFormat = 'yyyy-MM-dd';
+	$scope.endDateMode = 'day';
+	$scope.endDateFormat = 'yyyy-MM-dd';
+	
 	$scope.dateOptions = {
-		  };	
+		
+	};
+	
 	$scope.focusAreas = focusAreaManager.areasByType;
 	
 	$scope.transient= Status;
@@ -20,48 +44,97 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	// custom year accept along with full date format with default impl
 	var yearRx = new RegExp(/^\d\d\d\d$/);
 	var dateRx = new RegExp(/^\d\d\d\d-\d\d-\d\d$/);
-	var onDateChangeEvent = function(target) {
-//		console.log(target);
+	var dateRx2 = new RegExp(/^\d\d\d\d\/\d\d\/\d\d$/);
+	
+	var onDateChangeEvent = function(target) {		
 		var value = $(target).val();
-		
-		if (yearRx.test(value) || dateRx.test(value)) {
-			var model = $(target).attr("model").split('.');
-			$scope[model[0]][model[1]] = value;
-//			console.log(value)
+				
+		//Erase invalid dates
+		if(!validDate(value)) {
+			var date = "";
+		} else {
+			var date = new Date(value);
+			date.setMinutes(date.getMinutes() + date.getTimezoneOffset());
 		}
-	}
+		
+		var model = $(target).attr("model").split('.');
+		$scope[model[0]][model[1]] = date;
+	};
+	
+	var validDate = function(value){
+		if (yearRx.test(value) || dateRx.test(value) || dateRx2.test(value)) {
+			return true;
+		}
+		return false;
+	};
+	
 	$('.form-date').change(function(event) {
 		onDateChangeEvent(event.target);
 	});
+	
+	$scope.updateDateFormat = function(type, format){
+		if(type === "start"){
+			$scope.startDateFormat = format;
+			$scope.project.startDateNg = $scope.project.startDate;
+		} else if(type === "finish") {
+			$scope.endDateFormat = format;
+			$scope.project.endDateNg = $scope.project.endDate;
+		}
+	};
+	
 	var listenToDateClicks = function(field) {
 		$(field+' .dropdown-menu button').click(function(){
-//			console.log('click')
 			setTimeout(function(){
-				listenToDateClicks('.startDate')
-				listenToDateClicks('.endDate')
+				listenToDateClicks('.startDate');
+				listenToDateClicks('.endDate');
 			});
 			onDateChangeEvent($(field+' input'));
 		});
-	}
+	};
+	
 	$scope.showCalendar = function(which) {
 		if ('start'===which) { // TODO could be tightened up OOP
-			$scope.status.showStart = !$scope.status.showStart
+			$scope.status.showStart = !$scope.status.showStart;
 		} else if ('finish'===which) {
-			$scope.status.showFinish = !$scope.status.showFinish
+			$scope.status.showFinish = !$scope.status.showFinish;
 		}
 		setTimeout(function(){
-			listenToDateClicks('.startDate')
-			listenToDateClicks('.endDate')
+			listenToDateClicks('.startDate');
+			listenToDateClicks('.endDate');
 		});
-	}
+	};
 	
 	$scope.discard = function() {
-		$scope.project = {};
-	}
+		window.location = "index.jsp#/Browse/all/";
+	};
 	
+	$scope.addContact = function(target, type) {
+		var contactType = "person";
+		
+		if(type === "Cooperator/Partner"){
+			contactType = "organization";
+		}
+		
+		target.push({
+			active: true,
+			name: "", 
+			email: "", 
+			type: type, 
+			contactType: contactType});
+	};
+	
+	$scope.removeContact = function(target, index, required) {
+		var type = target[index].type;
+		target.splice(index, 1);
+		
+		if(required && target.length === 0){
+			$scope.addContact(target, type);
+		}
+	};
+		
 	var saveFailed = function(resp) {
 		alert("There was a problem saving the project -> " + resp.data);
-	}
+	};
 	
 	/** 
 	 * Scolls so that the el component is 200 px down from the top of the screen.
@@ -69,7 +142,11 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	 * components very close to the top.
 	 */
 	var scrollTo = function(element) {
-		var container  = $('html,body')
+		if(element === undefined || element.length === 0){
+			return null;
+		}
+		
+		var container  = $('html,body');
 	    element = $(element);	//JQuery wrapped element (if not wrapped already)
 		var useEl = element;	//actual element offset from (may be a parent element)
 		var vPos = 0;	//Vert pixel position to scroll to
@@ -88,12 +165,11 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		
 		var scrollTop = {
 		    scrollTop: vPos
-		}
+		};
 		
 		//container.scrollTop(0);
 		container.animate(scrollTop);
-	}
-	
+	};
 	/**
 	 * Returns the nearest parent element that is visible (may be this element).
 	 * This is needed b/c Angular often hides the nominal input field and wraps
@@ -109,7 +185,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			element = element.parent();
 		}
 		return element;
-	}
+	};
 	
 	/**
 	 * Displays the div spec'ed by the msgElementId next to refElement
@@ -129,25 +205,23 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		//Turn display off and let it fade in...
 		msgElement.css('display', 'none');
 		
-		var absPos = vPos - parentVertPos;
+		var absPos = vPos - parentVertPos - msgElement.height()*3;
 		
-		msgElement.css('top',absPos).delay(500).fadeIn(500);
-		setTimeout(function() {msgElement.fadeOut(500);}, 10000);
-	}
+		msgElement.css('top',absPos).fadeIn(400);
+		setTimeout(function() {msgElement.fadeOut(400);}, 7000);
+	};
 
-	var doValidation = function() {
+	var doValidation = function(form) {
 		
 		//Do required fields first
 		var requiredFields = $('.form-required');
-		var contactFields = $('.contact');
-		var singleUrlFileds = $('.single-url');
 		
-		//All required fields handled here, regardless of type
+		//Handle default required field validation
 		for (var f=0; f<requiredFields.length; f++) {
-			var field = requiredFields[f]
+			var field = requiredFields[f];
 			var modelBinding = $(field).attr('model') // have to check for the custom date field first
 			if (!modelBinding) {
-				modelBinding = $(field).attr('ng-model')
+				modelBinding = $(field).attr('ng-model');
 			}
 			if (modelBinding !== undefined) {
 				var model = modelBinding.split('.')
@@ -155,16 +229,20 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				if (value === undefined || value.length === 0) {
 					scrollTo(field);
 					displayMsg("form-msg-required", field);
+					$(field).css('border', '2px solid red');
+					setTimeout(function() {
+						$(field).css('border', '1px solid #ccc');
+					},7100);
 					return false;
 				}
 			}
 		}
-		
+
 		//Make sure body fields do not include h4 start/end tags
 		var h4ErrorField;
 		angular.forEach(projectsService.getBodyFieldMappings(), function(mapping) {
 			var value = $scope.project[mapping.dataField];
-			if(value.toLowerCase().indexOf("<h4>") >= 0 || value.toLowerCase().indexOf("</h4>") >= 0) {
+			if(value && (value.toLowerCase().indexOf("<h4>") >= 0 || value.toLowerCase().indexOf("</h4>") >= 0)) {
 				h4ErrorField = $("textarea[ng-model='project."+mapping.dataField+"']")
 			}			
 		});
@@ -174,67 +252,76 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			return false;
 		}
 		
-		//Validate urls only if non-empty (if req'ed, handled above)
-		for (var f=0; f<singleUrlFileds.length; f++) {
-			var field = singleUrlFileds[f];
-			var modelBinding = $(field).attr('model'); // have to check for the custom date field firstit's a high
-			if (!modelBinding) {
-				modelBinding = $(field).attr('ng-model');
+		//Additional date validation based on selected formats
+		if($scope.project.endDate){
+			var invalidDates = false;
+			if($scope.startDateFormat === "yyyy" || $scope.endDateFormat === "yyyy"){
+				if($scope.project.startDate.getFullYear() > $scope.project.endDate.getFullYear()){
+					invalidDates = true;
+				}
+			} else {
+				if($scope.project.startDate > $scope.project.endDate){
+					invalidDates = true;
+				}
 			}
-			if (modelBinding !== undefined) {
-				var model = modelBinding.split('.');
-				var value = $scope[model[0]][model[1]];
-				
-				if (value != undefined && value.length != 0) {
-					var response = projectsService.parseAndRemoveOneUrl(value);
-					var msg = undefined;
-					
-					if (response.isOk) {
-						if (response.value == undefined) {
-							msg = "No url was found in this field";
-						}
-					} else {
-						msg = response.errorMsg;
-					}
-						
-					
-					if (typeof msg == 'string') {
-						$scope.validation.singleMsg = msg;
-						scrollTo(field);
-						displayMsg("form-msg-validate", field);
-						return false;
-					}
+
+			if(invalidDates){
+				var elem = angular.element(".input-daterange");
+				if(elem !== undefined && elem.length > 0){
+					elem.css('border', '2px solid red');
+					scrollTo(elem);		
+					elem.css('border-radius', '4px');
+					setTimeout(function() {
+						elem.css('border', '2px solid white');
+					},7100);
+					displayMsg("form-msg-dates", elem);
+					return false;
 				}
 			}
 		}
-		
-		//Validate contacts only if non-empty (if req'ed, handled above)
-		for (var f=0; f<contactFields.length; f++) {
-			var field = contactFields[f];
-			var modelBinding = $(field).attr('model'); // have to check for the custom date field first
-			if (!modelBinding) {
-				modelBinding = $(field).attr('ng-model');
-			}
-			if (modelBinding !== undefined) {
-				var model = modelBinding.split('.');
-				var value = $scope[model[0]][model[1]];
-				
-				if (value != undefined && value.length != 0) {
-					var msg = null;
-					if ($(field).hasClass("single-person")) {
-						msg = projectsService.parseSinglePersonContact(value);
-					} else if ($(field).hasClass("multi-person")) {
-						msg = projectsService.parsePersonContacts(value);
-					} else if ($(field).hasClass("single-organization")) {
-						msg = projectsService.parseSingleOrganizationContact(value);
-					} else if ($(field).hasClass("multi-organization")) {
-						msg = projectsService.parseOrganizationContacts(value);
-					}
-					
-					if (typeof msg == 'string') {
-						$scope.validation.singleMsg = msg;
-						scrollTo(field);
-						displayMsg("form-msg-validate", field);
+
+		//Handle additional required field validation that is not covered by above		
+		if(!form.$valid && form.$error){
+			for(var key in form.$error){
+				//Ignore date errors, above validation for dates is all that is needed
+				if(key !== "date"){
+					if(Array.isArray(form.$error[key])){
+						var name = form.$error[key][0].$name;
+						var elem = angular.element("[name='" + name + "']");
+						if(elem !== undefined && elem.length > 0){
+							//Proper highlighting for radio selections
+							if(elem.attr("uib-btn-radio") !== undefined && elem.attr("uib-btn-radio").length > 0){
+								if(elem.parent() !== undefined && elem.parent().length > 0)
+								{
+									elem = elem.parent();
+									elem.css('border-radius', '4px');
+									setTimeout(function() {
+										elem.css('border', '2px solid white');
+									},7100);
+								}
+							} else {
+								setTimeout(function() {
+									elem.css('border', '1px solid #ccc');
+								},7100);
+							}
+							
+							elem.css('border', '2px solid red');
+							scrollTo(elem);							
+							
+							if(key === "email") {
+								displayMsg("form-msg-email", elem);
+							} else if(key === "url") {
+								displayMsg("form-msg-url", elem);
+							} else if(key === "required"){
+								displayMsg("form-msg-required", elem);
+							} else {
+								elem = angular.element("#save");
+								displayMsg("form-msg-other", elem);
+							}
+						} else {
+							elem = angular.element("#save");
+							displayMsg("form-msg-other", elem);
+						}
 						return false;
 					}
 				}
@@ -242,35 +329,40 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		}
 		
 		return true;
-	}
+	};
 	
-	
-	$scope.save = function() {
-		console.log($scope.project);
-
+	$scope.save = function(form) {
 		if ("agree" !== $scope.project.dmPlan) {
 			var field = $("#dmPlan");
 			scrollTo(field);
 			displayMsg("form-msg-agree", field);
 			return;
 		}
-		if ( ! doValidation() ) {
+		if ( ! doValidation(form) ) {
 			return;
 		}
 		
-		var project = projectsService.buildNewProject($scope.project);
-
+		createDateStrings();
+		
+		var glriNewProject = projectsService.buildNewProject($scope.project);
+		var project = undefined;
+				
+		if($scope.editMode){
+			project = applyJSONChanges(glriNewProject, $scope.cleanSbProject);
+		} else {
+			project = glriNewProject;
+		}
+		
 		console.log(project);
-
+		
 		$http.post('saveProject', project)
 		.then(
 			function(resp) {
-				console.log(resp.data)
 				if (resp.data === undefined) {
 					saveFailed({data:"No response received from the server"});
 				} else if (/^[0-9|a-f]*$/.test(resp.data)) {
 					//Success!
-					window.location = "index.jsp#/Browse/all/"+resp.data
+					window.location = "index.jsp#/Browse/all/"+resp.data;
 				} else {
 					saveFailed({
 						data:"The submission failed. " +
@@ -280,30 +372,239 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				}
 			},
 			saveFailed
-		)	
+		);
 	};
 	
-	var radiofySelect2 = function() {
-		$("#dmPlan").select2Buttons({noDefault: true}).refreshSelect2Button();
-		$("#project_status").select2Buttons({noDefault: true}).refreshSelect2Button();
-		$("#duration").select2Buttons({noDefault: true}).refreshSelect2Button();
-		$("#entry_type").select2Buttons({noDefault: true}).refreshSelect2Button();
-		$("#spatial").select2Buttons({noDefault: true}).refreshSelect2Button();
-		$("#focus_area").select2Buttons({noDefault: true}).refreshSelect2Button();
-	}
+	var createDateStrings = function() {
+		if($scope.startDateFormat === 'yyyy') {
+			$scope.project.startDateString = $scope.project.startDate.toISOString().slice(0, 4);
+		} else {
+			$scope.project.startDateString = $scope.project.startDate.toISOString().slice(0, 10);
+		}
+		
+		if($scope.project.endDate){
+			if($scope.endDateFormat === 'yyyy') {
+				$scope.project.endDateString = $scope.project.endDate.toISOString().slice(0, 4);
+			} else {
+				$scope.project.endDateString = $scope.project.endDate.toISOString().slice(0, 10);
+			}
+		}
+	};
+		
+	var applyJSONChanges = function(changes, original) {
+		var returnJson = JSON.parse(JSON.stringify(original));
+		
+		//Clean contact information that is empty before sending to ScienecBase
+		cleanContacts(changes);
+		
+		//Apply array changes
+		for (var key in changes) {
+			if (changes.hasOwnProperty(key)) {
+				if(returnJson.hasOwnProperty(key)) {
+					if(!Array.isArray(changes[key]) && !Array.isArray(returnJson[key])){
+						returnJson[key] = changes[key];
+					} else {
+						returnJson[key] = changes[key].concat(original[key]);
+					}
+				} else {
+					returnJson[key] = changes[key];
+				}
+			}
+		}
+		
+		//Remove JSON that is used only by GLRI or that will be regenerated by ScienceBase
+		if(returnJson.hasOwnProperty("userCanEdit")){
+			delete returnJson["userCanEdit"];
+		}
+		
+		if(returnJson.hasOwnProperty("contactText")){
+			delete returnJson["contactText"];
+		}
+		
+		if(returnJson.hasOwnProperty("contactHtml")){
+			delete returnJson["contactHtml"];
+		}
+		
+		if(returnJson.hasOwnProperty("provenance")){
+			delete returnJson["provenance"];
+		}
+		
+		if(returnJson.hasOwnProperty("previewImage")){
+			delete returnJson["previewImage"];
+		}
+		
+		if(returnJson.hasOwnProperty("systemType")){
+			delete returnJson["systemType"];
+		}
+		
+		if(returnJson.hasOwnProperty("childRecordState")){
+			delete returnJson["childRecordState"];
+		}
+		
+		if(returnJson.hasOwnProperty("publications")){
+			delete returnJson["publications"];
+		}
+		
+		if(returnJson.hasOwnProperty("url")){
+			delete returnJson["url"];
+		}
+		
+		if(returnJson.hasOwnProperty("browseImage")){
+			delete returnJson["browseImage"];
+		}
+		
+		if(returnJson.hasOwnProperty("resource")){
+			delete returnJson["resource"];
+		}
+				
+		if(returnJson.hasOwnProperty("hasChildren")){
+			delete returnJson["hasChildren"];
+		}
+		
+		if(returnJson.hasOwnProperty("link")){
+			delete returnJson["link"];
+		}
+		
+		if(returnJson.hasOwnProperty("relatedItems")){
+			delete returnJson["relatedItems"];
+		}
+		
+		if(returnJson.hasOwnProperty("alternateTitles")){
+			delete returnJson["alternateTitles"];
+		}
+				
+		if(returnJson.hasOwnProperty("templates")){
+			delete returnJson["templates"];
+		}
+		
+		if(returnJson.hasOwnProperty("distributionLinks")){
+			delete returnJson["distributionLinks"];
+		}
+				
+		return returnJson;
+	};
+	
+	var cleanContacts = function(project){
+		if(project.hasOwnProperty("contacts") && Array.isArray(project.contacts)){
+			for(var i=0; i<project.contacts.length; i++){
+				var contact = project.contacts[i];
+				if(contact.hasOwnProperty("organization") && isEmptyObject(contact.organization)){
+					delete contact.organization;
+				}
+				
+				if(contact.hasOwnProperty("primaryLocation")){
+				
+					var noStreet = false, noMail = false;
+					var location = contact.primaryLocation;
 
+					if(location.hasOwnProperty("streetAddress") && isEmptyObject(contact.primaryLocation.streetAddress)){
+						noStreet = true;
+						delete contact.primaryLocation.streetAddress;
+					}
+
+					if(location.hasOwnProperty("mailAddress") && isEmptyObject(contact.primaryLocation.mailAddress)){
+						noMail = true;
+						delete contact.primaryLocation.mailAddress;
+					}
+
+					if(noStreet && noMail) {
+						delete contact.primaryLocation;
+					}
+				}
+			}
+		}
+	};
+	
+	var isEmptyObject = function(obj){
+		for(var prop in obj) {
+			if(obj.hasOwnProperty(prop))
+				return false;
+		}
+
+		return true && JSON.stringify(obj) === JSON.stringify({});
+	};
+		
 	var loadAndBindProject = function(pid) {
 		$scope.loading = true;
 		ScienceBase.getItemPromise(pid).success(function(data, status, headers, config) {
 			$scope.loading = false;	
-			setTimeout(function() { //need this timeout to give select2 a chance to render
-				$scope.project = projectsService.convertToGlriProject(ScienceBase.processItem(data));
+			setTimeout(function() {
+				$scope.sbProject = ScienceBase.processItem(data);
+				console.log(JSON.parse(JSON.stringify($scope.sbProject)));
+				$scope.project = projectsService.convertToGlriProject($scope.sbProject);
+				console.log(JSON.parse(JSON.stringify($scope.project)));
+				$scope.cleanSbProject = cleanSBProject();
+				console.log(JSON.parse(JSON.stringify($scope.cleanSbProject)));
+				applyDateFormats();
 				$scope.$apply();
-				setTimeout(radiofySelect2, 200);
-			}, 200);
+			}, 100);
 		});
-	}
+	};
 	
+	var applyDateFormats = function() {
+		if($scope.project.startDateString.trim().length === 4){
+			$scope.startDateMode = "year";
+			$scope.updateDateFormat("start", "yyyy");
+		} else {
+			$scope.startDateMode = "day";
+			$scope.updateDateFormat("start", "yyyy-MM-dd");
+		}
+		
+		if($scope.project.endDate){
+			if($scope.project.endDateString.trim().length === 4){
+				$scope.updateDateFormat("finish", "yyyy");
+				$scope.endDateMode = "year";
+			} else {
+				$scope.endDateMode = "day";
+				$scope.updateDateFormat("finish", "yyyy-MM-dd");
+			}
+		}
+	};
+	
+	//Helper function to initialize certain parts of the form for new projects
+	var initializeNewProject = function() {
+		$scope.addContact($scope.project.principal, "Principal Investigator");
+		$scope.addContact($scope.project.chiefs, "Associate Project Chief");
+	};
+	
+	//Helper function to remove anything from the arrays of the original SB project that we extracted
+	var cleanSBProject = function() {
+		var tempProject = projectsService.buildNewProject($scope.project);
+		var cleanProject = JSON.parse(JSON.stringify($scope.sbProject));
+										
+		for (var key in cleanProject) {
+			if (cleanProject.hasOwnProperty(key)) {
+				if(tempProject.hasOwnProperty(key)) {
+					if(Array.isArray(cleanProject[key]) && Array.isArray(tempProject[key])){
+						removeDuplicateObjects(cleanProject[key], tempProject[key]);
+					}
+				}
+			}
+		}
+		return cleanProject;
+	};
+	
+	//Helper function to remove objects from arr1 that also exist in arr2
+	var removeDuplicateObjects = function(arr1, arr2){
+		for(var i = 0; i < arr1.length; i++){
+			var doSplice = false;
+			
+			for(var j = 0; j < arr2.length; j++){
+				var arr1Obj = arr1[i];
+				var arr2Obj = arr2[j];				
+				
+				if(angular.equals(arr1Obj, arr2Obj)){
+					doSplice = true;
+				}				
+			}
+			
+			if(doSplice){
+				arr1.splice(i, 1);
+				i--;
+			}
+		}
+	};
+		
 	//check to see if we have a project ID, if so, load/bind the project data and set this form to edit mode
 	var parts = $location.path().split(/\/+/);
 	if(parts.length > 2 && parts[2]) {
@@ -311,8 +612,6 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 		var id = parts[2];
 		loadAndBindProject(id);
 	} else {
-		setTimeout(radiofySelect2, 100);
+		initializeNewProject();
 	}
-	
-	
 }]);

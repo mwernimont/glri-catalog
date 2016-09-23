@@ -37,6 +37,20 @@ h4 {
     font-size: inherit;
     min-width: 100px;
     float: left;
+	margin-left: 3% !important;
+	background-color: white !important;
+ }
+ .form-date-optional {
+    font-weight: bold;
+    color: darkblue;
+    font-size: inherit;
+    min-width: 100px;
+    float: left;
+	margin-left: 3% !important;
+	background-color: #E5F5FF !important;
+ }
+ .date-format-spacer {
+	 margin-left: 2%;
  }
  .calendar-button {
  	height: 34px;
@@ -120,7 +134,7 @@ div.error {
     left:300px;
     z-index: 499;
 }
-#form-msg-required, #form-msg-validate, #form-msg-no-h4 {
+#form-msg-required, #form-msg-validate, #form-msg-email, #form-msg-url, #form-msg-no-h4, #form-msg-dates, #form-msg-other{
     color: darkred;
     background-color: pink;
     border: 3px solid darkred;
@@ -130,12 +144,31 @@ div.error {
     background-color: lightgreen;
     border: 3px solid darkgreen;
 }
-
 .ui-select-multiple.ui-select-bootstrap {
     height: 36px !important;
 }
-
-
+.ui-contact-subform {
+	margin: 1%;
+	padding: 1%;
+	border: 1px solid #ccc;
+	border-radius: 6px;
+	margin-left: 2% !important;
+	width: 96%;
+}
+.ui-contact-add-spacer {
+	margin-left: 2%;
+}
+.contact-delete-button {
+	vertical-align: bottom;
+}
+.contact-add-button {
+	margin-top: 1%;
+}
+.form-radio-select {
+	margin-top: 1%;
+    width: 96%;
+    margin-left: 1%;
+}
 /*
 These were devised for native select2
 */
