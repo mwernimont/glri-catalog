@@ -29,18 +29,15 @@
             30
         </session-timeout>
     </session-config>
-    <security-constraint>
-        <web-resource-collection>
-            <url-pattern>/saveProject</url-pattern>
-			<url-pattern>/secure.jsp</url-pattern>
-        </web-resource-collection>
-        <auth-constraint>
-            <role-name>ad-user</role-name>
-        </auth-constraint>
-        <user-data-constraint>
-            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
-    </security-constraint>
+	<security-constraint>
+		<web-resource-collection>
+			<web-resource-name>Entire Application</web-resource-name>
+			<url-pattern>/*</url-pattern>
+		</web-resource-collection>
+		<user-data-constraint>
+			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
+		</user-data-constraint>
+	</security-constraint>
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
