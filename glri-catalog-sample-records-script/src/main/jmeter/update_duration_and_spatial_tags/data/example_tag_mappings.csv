@@ -1,0 +1,23 @@
+#
+# To use, remove the '#' header and rename this file tag_mappings.csv
+#
+# This file is used to update tags in records.  Running the Update Tags JMeter Node w/ a config file here
+# WILL MATCH ONLY A SINGLE TAG PER PROJECT.  So, only sets of mutually exclusive tags can be put in this
+# file at a single time.  Once it finds a match, it will make the update for that tag and move on to the
+# next project.
+
+# Key
+# old_scheme is used to match existing tags in a record for possible update (case insensitive)
+# old_value can be '*' to match any value and copy it thru to the updated tag.  Or, can match a specific value (case insensitive)
+# old_type ignored / not used (but the tab to delimit it must at least be present).  It is not used to match.
+# new_scheme If a tag is matched, the scheme is replaced with the new_scheme
+# new_value If a tag is matched, the 'name' is replaced with the new_value.  If the old_value is specified as '*', the new_value is ignored and the original 'name' is kept.
+# new_type If a tag is matched, the new_type will replace the tags type.  Typically these are all 'Label'.
+#
+# Below is an example of updating a scheme, but only for certain values.  Here is is assumed that the two possible values for this tag
+# are mutually exclusive, so they can be run in one go in one config file.  If they were not, they would have to be place in separate
+# files and run separately because processing on a project will stop once a match is found.
+old_scheme	old_value	old_type	new_scheme	new_value	new_type
+https://www.sciencebase.gov/vocab/GLRI/keyword	No Spatial	Label	https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRISpatialLocation	No Spatial	Label
+https://www.sciencebase.gov/vocab/GLRI/keyword	Has Spatial	Label	https://www.sciencebase.gov/vocab/category/Great%20Lakes%20Restoration%20Initiative/GLRISpatialLocation	Has Spatial	Label
+
