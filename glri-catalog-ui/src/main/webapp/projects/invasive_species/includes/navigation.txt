@@ -3,7 +3,7 @@
 <table>
 <tr>
 <td>				
-<img src="http://cida.usgs.gov/glri/images/official_logo_glri.png" alt="GLRI Logo" align="left" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;" />
+<img src="//cida.usgs.gov/glri/images/official_logo_glri.png" alt="GLRI Logo" align="left" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;" />
 </td>
 <td style="padding-bottom:0px;">
 <ul id="nav" class="dropdown dropdown-horizontal"  style="margin-top:0px;margin-left:0px;position:absolute;margin-top:-66px;">
@@ -71,7 +71,7 @@
 <table>
 <tr>
 <td>				
-<img src="http://cida.usgs.gov/glri/images/official_logo_glri.png" alt="GLRI Logo" align="left" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;" />
+<img src="//cida.usgs.gov/glri/images/official_logo_glri.png" alt="GLRI Logo" align="left" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;" />
 </td>
 <div style="margin-top:2px;">
 </tr>
@@ -83,7 +83,7 @@
 <table>
 <tr>
 <td>				
-<img src="http://cida.usgs.gov/glri/images/official_logo_glri.png" alt="GLRI Logo" align="left" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;" />
+<img src="//cida.usgs.gov/glri/images/official_logo_glri.png" alt="GLRI Logo" align="left" style="margin-left: 10px; margin-right: 10px; padding-bottom:10px;" />
 </td>
 <td style="padding-bottom:0px;">
 <ul id="nav" class="dropdown dropdown-horizontal"  style="margin-top:0px;margin-left:0px;position:absolute;margin-top:-66px;">

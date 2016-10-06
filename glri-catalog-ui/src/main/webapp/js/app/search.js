@@ -211,15 +211,15 @@ function($scope, $http, ScienceBase, Search, Status) {
 
 			//Base Layers
 			this.worldGray = new OpenLayers.Layer.ArcGIS93Rest("World Light Gray Base",
-					"http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/export",
+					"//services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/export",
 					{layers: "show:0"});
 			this.worldStreet = new OpenLayers.Layer.ArcGIS93Rest("World Street Map",
-					"http://services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/export",
+					"//services.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer/export",
 					{layers: "show:0"});
 			this.openlayersBase = new OpenLayers.Layer.WMS("OpenLayers Base",
-					"http://vmap0.tiles.osgeo.org/wms/vmap0?", {layers: 'basic'});
+					"//vmap0.tiles.osgeo.org/wms/vmap0?", {layers: 'basic'});
 			this.worldGrayRef = new OpenLayers.Layer.ArcGIS93Rest("World Light Gray Base Reference",
-					"http://server.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Reference/MapServer/export",
+					"//server.arcgisonline.com/arcgis/rest/services/Canvas/World_Light_Gray_Reference/MapServer/export",
 					{layers: "show:0", TRANSPARENT: true});
 					
 			//layer for the user to draw a selection box
