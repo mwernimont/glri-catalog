@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>gov.usgs.cida.glri</groupId>
 		<artifactId>glri-catalog</artifactId>
-		<version>0.5.31</version>
+		<version>0.5.32-SNAPSHOT</version>
 	</parent>
 	<artifactId>glri-catalog-ui</artifactId>
     <packaging>war</packaging>
