@@ -39,6 +39,8 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	
 	$scope.editMode = false;
 	
+	$scope.sbAvailable = true;
+	
 	$scope.loading = false;
 	
 	// custom year accept along with full date format with default impl
@@ -604,6 +606,28 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 			}
 		}
 	};
+	
+	var checkScienceBase = function(){
+		//Check status of ScienceBase
+		$http.get(ScienceBase.buildUrl("Project") )
+			.success(function(data, status, headers, config) {	
+				if($(data).filter('p').length > 0 && $($(data).filter('p')[0]).text().toUpperCase() === "ERROR"){
+					alert("WARNING: This site utilizes ScienceBase for data storage. ScienceBase is currently unavailable, therefore the data entered into this form may be lost upon submission. It is recommended to check back later to use this form.");
+					$scope.sbAvailable = false;
+				} else {
+					$scope.sbAvailable = true;
+				}
+			})
+			.error(function(data, status, headers, config) {
+				$scope.sbAvailable = false;
+				alert("WARNING: This site utilizes ScienceBase for data storage. ScienceBase is currently unavailable, therefore the data entered into this form may be lost upon submission. It is recommended to check back later to use this form.");
+		});
+		
+		return $scope.sbAvailable;
+	};
+	
+	checkScienceBase();
+	
 		
 	//check to see if we have a project ID, if so, load/bind the project data and set this form to edit mode
 	var parts = $location.path().split(/\/+/);
