@@ -1,6 +1,6 @@
 GLRICatalogApp.controller('ProjectCtrl', 
-['$scope', '$http', '$filter', '$location', 'Status', 'ScienceBase', "Projects", "FocusAreaManager",
-function($scope, $http, $filter, $location, Status, ScienceBase, projectsService, focusAreaManager) {
+['$scope', '$http', '$filter', '$interval', '$location', 'Status', 'ScienceBase', "Projects", "FocusAreaManager",
+function($scope, $http, $filter, $interval, $location, Status, ScienceBase, projectsService, focusAreaManager) {
 	$scope.contactPattern = /^[\w\s]+ [\w\d\.]+@[\w\d]+\.\w+$/;
 	$scope.project = {
 		principal: [
@@ -28,7 +28,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	$scope.dateOptions = {
 		
 	};
-	
+		
 	$scope.focusAreas = focusAreaManager.areasByType;
 	
 	$scope.transient= Status;
@@ -42,6 +42,14 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	$scope.sbAvailable = true;
 	
 	$scope.loading = false;
+	
+	$scope.timeoutInterval = null;
+	
+	$scope.intervalTime = 30000;
+	
+	$scope.$on('$destroy', function () {
+      $interval.cancel($scope.timeoutInterval);
+	});
 	
 	// custom year accept along with full date format with default impl
 	var yearRx = new RegExp(/^\d\d\d\d$/);
@@ -108,6 +116,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	
 	$scope.discard = function() {
 		window.location = "index.jsp#/Browse/all/";
+		$interval.cancel($scope.timeoutInterval);
 	};
 	
 	$scope.addContact = function(target, type) {
@@ -365,6 +374,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 				} else if (/^[0-9|a-f]*$/.test(resp.data)) {
 					//Success!
 					window.location = "index.jsp#/Browse/all/"+resp.data;
+					$interval.cancel($scope.timeoutInterval);
 				} else {
 					saveFailed({
 						data:"The submission failed. " +
@@ -628,8 +638,8 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	
 	checkScienceBase();
 	
-	setInterval(function(){checkScienceBase();}, 30000);
-		
+	$scope.timeoutInterval = $interval(function(){checkScienceBase();}, $scope.intervalTime);
+			
 	//check to see if we have a project ID, if so, load/bind the project data and set this form to edit mode
 	var parts = $location.path().split(/\/+/);
 	if(parts.length > 2 && parts[2]) {
