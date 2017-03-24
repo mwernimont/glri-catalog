@@ -628,6 +628,7 @@ function($scope, $http, $filter, $location, Status, ScienceBase, projectsService
 	
 	checkScienceBase();
 	
+	setInterval(function(){checkScienceBase();}, 30000);
 		
 	//check to see if we have a project ID, if so, load/bind the project data and set this form to edit mode
 	var parts = $location.path().split(/\/+/);
