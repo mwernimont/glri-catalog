@@ -25,6 +25,19 @@
 			</div>
 		</div>
 	</div>
+					
+	<div class="row" ng-if="!sbAvailable">
+		<div class="col-xs-12">
+			<div class="alert alert-danger">
+				<p>
+					WARNING: This site utilizes ScienceBase for data storage. 
+					ScienceBase is currently unavailable, therefore the data entered 
+					into this form may be lost upon submission. 
+					It is recommended to check back later to use this form.
+				</p>
+			</div>
+		</div>
+	</div>
 
 	<div class="row">
 		<div id="contentBrowseDetail" class="col-xs-12" ng-if="!loading">
@@ -430,10 +443,22 @@
 						<button id="save" type="submit" class="btn btn-primary pull-right">Save</button>
 					</p>
 				</div>
-	
 			</form>
 		</div>
 	</div>
+				
+	<div class="row" ng-if="!sbAvailable">
+		<div class="col-xs-12">
+			<div class="alert alert-danger">
+				<p>
+					WARNING: This site utilizes ScienceBase for data storage. 
+					ScienceBase is currently unavailable, therefore the data entered 
+					into this form may be lost upon submission. 
+					It is recommended to check back later to use this form.
+				</p>
+			</div>
+		</div>
+	</div>			
 
 	<div class="row">
 		<div id="projectFormLoadingMessage" class="col-xs-12"  ng-if="loading">
