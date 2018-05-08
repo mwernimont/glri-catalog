@@ -51,7 +51,7 @@
 	<div id="redirectInfo">
 	    <p>
 		The USGS GLRI Website and Science Explorer have been replaced. 
-		he new website is available at <a href="https://www.usgs.gov/centers/glri">https://www.usgs.gov/centers/glri</a>. 
+		The new website is available at <a href="https://www.usgs.gov/centers/glri">https://www.usgs.gov/centers/glri</a>. 
 		Visit <a href="https://www.sciencebase.gov/catalog/item/52e6a0a0e4b012954a1a238a?community=Great+Lakes+Restoration+Initiative">ScienceBase</a> 
 		for information about GLRI projects, publications and to access data.	
 	    </p>
